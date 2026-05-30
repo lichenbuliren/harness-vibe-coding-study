@@ -26,6 +26,21 @@ describe('Dinner Picker app', () => {
     expect(screen.getByText('1 道')).toBeInTheDocument()
   })
 
+  it('highlights the add button only when a dish name can be submitted', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    const addButton = screen.getByRole('button', { name: '加进菜谱池' })
+
+    expect(addButton).toBeDisabled()
+    expect(addButton).toHaveAttribute('data-ready', 'false')
+
+    await user.type(screen.getByLabelText('添加一道菜'), '青椒肉丝')
+
+    expect(addButton).toBeEnabled()
+    expect(addButton).toHaveAttribute('data-ready', 'true')
+  })
+
   it('draws a random recommendation', async () => {
     const randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0)
     const user = userEvent.setup()

@@ -21,7 +21,7 @@ export function Button({
 
   return (
     <button
-      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 ${variants[variant]} ${className}`}
+      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold transition-transform active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 ${variants[variant]} ${className}`}
       {...props}
     />
   )
@@ -66,7 +66,7 @@ export function TagSelect({ value, onChange }: TagSelectProps) {
           key={tag}
           type="button"
           onClick={() => onChange(tag)}
-          className={`min-h-10 rounded-full px-3 text-sm font-bold transition ${
+          className={`min-h-10 rounded-full px-3 text-sm font-bold transition-colors ${
             value === tag
               ? 'bg-[#15aabf] text-white shadow-[0_10px_22px_rgba(21,170,191,0.26)]'
               : 'bg-[#eef4f8] text-[#52606d]'
@@ -98,7 +98,7 @@ export function DishCard({ dish, onDelete }: DishCardProps) {
       <button
         type="button"
         onClick={() => onDelete(dish.id)}
-        className="grid size-10 shrink-0 place-items-center rounded-full text-[#7b8794] transition hover:bg-[#ffe8e2] hover:text-[#c0392b]"
+        className="grid size-10 shrink-0 place-items-center rounded-full text-[#7b8794] transition-colors hover:bg-[#ffe8e2] hover:text-[#c0392b]"
         aria-label={`删除 ${dish.name}`}
       >
         <Trash2 size={18} />

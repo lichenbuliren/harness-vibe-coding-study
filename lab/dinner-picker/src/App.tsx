@@ -29,6 +29,7 @@ function App() {
     () => dishes.find((dish) => dish.id === latestPickId) ?? null,
     [dishes, latestPickId],
   )
+  const canAddDish = dishName.trim().length > 0
 
   useEffect(() => {
     saveDishes(dishes)
@@ -155,7 +156,15 @@ function App() {
                   />
                 </div>
                 <TagSelect value={selectedTag} onChange={setSelectedTag} />
-                <Button type="submit" variant="secondary" className="w-full">
+                <Button
+                  type="submit"
+                  variant={canAddDish ? 'primary' : 'secondary'}
+                  className={`w-full ${
+                    canAddDish ? '!bg-[#f25f4c] !text-white !opacity-100' : ''
+                  }`}
+                  disabled={!canAddDish}
+                  data-ready={canAddDish}
+                >
                   加进菜谱池
                 </Button>
               </form>
