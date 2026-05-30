@@ -14,6 +14,8 @@ are clear.
 - `context-memory.md`: context, memory, compaction, and working-state policy.
 - `guardrails-safe-autonomy.md`: constraints, sandbox boundaries, tool policy,
   prompt-injection controls, and verifier gates for safe autonomy.
+- `specs-agent-workflows.md`: agent instruction files, spec lifecycle,
+  workflow state, validation, and learning capture.
 - `adapters/`: adapter boundaries between this project and external runtimes,
   tools, or evaluation surfaces.
 - `runs/`: conventions for recording harness runs and evidence.

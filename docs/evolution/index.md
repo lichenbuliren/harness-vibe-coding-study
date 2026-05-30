@@ -22,3 +22,4 @@ Each entry should explain:
 - `0002-harness-foundations-study.md`
 - `0003-context-memory-working-state-study.md`
 - `0004-guardrails-safe-autonomy-study.md`
+- `0005-specs-agent-workflows-study.md`
