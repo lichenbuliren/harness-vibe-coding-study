@@ -2,6 +2,11 @@
 
 `docs/` stores methodology and knowledge for the harness + vibe coding study.
 
+## Shareable Summaries
+
+- `harness-engineering-summary-zh.md`: Chinese share-oriented summary of what
+  harness engineering is and how to practice it in real projects.
+
 ## Sections
 
 - `principles/`: stable principles and constraints.
