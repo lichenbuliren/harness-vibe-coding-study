@@ -25,3 +25,4 @@ Each entry should explain:
 - `0005-specs-agent-workflows-study.md`
 - `0006-evals-observability-study.md`
 - `0007-benchmarks-runtimes-study.md`
+- `0008-project-status-alignment.md`

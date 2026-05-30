@@ -16,9 +16,13 @@ shareable.
 
 ## Current Phase
 
-Project initialization. The first milestone is repository structure planning:
-define how agents read the project, where methodology lives, how experiments are
-recorded, and how a real `lab/` project will validate the practices.
+Core harness engineering study is complete. The project has synthesized the
+main modules from `walkinglabs/awesome-harness-engineering` into local harness
+notes, evolution records, and a Chinese share-oriented summary.
+
+The next phase is validation: design the first local executable evals, define a
+run-record schema under `harness/runs/`, and start using `lab/` as the real
+project surface for testing whether the methodology works in practice.
 
 ## How To Read This Repository
 

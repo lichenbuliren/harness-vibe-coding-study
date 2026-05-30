@@ -10,9 +10,11 @@ Agent-First Living Lab structure.
 
 ## Current Phase
 
-Harness engineering foundations. The current focus is learning from existing
-harness engineering sources and turning them into project-local concepts,
-primitives, and evaluation questions.
+Harness engineering validation. The core learning pass over
+`walkinglabs/awesome-harness-engineering` is complete for the main methodology
+modules. The current focus is turning the documented methodology into local
+validation loops: executable eval candidates, run-record conventions, and a real
+project under `lab/`.
 
 ## Key Terms
 
@@ -38,7 +40,7 @@ primitives, and evaluation questions.
 - Choose a product stack.
 - Add application source code.
 - Add infrastructure or deployment configuration.
-- Build harness automation before documenting harness boundaries.
+- Add broad runtime dependencies before local evals and run records are clear.
 
 ## Knowledge Capture
 
@@ -58,5 +60,26 @@ when a new practice has been validated or rejected.
 - Separate `experiments/` from `evals/`.
 - Use `lab/` as the real validation project container.
 - Use `docs/evolution/` for stage-level sharing records.
-- Use `harness/foundations.md` as the project-local synthesis of harness
-  engineering Foundations.
+- Treat `harness/` as the project-local methodology surface for harness
+  engineering.
+- Treat evals and observability as one feedback loop:
+  `Task -> Run -> Trace -> Grade -> Diagnose -> Change -> Regression Gate`.
+- Interpret benchmark scores as model-harness-environment measurements rather
+  than pure model capability.
+- Defer reusable Template + Skill + Playbook extraction until the learning
+  project stabilizes through lab validation.
+
+## Current Artifacts
+
+- `harness/foundations.md`: foundation model for harness engineering.
+- `harness/context-memory.md`: context, memory, compaction, and working-state
+  policy.
+- `harness/guardrails-safe-autonomy.md`: safe-autonomy boundaries and verifier
+  gates.
+- `harness/specs-agent-workflows.md`: spec lifecycle and workflow state model.
+- `harness/evals-observability.md`: eval, trace, grader, and regression-gate
+  practices.
+- `harness/benchmarks.md`: benchmark taxonomy and interpretation rules.
+- `harness/runtimes-reference-implementations.md`: framework/runtime/harness
+  distinctions and adoption criteria.
+- `docs/harness-engineering-summary-zh.md`: Chinese share-oriented summary.
