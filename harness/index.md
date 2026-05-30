@@ -18,6 +18,10 @@ are clear.
   workflow state, validation, and learning capture.
 - `evals-observability.md`: eval primitives, trace/observability practices,
   baseline comparison, environment control, and regression gates.
+- `benchmarks.md`: benchmark taxonomy and rules for interpreting benchmark
+  results as model-harness-environment measurements.
+- `runtimes-reference-implementations.md`: framework/runtime/harness
+  distinctions and adoption criteria for reference implementations.
 - `adapters/`: adapter boundaries between this project and external runtimes,
   tools, or evaluation surfaces.
 - `runs/`: conventions for recording harness runs and evidence.

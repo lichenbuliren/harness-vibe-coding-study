@@ -24,3 +24,4 @@ Each entry should explain:
 - `0004-guardrails-safe-autonomy-study.md`
 - `0005-specs-agent-workflows-study.md`
 - `0006-evals-observability-study.md`
+- `0007-benchmarks-runtimes-study.md`
