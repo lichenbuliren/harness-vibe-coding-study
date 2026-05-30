@@ -25,3 +25,7 @@ For `dinner-picker` app changes:
 - run `npm run build` from `lab/dinner-picker`
 - run `npm run lint` from `lab/dinner-picker`
 - when UI changes, run a browser/mobile viewport smoke check before completion
+- when the user will test from a phone, verify the Vite network URL, not only
+  `localhost` or `127.0.0.1`
+- record whether the tested browser origin is a secure context when code depends
+  on browser security-context APIs

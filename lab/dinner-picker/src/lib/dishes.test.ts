@@ -1,7 +1,11 @@
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { createDish, normalizeDishName, pickRandomDish } from './dishes'
 
 describe('dish helpers', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
   it('normalizes dish names', () => {
     expect(normalizeDishName('  tomato   eggs  ')).toBe('tomato eggs')
   })
@@ -27,6 +31,20 @@ describe('dish helpers', () => {
       'Dish name is required',
     )
   })
+
+  it('creates a dish when crypto.randomUUID is unavailable', () => {
+    vi.stubGlobal('crypto', {})
+    vi.spyOn(Math, 'random').mockReturnValue(0.123456789)
+
+    const dish = createDish({
+      name: '手机测试菜',
+      tag: 'quick',
+      createdAt: '2026-05-31T00:00:00.000Z',
+    })
+
+    expect(dish.id).toBe('dish-2026-05-31T00-00-00-000Z-4fzzzx')
+  })
+
 
   it('picks a dish by injected random value', () => {
     const dishes = [

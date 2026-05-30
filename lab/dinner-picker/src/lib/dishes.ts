@@ -29,6 +29,16 @@ export function normalizeDishName(name: string): string {
   return name.trim().replace(/\s+/g, ' ')
 }
 
+function createDishId(createdAt: string): string {
+  if (typeof crypto?.randomUUID === 'function') {
+    return crypto.randomUUID()
+  }
+
+  const timestamp = createdAt.replace(/[^a-zA-Z0-9]/g, '-')
+  const randomPart = Math.random().toString(36).slice(2, 8)
+  return `dish-${timestamp}-${randomPart}`
+}
+
 type CreateDishInput = {
   name: string
   tag: DishTag
@@ -38,16 +48,17 @@ type CreateDishInput = {
 
 export function createDish(input: CreateDishInput): Dish {
   const normalizedName = normalizeDishName(input.name)
+  const createdAt = input.createdAt ?? new Date().toISOString()
 
   if (!normalizedName) {
     throw new Error('Dish name is required')
   }
 
   return {
-    id: input.id ?? crypto.randomUUID(),
+    id: input.id ?? createDishId(createdAt),
     name: normalizedName,
     tag: input.tag,
-    createdAt: input.createdAt ?? new Date().toISOString(),
+    createdAt,
   }
 }
 

@@ -13,3 +13,5 @@ verification evidence, issues observed, and follow-up decisions.
 ## Run Records
 
 - `2026-05-31-dinner-picker-mvp.md`: first lab project MVP run record.
+- `2026-05-31-dinner-picker-mobile-add-bug.md`: mobile/LAN add-dish bug
+  diagnosis and fix.
