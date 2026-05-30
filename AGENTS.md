@@ -34,8 +34,9 @@ navigate the repository, act within clear boundaries, and record evidence.
   evals define how quality is judged.
 - Do not introduce application code, dependencies, or framework structure until
   a plan explicitly calls for it.
-- Do not create `apps/`, `packages/`, `src/`, `scripts/`, `infra/`, or
-  `benchmarks/` during the first structure pass.
+- During the initialization phase described in `CONTEXT.md`, do not create
+  `apps/`, `packages/`, `src/`, `scripts/`, `infra/`, or `benchmarks/` unless
+  a later decision record and implementation plan retire this restriction.
 - Preserve existing user-authored notes unless a task explicitly asks to replace
   them.
 
@@ -46,7 +47,7 @@ Before claiming completion:
 - Run `find . -path ./.git -prune -o -path ./.omx -prune -o -print | sort` to
   inspect the resulting structure.
 - Run `git status --short` and report untracked or intentionally untouched files.
-- Confirm required index files exist.
+- Confirm the current-stage required files listed in the active task plan exist.
 - Confirm no forbidden first-stage directories were created.
 
 ## Evolution Log Requirement
