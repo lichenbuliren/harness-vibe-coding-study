@@ -26,3 +26,4 @@ Each entry should explain:
 - `0006-evals-observability-study.md`
 - `0007-benchmarks-runtimes-study.md`
 - `0008-project-status-alignment.md`
+- `0009-validation-framework-design.md`

@@ -82,4 +82,12 @@ when a new practice has been validated or rejected.
 - `harness/benchmarks.md`: benchmark taxonomy and interpretation rules.
 - `harness/runtimes-reference-implementations.md`: framework/runtime/harness
   distinctions and adoption criteria.
+- `docs/workflows/validation-phase-learning-plan.md`: staged plan for local
+  evals, run records, lab validation, and pattern extraction.
+- `harness/runs/run-record-schema.md`: required structure for durable run
+  records.
+- `evals/rubrics/harness-validation-rubric.md`: evidence-based scoring rubric
+  for harness validation.
+- `experiments/task-samples/agent-first-project-tasks.md`: local mini-eval task
+  samples for testing harness behavior.
 - `docs/harness-engineering-summary-zh.md`: Chinese share-oriented summary.
