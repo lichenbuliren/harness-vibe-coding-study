@@ -16,6 +16,8 @@ are clear.
   prompt-injection controls, and verifier gates for safe autonomy.
 - `specs-agent-workflows.md`: agent instruction files, spec lifecycle,
   workflow state, validation, and learning capture.
+- `evals-observability.md`: eval primitives, trace/observability practices,
+  baseline comparison, environment control, and regression gates.
 - `adapters/`: adapter boundaries between this project and external runtimes,
   tools, or evaluation surfaces.
 - `runs/`: conventions for recording harness runs and evidence.
