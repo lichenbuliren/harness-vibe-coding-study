@@ -11,6 +11,7 @@ are clear.
 
 - `foundations.md`: synthesis of the Foundations module from
   `walkinglabs/awesome-harness-engineering`.
+- `context-memory.md`: context, memory, compaction, and working-state policy.
 - `adapters/`: adapter boundaries between this project and external runtimes,
   tools, or evaluation surfaces.
 - `runs/`: conventions for recording harness runs and evidence.
