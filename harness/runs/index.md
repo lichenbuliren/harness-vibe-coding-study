@@ -17,3 +17,5 @@ verification evidence, issues observed, and follow-up decisions.
   diagnosis and fix.
 - `2026-05-31-dinner-picker-add-button-feedback.md`: add-dish submit button
   state-feedback improvement.
+- `2026-05-31-dinner-picker-input-responsiveness.md`: input responsiveness
+  optimization and performance-checklist learning.
