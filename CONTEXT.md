@@ -14,7 +14,7 @@ Harness engineering validation. The core learning pass over
 `walkinglabs/awesome-harness-engineering` is complete for the main methodology
 modules. The current focus is turning the documented methodology into local
 validation loops: executable eval candidates, run-record conventions, and a real
-project under `lab/`.
+project under `lab/`. The first lab project is `lab/dinner-picker`.
 
 ## Key Terms
 
@@ -68,6 +68,8 @@ when a new practice has been validated or rejected.
   than pure model capability.
 - Defer reusable Template + Skill + Playbook extraction until the learning
   project stabilizes through lab validation.
+- Use `lab/dinner-picker` as the first real validation project for testing the
+  harness methodology against React + TypeScript app work.
 
 ## Current Artifacts
 
@@ -90,4 +92,8 @@ when a new practice has been validated or rejected.
   for harness validation.
 - `experiments/task-samples/agent-first-project-tasks.md`: local mini-eval task
   samples for testing harness behavior.
+- `lab/dinner-picker/`: first real lab validation app.
+- `harness/runs/2026-05-31-dinner-picker-mvp.md`: first lab run record.
+- `experiments/reports/2026-05-31-dinner-picker-mvp.md`: first lab experiment
+  report.
 - `docs/harness-engineering-summary-zh.md`: Chinese share-oriented summary.

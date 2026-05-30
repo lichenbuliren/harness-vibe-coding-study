@@ -13,8 +13,15 @@ This directory contains the real validation project.
 
 ## Verification
 
-Until the lab has a concrete app, verification is documentation-based:
+For documentation-only lab changes:
 
 - confirm changed files exist
 - confirm directory responsibilities remain clear
 - confirm project-level learnings are reflected in the correct parent docs
+
+For `dinner-picker` app changes:
+
+- run `npm test -- --run` from `lab/dinner-picker`
+- run `npm run build` from `lab/dinner-picker`
+- run `npm run lint` from `lab/dinner-picker`
+- when UI changes, run a browser/mobile viewport smoke check before completion

@@ -20,9 +20,10 @@ Core harness engineering study is complete. The project has synthesized the
 main modules from `walkinglabs/awesome-harness-engineering` into local harness
 notes, evolution records, and a Chinese share-oriented summary.
 
-The next phase is validation: design the first local executable evals, define a
-run-record schema under `harness/runs/`, and start using `lab/` as the real
-project surface for testing whether the methodology works in practice.
+The current validation surface is `lab/dinner-picker`, a mobile-first React +
+TypeScript app for testing whether the methodology works in practical app work.
+The next learning step is to compare future lab tasks against the run-record
+schema, local eval rubric, and experiment reports.
 
 ## How To Read This Repository
 

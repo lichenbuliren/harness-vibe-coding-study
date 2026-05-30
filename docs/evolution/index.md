@@ -28,3 +28,4 @@ Each entry should explain:
 - `0008-project-status-alignment.md`
 - `0009-validation-framework-design.md`
 - `0010-core-harness-study-retrospective.md`
+- `0011-first-lab-project-dinner-picker.md`

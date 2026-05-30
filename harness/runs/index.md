@@ -9,3 +9,7 @@ verification evidence, issues observed, and follow-up decisions.
 
 - `run-record-schema.md`: required sections, template, and quality bar for
   durable AI-agent run records.
+
+## Run Records
+
+- `2026-05-31-dinner-picker-mvp.md`: first lab project MVP run record.
