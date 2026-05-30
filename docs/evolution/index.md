@@ -19,3 +19,4 @@ Each entry should explain:
 ## Entries
 
 - `0001-project-directory-planning.md`
+- `0002-harness-foundations-study.md`

@@ -10,8 +10,9 @@ Agent-First Living Lab structure.
 
 ## Current Phase
 
-Project initialization. The current focus is directory structure, agent-readable
-context, and stage-level documentation practices.
+Harness engineering foundations. The current focus is learning from existing
+harness engineering sources and turning them into project-local concepts,
+primitives, and evaluation questions.
 
 ## Key Terms
 
@@ -57,3 +58,5 @@ when a new practice has been validated or rejected.
 - Separate `experiments/` from `evals/`.
 - Use `lab/` as the real validation project container.
 - Use `docs/evolution/` for stage-level sharing records.
+- Use `harness/foundations.md` as the project-local synthesis of harness
+  engineering Foundations.

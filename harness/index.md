@@ -6,3 +6,11 @@ AI-agent work.
 In the first stage this directory is documentation-first. Add executable harness
 code only after the concepts, adapter boundaries, and run-recording conventions
 are clear.
+
+## Current Notes
+
+- `foundations.md`: synthesis of the Foundations module from
+  `walkinglabs/awesome-harness-engineering`.
+- `adapters/`: adapter boundaries between this project and external runtimes,
+  tools, or evaluation surfaces.
+- `runs/`: conventions for recording harness runs and evidence.
