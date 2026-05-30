@@ -2,6 +2,20 @@
 
 Use this directory to record stage-level project evolution.
 
-This index is initialized early because `docs/index.md` points here. The full
-stage-log template and first evolution entry are added in the decisions and
-evolution-record task.
+Evolution entries are narrative records for future sharing. They are not
+changelogs and should not capture every small edit.
+
+Each entry should explain:
+
+- what stage we were in
+- what goal we pursued
+- what methodology we used
+- what questions or constraints shaped the work
+- what outcome we reached
+- what artifacts were produced
+- what can be shared with others
+- what remains open
+
+## Entries
+
+- `0001-project-directory-planning.md`
