@@ -26,6 +26,7 @@ Run a mainline continuity check after:
 
 - a stage or substage transition
 - a user-corrected process gap
+- a subagent delegation and integration cycle
 - a feature implementation inside `lab/`
 - a meaningful docs or standards update
 - a long debugging or verification loop
@@ -44,6 +45,7 @@ Use the smallest set of sources needed to re-anchor the work:
 - `docs/workflows/validation-phase-learning-plan.md` for phase goals
 - recent `docs/evolution/` entries for stage-level history
 - active specs or plans under `docs/superpowers/`
+- subagent task packets or return reports when delegation occurred
 - run records or experiment reports when the current branch came from lab work
 
 ## Expected Output

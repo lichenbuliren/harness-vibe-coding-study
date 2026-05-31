@@ -174,9 +174,14 @@ The lead agent owns the lifecycle:
 2. Continue useful non-overlapping work while the subagent runs.
 3. Integrate, reject, or summarize the result explicitly.
 4. Close the subagent once its output is no longer needed.
+5. Return to the mainline after integration.
 
 Do not rely on implicit platform cleanup as the project standard. Explicit
 closure keeps coordination state small and makes token and context cost visible.
+
+Use `agents/handoffs/subagent-task-handoff.md` for delegation packets and
+`agents/playbooks/subagent-delegation.md` for the full workflow when the
+delegated work is meaningful.
 
 ## Minimum Evidence By Change Type
 
