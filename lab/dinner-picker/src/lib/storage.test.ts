@@ -52,6 +52,31 @@ describe('storage helpers', () => {
     expect(loadDishes(storage)).toHaveLength(1)
   })
 
+  it('loads dishes with preference fields', () => {
+    const storage = createMemoryStorage()
+    storage.setItem(
+      'dinner-picker:dishes',
+      JSON.stringify([
+        {
+          id: 'dish-1',
+          name: '面',
+          tag: 'quick',
+          createdAt: '2026-05-31T00:00:00.000Z',
+          weight: 2,
+          likedCount: 1,
+          rejectedCount: 0,
+        },
+      ]),
+    )
+
+    expect(loadDishes(storage)[0]).toMatchObject({
+      id: 'dish-1',
+      weight: 2,
+      likedCount: 1,
+      rejectedCount: 0,
+    })
+  })
+
   it('saves and clears latest pick id', () => {
     const storage = createMemoryStorage()
 

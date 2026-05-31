@@ -30,3 +30,4 @@ Each entry should explain:
 - `0010-core-harness-study-retrospective.md`
 - `0011-first-lab-project-dinner-picker.md`
 - `0012-mobile-lan-validation-gap.md`
+- `0013-feedback-driven-recommendation-loop.md`

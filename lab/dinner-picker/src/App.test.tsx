@@ -1,11 +1,16 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 
 describe('Dinner Picker app', () => {
   beforeEach(() => {
     window.localStorage.clear()
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+    vi.useRealTimers()
   })
 
   it('shows an empty state before dishes are added', () => {
@@ -49,11 +54,74 @@ describe('Dinner Picker app', () => {
     await user.type(screen.getByLabelText('添加一道菜'), '牛肉面')
     await user.click(screen.getByRole('button', { name: '加进菜谱池' }))
     await user.click(screen.getByRole('button', { name: '今天吃什么' }))
+    expect(screen.getByText('重新抽签中')).toBeInTheDocument()
 
-    expect(screen.getByText('今天就吃')).toBeInTheDocument()
+    expect(await screen.findByText('今天就吃')).toBeInTheDocument()
     expect(screen.getAllByText('牛肉面')).toHaveLength(2)
 
     randomSpy.mockRestore()
+  })
+
+  it('shows feedback actions after drawing a recommendation', async () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0)
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.type(screen.getByLabelText('添加一道菜'), '牛肉面')
+    await user.click(screen.getByRole('button', { name: '加进菜谱池' }))
+    await user.click(screen.getByRole('button', { name: '今天吃什么' }))
+
+    expect(await screen.findByRole('button', { name: '想吃' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '不想吃' })).toBeInTheDocument()
+  })
+
+  it('keeps the current dish and records positive feedback when liked', async () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0)
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.type(screen.getByLabelText('添加一道菜'), '牛肉面')
+    await user.click(screen.getByRole('button', { name: '加进菜谱池' }))
+    await user.click(screen.getByRole('button', { name: '今天吃什么' }))
+    await user.click(await screen.findByRole('button', { name: '想吃' }))
+
+    expect(screen.getByText('已记住：想吃')).toBeInTheDocument()
+    expect(screen.getAllByText('牛肉面')).toHaveLength(2)
+  })
+
+  it('automatically redraws a different dish after rejection', async () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0)
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.type(screen.getByLabelText('添加一道菜'), '牛肉面')
+    await user.click(screen.getByRole('button', { name: '加进菜谱池' }))
+    await user.type(screen.getByLabelText('添加一道菜'), '寿司')
+    await user.click(screen.getByRole('button', { name: '加进菜谱池' }))
+    await user.click(screen.getByRole('button', { name: '今天吃什么' }))
+
+    await screen.findByRole('button', { name: '不想吃' })
+    expect(screen.getAllByText('寿司')).toHaveLength(2)
+    await user.click(screen.getByRole('button', { name: '不想吃' }))
+
+    expect(screen.getByText('重新抽签中')).toBeInTheDocument()
+
+    expect(await screen.findByText('今天就吃')).toBeInTheDocument()
+    expect(screen.getAllByText('牛肉面')).toHaveLength(2)
+  })
+
+  it('explains when rejection has no alternative dish to redraw', async () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0)
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.type(screen.getByLabelText('添加一道菜'), '牛肉面')
+    await user.click(screen.getByRole('button', { name: '加进菜谱池' }))
+    await user.click(screen.getByRole('button', { name: '今天吃什么' }))
+    await user.click(await screen.findByRole('button', { name: '不想吃' }))
+
+    expect(screen.getByText('池子里暂时没有别的选择')).toBeInTheDocument()
+    expect(screen.queryByText('重新抽签中')).not.toBeInTheDocument()
   })
 
   it('deletes a dish from the pool', async () => {

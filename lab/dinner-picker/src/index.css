@@ -36,3 +36,25 @@ input {
     transform: translateY(0) scale(1);
   }
 }
+
+@keyframes draw-pulse {
+  from {
+    opacity: 0.72;
+    transform: translateY(4px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.draw-result-enter {
+  animation: draw-pulse 360ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .draw-result-enter {
+    animation: none;
+  }
+}
