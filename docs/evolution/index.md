@@ -41,3 +41,4 @@ Each entry should explain:
 - `0021-phase-3c-evidence-inventory.md`
 - `0022-default-agent-role-set.md`
 - `0023-template-skill-playbook-reuse-decision.md`
+- `0024-minimum-template-skeleton-design.md`

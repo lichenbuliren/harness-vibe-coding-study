@@ -13,3 +13,5 @@ updates.
   extraction.
 - `phase-3c-evidence-map.md`: evidence inventory used to ground Phase 3C
   pattern extraction in validated lab work.
+- `minimum-project-template-skeleton.md`: Phase 3C design for the smallest
+  reusable Agent-First Living Lab template skeleton.
