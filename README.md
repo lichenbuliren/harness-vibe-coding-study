@@ -16,14 +16,16 @@ shareable.
 
 ## Current Phase
 
-Core harness engineering study is complete. The project has synthesized the
-main modules from `walkinglabs/awesome-harness-engineering` into local harness
-notes, evolution records, and a Chinese share-oriented summary.
+The project is in Phase 3C: pattern extraction.
 
-The current validation surface is `lab/dinner-picker`, a mobile-first React +
-TypeScript app for testing whether the methodology works in practical app work.
-The next learning step is to compare future lab tasks against the run-record
-schema, local eval rubric, and experiment reports.
+Core harness engineering study is complete, and `lab/dinner-picker` has
+validated the methodology through real React + TypeScript app work, mobile
+feedback, browser verification, run records, experiment reports, and standard
+capture.
+
+The current learning step is to review the Phase 3B evidence and decide what
+should become reusable patterns, a project template, a public skill, playbooks,
+or local standards.
 
 ## How To Read This Repository
 

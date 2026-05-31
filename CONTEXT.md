@@ -10,11 +10,13 @@ Agent-First Living Lab structure.
 
 ## Current Phase
 
-Harness engineering validation. The core learning pass over
-`walkinglabs/awesome-harness-engineering` is complete for the main methodology
-modules. The current focus is turning the documented methodology into local
-validation loops: executable eval candidates, run-record conventions, and a real
-project under `lab/`. The first lab project is `lab/dinner-picker`.
+Phase 3C - Pattern Extraction.
+
+The core learning pass over `walkinglabs/awesome-harness-engineering` is
+complete, and Phase 3B validated the methodology through the first real lab
+project: `lab/dinner-picker`. The current focus is to review what survived real
+work, extract reusable patterns, and decide which parts should become a project
+template, public skill, playbook, or local standard.
 
 ## Key Terms
 
@@ -75,6 +77,9 @@ when a new practice has been validated or rejected.
 - Treat user-corrected agent mistakes as potential project-standard evidence;
   reusable process gaps should update the canonical project contract, not remain
   only in chat.
+- Enter Phase 3C after the Dinner Picker lab produced MVP evidence, mobile
+  feedback evidence, standard-capture evidence, and reusable process-gap
+  findings.
 
 ## Current Artifacts
 

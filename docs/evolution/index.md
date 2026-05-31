@@ -35,3 +35,4 @@ Each entry should explain:
 - `0015-project-standards-capture.md`
 - `0016-standard-capture-loop-methodology.md`
 - `0017-subagent-lifecycle-cost-control.md`
+- `0018-phase-3c-pattern-extraction-start.md`
