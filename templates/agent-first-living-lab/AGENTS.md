@@ -8,7 +8,8 @@ within clear boundaries, verify claims, and record evidence.
 ## Repository Purpose
 
 - Build an agent-readable project operating system.
-- Validate methodology through real work under `lab/`.
+- Build real product work in the project source tree when a source pack is
+  selected.
 - Record decisions, experiments, evaluations, and evolution notes.
 
 ## Directory Map
@@ -20,8 +21,9 @@ within clear boundaries, verify claims, and record evidence.
 - `harness/`: delivery contracts, run records, and harness notes.
 - `experiments/`: task samples and experiment reports.
 - `evals/`: rubrics and checklists.
-- `lab/`: real validation project surface.
 - `decisions/`: concise ADR-style decision records.
+- `src/`, `package.json`, or app directories: product source entrypoints when
+  an app pack or later implementation plan adds them.
 
 ## Operating Rules
 

@@ -5,8 +5,8 @@ This report validates the template initialization hardening step.
 ## Goal
 
 Verify that `templates/agent-first-living-lab/init-template.sh` can initialize
-the skeleton inside a fresh git repository without turning it into a full
-generator.
+the product-project harness skeleton inside a fresh git repository without
+turning it into a full generator.
 
 ## Method
 
@@ -16,7 +16,10 @@ generator.
 4. Checked that core placeholders were removed.
 5. Checked for obvious project-specific leaks.
 6. Confirmed blank record templates still contain placeholders.
-7. Confirmed forbidden app/framework/runtime directories were not created.
+7. Confirmed default initialization does not create `lab/`, app source, or
+   framework/runtime directories.
+8. Confirmed `--app-pack frontend-react-ts` creates a root-level React +
+   TypeScript scaffold and removes template-only pack files.
 
 ## Evidence
 
@@ -30,12 +33,12 @@ Initialization command:
 
 ```sh
 bash init-template.sh \
-  --project-name "Fresh Harness Lab" \
+  --project-name "Fresh Harness Project" \
   --project-intent "Validate repeatable initialization for an agent-first project." \
   --current-phase "Initialization" \
   --date "2026-06-01" \
   --working-assumption "Agents need durable context before implementation." \
-  --non-goal "Do not add app code before the first lab plan." \
+  --non-goal "Do not add app code before a source pack or implementation plan." \
   --alternative "Start with product code first."
 ```
 
@@ -46,6 +49,10 @@ Observed results:
 - leak scan: only the intentional `TEMPLATE.md` exclusion note for Dinner Picker
   history
 - forbidden default directories: none created
+- default `lab/`, `src/`, and `package.json`: none created
+- `frontend-react-ts` pack: generated root-level app scaffold when selected
+- React pack smoke check: `npm install`, `npm test -- --run`,
+  `npm run build`, and `npm run lint` passed in a temporary initialized project
 - blank record templates: placeholders remained for future records
 - git status: skeleton files appeared as untracked files in the fresh repo
 

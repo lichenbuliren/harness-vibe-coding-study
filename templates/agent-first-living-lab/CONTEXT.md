@@ -33,5 +33,6 @@
 - `harness/`: delivery contracts and run records.
 - `evals/`: rubrics and checklists.
 - `experiments/`: task samples and reports.
-- `lab/`: real validation surface.
 - `decisions/`: ADR-style decision records.
+- product source files: added only when an app pack or implementation plan
+  selects a source scaffold.

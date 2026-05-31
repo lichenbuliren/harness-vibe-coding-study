@@ -5,7 +5,8 @@ usage() {
   cat <<'USAGE'
 Usage:
   bash init-template.sh \
-    [--target-dir "../my-agent-lab"] \
+    [--target-dir "../my-product-project"] \
+    [--app-pack none|frontend-react-ts] \
     --project-name "My Project" \
     --project-intent "Project intent" \
     --current-phase "Initialization" \
@@ -17,12 +18,17 @@ Usage:
 This script initializes core placeholders in the Agent-First Living Lab
 template. It intentionally does not replace placeholders in record templates.
 
+By default, it creates only the product-project harness core. Use
+`--app-pack frontend-react-ts` to add a root-level React + TypeScript source
+scaffold.
+
 When --target-dir is provided, the script first copies the template into that
 directory. Existing non-empty target directories are rejected.
 USAGE
 }
 
 target_dir=""
+app_pack="none"
 project_name=""
 project_intent=""
 current_phase=""
@@ -35,6 +41,10 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --target-dir)
       target_dir="${2:-}"
+      shift 2
+      ;;
+    --app-pack)
+      app_pack="${2:-}"
       shift 2
       ;;
     --project-name)
@@ -85,6 +95,20 @@ missing=()
 [[ -n "$working_assumption" ]] || missing+=("--working-assumption")
 [[ -n "$non_goal" ]] || missing+=("--non-goal")
 [[ -n "$alternative" ]] || missing+=("--alternative")
+
+case "$app_pack" in
+  none|core|frontend-react-ts)
+    ;;
+  *)
+    echo "Unknown app pack: $app_pack" >&2
+    echo "Supported app packs: none, frontend-react-ts" >&2
+    exit 2
+    ;;
+esac
+
+if [[ "$app_pack" == "core" ]]; then
+  app_pack="none"
+fi
 
 if [[ ${#missing[@]} -gt 0 ]]; then
   echo "Missing required arguments: ${missing[*]}" >&2
@@ -184,11 +208,22 @@ required_files=(
   experiments/reports/index.md
   experiments/reports/experiment-report-template.md
   experiments/task-samples/index.md
-  lab/README.md
-  lab/AGENTS.md
   decisions/index.md
   decisions/0001-adopt-agent-first-living-lab.md
   decisions/decision-record-template.md
+  packs/frontend-react-ts/package.json
+  packs/frontend-react-ts/index.html
+  packs/frontend-react-ts/src/App.tsx
+  packs/frontend-react-ts/src/App.test.tsx
+  packs/frontend-react-ts/src/main.tsx
+  packs/frontend-react-ts/src/index.css
+  packs/frontend-react-ts/src/vite-env.d.ts
+  packs/frontend-react-ts/src/test/setup.ts
+  packs/frontend-react-ts/vite.config.ts
+  packs/frontend-react-ts/tsconfig.json
+  packs/frontend-react-ts/tsconfig.app.json
+  packs/frontend-react-ts/tsconfig.node.json
+  packs/frontend-react-ts/eslint.config.js
   init-template.sh
   validate-init-template.sh
 )
@@ -216,12 +251,33 @@ replace_in_file() {
   rm -f "$file.bak"
 }
 
+package_slug() {
+  printf '%s' "$1" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//'
+}
+
+if [[ "$app_pack" == "frontend-react-ts" ]]; then
+  (
+    cd "packs/frontend-react-ts"
+    tar -cf - .
+  ) | tar -xf -
+fi
+
+rm -rf packs
+
 core_files=(
   README.md
   CONTEXT.md
   TEMPLATE.md
   decisions/0001-adopt-agent-first-living-lab.md
 )
+
+if [[ -f package.json ]]; then
+  core_files+=(package.json index.html src/App.tsx src/App.test.tsx)
+fi
+
+package_name="$(package_slug "$project_name")"
 
 for file in "${core_files[@]}"; do
   replace_in_file "$file" PROJECT_NAME "$project_name"
@@ -231,6 +287,7 @@ for file in "${core_files[@]}"; do
   replace_in_file "$file" WORKING_ASSUMPTION_1 "$working_assumption"
   replace_in_file "$file" NON_GOAL_1 "$non_goal"
   replace_in_file "$file" ALTERNATIVE "$alternative"
+  replace_in_file "$file" PACKAGE_NAME "$package_name"
 done
 
 if grep -R "{{[A-Z0-9_][A-Z0-9_]*}}" README.md CONTEXT.md decisions/0001-adopt-agent-first-living-lab.md >/dev/null; then
@@ -244,6 +301,7 @@ Initialized Agent-First Living Lab template.
 
 Project: $project_name
 Phase: $current_phase
+App pack: $app_pack
 
 Next checks:
   find . -path ./.git -prune -o -path ./.omx -prune -o -print | sort

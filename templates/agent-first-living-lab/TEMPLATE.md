@@ -1,7 +1,7 @@
 # Agent-First Living Lab Template
 
-This directory is a template-safe skeleton for starting a new Agent-First Living
-Lab project.
+This directory is a template-safe skeleton for starting a real product project
+with Agent-First Living Lab harness surfaces.
 
 ## Customize First
 
@@ -20,23 +20,44 @@ as:
 - default agent roles, handoffs, and subagent delegation playbook
 - harness delivery contract and run-record templates
 - eval rubric and checklist entrypoints
-- experiment, lab, and decision entrypoints
+- experiment and decision entrypoints
 
 ## Excluded From Core
 
 - application code
+- `lab/` research containers
 - Dinner Picker history
 - mobile-specific checks
 - runtime-specific state such as `.omx`
 - public skills
 - generated reports from this study project
 
+## Optional App Packs
+
+The default initialization stays source-free. Use an app pack only when the new
+project should start with a concrete source scaffold.
+
+Supported pack:
+
+- `frontend-react-ts`: root-level React + TypeScript + Vite starter with
+  `package.json`, `src/`, tests, lint config, and TypeScript config.
+
+Research or methodology repositories that need multiple validation samples can
+add a `lab/` directory later as a project-specific decision. It is not part of
+the product-project default.
+
 ## First Initialization Check
 
 Prefer initializing into a new target directory with:
 
 ```sh
-bash init-template.sh --target-dir "../my-agent-lab" ...
+bash init-template.sh --target-dir "../my-product-project" ...
+```
+
+To include the React + TypeScript source scaffold:
+
+```sh
+bash init-template.sh --target-dir "../my-product-project" --app-pack frontend-react-ts ...
 ```
 
 The helper rejects non-empty target directories instead of merging or

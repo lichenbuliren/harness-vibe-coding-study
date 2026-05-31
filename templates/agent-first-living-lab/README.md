@@ -16,5 +16,5 @@ the mainline, verify work, and record stage-level learning.
 - Use `docs/` for methodology, workflows, patterns, standards, and evolution.
 - Use `agents/` for roles, playbooks, and handoff formats.
 - Use `harness/`, `evals/`, and `experiments/` for evidence and validation.
-- Use `lab/` for real validation work.
+- Put product source code at the repository root when an app pack is selected.
 - Use `decisions/` for concise decision records.

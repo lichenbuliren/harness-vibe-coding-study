@@ -21,4 +21,5 @@ Adopt an Agent-First Living Lab structure.
 - Agents have a clear cognitive path into the repository.
 - The project has durable surfaces for context, decisions, evidence, and
   evolution.
-- Real validation work can happen under `lab/`.
+- Product source scaffolds are selected explicitly instead of being implied by
+  the harness core.

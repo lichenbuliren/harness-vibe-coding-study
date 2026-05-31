@@ -50,3 +50,4 @@ Each entry should explain:
 - `0030-template-target-conflict-hardening.md`
 - `0031-template-script-validation-gap.md`
 - `0032-independent-small-airplane-validation-project.md`
+- `0033-product-project-template-shape.md`

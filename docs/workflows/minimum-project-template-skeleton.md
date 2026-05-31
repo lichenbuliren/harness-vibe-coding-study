@@ -1,10 +1,11 @@
 # Minimum Project Template Skeleton
 
-This document designs the first reusable skeleton for an Agent-First Living Lab
-project.
+This document designs the first reusable skeleton for a real product project
+with Agent-First Living Lab harness surfaces.
 
-It is not a packaged template yet. It defines the minimum files, optional packs,
-initialization flow, and readiness criteria for a future template.
+It is not a packaged template yet. It defines the minimum files, optional source
+and domain packs, initialization flow, and readiness criteria for a future
+template.
 
 ## Goal
 
@@ -19,12 +20,13 @@ Help a new project start with enough harness structure that agents can:
 
 ## Non-Goals
 
-- Do not include application source code.
-- Do not prescribe a product stack.
+- Do not include application source code in the default core.
+- Do not prescribe a product stack unless an app pack is selected explicitly.
 - Do not include mobile-specific checks by default.
 - Do not publish a public skill.
 - Do not package every document from this study project.
-- Do not assume all projects need experiments, evals, and lab depth on day one.
+- Do not assume all projects need experiments, evals, and research-lab depth on
+  day one.
 
 ## Skeleton Principles
 
@@ -127,16 +129,6 @@ project creates many task-specific checklists.
 Why required: not every project starts with experiments, but an agent-first lab
 needs a place to separate "what happened" from "how quality is judged".
 
-### `lab/`
-
-- `lab/README.md`
-- `lab/AGENTS.md`
-
-Why required: the skeleton assumes real validation will happen in a lab surface,
-but the concrete lab app should be project-specific. Do not include
-`lab/dinner-picker`, React/Vite/Tailwind choices, app tests, or historical lab
-run records in the core skeleton.
-
 ### `decisions/`
 
 - `decisions/index.md`
@@ -146,6 +138,32 @@ Why required: future agents need a concise decision surface for choices that
 should not be relitigated.
 
 ## Optional Packs
+
+### Frontend React TypeScript Pack
+
+Include when the new project is a single frontend product and should start with
+root-level source code.
+
+- `package.json`
+- `index.html`
+- `src/`
+- Vite, TypeScript, ESLint, and Vitest config files
+
+Why optional: a product project needs a clear source entrypoint, but the core
+harness template should not force React on CLI tools, services, libraries, or
+methodology repositories.
+
+### Research Lab Pack
+
+Include only when the repository is itself a methodology, research, or
+multi-sample validation project.
+
+- `lab/README.md`
+- `lab/AGENTS.md`
+- guidance for placing multiple validation projects under `lab/<sample-name>/`
+
+Why optional: `lab/` is useful for a harness-study repository like this one, but
+it is misleading in a real product repository where the product is the project.
 
 ### Mobile App Pack
 
@@ -182,7 +200,7 @@ Include when the project is preparing portable skills.
 - eval task set
 - install guidance
 
-### Example Lab Pack
+### Example Project Pack
 
 Include only as examples, not default obligations.
 
@@ -207,7 +225,8 @@ Include only when the target environment uses the same runtime assumptions.
 3. Keep root `AGENTS.md` short and navigational.
 4. Write the first decision record.
 5. Define the first current phase and next learning goal.
-6. Add only optional packs that match the project domain.
+6. Add only optional packs that match the project domain. For product source,
+   prefer an explicit app pack over a default `lab/` container.
 7. Create the first evolution entry when the initialization decision is made.
 8. Run the structure check and commit.
 
@@ -224,7 +243,7 @@ Every new project should replace these fields:
 - current phase
 - key terms
 - non-goals
-- lab validation target
+- source entrypoint or selected app pack
 - default verification gates
 - optional packs selected
 - first decision record date and context
@@ -237,6 +256,8 @@ The skeleton is ready to become a real template only when:
   Dinner Picker specifics
 - a future agent can read `README.md`, `CONTEXT.md`, and `AGENTS.md` and know
   where to work next
+- a default initialized product project does not contain `lab/`, `src/`, or
+  `package.json` unless an explicit pack created the source scaffold
 - directory indexes point to every included required file
 - every mandatory file listed by an index exists
 - no local absolute paths, generated runtime state, model tables, or

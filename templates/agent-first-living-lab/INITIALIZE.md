@@ -9,19 +9,32 @@ From the source template directory, prefer the safe target-directory path:
 
 ```sh
 bash init-template.sh \
-  --target-dir "../my-agent-lab" \
+  --target-dir "../my-product-project" \
   --project-name "My Project" \
   --project-intent "Explore an agent-first workflow for ..." \
   --current-phase "Initialization" \
   --date "YYYY-MM-DD" \
   --working-assumption "Agents need durable context before implementation" \
-  --non-goal "Do not add app code before the first lab plan" \
+  --non-goal "Do not add app code before a source pack or implementation plan" \
   --alternative "Start with product code first"
 ```
 
 `--target-dir` creates the target directory when it does not exist. If the
 target directory already exists and is not empty, initialization stops before
 copying or modifying files.
+
+By default, initialization creates only the harness core. It does not create
+`lab/`, `src/`, or `package.json`.
+
+To initialize a React + TypeScript product project, add:
+
+```sh
+--app-pack frontend-react-ts
+```
+
+That pack creates root-level `package.json`, `src/`, Vite, TypeScript, ESLint,
+and Vitest starter files. The template pack directory is removed from the
+initialized project after the selected pack is applied.
 
 If you already copied the template into a fresh project directory, run from that
 new project root:
@@ -33,7 +46,7 @@ bash init-template.sh \
   --current-phase "Initialization" \
   --date "YYYY-MM-DD" \
   --working-assumption "Agents need durable context before implementation" \
-  --non-goal "Do not add app code before the first lab plan" \
+  --non-goal "Do not add app code before a source pack or implementation plan" \
   --alternative "Start with product code first"
 ```
 
@@ -71,9 +84,9 @@ After the safety checks, it replaces the core project placeholders in:
 
 It also checks that the required skeleton files exist.
 
-It is a thin helper, not a full generator. It does not install dependencies,
-create application code, choose optional packs, or claim the template is a
-published package.
+It is a thin helper, not a full generator. It does not install dependencies or
+claim the template is a published package. It can copy a selected source
+scaffold pack, but it does not run package-manager commands.
 
 It does not replace placeholders inside blank templates such as:
 
@@ -102,7 +115,8 @@ Before the initialization is complete:
 - no core project placeholders remain in `README.md`, `CONTEXT.md`, or the
   initial ADR
 - every required file listed by the template exists
-- optional packs are not added unless the project needs them
+- optional app packs are not added unless selected explicitly
 - blank record templates still contain placeholders for future records
 - no app, framework, mobile, or runtime-specific defaults were added by accident
+  when `--app-pack` is omitted
 - the work is committed with a message explaining why the template was adopted
