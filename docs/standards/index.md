@@ -32,6 +32,9 @@ When a user correction, review finding, failed run, or repeated friction reveals
 a reusable rule, the agent should classify the lesson and propose or apply the
 right documentation update.
 
+Use `../../harness/agent-learning-loop.md` as the canonical process for this
+classification and capture work.
+
 The agent should ask:
 
 - Is this a one-off issue, or a reusable standard?
@@ -66,6 +69,9 @@ canonical surface that owns the behavior.
   project mainline after side quests, corrections, and stage-level subtasks.
 - `docs/patterns/standard-capture-loop.md`: high-priority method for deciding
   when and where reusable lessons become standards.
+- `harness/agent-learning-loop.md`: canonical process for turning corrections,
+  failures, review findings, and repeated friction into durable project
+  behavior.
 - `harness/agent-delivery-contract.md`: delivery, verification, commit, and
   evidence expectations for lab and harness work, including subagent lifecycle
   and cost control.

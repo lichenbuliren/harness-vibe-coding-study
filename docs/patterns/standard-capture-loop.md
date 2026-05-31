@@ -18,6 +18,10 @@ If the lesson stays in chat, the next agent can repeat the mistake.
 Turn meaningful corrections, review findings, failed runs, and repeated friction
 into project standards.
 
+The canonical executable process lives in
+`../../harness/agent-learning-loop.md`. This pattern explains the shareable
+method; the harness module owns the step-by-step loop.
+
 Use this loop:
 
 ```text

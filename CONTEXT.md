@@ -95,6 +95,9 @@ when a new practice has been validated or rejected.
 - `harness/guardrails-safe-autonomy.md`: safe-autonomy boundaries and verifier
   gates.
 - `harness/specs-agent-workflows.md`: spec lifecycle and workflow state model.
+- `harness/agent-learning-loop.md`: canonical loop for turning corrections,
+  failed checks, review findings, and repeated friction into durable project
+  behavior.
 - `harness/agent-delivery-contract.md`: minimum delivery loop for testing,
   user-facing verification, commits, and durable evidence.
 - `docs/standards/`: cross-cutting standards that future agents should treat as

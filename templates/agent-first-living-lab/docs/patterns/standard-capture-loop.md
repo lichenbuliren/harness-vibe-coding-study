@@ -9,6 +9,10 @@ findings stay only in chat.
 
 Turn meaningful corrections into durable standards.
 
+The canonical executable process lives in
+`../../harness/agent-learning-loop.md`. This pattern explains the method; the
+harness module owns the loop.
+
 ```text
 observe correction -> classify lesson -> choose canonical surface ->
 update standard -> verify discoverability -> commit -> cite in evolution

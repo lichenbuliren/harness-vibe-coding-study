@@ -30,7 +30,7 @@
 - `AGENTS.md`: runtime operating contract for agents.
 - `docs/`: methodology, workflows, patterns, standards, and evolution logs.
 - `agents/`: roles, handoffs, and playbooks.
-- `harness/`: delivery contracts and run records.
+- `harness/`: learning loops, delivery contracts, and run records.
 - `evals/`: rubrics and checklists.
 - `experiments/`: task samples and reports.
 - `decisions/`: ADR-style decision records.

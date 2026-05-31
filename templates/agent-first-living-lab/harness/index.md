@@ -4,5 +4,6 @@
 
 ## Current Files
 
+- `agent-learning-loop.md`
 - `agent-delivery-contract.md`
 - `runs/`

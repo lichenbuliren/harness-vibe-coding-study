@@ -16,6 +16,8 @@ are clear.
   prompt-injection controls, and verifier gates for safe autonomy.
 - `specs-agent-workflows.md`: agent instruction files, spec lifecycle,
   workflow state, validation, and learning capture.
+- `agent-learning-loop.md`: canonical loop for turning corrections, failed
+  checks, review findings, and repeated friction into durable project behavior.
 - `agent-delivery-contract.md`: minimum delivery loop for testing,
   user-facing verification, commits, and durable evidence.
 - `evals-observability.md`: eval primitives, trace/observability practices,

@@ -103,12 +103,13 @@ task.
 ### `harness/`
 
 - `harness/index.md`
+- `harness/agent-learning-loop.md`
 - `harness/agent-delivery-contract.md`
 - `harness/runs/index.md`
 - `harness/runs/run-record-schema.md`
 
 Why required: this is the minimum harness surface for delivery behavior, run
-records, verification, and recovery.
+records, verification, recovery, and self-improvement.
 
 ### `evals/`
 

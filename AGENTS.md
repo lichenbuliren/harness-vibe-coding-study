@@ -46,6 +46,9 @@ navigate the repository, act within clear boundaries, and record evidence.
   rule, evaluation rule, lab rule, or agent operating rule. If it does, update
   the appropriate project contract under `docs/standards/`, `harness/`,
   `evals/`, `docs/evolution/`, or `AGENTS.md` before closing the task.
+- Use `harness/agent-learning-loop.md` as the canonical process for turning
+  corrections, failed checks, review findings, and repeated friction into
+  durable project behavior.
 - When terminology is unclear or a standard crosses multiple documentation
   surfaces, use documentation-sharpening skills such as `grill-with-docs` and
   consider subagents for parallel review. If an optional skill is not available

@@ -7,6 +7,8 @@
 When a user correction, review finding, failed run, or repeated friction
 reveals a reusable rule, classify it and update the canonical project surface.
 
+Use `../../harness/agent-learning-loop.md` as the canonical process.
+
 Default flow:
 
 ```text
@@ -18,3 +20,5 @@ update standard -> verify discoverability -> commit -> cite in evolution
 
 - `mainline-continuity.md`: return to the larger project direction after useful
   detours.
+- `../../harness/agent-learning-loop.md`: turn corrections, failed checks,
+  review findings, and repeated friction into durable project behavior.

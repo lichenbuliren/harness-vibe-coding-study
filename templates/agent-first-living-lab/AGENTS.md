@@ -33,6 +33,9 @@ within clear boundaries, verify claims, and record evidence.
 - Use the smallest useful specialist role set for delegated work.
 - When a user correction reveals a reusable rule, update the right durable
   surface instead of leaving the lesson only in chat.
+- Use `harness/agent-learning-loop.md` as the canonical process for turning
+  corrections, failed checks, review findings, and repeated friction into
+  durable project behavior.
 - After meaningful side work, return to the mainline and state the next step.
 
 ## Verification Requirements

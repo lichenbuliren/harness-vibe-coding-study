@@ -115,6 +115,8 @@ Before the initialization is complete:
 - no core project placeholders remain in `README.md`, `CONTEXT.md`, or the
   initial ADR
 - every required file listed by the template exists
+- `harness/agent-learning-loop.md` exists as the canonical process for turning
+  reusable task friction into durable project behavior
 - optional app packs are not added unless selected explicitly
 - blank record templates still contain placeholders for future records
 - no app, framework, mobile, or runtime-specific defaults were added by accident

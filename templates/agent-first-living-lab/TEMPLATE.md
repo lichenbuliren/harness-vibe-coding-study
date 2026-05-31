@@ -18,7 +18,7 @@ as:
 - root project context and agent contract
 - docs, standards, patterns, workflows, and evolution indexes
 - default agent roles, handoffs, and subagent delegation playbook
-- harness delivery contract and run-record templates
+- harness learning loop, delivery contract, and run-record templates
 - eval rubric and checklist entrypoints
 - experiment and decision entrypoints
 
