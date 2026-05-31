@@ -25,6 +25,51 @@ observe correction -> classify lesson -> choose canonical surface ->
 update standard -> verify discoverability -> commit -> cite in evolution
 ```
 
+The broader project loop looks like this:
+
+```mermaid
+flowchart TD
+    A["Harness engineering exploration"] --> B["Agent-First Living Lab"]
+    B --> C["Project readability<br/>AGENTS.md / CONTEXT.md / docs"]
+    B --> D["Methodology capture<br/>harness / evals / experiments"]
+    B --> E["Real validation<br/>lab/dinner-picker"]
+
+    E --> F["User feedback on real device"]
+    F --> G["Agent closes the loop"]
+    G --> H["Tests<br/>unit / interaction"]
+    G --> I["Browser verification<br/>Browser MCP / mobile viewport / LAN"]
+    G --> J["Evidence<br/>commit / run record / experiment report"]
+
+    J --> K["Stage evolution record<br/>docs/evolution"]
+    K --> L["Standard capture loop"]
+
+    L --> M["Observe correction"]
+    M --> N["Classify reusable lesson"]
+    N --> O["Choose canonical surface"]
+    O --> P["Update standard"]
+    P --> Q["Verify discoverability"]
+    Q --> R["Commit and cite in evolution"]
+
+    O --> S["AGENTS.md<br/>runtime rules"]
+    O --> T["docs/standards<br/>project standards"]
+    O --> U["harness<br/>delivery and verification contracts"]
+    O --> V["evals<br/>quality gates"]
+    O --> W["docs/patterns<br/>reusable methods"]
+    O --> X["decisions<br/>ADR decisions"]
+
+    Y["grill-with-docs + subagent"] --> O
+    Y --> P
+
+    R --> B
+```
+
+The short version:
+
+```text
+real feedback -> agent verification loop -> evidence capture ->
+standard capture -> project evolution
+```
+
 ## Classification
 
 Before writing a new rule, classify the lesson:

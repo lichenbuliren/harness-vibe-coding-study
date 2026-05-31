@@ -45,6 +45,14 @@ It also defines an optional cross-review mechanism:
   touches multiple surfaces
 - keep final integration responsibility with the lead agent
 
+The method now also has a shareable flowchart in the canonical pattern document
+and the Chinese summary. The diagram preserves the current learning arc:
+
+```text
+real feedback -> agent verification loop -> evidence capture ->
+standard capture -> project evolution
+```
+
 ## Artifacts
 
 - `docs/patterns/standard-capture-loop.md`

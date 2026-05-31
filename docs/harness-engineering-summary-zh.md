@@ -607,6 +607,53 @@ fix the issue + teach the project how not to repeat it
 
 也就是：解决当前问题，同时让项目系统学会避免下一次重复发生。
 
+### 核心流程图：从真实反馈到项目进化
+
+这张图是当前阶段最适合分享的主线图：真实项目暴露问题，agent
+必须先自证闭环，再把有复用价值的纠错沉淀为项目标准。
+
+```mermaid
+flowchart TD
+    A["Harness 工程探索"] --> B["Agent-First Living Lab"]
+    B --> C["项目可读性<br/>AGENTS.md / CONTEXT.md / docs"]
+    B --> D["方法论沉淀<br/>harness / evals / experiments"]
+    B --> E["真实验证<br/>lab/dinner-picker"]
+
+    E --> F["用户真机反馈"]
+    F --> G["Agent 主动闭环"]
+    G --> H["测试<br/>unit / interaction"]
+    G --> I["浏览器验证<br/>Browser MCP / mobile viewport / LAN"]
+    G --> J["证据沉淀<br/>commit / run record / experiment report"]
+
+    J --> K["阶段演进记录<br/>docs/evolution"]
+    K --> L["标准捕获循环"]
+
+    L --> M["发现纠错"]
+    M --> N["判断是否可复用"]
+    N --> O["选择规范归属面"]
+    O --> P["更新标准文档"]
+    P --> Q["验证可发现性"]
+    Q --> R["提交并写入演进"]
+
+    O --> S["AGENTS.md<br/>运行时规则"]
+    O --> T["docs/standards<br/>项目标准"]
+    O --> U["harness<br/>交付/验证规范"]
+    O --> V["evals<br/>质量门禁"]
+    O --> W["docs/patterns<br/>可复用方法"]
+    O --> X["decisions<br/>ADR 决策"]
+
+    Y["grill-with-docs + subagent"] --> O
+    Y --> P
+
+    R --> B
+```
+
+一句话概括：
+
+```text
+真实反馈 -> agent 自证闭环 -> 证据沉淀 -> 标准捕获 -> 项目进化
+```
+
 ## 一个最小可行 Harness Checklist
 
 如果要判断一个项目是否具备最小 harness，可以问：
