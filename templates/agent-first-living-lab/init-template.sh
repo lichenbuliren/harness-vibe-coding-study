@@ -190,6 +190,7 @@ required_files=(
   decisions/0001-adopt-agent-first-living-lab.md
   decisions/decision-record-template.md
   init-template.sh
+  validate-init-template.sh
 )
 
 missing_files=()

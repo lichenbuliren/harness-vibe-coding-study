@@ -194,6 +194,7 @@ delegated work is meaningful.
 | Phone/LAN path | LAN URL check and origin/security-context note |
 | Performance feedback | user-facing path check plus explicit performance criterion |
 | Harness methodology | updated `harness/` doc plus evolution note when stage-level |
+| Template or initialization script | executable validation covering happy path and known negative paths |
 | User-corrected agent process gap | classify reusable standard, update canonical contract, commit |
 | Subagent usage standard | document delegation reason, integrate result, close completed subagent |
 | Long conversation or side exploration | mainline continuity check and entry-doc update if phase changed |

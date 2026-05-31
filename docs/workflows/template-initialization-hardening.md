@@ -22,6 +22,7 @@ This workflow should produce:
 
 - an initialization guide inside the template
 - a thin helper script for core placeholder replacement
+- an executable validation script for that helper
 - target-directory conflict protection
 - a verification checklist
 - a throwaway or fresh-repo validation result
@@ -91,6 +92,12 @@ target inside source template -> stop before writing
 
 ## Verification Checklist
 
+Run the helper validation before committing changes to the template scripts:
+
+```sh
+bash templates/agent-first-living-lab/validate-init-template.sh
+```
+
 Run these checks after initialization:
 
 ```sh
@@ -130,6 +137,10 @@ code, and does not replace placeholders in blank record templates.
 It also rejects non-empty target directories when `--target-dir` is used. This
 prevents the template from being copied over an existing user project by
 accident.
+
+`templates/agent-first-living-lab/validate-init-template.sh` is the required
+regression check for the helper. Template script changes are not complete until
+that validation passes.
 
 Treat it as an initialization hardening step. A real generator would need a
 separate design and validation task.

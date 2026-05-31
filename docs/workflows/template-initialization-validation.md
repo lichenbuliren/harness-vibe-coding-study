@@ -83,6 +83,18 @@ template conflict checks passed
 The conflict policy is now fail closed: do not merge into or overwrite an
 existing non-empty user directory.
 
+## Executable Regression Check
+
+The conflict validation has been promoted into:
+
+```text
+templates/agent-first-living-lab/validate-init-template.sh
+```
+
+This script is now the required regression check before changing
+`init-template.sh`. It exercises both the happy path and the negative paths that
+were previously missed.
+
 ## Remaining Risks
 
 - The helper uses shell and `sed`, so cross-platform behavior on non-Unix

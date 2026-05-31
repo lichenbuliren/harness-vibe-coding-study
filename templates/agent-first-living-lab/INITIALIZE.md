@@ -44,6 +44,13 @@ git diff -- README.md CONTEXT.md decisions/0001-adopt-agent-first-living-lab.md
 find . -path ./.git -prune -o -path ./.omx -prune -o -print | sort
 ```
 
+Before changing this template helper, run its validation script from the source
+template directory:
+
+```sh
+bash validate-init-template.sh
+```
+
 ## What The Script Does
 
 `init-template.sh` can either copy the template into a safe target directory or

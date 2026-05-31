@@ -42,6 +42,12 @@ bash init-template.sh --target-dir "../my-agent-lab" ...
 The helper rejects non-empty target directories instead of merging or
 overwriting existing user files.
 
+Before changing `init-template.sh`, run:
+
+```sh
+bash validate-init-template.sh
+```
+
 After the skeleton is initialized:
 
 1. Inspect the initialized `README.md`, `CONTEXT.md`, and initial ADR.

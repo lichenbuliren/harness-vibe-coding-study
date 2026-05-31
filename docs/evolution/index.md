@@ -48,3 +48,4 @@ Each entry should explain:
 - `0028-phase-3c-pattern-extraction-retrospective.md`
 - `0029-template-initialization-hardening.md`
 - `0030-template-target-conflict-hardening.md`
+- `0031-template-script-validation-gap.md`
