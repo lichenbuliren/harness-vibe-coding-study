@@ -66,10 +66,22 @@ indexes or maps. Avoid leaving a standard invisible.
 Use `grill-with-docs` when the terminology, ownership, or documentation
 placement is unclear.
 
+Before relying on `grill-with-docs`, check whether the skill is available in the
+current agent environment. If it is missing, tell the user how to install it
+using the relevant note under `docs/tools/`, then continue with a lightweight
+fallback review.
+
 Use subagents when the standard touches multiple surfaces and a parallel review
 can catch stale maps, wording drift, or missing canonical references.
 
 The lead agent still owns the final integration.
+
+For important standards work, use a cross-review shape:
+
+```text
+grill terminology and ownership -> subagent placement review ->
+lead agent integrates -> verify discoverability -> commit
+```
 
 ## Evidence Of Good Capture
 

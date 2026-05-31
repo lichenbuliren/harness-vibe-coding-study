@@ -37,6 +37,14 @@ The method now has three surfaces:
 - `AGENTS.md` / `harness/agent-delivery-contract.md` for runtime enforcement
   and delivery-specific behavior
 
+It also defines an optional cross-review mechanism:
+
+- use `grill-with-docs` to challenge terminology and documentation ownership
+- prompt the user to install the skill when it is not available
+- use subagents for parallel placement or consistency review when the standard
+  touches multiple surfaces
+- keep final integration responsibility with the lead agent
+
 ## Artifacts
 
 - `docs/patterns/standard-capture-loop.md`
@@ -44,6 +52,7 @@ The method now has three surfaces:
 - `docs/standards/index.md`
 - `docs/evolution/0015-project-standards-capture.md`
 - `docs/harness-engineering-summary-zh.md`
+- `docs/tools/grill-me.md`
 
 ## Shareable Takeaway
 

@@ -597,6 +597,8 @@ update standard -> verify discoverability -> commit -> cite in evolution
 
 本项目因此新增了 `docs/standards/`，用于承接跨越多个目录的项目标准；同时保留 `harness/`、`evals/`、`docs/patterns/`、`docs/evolution/`、`decisions/` 各自的职责边界。
 
+当标准归属、术语边界或文档落点不清楚时，可以用 `grill-with-docs` 这类 skill 做文档拷问，用 subagent 做并行交叉审查。如果用户环境没有安装对应 skill，agent 应主动发现并提示安装方式，再用轻量 fallback 继续推进，而不是沉默跳过。
+
 这个方法论的核心不是“多写文档”，而是：
 
 ```text

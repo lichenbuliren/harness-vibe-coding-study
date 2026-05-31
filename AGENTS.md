@@ -47,7 +47,9 @@ navigate the repository, act within clear boundaries, and record evidence.
   `evals/`, `docs/evolution/`, or `AGENTS.md` before closing the task.
 - When terminology is unclear or a standard crosses multiple documentation
   surfaces, use documentation-sharpening skills such as `grill-with-docs` and
-  consider subagents for parallel review.
+  consider subagents for parallel review. If an optional skill is not available
+  in the current environment, point to the relevant install note under
+  `docs/tools/` and continue with the closest lightweight fallback.
 
 ## Verification Requirements
 

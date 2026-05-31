@@ -48,7 +48,9 @@ update docs -> verify links/status -> commit
 ```
 
 The agent may use skills such as `grill-with-docs` to sharpen terminology,
-challenge placement, and update context or decision documents. For larger or
+challenge placement, and update context or decision documents. If the skill is
+not installed or exposed in the current environment, the agent should point to
+`docs/tools/grill-me.md` and continue with a lightweight fallback. For larger or
 cross-cutting standard changes, the agent may use subagents to review placement,
 wording, or consistency, while the lead agent owns the final integration.
 
