@@ -33,3 +33,4 @@ Each entry should explain:
 - `0013-feedback-driven-recommendation-loop.md`
 - `0014-user-corrected-process-gaps.md`
 - `0015-project-standards-capture.md`
+- `0016-standard-capture-loop-methodology.md`

@@ -11,6 +11,9 @@ work are not only harness rules. They may become directory standards,
 documentation standards, evaluation standards, lab standards, or runtime agent
 rules.
 
+Priority: high. This is a core methodology for the project because it defines
+how live collaboration improves future agent behavior.
+
 ## Methodology
 
 We used a documentation-grilling lens:
@@ -32,6 +35,7 @@ harness, documentation, directory structure, lab implementation, or evaluation.
 
 ## Artifacts
 
+- `docs/patterns/standard-capture-loop.md`
 - `docs/standards/index.md`
 - `docs/index.md`
 - `AGENTS.md`

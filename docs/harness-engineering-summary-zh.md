@@ -563,6 +563,48 @@ agent 可以自己运行 deterministic checks，但重要成果最好有独立 r
 2. 再做小脚本和 adapter。
 3. 只有当任务需要长时间运行、异步事件、crash recovery、调度或复杂 human approval 时，才引入 durable runtime。
 
+### 第十步：把纠错转成项目标准
+
+这是本项目在真实协作中沉淀出的一个重点方法论。
+
+AI agent 的失败不只来自代码错误，也来自过程错误：没有主动测试、没有验证真实用户路径、没有提交、没有更新演进记录、把规范放错目录，等等。
+
+如果这些问题只停留在聊天里，下一次 agent 还会重复犯错。
+
+因此，一个成熟的 harness 项目应该有标准捕获循环：
+
+```text
+observe correction -> classify lesson -> choose canonical surface ->
+update standard -> verify discoverability -> commit -> cite in evolution
+```
+
+中文可以理解为：
+
+```text
+发现纠错 -> 判断是否可复用 -> 选择规范归属面 ->
+更新标准 -> 验证可发现性 -> 提交 -> 写入演进
+```
+
+这里的“规范”不一定只属于 `harness/`。它可能是：
+
+- harness 交付规范
+- 目录结构规范
+- 文档归档规范
+- eval / checklist 规范
+- lab 项目实现规范
+- agent 运行时规范
+- 阶段性演进方法论
+
+本项目因此新增了 `docs/standards/`，用于承接跨越多个目录的项目标准；同时保留 `harness/`、`evals/`、`docs/patterns/`、`docs/evolution/`、`decisions/` 各自的职责边界。
+
+这个方法论的核心不是“多写文档”，而是：
+
+```text
+fix the issue + teach the project how not to repeat it
+```
+
+也就是：解决当前问题，同时让项目系统学会避免下一次重复发生。
+
 ## 一个最小可行 Harness Checklist
 
 如果要判断一个项目是否具备最小 harness，可以问：
@@ -579,6 +621,8 @@ agent 可以自己运行 deterministic checks，但重要成果最好有独立 r
 - 重要成果是否有独立 review？
 - 阶段性学习是否进入 evolution log？
 - 决策是否进入 ADR？
+- 用户纠错、review 发现、失败运行是否被判断为可复用标准？
+- 新标准是否放到了未来 agent 能发现的规范面？
 
 如果这些问题大部分答案是否定的，那么问题通常不是模型，而是 harness。
 
@@ -663,3 +707,4 @@ Harness 工程的核心不是让 agent 更自由，
 4. context 是有限预算，文件系统和 git 才是可靠记忆。
 5. 好的 harness 会让 agent 可控、可恢复、可验证、可评估。
 6. 在真实项目中，harness 应该从目录、文档、状态、验证、实验和演进记录开始，而不是从写工具开始。
+7. 高质量协作会把用户纠错转成项目标准：修复当前问题，同时教会项目避免未来重复犯错。

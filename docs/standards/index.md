@@ -57,5 +57,7 @@ wording, or consistency, while the lead agent owns the final integration.
 Some standards live in this directory. Others live in the more specific
 canonical surface that owns the behavior.
 
+- `docs/patterns/standard-capture-loop.md`: high-priority method for deciding
+  when and where reusable lessons become standards.
 - `harness/agent-delivery-contract.md`: delivery, verification, commit, and
   evidence expectations for lab and harness work.

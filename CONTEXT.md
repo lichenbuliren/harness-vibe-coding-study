@@ -88,6 +88,8 @@ when a new practice has been validated or rejected.
   user-facing verification, commits, and durable evidence.
 - `docs/standards/`: cross-cutting standards that future agents should treat as
   reusable project rules.
+- `docs/patterns/standard-capture-loop.md`: high-priority methodology for
+  turning meaningful corrections and failed runs into project standards.
 - `harness/evals-observability.md`: eval, trace, grader, and regression-gate
   practices.
 - `harness/benchmarks.md`: benchmark taxonomy and interpretation rules.
