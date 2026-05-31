@@ -4,16 +4,27 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react'
-import { ChefHat, Dice5, Sparkles, Utensils } from 'lucide-react'
+import {
+  ChefHat,
+  Dice5,
+  LoaderCircle,
+  Sparkles,
+  ThumbsDown,
+  ThumbsUp,
+  Utensils,
+} from 'lucide-react'
 import { Button, DishCard, Input, Panel, TagSelect } from './components/ui'
 import {
+  applyDishFeedback,
   createDish,
   dishTags,
   pickRandomDish,
   tagLabels,
   type Dish,
+  type DishFeedback,
   type DishTag,
 } from './lib/dishes'
 import {
@@ -23,12 +34,17 @@ import {
   saveLatestPickId,
 } from './lib/storage'
 
+const drawDurationMs = 700
+
 function App() {
   const [dishes, setDishes] = useState<Dish[]>(() => loadDishes())
   const [latestPickId, setLatestPickId] = useState<string | null>(() =>
     loadLatestPickId(),
   )
   const [drawCount, setDrawCount] = useState(0)
+  const [isDrawing, setIsDrawing] = useState(false)
+  const [statusMessage, setStatusMessage] = useState<string | null>(null)
+  const drawTimerRef = useRef<number | null>(null)
 
   const latestPick = useMemo(
     () => dishes.find((dish) => dish.id === latestPickId) ?? null,
@@ -47,16 +63,81 @@ function App() {
     setDishes((current) => [dish, ...current])
   }, [])
 
+  const finishDraw = useCallback(
+    (excludeDishId?: string) => {
+      const pick = pickRandomDish(dishes, Math.random, { excludeDishId })
+
+      if (!pick) {
+        setIsDrawing(false)
+        return
+      }
+
+      setLatestPickId(pick.id)
+      setDrawCount((count) => count + 1)
+      setIsDrawing(false)
+    },
+    [dishes],
+  )
+
+  const startDraw = useCallback(
+    (excludeDishId?: string) => {
+      if (dishes.length === 0 || isDrawing) {
+        return
+      }
+
+      if (drawTimerRef.current !== null) {
+        window.clearTimeout(drawTimerRef.current)
+      }
+
+      setStatusMessage(null)
+      setIsDrawing(true)
+      drawTimerRef.current = window.setTimeout(() => {
+        finishDraw(excludeDishId)
+        drawTimerRef.current = null
+      }, drawDurationMs)
+    },
+    [dishes.length, finishDraw, isDrawing],
+  )
+
   const handleDraw = useCallback(() => {
-    const pick = pickRandomDish(dishes)
+    startDraw()
+  }, [startDraw])
 
-    if (!pick) {
-      return
+  const handleFeedback = useCallback(
+    (feedback: DishFeedback) => {
+      if (!latestPick || isDrawing) {
+        return
+      }
+
+      setDishes((current) =>
+        current.map((dish) =>
+          dish.id === latestPick.id ? applyDishFeedback(dish, feedback) : dish,
+        ),
+      )
+
+      if (feedback === 'liked') {
+        setStatusMessage('已记住：想吃')
+        return
+      }
+
+      const hasAlternative = dishes.some((dish) => dish.id !== latestPick.id)
+      if (!hasAlternative) {
+        setStatusMessage('池子里暂时没有别的选择')
+        return
+      }
+
+      startDraw(latestPick.id)
+    },
+    [dishes, isDrawing, latestPick, startDraw],
+  )
+
+  useEffect(() => {
+    return () => {
+      if (drawTimerRef.current !== null) {
+        window.clearTimeout(drawTimerRef.current)
+      }
     }
-
-    setLatestPickId(pick.id)
-    setDrawCount((count) => count + 1)
-  }, [dishes])
+  }, [])
 
   const handleDeleteDish = useCallback((dishId: string) => {
     setDishes((current) => current.filter((dish) => dish.id !== dishId))
@@ -90,8 +171,11 @@ function App() {
             <DrawPanel
               dishCount={dishes.length}
               drawCount={drawCount}
+              isDrawing={isDrawing}
               latestPick={latestPick}
               onDraw={handleDraw}
+              onFeedback={handleFeedback}
+              statusMessage={statusMessage}
             />
             <AddDishPanel onAddDish={handleAddDish} />
             <DishPool dishes={dishes} onDeleteDish={handleDeleteDish} />
@@ -107,15 +191,21 @@ export default App
 type DrawPanelProps = {
   dishCount: number
   drawCount: number
+  isDrawing: boolean
   latestPick: Dish | null
   onDraw: () => void
+  onFeedback: (feedback: DishFeedback) => void
+  statusMessage: string | null
 }
 
 const DrawPanel = memo(function DrawPanel({
   dishCount,
   drawCount,
+  isDrawing,
   latestPick,
   onDraw,
+  onFeedback,
+  statusMessage,
 }: DrawPanelProps) {
   return (
     <Panel className="relative overflow-hidden !bg-[#102a43] !text-white">
@@ -127,11 +217,19 @@ const DrawPanel = memo(function DrawPanel({
           今日抽签
         </p>
         <div
-          key={latestPick?.id ?? drawCount}
-          className="mt-5 min-h-28 rounded-[24px] border border-white/12 bg-[#081b2f]/58 p-4 animate-[reveal_360ms_ease-out]"
+          key={isDrawing ? 'drawing' : (latestPick?.id ?? drawCount)}
+          className="draw-result-enter mt-5 min-h-28 rounded-[24px] border border-white/12 bg-[#081b2f]/58 p-4"
           aria-live="polite"
         >
-          {latestPick ? (
+          {isDrawing ? (
+            <div className="flex min-h-20 flex-col items-center justify-center gap-3 text-center">
+              <LoaderCircle
+                className="animate-spin text-[#f9c74f]"
+                size={28}
+              />
+              <p className="text-sm font-black text-white">重新抽签中</p>
+            </div>
+          ) : latestPick ? (
             <>
               <p className="text-sm font-bold text-white/70">今天就吃</p>
               <h2 className="mt-2 break-words text-4xl font-black leading-tight">
@@ -150,10 +248,37 @@ const DrawPanel = memo(function DrawPanel({
             </div>
           )}
         </div>
+        {latestPick && !isDrawing ? (
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => onFeedback('liked')}
+              className="px-3"
+            >
+              <ThumbsUp size={18} />
+              想吃
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => onFeedback('rejected')}
+              className="px-3"
+            >
+              <ThumbsDown size={18} />
+              不想吃
+            </Button>
+          </div>
+        ) : null}
+        {statusMessage ? (
+          <p className="mt-3 text-center text-sm font-bold text-[#f9c74f]">
+            {statusMessage}
+          </p>
+        ) : null}
         <Button
           type="button"
           onClick={onDraw}
-          disabled={dishCount === 0}
+          disabled={dishCount === 0 || isDrawing}
           className="mt-4 w-full text-base"
         >
           <Dice5 size={20} />
