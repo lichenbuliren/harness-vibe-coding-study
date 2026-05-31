@@ -80,6 +80,8 @@ when a new practice has been validated or rejected.
 - Enter Phase 3C after the Dinner Picker lab produced MVP evidence, mobile
   feedback evidence, standard-capture evidence, and reusable process-gap
   findings.
+- Use a conservative project-template skeleton as the first reusable package;
+  public skills remain future candidates until separately evaluated.
 
 ## Current Artifacts
 
@@ -117,3 +119,5 @@ when a new practice has been validated or rejected.
 - `experiments/reports/2026-05-31-dinner-picker-feedback-redraw.md`: experiment
   report for converting subjective UX feedback into verified behavior.
 - `docs/harness-engineering-summary-zh.md`: Chinese share-oriented summary.
+- `templates/agent-first-living-lab/`: template-safe skeleton extracted during
+  Phase 3C.

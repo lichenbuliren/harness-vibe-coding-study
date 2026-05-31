@@ -25,6 +25,7 @@ navigate the repository, act within clear boundaries, and record evidence.
 - `evals/`: rubrics, checklists, and quality gates.
 - `lab/`: real validation project used to test the methodology.
 - `decisions/`: concise ADR-style decision records.
+- `templates/`: reusable skeletons extracted from validated project evidence.
 
 ## Operating Rules
 

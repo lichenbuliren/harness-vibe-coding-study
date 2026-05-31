@@ -18,6 +18,10 @@
 - `evolution/`: stage-level narrative records and shareable lessons.
 - `superpowers/`: specs and plans created through the Superpowers workflow.
 
+## Reuse Surfaces
+
+- `../templates/`: reusable skeletons extracted during Phase 3C.
+
 ## Placement Rule
 
 - Put durable beliefs in `principles/`.
