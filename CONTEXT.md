@@ -70,6 +70,9 @@ when a new practice has been validated or rejected.
   project stabilizes through lab validation.
 - Use `lab/dinner-picker` as the first real validation project for testing the
   harness methodology against React + TypeScript app work.
+- Treat user-corrected agent mistakes as potential harness evidence; reusable
+  process gaps should update the canonical project contract, not remain only in
+  chat.
 
 ## Current Artifacts
 

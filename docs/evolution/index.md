@@ -31,3 +31,4 @@ Each entry should explain:
 - `0011-first-lab-project-dinner-picker.md`
 - `0012-mobile-lan-validation-gap.md`
 - `0013-feedback-driven-recommendation-loop.md`
+- `0014-user-corrected-process-gaps.md`

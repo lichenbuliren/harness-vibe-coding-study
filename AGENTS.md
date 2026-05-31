@@ -39,6 +39,11 @@ navigate the repository, act within clear boundaries, and record evidence.
   a later decision record and implementation plan retire this restriction.
 - Preserve existing user-authored notes unless a task explicitly asks to replace
   them.
+- When the user points out an agent mistake, omission, weak verification, or
+  process gap, do not only acknowledge it. Decide whether it reveals a reusable
+  harness lesson. If it does, update the appropriate project contract under
+  `harness/`, `evals/`, `docs/evolution/`, or `AGENTS.md` before closing the
+  task.
 
 ## Verification Requirements
 
@@ -61,6 +66,7 @@ A stage-level outcome includes:
 - a completed experiment
 - a meaningful lab milestone
 - a reusable pattern or workflow being validated
+- a user-corrected agent failure that becomes a reusable harness rule
 - a public-shareable learning
 
 Do not record every small edit. Record the method used, the questions asked, the

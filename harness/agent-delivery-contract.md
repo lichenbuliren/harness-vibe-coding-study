@@ -101,6 +101,35 @@ The record should explain:
 - gaps or risks
 - reusable lesson
 
+## Self-Correction Capture
+
+When the user points out an agent mistake, missed verification step, weak
+handoff, poor assumption, or process gap, the agent must treat that feedback as
+potential harness evidence.
+
+The agent should ask itself:
+
+- Is this only a one-off execution mistake?
+- Or does this reveal a reusable rule future agents should follow?
+- Which contract should future agents read before repeating this mistake?
+
+If the feedback reveals a reusable rule, update the right durable surface:
+
+- `AGENTS.md` for runtime behavior every future agent must follow
+- `harness/` for project-local methodology or delivery contracts
+- `evals/` for checklists, rubrics, or quality gates
+- `docs/evolution/` for stage-level narrative learning
+- `harness/runs/` for task-specific evidence and traceability
+
+The default response to user-corrected process failures should be:
+
+```text
+acknowledge -> classify reusable lesson -> update canonical contract -> verify -> commit
+```
+
+Do not wait for the user to explicitly say "update the harness docs" when the
+lesson is clearly reusable.
+
 ## Minimum Evidence By Change Type
 
 | Change Type | Minimum Evidence |
@@ -112,6 +141,7 @@ The record should explain:
 | Phone/LAN path | LAN URL check and origin/security-context note |
 | Performance feedback | user-facing path check plus explicit performance criterion |
 | Harness methodology | updated `harness/` doc plus evolution note when stage-level |
+| User-corrected agent process gap | classify reusable lesson, update canonical contract, commit |
 
 ## Final Report Requirements
 
@@ -133,3 +163,5 @@ If verification was not run, say that plainly and do not imply completion.
 - doing browser verification but not recording the URL or viewport
 - updating run records but not the reusable harness rule
 - leaving stage-level learning only in chat
+- waiting for the user to repeatedly remind the agent to codify the same class
+  of process failure
