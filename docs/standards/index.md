@@ -62,6 +62,8 @@ integrated or rejected.
 Some standards live in this directory. Others live in the more specific
 canonical surface that owns the behavior.
 
+- `docs/standards/mainline-continuity.md`: standard for returning to the
+  project mainline after side quests, corrections, and stage-level subtasks.
 - `docs/patterns/standard-capture-loop.md`: high-priority method for deciding
   when and where reusable lessons become standards.
 - `harness/agent-delivery-contract.md`: delivery, verification, commit, and

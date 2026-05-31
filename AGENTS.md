@@ -55,6 +55,11 @@ navigate the repository, act within clear boundaries, and record evidence.
   reasoning, and reports consume additional token budget. After a subagent has
   reported and the lead agent has integrated or rejected the result, close the
   subagent promptly instead of relying on implicit cleanup.
+- Preserve mainline continuity in long conversations. After completing a
+  meaningful subtask, correction loop, or side exploration, return to
+  `CONTEXT.md`, the active workflow plan, and recent `docs/evolution/` entries
+  to state where the project now is and what the next mainline step should be.
+  Do not let local fixes silently redefine the project direction.
 
 ## Verification Requirements
 

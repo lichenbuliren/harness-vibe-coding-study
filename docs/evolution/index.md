@@ -36,3 +36,4 @@ Each entry should explain:
 - `0016-standard-capture-loop-methodology.md`
 - `0017-subagent-lifecycle-cost-control.md`
 - `0018-phase-3c-pattern-extraction-start.md`
+- `0019-mainline-continuity-standard.md`

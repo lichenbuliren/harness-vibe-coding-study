@@ -101,6 +101,24 @@ The record should explain:
 - gaps or risks
 - reusable lesson
 
+### 6. Return To The Mainline
+
+After a meaningful subtask, correction loop, side exploration, or generated
+artifact, re-anchor the project before moving on.
+
+Use the continuity check:
+
+```text
+larger goal -> local work completed -> current project position ->
+next mainline step
+```
+
+This prevents useful detours from silently becoming the project direction.
+
+For small tasks, the final response can carry the check. For phase transitions
+or stage-level learning, update `CONTEXT.md`, `README.md`, `docs/evolution/`,
+or the relevant workflow/standard.
+
 ## Self-Correction Capture
 
 When the user points out an agent mistake, missed verification step, weak
@@ -173,6 +191,7 @@ closure keeps coordination state small and makes token and context cost visible.
 | Harness methodology | updated `harness/` doc plus evolution note when stage-level |
 | User-corrected agent process gap | classify reusable standard, update canonical contract, commit |
 | Subagent usage standard | document delegation reason, integrate result, close completed subagent |
+| Long conversation or side exploration | mainline continuity check and entry-doc update if phase changed |
 
 ## Final Report Requirements
 
@@ -194,6 +213,7 @@ If verification was not run, say that plainly and do not imply completion.
 - doing browser verification but not recording the URL or viewport
 - updating run records but not the reusable harness rule
 - leaving stage-level learning only in chat
+- completing a side task without returning to the larger project direction
 - waiting for the user to repeatedly remind the agent to codify the same class
   of process failure
 - leaving completed subagents open after their result has already been
