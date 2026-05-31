@@ -133,6 +133,33 @@ acknowledge -> classify reusable lesson -> update canonical contract -> verify -
 Do not wait for the user to explicitly say "update the docs" or "update the
 harness docs" when the lesson is clearly reusable.
 
+## Subagent Lifecycle And Cost Control
+
+Subagents are useful for independent review, parallel exploration, and bounded
+work that benefits from a separate context. They also consume additional token
+budget through task prompts, inherited context, file reading, reasoning, and
+final reports.
+
+Use subagents when they materially improve one of these:
+
+- speed through true parallelism
+- quality through independent review
+- safety through separation of concerns
+- coverage across multiple documentation or code surfaces
+
+Do not use subagents for trivial lookups, work that blocks the immediate next
+step, or tasks the lead agent must redo to trust.
+
+The lead agent owns the lifecycle:
+
+1. Give each subagent a bounded task and clear expected output.
+2. Continue useful non-overlapping work while the subagent runs.
+3. Integrate, reject, or summarize the result explicitly.
+4. Close the subagent once its output is no longer needed.
+
+Do not rely on implicit platform cleanup as the project standard. Explicit
+closure keeps coordination state small and makes token and context cost visible.
+
 ## Minimum Evidence By Change Type
 
 | Change Type | Minimum Evidence |
@@ -145,6 +172,7 @@ harness docs" when the lesson is clearly reusable.
 | Performance feedback | user-facing path check plus explicit performance criterion |
 | Harness methodology | updated `harness/` doc plus evolution note when stage-level |
 | User-corrected agent process gap | classify reusable standard, update canonical contract, commit |
+| Subagent usage standard | document delegation reason, integrate result, close completed subagent |
 
 ## Final Report Requirements
 
@@ -168,3 +196,5 @@ If verification was not run, say that plainly and do not imply completion.
 - leaving stage-level learning only in chat
 - waiting for the user to repeatedly remind the agent to codify the same class
   of process failure
+- leaving completed subagents open after their result has already been
+  integrated

@@ -50,6 +50,11 @@ navigate the repository, act within clear boundaries, and record evidence.
   consider subagents for parallel review. If an optional skill is not available
   in the current environment, point to the relevant install note under
   `docs/tools/` and continue with the closest lightweight fallback.
+- Use subagents only for bounded work that materially improves speed, quality,
+  or independent review. Subagents are not free: their context, exploration,
+  reasoning, and reports consume additional token budget. After a subagent has
+  reported and the lead agent has integrated or rejected the result, close the
+  subagent promptly instead of relying on implicit cleanup.
 
 ## Verification Requirements
 

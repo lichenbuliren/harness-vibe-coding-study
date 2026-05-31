@@ -53,6 +53,9 @@ not installed or exposed in the current environment, the agent should point to
 `docs/tools/grill-me.md` and continue with a lightweight fallback. For larger or
 cross-cutting standard changes, the agent may use subagents to review placement,
 wording, or consistency, while the lead agent owns the final integration.
+Because subagents consume their own token budget and coordination context, the
+lead agent should close completed subagents after their results have been
+integrated or rejected.
 
 ## Standards Registry
 
@@ -62,4 +65,5 @@ canonical surface that owns the behavior.
 - `docs/patterns/standard-capture-loop.md`: high-priority method for deciding
   when and where reusable lessons become standards.
 - `harness/agent-delivery-contract.md`: delivery, verification, commit, and
-  evidence expectations for lab and harness work.
+  evidence expectations for lab and harness work, including subagent lifecycle
+  and cost control.

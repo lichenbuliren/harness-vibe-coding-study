@@ -34,3 +34,4 @@ Each entry should explain:
 - `0014-user-corrected-process-gaps.md`
 - `0015-project-standards-capture.md`
 - `0016-standard-capture-loop-methodology.md`
+- `0017-subagent-lifecycle-cost-control.md`
