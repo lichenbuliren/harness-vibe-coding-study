@@ -69,8 +69,8 @@ no remaining {{PLACEHOLDER}} tokens
 ## Remaining Risks
 
 - This was a file-level initialization test, not a full independent agent run.
-- Placeholder replacement is still manual.
-- No generator script exists yet.
+- Placeholder replacement was manual during this validation.
+- No initialization helper existed during this validation.
 - Optional packs are documented but not packaged.
 - The template has not yet been tested in a fresh git repository with a real
   first lab task.

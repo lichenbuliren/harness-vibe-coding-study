@@ -46,3 +46,4 @@ Each entry should explain:
 - `0026-agent-first-living-lab-template-skeleton.md`
 - `0027-template-skeleton-throwaway-validation.md`
 - `0028-phase-3c-pattern-extraction-retrospective.md`
+- `0029-template-initialization-hardening.md`

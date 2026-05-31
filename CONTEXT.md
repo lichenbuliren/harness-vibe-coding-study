@@ -125,6 +125,10 @@ when a new practice has been validated or rejected.
 - `docs/harness-engineering-summary-zh.md`: Chinese share-oriented summary.
 - `templates/agent-first-living-lab/`: template-safe skeleton extracted during
   Phase 3C.
+- `templates/agent-first-living-lab/INITIALIZE.md` and `init-template.sh`:
+  repeatable initialization guide and thin helper for the template skeleton.
 - `docs/workflows/template-skeleton-throwaway-validation.md`: validation report
   showing the template skeleton can initialize a temporary project and create
   first evidence records.
+- `docs/workflows/template-initialization-validation.md`: fresh git repository
+  validation for the initialization helper.

@@ -19,3 +19,7 @@ updates.
   is ready to become a real template.
 - `template-skeleton-throwaway-validation.md`: validation report from
   initializing a temporary project from the template skeleton.
+- `template-initialization-hardening.md`: guide and checklist for making
+  template initialization repeatable without overbuilding a generator.
+- `template-initialization-validation.md`: fresh git repository validation for
+  the template initialization helper.

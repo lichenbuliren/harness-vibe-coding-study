@@ -5,7 +5,8 @@ Lab project.
 
 ## Customize First
 
-Replace placeholders such as:
+Use `INITIALIZE.md` or run `init-template.sh` to replace core placeholders such
+as:
 
 - `{{PROJECT_NAME}}`
 - `{{PROJECT_INTENT}}`
@@ -34,7 +35,7 @@ Replace placeholders such as:
 
 After copying this skeleton into a new project:
 
-1. Replace placeholders.
+1. Replace core placeholders with `bash init-template.sh ...`.
 2. Remove unused optional guidance.
 3. Create the first project-specific decision record.
 4. Create the first evolution entry only after a real stage outcome.
