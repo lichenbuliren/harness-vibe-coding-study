@@ -17,3 +17,5 @@ updates.
   reusable Agent-First Living Lab template skeleton.
 - `template-skeleton-dry-run-review.md`: dry-run review of whether the skeleton
   is ready to become a real template.
+- `template-skeleton-throwaway-validation.md`: validation report from
+  initializing a temporary project from the template skeleton.

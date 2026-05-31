@@ -44,3 +44,4 @@ Each entry should explain:
 - `0024-minimum-template-skeleton-design.md`
 - `0025-template-skeleton-dry-run-review.md`
 - `0026-agent-first-living-lab-template-skeleton.md`
+- `0027-template-skeleton-throwaway-validation.md`
