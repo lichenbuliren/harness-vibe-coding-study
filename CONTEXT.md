@@ -94,6 +94,10 @@ when a new practice has been validated or rejected.
   samples for testing harness behavior.
 - `lab/dinner-picker/`: first real lab validation app.
 - `harness/runs/2026-05-31-dinner-picker-mvp.md`: first lab run record.
+- `harness/runs/2026-05-31-dinner-picker-feedback-redraw.md`: lab run record
+  for feedback-driven recommendation behavior.
 - `experiments/reports/2026-05-31-dinner-picker-mvp.md`: first lab experiment
   report.
+- `experiments/reports/2026-05-31-dinner-picker-feedback-redraw.md`: experiment
+  report for converting subjective UX feedback into verified behavior.
 - `docs/harness-engineering-summary-zh.md`: Chinese share-oriented summary.
