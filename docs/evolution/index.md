@@ -49,3 +49,4 @@ Each entry should explain:
 - `0029-template-initialization-hardening.md`
 - `0030-template-target-conflict-hardening.md`
 - `0031-template-script-validation-gap.md`
+- `0032-independent-small-airplane-validation-project.md`
