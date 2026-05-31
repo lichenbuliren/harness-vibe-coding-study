@@ -42,3 +42,4 @@ Each entry should explain:
 - `0022-default-agent-role-set.md`
 - `0023-template-skill-playbook-reuse-decision.md`
 - `0024-minimum-template-skeleton-design.md`
+- `0025-template-skeleton-dry-run-review.md`

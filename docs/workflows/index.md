@@ -15,3 +15,5 @@ updates.
   pattern extraction in validated lab work.
 - `minimum-project-template-skeleton.md`: Phase 3C design for the smallest
   reusable Agent-First Living Lab template skeleton.
+- `template-skeleton-dry-run-review.md`: dry-run review of whether the skeleton
+  is ready to become a real template.
