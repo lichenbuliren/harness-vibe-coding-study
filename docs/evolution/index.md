@@ -45,3 +45,4 @@ Each entry should explain:
 - `0025-template-skeleton-dry-run-review.md`
 - `0026-agent-first-living-lab-template-skeleton.md`
 - `0027-template-skeleton-throwaway-validation.md`
+- `0028-phase-3c-pattern-extraction-retrospective.md`

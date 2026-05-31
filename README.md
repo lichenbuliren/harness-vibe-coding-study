@@ -16,16 +16,18 @@ shareable.
 
 ## Current Phase
 
-The project is in Phase 3C: pattern extraction.
+The project has completed the Phase 3C pattern-extraction deliverable.
 
 Core harness engineering study is complete, and `lab/dinner-picker` has
 validated the methodology through real React + TypeScript app work, mobile
 feedback, browser verification, run records, experiment reports, and standard
 capture.
 
-The current learning step is to review the Phase 3B evidence and decide what
-should become reusable patterns, a project template, a public skill, playbooks,
-or local standards.
+Phase 3C extracted that evidence into a conservative reuse strategy and a
+checked-in Agent-First Living Lab template skeleton under
+`templates/agent-first-living-lab/`. The skeleton passed a throwaway
+initialization validation, but it is not yet a released generator or public
+skill package.
 
 ## How To Read This Repository
 
@@ -39,3 +41,4 @@ or local standards.
 - Use `lab/` for the real validation project.
 - Use `decisions/` for concise decision records.
 - Use `docs/evolution/` for stage-level narrative records and shareable lessons.
+- Use `templates/` for reusable skeletons extracted from validated evidence.

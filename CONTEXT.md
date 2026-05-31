@@ -10,13 +10,17 @@ Agent-First Living Lab structure.
 
 ## Current Phase
 
-Phase 3C - Pattern Extraction.
+Phase 3C - Pattern Extraction deliverable complete.
 
 The core learning pass over `walkinglabs/awesome-harness-engineering` is
 complete, and Phase 3B validated the methodology through the first real lab
-project: `lab/dinner-picker`. The current focus is to review what survived real
-work, extract reusable patterns, and decide which parts should become a project
-template, public skill, playbook, or local standard.
+project: `lab/dinner-picker`.
+
+Phase 3C has produced an evidence map, reuse strategy decision, minimum
+template skeleton design, checked-in `templates/agent-first-living-lab/`
+skeleton, and throwaway initialization validation. The current follow-up space
+is optional-pack design, generator design, independent fresh-repo validation,
+or future skill-candidate evals.
 
 ## Key Terms
 
@@ -121,3 +125,6 @@ when a new practice has been validated or rejected.
 - `docs/harness-engineering-summary-zh.md`: Chinese share-oriented summary.
 - `templates/agent-first-living-lab/`: template-safe skeleton extracted during
   Phase 3C.
+- `docs/workflows/template-skeleton-throwaway-validation.md`: validation report
+  showing the template skeleton can initialize a temporary project and create
+  first evidence records.
