@@ -5,6 +5,10 @@ A run record is the durable evidence package for an AI-agent task.
 It should be detailed enough for a future agent or human reviewer to understand
 what happened without replaying the full chat transcript.
 
+Run records should follow `harness/agent-delivery-contract.md`: meaningful
+completed work needs tested behavior, inspected output, user-facing verification
+when relevant, commits, and durable evidence.
+
 ## When To Write One
 
 Write a run record when a task is:
@@ -95,6 +99,16 @@ Record the exact checks used:
 - relevant output summary
 - known gaps
 
+For UI, mobile, browser, LAN, or runtime-sensitive work, also record the
+user-facing path:
+
+- URL or origin tested
+- viewport or device assumptions
+- action sequence
+- visible result
+- layout overflow or browser error observations
+- whether the tested path matches the user's expected path
+
 ### Evaluation
 
 Score the run against the active rubric:
@@ -174,4 +188,3 @@ A good run record lets a future reader answer:
 - How was it verified?
 - What evidence exists?
 - What should happen next?
-

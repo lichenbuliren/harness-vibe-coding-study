@@ -9,6 +9,8 @@ verification evidence, issues observed, and follow-up decisions.
 
 - `run-record-schema.md`: required sections, template, and quality bar for
   durable AI-agent run records.
+- `../agent-delivery-contract.md`: minimum delivery loop before claiming a lab
+  or harness task is complete.
 
 ## Run Records
 
@@ -19,3 +21,6 @@ verification evidence, issues observed, and follow-up decisions.
   state-feedback improvement.
 - `2026-05-31-dinner-picker-input-responsiveness.md`: input responsiveness
   optimization and performance-checklist learning.
+- `2026-05-31-dinner-picker-feedback-redraw.md`: feedback-driven
+  recommendation loop with tests, browser verification, and mobile viewport
+  evidence.

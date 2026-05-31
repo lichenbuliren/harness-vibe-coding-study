@@ -63,13 +63,16 @@ Evidence examples:
 Question: Did the agent verify before claiming completion?
 
 - `0`: no verification
-- `1`: partial verification or uninspected output
-- `2`: appropriate checks run, output inspected, gaps reported
+- `1`: partial verification, uninspected output, or missing user-facing path
+  check
+- `2`: appropriate checks run, output inspected, user-facing path verified when
+  relevant, gaps reported
 
 Evidence examples:
 
 - commands run
 - test output summary
+- browser, mobile, LAN, or runtime path observations
 - known not-tested items
 
 ### 5. Recoverability
@@ -128,4 +131,3 @@ Maximum score: 14.
 
 Use the score as a diagnosis, not a vanity metric. The most important output is
 the evidence and follow-up changes.
-

@@ -79,6 +79,8 @@ when a new practice has been validated or rejected.
 - `harness/guardrails-safe-autonomy.md`: safe-autonomy boundaries and verifier
   gates.
 - `harness/specs-agent-workflows.md`: spec lifecycle and workflow state model.
+- `harness/agent-delivery-contract.md`: minimum delivery loop for testing,
+  user-facing verification, commits, and durable evidence.
 - `harness/evals-observability.md`: eval, trace, grader, and regression-gate
   practices.
 - `harness/benchmarks.md`: benchmark taxonomy and interpretation rules.
