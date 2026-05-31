@@ -29,7 +29,9 @@ schema, local eval rubric, and experiment reports.
 
 - Start with `CONTEXT.md` for project intent and current assumptions.
 - Read `AGENTS.md` for agent operating rules.
-- Use `docs/` for methodology and tool notes.
+- Use `docs/` for methodology, standards, and tool notes.
+- Use `docs/standards/` for cross-cutting project standards future agents
+  should follow.
 - Use `agents/` for agent roles, playbooks, and handoffs.
 - Use `harness/`, `experiments/`, and `evals/` for research and validation.
 - Use `lab/` for the real validation project.

@@ -160,6 +160,7 @@ Use for:
 - `CONTEXT.md`: current project phase and long-term assumptions
 - `AGENTS.md`: root operating contract
 - `docs/evolution/`: stage-level narrative learning
+- `docs/standards/`: cross-cutting project standards
 - `decisions/`: concise decision records
 - `harness/`: harness methodology and engineering guidance
 - `experiments/`: what was tried and what happened
@@ -286,6 +287,7 @@ Avoid:
 Put specialized guidance in focused files:
 
 - harness methodology in `harness/`
+- cross-cutting project standards in `docs/standards/`
 - agent roles and handoffs in `agents/`
 - quality gates in `evals/`
 - experiment records in `experiments/`
@@ -293,8 +295,9 @@ Put specialized guidance in focused files:
 - stage learning in `docs/evolution/`
 
 Do not use root instructions as a hotfix bucket. If an agent behavior problem
-appears, first decide whether it belongs in a reusable harness doc, an eval
-checklist, a local directory rule, or a one-off task instruction.
+appears, first decide whether it belongs in `docs/standards/`, a reusable
+harness doc, an eval checklist, a local directory rule, or a one-off task
+instruction.
 
 ## Context Loading Modes
 

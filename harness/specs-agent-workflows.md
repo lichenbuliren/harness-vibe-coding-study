@@ -252,6 +252,7 @@ Use this repository map:
 - `CONTEXT.md`: current phase, terms, assumptions, and durable memory
 - `docs/superpowers/specs/`: design specs created through brainstorming
 - `docs/superpowers/plans/`: implementation plans
+- `docs/standards/`: cross-cutting project standards
 - `harness/`: reusable harness methodology
 - `agents/`: roles, playbooks, handoffs
 - `evals/`: validation criteria and checklists

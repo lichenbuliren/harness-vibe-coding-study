@@ -105,17 +105,20 @@ The record should explain:
 
 When the user points out an agent mistake, missed verification step, weak
 handoff, poor assumption, or process gap, the agent must treat that feedback as
-potential harness evidence.
+potential project-standard evidence. It may become a harness rule, but it may
+also become a directory standard, documentation standard, eval standard, lab
+standard, or agent operating rule.
 
 The agent should ask itself:
 
 - Is this only a one-off execution mistake?
-- Or does this reveal a reusable rule future agents should follow?
+- Or does this reveal a reusable standard future agents should follow?
 - Which contract should future agents read before repeating this mistake?
 
 If the feedback reveals a reusable rule, update the right durable surface:
 
 - `AGENTS.md` for runtime behavior every future agent must follow
+- `docs/standards/` for cross-cutting project standards
 - `harness/` for project-local methodology or delivery contracts
 - `evals/` for checklists, rubrics, or quality gates
 - `docs/evolution/` for stage-level narrative learning
@@ -127,8 +130,8 @@ The default response to user-corrected process failures should be:
 acknowledge -> classify reusable lesson -> update canonical contract -> verify -> commit
 ```
 
-Do not wait for the user to explicitly say "update the harness docs" when the
-lesson is clearly reusable.
+Do not wait for the user to explicitly say "update the docs" or "update the
+harness docs" when the lesson is clearly reusable.
 
 ## Minimum Evidence By Change Type
 
@@ -141,7 +144,7 @@ lesson is clearly reusable.
 | Phone/LAN path | LAN URL check and origin/security-context note |
 | Performance feedback | user-facing path check plus explicit performance criterion |
 | Harness methodology | updated `harness/` doc plus evolution note when stage-level |
-| User-corrected agent process gap | classify reusable lesson, update canonical contract, commit |
+| User-corrected agent process gap | classify reusable standard, update canonical contract, commit |
 
 ## Final Report Requirements
 

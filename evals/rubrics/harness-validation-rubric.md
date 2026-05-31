@@ -105,7 +105,22 @@ Evidence examples:
 - `docs/evolution/` entry
 - linked artifacts
 
-### 7. Safety and Constraints
+### 7. Standards Capture
+
+Question: Did reusable rules get routed to the right canonical standard surface?
+
+- `0`: reusable process or structure lesson stayed only in chat
+- `1`: lesson was recorded, but placement or authority is ambiguous
+- `2`: reusable lesson was classified and recorded in `docs/standards/`,
+  `harness/`, `evals/`, `AGENTS.md`, or another appropriate canonical surface
+
+Evidence examples:
+
+- standard document update
+- updated index or artifact map
+- ADR or evolution note explaining placement
+
+### 8. Safety and Constraints
 
 Question: Did the agent respect boundaries?
 
@@ -122,10 +137,10 @@ Evidence examples:
 
 ## Interpreting Scores
 
-Maximum score: 14.
+Maximum score: 16.
 
-- `12-14`: strong harness support
-- `9-11`: usable but improvement needed
+- `14-16`: strong harness support
+- `11-13`: usable but improvement needed
 - `5-8`: weak harness support
 - `0-4`: harness failure or task mismatch
 

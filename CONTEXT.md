@@ -27,6 +27,8 @@ project under `lab/`. The first lab project is `lab/dinner-picker`.
 - **Lab**: the real validation project under `lab/`.
 - **Evolution log**: narrative stage records under `docs/evolution/`.
 - **Decision record**: concise ADR-style records under `decisions/`.
+- **Project standard**: reusable rule that future agents should follow across
+  harness, documentation, directory structure, lab work, or evaluation.
 
 ## Working Assumptions
 
@@ -70,9 +72,9 @@ when a new practice has been validated or rejected.
   project stabilizes through lab validation.
 - Use `lab/dinner-picker` as the first real validation project for testing the
   harness methodology against React + TypeScript app work.
-- Treat user-corrected agent mistakes as potential harness evidence; reusable
-  process gaps should update the canonical project contract, not remain only in
-  chat.
+- Treat user-corrected agent mistakes as potential project-standard evidence;
+  reusable process gaps should update the canonical project contract, not remain
+  only in chat.
 
 ## Current Artifacts
 
@@ -84,6 +86,8 @@ when a new practice has been validated or rejected.
 - `harness/specs-agent-workflows.md`: spec lifecycle and workflow state model.
 - `harness/agent-delivery-contract.md`: minimum delivery loop for testing,
   user-facing verification, commits, and durable evidence.
+- `docs/standards/`: cross-cutting standards that future agents should treat as
+  reusable project rules.
 - `harness/evals-observability.md`: eval, trace, grader, and regression-gate
   practices.
 - `harness/benchmarks.md`: benchmark taxonomy and interpretation rules.

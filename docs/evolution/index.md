@@ -32,3 +32,4 @@ Each entry should explain:
 - `0012-mobile-lan-validation-gap.md`
 - `0013-feedback-driven-recommendation-loop.md`
 - `0014-user-corrected-process-gaps.md`
+- `0015-project-standards-capture.md`

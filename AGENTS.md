@@ -41,9 +41,13 @@ navigate the repository, act within clear boundaries, and record evidence.
   them.
 - When the user points out an agent mistake, omission, weak verification, or
   process gap, do not only acknowledge it. Decide whether it reveals a reusable
-  harness lesson. If it does, update the appropriate project contract under
-  `harness/`, `evals/`, `docs/evolution/`, or `AGENTS.md` before closing the
-  task.
+  project standard. This may be a harness rule, directory rule, documentation
+  rule, evaluation rule, lab rule, or agent operating rule. If it does, update
+  the appropriate project contract under `docs/standards/`, `harness/`,
+  `evals/`, `docs/evolution/`, or `AGENTS.md` before closing the task.
+- When terminology is unclear or a standard crosses multiple documentation
+  surfaces, use documentation-sharpening skills such as `grill-with-docs` and
+  consider subagents for parallel review.
 
 ## Verification Requirements
 
@@ -67,6 +71,7 @@ A stage-level outcome includes:
 - a meaningful lab milestone
 - a reusable pattern or workflow being validated
 - a user-corrected agent failure that becomes a reusable harness rule
+- a new or revised cross-cutting project standard
 - a public-shareable learning
 
 Do not record every small edit. Record the method used, the questions asked, the
