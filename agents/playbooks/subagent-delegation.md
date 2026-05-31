@@ -16,6 +16,10 @@ Use a subagent when the work benefits from:
 Do not use a subagent for trivial lookups or work the main agent must fully redo
 to trust.
 
+Use `agents/roles/default-agent-roles.md` to choose the smallest useful
+specialist role. Review-oriented work should usually use a dedicated reviewer
+role because independent critique is the point of the task.
+
 ## Workflow
 
 1. Re-anchor the mainline.
@@ -41,6 +45,20 @@ Expected integration point:
 ```
 
 If the subtask cannot be connected to the mainline, do not delegate it.
+
+## Specialist Role Selection
+
+Common routing:
+
+- unclear requirement or PRD: Requirements / PRD Agent
+- bounded implementation: Coding Agent
+- plan or interaction risk: Design Review Agent
+- meaningful code diff: Code Review Agent
+- completion evidence risk: Verification Agent
+- durable docs or standards: Documentation Agent
+
+The main agent can combine roles across a task, but each delegation should have
+one primary role and one bounded output.
 
 ## Integration Decisions
 

@@ -263,6 +263,17 @@ Evidence:
 
 Reuse candidate: playbook, handoff template, and optional skill helper.
 
+### Default Specialist Agent Roles
+
+Evidence:
+
+- `agents/roles/default-agent-roles.md`
+- `agents/playbooks/subagent-delegation.md`
+- `docs/evolution/0022-default-agent-role-set.md`
+
+Reuse candidate: project-template default and role-selection guide for future
+agent-first repositories.
+
 ## Risks And Gaps
 
 - Some lab evidence is still manual or semi-manual; executable eval automation

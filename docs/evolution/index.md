@@ -39,3 +39,4 @@ Each entry should explain:
 - `0019-mainline-continuity-standard.md`
 - `0020-subagent-delegation-handoff-standard.md`
 - `0021-phase-3c-evidence-inventory.md`
+- `0022-default-agent-role-set.md`
