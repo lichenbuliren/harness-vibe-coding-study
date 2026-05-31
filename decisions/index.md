@@ -9,3 +9,4 @@ were rejected, and what future agents should avoid re-litigating.
 
 - `0001-adopt-agent-first-living-lab.md`
 - `0002-create-project-standards-surface.md`
+- `0003-template-skill-playbook-reuse-strategy.md`

@@ -40,3 +40,4 @@ Each entry should explain:
 - `0020-subagent-delegation-handoff-standard.md`
 - `0021-phase-3c-evidence-inventory.md`
 - `0022-default-agent-role-set.md`
+- `0023-template-skill-playbook-reuse-decision.md`
