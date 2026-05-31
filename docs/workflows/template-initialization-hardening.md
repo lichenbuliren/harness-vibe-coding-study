@@ -22,6 +22,7 @@ This workflow should produce:
 
 - an initialization guide inside the template
 - a thin helper script for core placeholder replacement
+- target-directory conflict protection
 - a verification checklist
 - a throwaway or fresh-repo validation result
 
@@ -68,13 +69,25 @@ These remain because they create future records.
 
 ## Initialization Steps
 
-1. Copy `templates/agent-first-living-lab/` into a new project.
-2. Run `bash init-template.sh ...` from the new project root.
-3. Inspect `README.md`, `CONTEXT.md`, and the initial ADR.
-4. Decide whether any optional packs are needed. Default to none.
-5. Run placeholder and leak checks.
-6. Create first records only after real work happens.
-7. Commit the initialized skeleton.
+1. Prefer `bash init-template.sh --target-dir <new-dir> ...` from the source
+   template directory.
+2. If copying manually, copy only into a nonexistent or empty directory.
+3. Run `bash init-template.sh ...` from the new project root only after the
+   copy is complete.
+4. Inspect `README.md`, `CONTEXT.md`, and the initial ADR.
+5. Decide whether any optional packs are needed. Default to none.
+6. Run placeholder and leak checks.
+7. Create first records only after real work happens.
+8. Commit the initialized skeleton.
+
+Conflict policy:
+
+```text
+nonexistent target -> create and initialize
+empty target -> initialize
+non-empty target -> stop before writing
+target inside source template -> stop before writing
+```
 
 ## Verification Checklist
 
@@ -113,6 +126,10 @@ Initialization is strong enough for the next milestone when:
 
 It is not a full generator. It has no external dependencies, does not create app
 code, and does not replace placeholders in blank record templates.
+
+It also rejects non-empty target directories when `--target-dir` is used. This
+prevents the template from being copied over an existing user project by
+accident.
 
 Treat it as an initialization hardening step. A real generator would need a
 separate design and validation task.

@@ -5,6 +5,7 @@ usage() {
   cat <<'USAGE'
 Usage:
   bash init-template.sh \
+    [--target-dir "../my-agent-lab"] \
     --project-name "My Project" \
     --project-intent "Project intent" \
     --current-phase "Initialization" \
@@ -15,9 +16,13 @@ Usage:
 
 This script initializes core placeholders in the Agent-First Living Lab
 template. It intentionally does not replace placeholders in record templates.
+
+When --target-dir is provided, the script first copies the template into that
+directory. Existing non-empty target directories are rejected.
 USAGE
 }
 
+target_dir=""
 project_name=""
 project_intent=""
 current_phase=""
@@ -28,6 +33,10 @@ alternative=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
+    --target-dir)
+      target_dir="${2:-}"
+      shift 2
+      ;;
     --project-name)
       project_name="${2:-}"
       shift 2
@@ -83,6 +92,61 @@ if [[ ${#missing[@]} -gt 0 ]]; then
   exit 2
 fi
 
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+fail_if_not_template_root() {
+  local root="$1"
+
+  if [[ ! -f "$root/TEMPLATE.md" || ! -f "$root/AGENTS.md" || ! -d "$root/harness/runs" ]]; then
+    echo "Not an Agent-First Living Lab template root: $root" >&2
+    echo "Run this script from the copied template root, or pass --target-dir from the source template." >&2
+    exit 1
+  fi
+
+  if ! grep -q "Agent-First Living Lab Template" "$root/TEMPLATE.md"; then
+    echo "TEMPLATE.md does not look like the Agent-First Living Lab template." >&2
+    exit 1
+  fi
+}
+
+if [[ -n "$target_dir" ]]; then
+  fail_if_not_template_root "$script_dir"
+
+  target_parent="$(dirname "$target_dir")"
+  target_name="$(basename "$target_dir")"
+  if [[ ! -d "$target_parent" ]]; then
+    echo "Target parent directory does not exist: $target_parent" >&2
+    exit 1
+  fi
+
+  source_abs="$(cd "$script_dir" && pwd -P)"
+  target_parent_abs="$(cd "$target_parent" && pwd -P)"
+  target_abs="$target_parent_abs/$target_name"
+  if [[ "$target_abs" == "$source_abs" || "$target_abs" == "$source_abs"/* ]]; then
+    echo "Target directory must not be inside the source template: $target_dir" >&2
+    exit 1
+  fi
+
+  if [[ -e "$target_dir" ]] && [[ -n "$(find "$target_dir" -mindepth 1 -maxdepth 1 -print -quit)" ]]; then
+    echo "Target directory already exists and is not empty: $target_dir" >&2
+    echo "Choose a new directory name, empty the directory, or back it up first." >&2
+    exit 1
+  fi
+
+  mkdir -p "$target_dir"
+
+  (
+    cd "$script_dir"
+    tar -cf - .
+  ) | (
+    cd "$target_dir"
+    tar -xf -
+  )
+  cd "$target_dir"
+else
+  fail_if_not_template_root "$(pwd)"
+fi
+
 required_files=(
   README.md
   CONTEXT.md
@@ -125,6 +189,7 @@ required_files=(
   decisions/index.md
   decisions/0001-adopt-agent-first-living-lab.md
   decisions/decision-record-template.md
+  init-template.sh
 )
 
 missing_files=()

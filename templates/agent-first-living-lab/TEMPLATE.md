@@ -33,9 +33,18 @@ as:
 
 ## First Initialization Check
 
-After copying this skeleton into a new project:
+Prefer initializing into a new target directory with:
 
-1. Replace core placeholders with `bash init-template.sh ...`.
+```sh
+bash init-template.sh --target-dir "../my-agent-lab" ...
+```
+
+The helper rejects non-empty target directories instead of merging or
+overwriting existing user files.
+
+After the skeleton is initialized:
+
+1. Inspect the initialized `README.md`, `CONTEXT.md`, and initial ADR.
 2. Remove unused optional guidance.
 3. Create the first project-specific decision record.
 4. Create the first evolution entry only after a real stage outcome.

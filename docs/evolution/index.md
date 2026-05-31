@@ -47,3 +47,4 @@ Each entry should explain:
 - `0027-template-skeleton-throwaway-validation.md`
 - `0028-phase-3c-pattern-extraction-retrospective.md`
 - `0029-template-initialization-hardening.md`
+- `0030-template-target-conflict-hardening.md`

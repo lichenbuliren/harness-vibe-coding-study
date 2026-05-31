@@ -56,6 +56,33 @@ Pass.
 The initialization helper is sufficient for the current phase. It should remain
 a thin helper, not a published generator.
 
+## Target Conflict Validation
+
+After review, the helper was hardened with a `--target-dir` path. The follow-up
+validation checked these cases:
+
+- nonexistent target directory initializes successfully
+- existing empty target directory initializes successfully
+- existing non-empty target directory is rejected before writing
+- target directory inside the source template is rejected before creation
+- missing target parent directory is rejected
+- running without `--target-dir` from the wrong working directory is rejected
+
+Temporary path:
+
+```text
+/tmp/agent-template-conflict.RQfHTW
+```
+
+Observed result:
+
+```text
+template conflict checks passed
+```
+
+The conflict policy is now fail closed: do not merge into or overwrite an
+existing non-empty user directory.
+
 ## Remaining Risks
 
 - The helper uses shell and `sed`, so cross-platform behavior on non-Unix
