@@ -2,6 +2,10 @@
 
 Use this format when the main agent delegates bounded work.
 
+The canonical orchestration process lives in
+`../../harness/agent-orchestration-loop.md`. This file defines the packet and
+return-report format used by that loop.
+
 ## Task Packet
 
 ```text

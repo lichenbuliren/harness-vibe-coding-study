@@ -36,6 +36,9 @@ within clear boundaries, verify claims, and record evidence.
 - Use `harness/agent-learning-loop.md` as the canonical process for turning
   corrections, failed checks, review findings, and repeated friction into
   durable project behavior.
+- Use `harness/agent-orchestration-loop.md` as the canonical process for
+  deciding when to delegate, assigning bounded subagent packets, verifying and
+  integrating reports, and closing subagent lifecycles.
 - After meaningful side work, return to the mainline and state the next step.
 
 ## Verification Requirements

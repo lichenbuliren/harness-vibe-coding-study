@@ -52,3 +52,4 @@ Each entry should explain:
 - `0032-independent-small-airplane-validation-project.md`
 - `0033-product-project-template-shape.md`
 - `0034-agent-learning-loop-module.md`
+- `0035-agent-orchestration-loop-module.md`

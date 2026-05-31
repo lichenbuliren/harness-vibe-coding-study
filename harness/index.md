@@ -18,6 +18,8 @@ are clear.
   workflow state, validation, and learning capture.
 - `agent-learning-loop.md`: canonical loop for turning corrections, failed
   checks, review findings, and repeated friction into durable project behavior.
+- `agent-orchestration-loop.md`: canonical loop for lead-agent and subagent
+  coordination, integration, lifecycle closure, and evidence.
 - `agent-delivery-contract.md`: minimum delivery loop for testing,
   user-facing verification, commits, and durable evidence.
 - `evals-observability.md`: eval primitives, trace/observability practices,

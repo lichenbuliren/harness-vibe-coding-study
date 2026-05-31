@@ -54,6 +54,9 @@ navigate the repository, act within clear boundaries, and record evidence.
   consider subagents for parallel review. If an optional skill is not available
   in the current environment, point to the relevant install note under
   `docs/tools/` and continue with the closest lightweight fallback.
+- Use `harness/agent-orchestration-loop.md` as the canonical process for
+  deciding when to delegate, how to assign bounded subagent packets, how to
+  verify and integrate reports, and how to close subagent lifecycles.
 - Use subagents only for bounded work that materially improves speed, quality,
   or independent review. Subagents are not free: their context, exploration,
   reasoning, and reports consume additional token budget. After a subagent has

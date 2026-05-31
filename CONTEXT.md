@@ -98,6 +98,8 @@ when a new practice has been validated or rejected.
 - `harness/agent-learning-loop.md`: canonical loop for turning corrections,
   failed checks, review findings, and repeated friction into durable project
   behavior.
+- `harness/agent-orchestration-loop.md`: canonical loop for lead-agent and
+  subagent coordination, integration, lifecycle closure, and evidence.
 - `harness/agent-delivery-contract.md`: minimum delivery loop for testing,
   user-facing verification, commits, and durable evidence.
 - `docs/standards/`: cross-cutting standards that future agents should treat as

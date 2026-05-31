@@ -21,3 +21,4 @@ record evidence -> return to mainline
 | UI behavior | interaction tests plus browser/user-path check |
 | Methodology | updated canonical doc plus evolution note when stage-level |
 | User-corrected process gap | classify reusable lesson and update durable surface |
+| Subagent orchestration | bounded packets, verified reports, integration decision, lifecycle closure |

@@ -3,6 +3,10 @@
 Use this playbook when the main agent wants a subagent to perform bounded work
 without losing the conversation's larger direction.
 
+The canonical orchestration process lives in
+`../../harness/agent-orchestration-loop.md`. This playbook is the execution
+guide for delegation packets and integration.
+
 ## When To Use
 
 Use a subagent when the work benefits from:

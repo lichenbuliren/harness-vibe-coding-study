@@ -117,6 +117,8 @@ Before the initialization is complete:
 - every required file listed by the template exists
 - `harness/agent-learning-loop.md` exists as the canonical process for turning
   reusable task friction into durable project behavior
+- `harness/agent-orchestration-loop.md` exists as the canonical process for
+  lead-agent and subagent coordination
 - optional app packs are not added unless selected explicitly
 - blank record templates still contain placeholders for future records
 - no app, framework, mobile, or runtime-specific defaults were added by accident

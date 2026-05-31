@@ -153,6 +153,10 @@ harness docs" when the lesson is clearly reusable.
 
 ## Subagent Lifecycle And Cost Control
 
+Use `harness/agent-orchestration-loop.md` as the canonical process for
+lead-agent and subagent coordination. This section records the delivery
+requirements that orchestration must satisfy.
+
 Subagents are useful for independent review, parallel exploration, and bounded
 work that benefits from a separate context. They also consume additional token
 budget through task prompts, inherited context, file reading, reasoning, and

@@ -2,6 +2,10 @@
 
 Use this format when the main agent delegates bounded work to a subagent.
 
+The canonical orchestration process lives in
+`../../harness/agent-orchestration-loop.md`. This file defines the packet and
+return-report format used by that loop.
+
 The purpose is to keep local exploration from losing the larger project
 direction. The main agent owns the mission, scope, integration, and final
 decision. The subagent owns the bounded investigation or implementation slice.

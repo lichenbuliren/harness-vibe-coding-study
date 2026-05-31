@@ -3,6 +3,10 @@
 Use this playbook when the main agent delegates bounded work without losing the
 project mainline.
 
+The canonical orchestration process lives in
+`../../harness/agent-orchestration-loop.md`. This playbook is the execution
+guide for delegation packets and integration.
+
 ## Workflow
 
 1. Re-anchor the mainline.
