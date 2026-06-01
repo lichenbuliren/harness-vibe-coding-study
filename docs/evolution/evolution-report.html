@@ -127,7 +127,7 @@
     <aside>
       <div class="brand">
         <h1>Evolution Report</h1>
-        <p>Harness + vibe coding study<br>37 entries · generated 2026-06-01</p>
+        <p>Harness + vibe coding study<br>38 entries · generated 2026-06-01</p>
       </div>
       <nav class="toc" aria-label="Evolution entries">
         
@@ -315,6 +315,11 @@
     <span class="toc-number">0037</span>
     <span>Capability Discovery Gate</span>
   </a>
+
+  <a class="toc-item" href="#entry-0038">
+    <span class="toc-number">0038</span>
+    <span>Business Tech Architecture Visuals</span>
+  </a>
       </nav>
     </aside>
     <main>
@@ -322,7 +327,7 @@
         <h1>Harness Vibe Coding Study Evolution</h1>
         <p>这个阅读版汇总了 <code>docs/evolution/</code> 下的项目演进记录：从 Agent-First Living Lab 的目录设计，到真实 lab 验证，再到模板、learning loop、orchestration loop 和 capability discovery gate 的模块化沉淀。</p>
         <div class="meta-row">
-          <span class="pill">37 evolution entries</span>
+          <span class="pill">38 evolution entries</span>
           <span class="pill">Source: docs/evolution/*.md</span>
           <span class="pill">Static HTML, no external assets</span>
         </div>
@@ -350,7 +355,7 @@
 <section class="phase-card">
     <h3>Post-Phase 3C: Template And Harness Modules</h3>
     <div class="phase-list">
-      <a href="#entry-0029"><strong>0029</strong> Template Initialization Hardening</a><a href="#entry-0030"><strong>0030</strong> Template Target Conflict Hardening</a><a href="#entry-0031"><strong>0031</strong> Template Script Validation Gap</a><a href="#entry-0032"><strong>0032</strong> Independent Small Airplane Validation Project</a><a href="#entry-0033"><strong>0033</strong> Product Project Template Shape</a><a href="#entry-0034"><strong>0034</strong> Agent Learning Loop Module</a><a href="#entry-0035"><strong>0035</strong> Agent Orchestration Loop Module</a><a href="#entry-0036"><strong>0036</strong> Template Directory Merge Policy</a><a href="#entry-0037"><strong>0037</strong> Capability Discovery Gate</a>
+      <a href="#entry-0029"><strong>0029</strong> Template Initialization Hardening</a><a href="#entry-0030"><strong>0030</strong> Template Target Conflict Hardening</a><a href="#entry-0031"><strong>0031</strong> Template Script Validation Gap</a><a href="#entry-0032"><strong>0032</strong> Independent Small Airplane Validation Project</a><a href="#entry-0033"><strong>0033</strong> Product Project Template Shape</a><a href="#entry-0034"><strong>0034</strong> Agent Learning Loop Module</a><a href="#entry-0035"><strong>0035</strong> Agent Orchestration Loop Module</a><a href="#entry-0036"><strong>0036</strong> Template Directory Merge Policy</a><a href="#entry-0037"><strong>0037</strong> Capability Discovery Gate</a><a href="#entry-0038"><strong>0038</strong> Business Tech Architecture Visuals</a>
     </div>
   </section></div>
 
@@ -2929,6 +2934,48 @@ use / recommend / fallback -&gt; record reusable gap if needed</code></pre>
 <li>Should the template eventually include a no-skill baseline note for evaluating</li>
 <p>discovered skills?</p>
 </ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0038">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0038</div>
+      <h2>Business Tech Architecture Visuals</h2>
+    </div>
+    <a class="source-link" href="0038-business-tech-architecture-visuals.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>The project needed a clearer visual representation of its current architecture and evolution after the learning loop, orchestration loop, and capability discovery gate were added.</p></div>
+    <div><span>Goal</span><p>Replace the earlier single-image draft with two deterministic, readable SVG diagrams: a project architecture diagram and a project evolution and learning-loop diagram.</p></div>
+    <div><span>Outcome / Decision</span><p>The visual direction moved to a business technology style with a dark technical background, bounded panels, restrained accent colors, and manual text wrapping.</p></div>
+    <div><span>Takeaway</span><p>For agent project architecture diagrams, use deterministic SVG first to lock semantic structure and text layout. Use image models only after the information architecture is stable.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0038-business-tech-architecture-visuals">Business Tech Architecture Visuals</h2>
+      <h3 id="entry-0038-stage">Stage</h3>
+      <p>The project needed a clearer visual representation of its current architecture and evolution after the learning loop, orchestration loop, and capability discovery gate were added.</p>
+      <h3 id="entry-0038-goal">Goal</h3>
+      <p>Replace the earlier single-image draft with two deterministic, readable SVG diagrams:</p>
+      <ul>
+        <li>a project architecture diagram</li>
+        <li>a project evolution and learning-loop diagram</li>
+      </ul>
+      <h3 id="entry-0038-method">Method</h3>
+      <p>The previous draft was compared against the richer reference image. The missing content was treated as a signal that the diagram needed a stronger information architecture before any image-model polishing.</p>
+      <h3 id="entry-0038-outcome">Outcome</h3>
+      <p>The visual direction moved to a business technology style with a dark technical background, bounded panels, restrained accent colors, and manual text wrapping. The final split keeps architecture and evolution separate so each diagram can carry enough detail without forcing labels into cramped boxes.</p>
+      <h3 id="entry-0038-artifacts">Artifacts</h3>
+      <ul>
+        <li><code>project-architecture-business-tech.svg</code></li>
+        <li><code>project-evolution-business-tech.svg</code></li>
+        <li>PNG previews generated from the SVG sources</li>
+      </ul>
+      <h3 id="entry-0038-shareable-takeaway">Shareable Takeaway</h3>
+      <p>For agent project architecture diagrams, use deterministic SVG first to lock semantic structure and text layout. Use image models only after the information architecture is stable.</p>
     </article>
   </details>
 </section>

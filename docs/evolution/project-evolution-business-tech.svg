@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1120" viewBox="0 0 1800 1120" role="img" aria-labelledby="title desc">
+  <title id="title">Harness + Vibe Coding Evolution and Learning Loop</title>
+  <desc id="desc">Business technology style evolution diagram showing the standard capture loop and nine-stage project evolution path.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset=".58" stop-color="#0b1628"/>
+      <stop offset="1" stop-color="#101827"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 .07 0 0 0 0 .78 0 0 0 0 .72 0 0 0 .48 0"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow-teal" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M2,2 L10,6 L2,10 Z" fill="#2dd4bf"/></marker>
+    <marker id="arrow-gold" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M2,2 L10,6 L2,10 Z" fill="#f6c453"/></marker>
+    <style>
+      .bg { fill: url(#bg); }
+      .grid { stroke: #1f3b5a; stroke-width: 1; opacity: .20; }
+      .panel { fill: #0d1d31; stroke: #2dd4bf; stroke-width: 1.8; rx: 18; }
+      .panel-gold { fill: #1e1a11; stroke: #f6c453; stroke-width: 1.8; rx: 18; }
+      .card { fill: #101f33; stroke: #385675; stroke-width: 1.3; rx: 13; }
+      .card-teal { fill: #0e2a34; stroke: #2dd4bf; stroke-width: 1.4; rx: 13; }
+      .card-gold { fill: #2a2414; stroke: #f6c453; stroke-width: 1.4; rx: 13; }
+      .text { fill: #f8fafc; font-family: Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif; letter-spacing: 0; }
+      .muted { fill: #a6b8ca; font-family: Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif; letter-spacing: 0; }
+      .dim { fill: #7891aa; font-family: Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif; letter-spacing: 0; }
+      .title { font-size: 54px; font-weight: 850; }
+      .subtitle { font-size: 23px; font-weight: 500; }
+      .h1 { font-size: 28px; font-weight: 820; }
+      .h2 { font-size: 21px; font-weight: 760; }
+      .body { font-size: 18px; font-weight: 560; }
+      .timeline-title { font-size: 16px; font-weight: 650; }
+      .small { font-size: 15px; font-weight: 520; }
+      .tiny { font-size: 13px; font-weight: 520; }
+      .teal { fill: #2dd4bf; }
+      .gold { fill: #f6c453; }
+      .blue { fill: #60a5fa; }
+      .green { fill: #4ade80; }
+      .line { stroke: #2dd4bf; stroke-width: 3; fill: none; marker-end: url(#arrow-teal); }
+      .line-gold { stroke: #f6c453; stroke-width: 3; fill: none; marker-end: url(#arrow-gold); }
+      .line-dash { stroke: #6f8aa6; stroke-width: 2.4; fill: none; stroke-dasharray: 8 8; marker-end: url(#arrow-teal); }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1800" height="1120"/>
+  <g opacity=".55">
+    <path class="grid" d="M0 80 H1800 M0 160 H1800 M0 240 H1800 M0 320 H1800 M0 400 H1800 M0 480 H1800 M0 560 H1800 M0 640 H1800 M0 720 H1800 M0 800 H1800 M0 880 H1800 M0 960 H1800 M0 1040 H1800"/>
+    <path class="grid" d="M80 0 V1120 M160 0 V1120 M240 0 V1120 M320 0 V1120 M400 0 V1120 M480 0 V1120 M560 0 V1120 M640 0 V1120 M720 0 V1120 M800 0 V1120 M880 0 V1120 M960 0 V1120 M1040 0 V1120 M1120 0 V1120 M1200 0 V1120 M1280 0 V1120 M1360 0 V1120 M1440 0 V1120 M1520 0 V1120 M1600 0 V1120 M1680 0 V1120"/>
+  </g>
+
+  <text class="text title" x="900" y="76" text-anchor="middle">Harness + Vibe Coding 演进图</text>
+  <text class="muted subtitle" x="900" y="116" text-anchor="middle">从方法论学习到真实项目验证，再到标准捕获、模板复用与未来 Skill 化</text>
+
+  <rect class="panel" x="48" y="162" width="610" height="408" rx="18" filter="url(#glow)"/>
+  <text class="text h1" x="84" y="208">三条学习主线</text>
+  <g transform="translate(84 240)">
+    <rect class="card-teal" x="0" y="0" width="538" height="84" rx="14"/>
+    <text class="text h2" x="28" y="34">1. 方法论学习</text>
+    <text class="muted small" x="28" y="62">Foundations / Guardrails / Context / Specs / Evals / Benchmarks</text>
+    <rect class="card-teal" x="0" y="112" width="538" height="84" rx="14"/>
+    <text class="text h2" x="28" y="146">2. 真实 Lab 验证</text>
+    <text class="muted small" x="28" y="174">Dinner Picker MVP / mobile LAN / feedback redraw / Chrome MCP</text>
+    <rect class="card-teal" x="0" y="224" width="538" height="84" rx="14"/>
+    <text class="text h2" x="28" y="258">3. 工程资产抽取</text>
+    <text class="muted small" x="28" y="286">Standards / Playbooks / Handoffs / Templates / Skill candidates</text>
+  </g>
+
+  <rect class="panel-gold" x="706" y="162" width="1046" height="408" rx="18"/>
+  <text class="text h1" x="742" y="208">标准捕获循环：用户指出问题不是结束，而是标准升级入口</text>
+  <circle cx="1228" cy="372" r="116" fill="#0b1728" stroke="#f6c453" stroke-width="2.4" filter="url(#glow)"/>
+  <text class="text h2" x="1228" y="344" text-anchor="middle">问题信号</text>
+  <text class="muted small" x="1228" y="374" text-anchor="middle">feedback / failure</text>
+  <text class="gold h2" x="1228" y="410" text-anchor="middle">标准升级入口</text>
+  <g>
+    <rect class="card" x="780" y="254" width="190" height="78" rx="14"/>
+    <circle class="teal" cx="812" cy="293" r="20"/><text class="text h2" x="812" y="301" text-anchor="middle">1</text>
+    <text class="text body" x="846" y="288">用户反馈</text>
+    <text class="dim tiny" x="846" y="314">指出问题 / 期望</text>
+
+    <rect class="card" x="1008" y="222" width="190" height="78" rx="14"/>
+    <circle class="teal" cx="1040" cy="261" r="20"/><text class="text h2" x="1040" y="269" text-anchor="middle">2</text>
+    <text class="text body" x="1074" y="256">Agent 判断</text>
+    <text class="dim tiny" x="1074" y="282">归纳本质原因</text>
+
+    <rect class="card" x="1286" y="222" width="190" height="78" rx="14"/>
+    <circle class="teal" cx="1318" cy="261" r="20"/><text class="text h2" x="1318" y="269" text-anchor="middle">3</text>
+    <text class="text body" x="1352" y="256">更新规范</text>
+    <text class="dim tiny" x="1352" y="282">补充 / 优化规则</text>
+
+    <rect class="card" x="1514" y="254" width="190" height="78" rx="14"/>
+    <circle class="gold" cx="1546" cy="293" r="20"/><text class="text h2" x="1546" y="301" text-anchor="middle">4</text>
+    <text class="text body" x="1580" y="288">测试验证</text>
+    <text class="dim tiny" x="1580" y="314">证明有效性</text>
+
+    <rect class="card" x="1286" y="444" width="190" height="78" rx="14"/>
+    <circle class="gold" cx="1318" cy="483" r="20"/><text class="text h2" x="1318" y="491" text-anchor="middle">5</text>
+    <text class="text body" x="1352" y="478">evolution 记录</text>
+    <text class="dim tiny" x="1352" y="504">记录来源与结论</text>
+
+    <rect class="card" x="1008" y="444" width="190" height="78" rx="14"/>
+    <circle class="gold" cx="1040" cy="483" r="20"/><text class="text h2" x="1040" y="491" text-anchor="middle">6</text>
+    <text class="text body" x="1074" y="478">分享复用</text>
+    <text class="dim tiny" x="1074" y="504">沉淀资产 / 团队复用</text>
+  </g>
+  <path class="line-gold" d="M970 292 C998 244 1010 244 1008 260"/>
+  <path class="line-gold" d="M1198 260 H1270"/>
+  <path class="line-gold" d="M1476 260 C1514 260 1518 266 1514 292"/>
+  <path class="line-gold" d="M1608 332 C1608 430 1480 480 1490 482"/>
+  <path class="line-gold" d="M1286 483 H1214"/>
+  <path class="line-gold" d="M1008 483 C900 468 820 382 838 338"/>
+
+  <rect class="panel" x="48" y="620" width="1704" height="366" rx="18"/>
+  <text class="text h1" x="84" y="666">项目演进时间线</text>
+  <line x1="136" y1="806" x2="1662" y2="806" stroke="#2dd4bf" stroke-width="5" opacity=".75"/>
+  <g>
+    <rect class="card" x="92" y="710" width="162" height="170" rx="14"/>
+    <circle class="teal" cx="120" cy="746" r="12"/><text class="text tiny" x="120" y="751" text-anchor="middle">1</text>
+    <text class="text timeline-title" x="152" y="748">目录规划</text>
+    <text class="muted tiny" x="114" y="790">创建 Agent-First</text>
+    <text class="muted tiny" x="114" y="816">项目骨架</text>
+    <text class="muted tiny" x="114" y="842">演进记录入口</text>
+
+    <rect class="card" x="274" y="710" width="162" height="170" rx="14"/>
+    <circle class="teal" cx="302" cy="746" r="12"/><text class="text tiny" x="302" y="751" text-anchor="middle">2</text>
+    <text class="text timeline-title" x="330" y="748">Foundations</text>
+    <text class="muted tiny" x="296" y="790">学习核心概念</text>
+    <text class="muted tiny" x="296" y="816">拆分六类模块</text>
+    <text class="muted tiny" x="296" y="842">形成方法底座</text>
+
+    <rect class="card" x="456" y="710" width="162" height="170" rx="14"/>
+    <circle class="teal" cx="484" cy="746" r="12"/><text class="text tiny" x="484" y="751" text-anchor="middle">3</text>
+    <text class="text timeline-title" x="516" y="740">Harness</text>
+    <text class="text timeline-title" x="516" y="762">总结</text>
+    <text class="muted tiny" x="478" y="800">知识图谱沉淀</text>
+    <text class="muted tiny" x="478" y="826">agent 公式</text>
+    <text class="muted tiny" x="478" y="852">四层模型</text>
+
+    <rect class="card-gold" x="638" y="710" width="162" height="170" rx="14"/>
+    <circle class="gold" cx="666" cy="746" r="12"/><text class="text tiny" x="666" y="751" text-anchor="middle">4</text>
+    <text class="text timeline-title" x="698" y="748">Dinner MVP</text>
+    <text class="muted tiny" x="660" y="790">构建真实项目</text>
+    <text class="muted tiny" x="660" y="816">移动端初测</text>
+    <text class="muted tiny" x="660" y="842">验证可行性</text>
+
+    <rect class="card-gold" x="820" y="710" width="162" height="170" rx="14"/>
+    <circle class="gold" cx="848" cy="746" r="12"/><text class="text tiny" x="848" y="751" text-anchor="middle">5</text>
+    <text class="text timeline-title" x="880" y="748">真机反馈</text>
+    <text class="muted tiny" x="842" y="790">真实使用</text>
+    <text class="muted tiny" x="842" y="816">发现问题</text>
+    <text class="muted tiny" x="842" y="842">反馈进入闭环</text>
+
+    <rect class="card-gold" x="1002" y="710" width="162" height="170" rx="14"/>
+    <circle class="gold" cx="1030" cy="746" r="12"/><text class="text tiny" x="1030" y="751" text-anchor="middle">6</text>
+    <text class="text timeline-title" x="1062" y="740">UI / 交互</text>
+    <text class="text timeline-title" x="1062" y="762">优化</text>
+    <text class="muted tiny" x="1024" y="800">体验迭代</text>
+    <text class="muted tiny" x="1024" y="826">更好用</text>
+    <text class="muted tiny" x="1024" y="852">更可验证</text>
+
+    <rect class="card" x="1184" y="710" width="162" height="170" rx="14"/>
+    <circle class="teal" cx="1212" cy="746" r="12"/><text class="text tiny" x="1212" y="751" text-anchor="middle">7</text>
+    <text class="text timeline-title" x="1244" y="748">测试与规范</text>
+    <text class="muted tiny" x="1206" y="790">完善测试体系</text>
+    <text class="muted tiny" x="1206" y="816">形成验证标准</text>
+    <text class="muted tiny" x="1206" y="842">记录质量门槛</text>
+
+    <rect class="card" x="1366" y="710" width="162" height="170" rx="14"/>
+    <circle class="teal" cx="1394" cy="746" r="12"/><text class="text tiny" x="1394" y="751" text-anchor="middle">8</text>
+    <text class="text timeline-title" x="1426" y="748">标准捕获</text>
+    <text class="muted tiny" x="1388" y="790">提炼方法论</text>
+    <text class="muted tiny" x="1388" y="816">固化流程</text>
+    <text class="muted tiny" x="1388" y="842">进入模板</text>
+
+    <rect class="card-teal" x="1548" y="710" width="162" height="170" rx="14"/>
+    <circle class="teal" cx="1576" cy="746" r="12"/><text class="text tiny" x="1576" y="751" text-anchor="middle">9</text>
+    <text class="text timeline-title" x="1608" y="748">复用化</text>
+    <text class="muted tiny" x="1570" y="790">模板骨架</text>
+    <text class="muted tiny" x="1570" y="816">Skill 候选</text>
+    <text class="muted tiny" x="1570" y="842">规模化使用</text>
+  </g>
+  <path class="line-dash" d="M254 806 H266 M436 806 H448 M618 806 H630 M800 806 H812 M982 806 H994 M1164 806 H1176 M1346 806 H1358 M1528 806 H1540"/>
+
+  <rect class="card" x="132" y="918" width="1530" height="44" rx="12"/>
+  <text class="muted small" x="900" y="947" text-anchor="middle">演进逻辑：项目结构先让 Agent 可工作；真实 Lab 让方法经受验证；用户反馈触发标准捕获；标准再进入模板、playbook 和未来 skill。</text>
+</svg>

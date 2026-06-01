@@ -7,6 +7,11 @@ changelogs and should not capture every small edit.
 
 For a consolidated reading view, open `evolution-report.html`.
 
+Current visual summaries:
+
+- `project-architecture-business-tech.svg`
+- `project-evolution-business-tech.svg`
+
 Each entry should explain:
 
 - what stage we were in
@@ -57,3 +62,4 @@ Each entry should explain:
 - `0035-agent-orchestration-loop-module.md`
 - `0036-template-directory-merge-policy.md`
 - `0037-capability-discovery-gate.md`
+- `0038-business-tech-architecture-visuals.md`
