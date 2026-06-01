@@ -12,6 +12,10 @@ implement -> test -> inspect output -> verify user-facing path when relevant ->
 record evidence -> return to mainline
 ```
 
+Before deep work, use `harness/capability-discovery.md` when the task likely
+benefits from an existing skill, tool, plugin, playbook, script, or runtime
+capability.
+
 ## Evidence By Change Type
 
 | Change Type | Minimum Evidence |

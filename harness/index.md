@@ -20,6 +20,9 @@ are clear.
   checks, review findings, and repeated friction into durable project behavior.
 - `agent-orchestration-loop.md`: canonical loop for lead-agent and subagent
   coordination, integration, lifecycle closure, and evidence.
+- `capability-discovery.md`: conditional gate for finding existing skills,
+  tools, plugins, playbooks, scripts, and runtime capabilities before doing work
+  directly.
 - `agent-delivery-contract.md`: minimum delivery loop for testing,
   user-facing verification, commits, and durable evidence.
 - `evals-observability.md`: eval primitives, trace/observability practices,

@@ -39,6 +39,10 @@ within clear boundaries, verify claims, and record evidence.
 - Use `harness/agent-orchestration-loop.md` as the canonical process for
   deciding when to delegate, assigning bounded subagent packets, verifying and
   integrating reports, and closing subagent lifecycles.
+- Use `harness/capability-discovery.md` as the conditional gate for deciding
+  when to look for existing skills, tools, plugins, playbooks, scripts, or
+  runtime capabilities before doing work directly. Do not silently install new
+  capabilities without user authorization.
 - After meaningful side work, return to the mainline and state the next step.
 
 ## Verification Requirements

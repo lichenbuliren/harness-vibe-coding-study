@@ -100,6 +100,9 @@ when a new practice has been validated or rejected.
   behavior.
 - `harness/agent-orchestration-loop.md`: canonical loop for lead-agent and
   subagent coordination, integration, lifecycle closure, and evidence.
+- `harness/capability-discovery.md`: conditional gate for finding existing
+  skills, tools, plugins, playbooks, scripts, and runtime capabilities before
+  doing work directly.
 - `harness/agent-delivery-contract.md`: minimum delivery loop for testing,
   user-facing verification, commits, and durable evidence.
 - `docs/standards/`: cross-cutting standards that future agents should treat as

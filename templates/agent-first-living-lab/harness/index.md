@@ -6,5 +6,6 @@
 
 - `agent-learning-loop.md`
 - `agent-orchestration-loop.md`
+- `capability-discovery.md`
 - `agent-delivery-contract.md`
 - `runs/`

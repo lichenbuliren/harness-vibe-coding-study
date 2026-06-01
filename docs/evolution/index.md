@@ -53,3 +53,4 @@ Each entry should explain:
 - `0033-product-project-template-shape.md`
 - `0034-agent-learning-loop-module.md`
 - `0035-agent-orchestration-loop-module.md`
+- `0037-capability-discovery-gate.md`

@@ -119,6 +119,8 @@ Before the initialization is complete:
   reusable task friction into durable project behavior
 - `harness/agent-orchestration-loop.md` exists as the canonical process for
   lead-agent and subagent coordination
+- `harness/capability-discovery.md` exists as the conditional gate for finding
+  existing skills, tools, plugins, playbooks, scripts, or runtime capabilities
 - optional app packs are not added unless selected explicitly
 - blank record templates still contain placeholders for future records
 - no app, framework, mobile, or runtime-specific defaults were added by accident

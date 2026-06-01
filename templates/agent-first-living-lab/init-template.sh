@@ -198,6 +198,7 @@ required_files=(
   harness/index.md
   harness/agent-learning-loop.md
   harness/agent-orchestration-loop.md
+  harness/capability-discovery.md
   harness/agent-delivery-contract.md
   harness/runs/index.md
   harness/runs/run-record-schema.md

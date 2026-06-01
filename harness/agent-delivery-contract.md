@@ -32,6 +32,11 @@ Examples:
 - the UI fits the expected mobile viewport
 - the docs explain the reusable method
 
+Before deep work, run `harness/capability-discovery.md` when the task likely
+benefits from an existing skill, tool, plugin, playbook, script, or runtime
+capability. Skip that gate for small direct tasks or when the repository already
+has a clear local path.
+
 ### 2. Run The Smallest Useful Automated Checks
 
 For code changes, run the relevant targeted checks first, then the broader gate.
