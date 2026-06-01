@@ -1,0 +1,2940 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harness Vibe Coding Study - Evolution Report</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17202a;
+      --muted: #667085;
+      --line: #d9dee8;
+      --soft: #f6f8fb;
+      --panel: #ffffff;
+      --accent: #0f766e;
+      --accent-2: #8b5a2b;
+      --code: #182230;
+      --code-bg: #eef2f7;
+      --shadow: 0 16px 40px rgba(16, 24, 40, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 15px/1.62 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: #f8fafc;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .shell { display: grid; grid-template-columns: 300px minmax(0, 1fr); min-height: 100vh; }
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+      padding: 24px 18px;
+      border-right: 1px solid var(--line);
+      background: #ffffff;
+    }
+    main { min-width: 0; padding: 36px min(5vw, 64px) 80px; }
+    .brand { margin-bottom: 24px; }
+    .brand h1 { margin: 0 0 8px; font-size: 19px; line-height: 1.25; letter-spacing: 0; }
+    .brand p { margin: 0; color: var(--muted); font-size: 13px; }
+    .toc { display: grid; gap: 3px; }
+    .toc-item {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 8px;
+      align-items: start;
+      padding: 7px 8px;
+      border-radius: 6px;
+      color: var(--ink);
+      font-size: 13px;
+    }
+    .toc-item:hover { background: var(--soft); text-decoration: none; }
+    .toc-number { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 700; }
+    .hero {
+      padding: 34px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+    .hero h1 { margin: 0 0 12px; font-size: clamp(28px, 4vw, 48px); line-height: 1.08; letter-spacing: 0; }
+    .hero p { max-width: 900px; color: var(--muted); margin: 0; font-size: 16px; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .pill { border: 1px solid var(--line); background: var(--soft); padding: 7px 10px; border-radius: 999px; color: #344054; font-size: 13px; }
+    .section-title { margin: 34px 0 14px; font-size: 22px; letter-spacing: 0; }
+    .phase-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .phase-card, .module-card, .entry-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(16, 24, 40, 0.05);
+    }
+    .phase-card { padding: 20px; }
+    .phase-card h3 { margin: 0 0 12px; font-size: 17px; }
+    .phase-list { display: grid; gap: 8px; }
+    .phase-list a { color: var(--ink); font-size: 13px; }
+    .module-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .module-card { padding: 18px; }
+    .module-card h3 { margin: 0 0 8px; font-size: 16px; }
+    .module-card p { margin: 0; color: var(--muted); }
+    .entry-card { padding: 24px; margin: 18px 0; }
+    .entry-head { display: flex; justify-content: space-between; gap: 18px; align-items: start; margin-bottom: 16px; }
+    .entry-number { color: var(--accent-2); font-weight: 800; font-size: 13px; margin-bottom: 4px; }
+    .entry-card h2 { margin: 0; font-size: 23px; line-height: 1.18; letter-spacing: 0; }
+    .source-link { flex: 0 0 auto; font-size: 13px; border: 1px solid var(--line); padding: 7px 10px; border-radius: 6px; }
+    .summary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 16px 0 12px; }
+    .summary-grid div { background: var(--soft); border: 1px solid #e8edf5; border-radius: 6px; padding: 12px; }
+    .summary-grid span { display: block; color: var(--accent); font-size: 12px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; }
+    .summary-grid p { margin: 0; color: #344054; }
+    details { margin-top: 12px; }
+    summary { cursor: pointer; color: var(--accent); font-weight: 700; padding: 8px 0; }
+    .markdown-body { border-top: 1px solid var(--line); margin-top: 10px; padding-top: 18px; }
+    .markdown-body h2 { margin-top: 26px; font-size: 20px; }
+    .markdown-body h3 { margin-top: 22px; font-size: 17px; }
+    .markdown-body p { margin: 10px 0; }
+    .markdown-body ul, .markdown-body ol { padding-left: 24px; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; background: var(--code-bg); border-radius: 4px; padding: 0.12em 0.3em; }
+    pre { overflow: auto; background: var(--code); color: #eef4ff; padding: 14px; border-radius: 6px; }
+    pre code { background: transparent; color: inherit; padding: 0; }
+    blockquote { border-left: 3px solid var(--accent); margin: 12px 0; padding: 6px 14px; color: #344054; background: var(--soft); }
+    .footer { color: var(--muted); margin-top: 40px; font-size: 13px; }
+    @media (max-width: 900px) {
+      .shell { display: block; }
+      aside { position: relative; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      main { padding: 24px 16px 56px; }
+      .phase-grid, .module-grid, .summary-grid { grid-template-columns: 1fr; }
+      .entry-head { display: block; }
+      .source-link { display: inline-block; margin-top: 12px; }
+    }
+    @media print {
+      aside { display: none; }
+      .shell { display: block; }
+      main { padding: 0; }
+      .entry-card, .hero, .phase-card, .module-card { box-shadow: none; break-inside: avoid; }
+      details { display: block; }
+      details > summary { display: none; }
+      details:not([open]) > *:not(summary) { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <div class="brand">
+        <h1>Evolution Report</h1>
+        <p>Harness + vibe coding study<br>37 entries · generated 2026-06-01</p>
+      </div>
+      <nav class="toc" aria-label="Evolution entries">
+        
+  <a class="toc-item" href="#entry-0001">
+    <span class="toc-number">0001</span>
+    <span>Project Directory Planning</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0002">
+    <span class="toc-number">0002</span>
+    <span>Harness Foundations Study</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0003">
+    <span class="toc-number">0003</span>
+    <span>Context Memory Working State Study</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0004">
+    <span class="toc-number">0004</span>
+    <span>Guardrails Safe Autonomy Study</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0005">
+    <span class="toc-number">0005</span>
+    <span>Specs Agent Workflows Study</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0006">
+    <span class="toc-number">0006</span>
+    <span>- Evals and Observability Study</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0007">
+    <span class="toc-number">0007</span>
+    <span>- Benchmarks and Runtimes Study</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0008">
+    <span class="toc-number">0008</span>
+    <span>- Project Status Alignment</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0009">
+    <span class="toc-number">0009</span>
+    <span>- Validation Framework Design</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0010">
+    <span class="toc-number">0010</span>
+    <span>- Core Harness Study Retrospective</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0011">
+    <span class="toc-number">0011</span>
+    <span>- First Lab Project Dinner Picker</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0012">
+    <span class="toc-number">0012</span>
+    <span>- Mobile LAN Validation Gap</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0013">
+    <span class="toc-number">0013</span>
+    <span>Feedback-Driven Recommendation Loop</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0014">
+    <span class="toc-number">0014</span>
+    <span>User-Corrected Process Gaps As Harness Evidence</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0015">
+    <span class="toc-number">0015</span>
+    <span>Project Standards Capture Beyond Harness</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0016">
+    <span class="toc-number">0016</span>
+    <span>Standard Capture Loop Methodology</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0017">
+    <span class="toc-number">0017</span>
+    <span>Subagent Lifecycle Cost Control</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0018">
+    <span class="toc-number">0018</span>
+    <span>Phase 3C Pattern Extraction Start</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0019">
+    <span class="toc-number">0019</span>
+    <span>Mainline Continuity Standard</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0020">
+    <span class="toc-number">0020</span>
+    <span>Subagent Delegation Handoff Standard</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0021">
+    <span class="toc-number">0021</span>
+    <span>Phase 3C Evidence Inventory</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0022">
+    <span class="toc-number">0022</span>
+    <span>Default Agent Role Set</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0023">
+    <span class="toc-number">0023</span>
+    <span>Template Skill Playbook Reuse Decision</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0024">
+    <span class="toc-number">0024</span>
+    <span>Minimum Template Skeleton Design</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0025">
+    <span class="toc-number">0025</span>
+    <span>Template Skeleton Dry-Run Review</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0026">
+    <span class="toc-number">0026</span>
+    <span>Agent-First Living Lab Template Skeleton</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0027">
+    <span class="toc-number">0027</span>
+    <span>Template Skeleton Throwaway Validation</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0028">
+    <span class="toc-number">0028</span>
+    <span>Phase 3C Pattern Extraction Retrospective</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0029">
+    <span class="toc-number">0029</span>
+    <span>Template Initialization Hardening</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0030">
+    <span class="toc-number">0030</span>
+    <span>Template Target Conflict Hardening</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0031">
+    <span class="toc-number">0031</span>
+    <span>Template Script Validation Gap</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0032">
+    <span class="toc-number">0032</span>
+    <span>Independent Small Airplane Validation Project</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0033">
+    <span class="toc-number">0033</span>
+    <span>Product Project Template Shape</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0034">
+    <span class="toc-number">0034</span>
+    <span>Agent Learning Loop Module</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0035">
+    <span class="toc-number">0035</span>
+    <span>Agent Orchestration Loop Module</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0036">
+    <span class="toc-number">0036</span>
+    <span>Template Directory Merge Policy</span>
+  </a>
+
+  <a class="toc-item" href="#entry-0037">
+    <span class="toc-number">0037</span>
+    <span>Capability Discovery Gate</span>
+  </a>
+      </nav>
+    </aside>
+    <main>
+      <section class="hero">
+        <h1>Harness Vibe Coding Study Evolution</h1>
+        <p>这个阅读版汇总了 <code>docs/evolution/</code> 下的项目演进记录：从 Agent-First Living Lab 的目录设计，到真实 lab 验证，再到模板、learning loop、orchestration loop 和 capability discovery gate 的模块化沉淀。</p>
+        <div class="meta-row">
+          <span class="pill">37 evolution entries</span>
+          <span class="pill">Source: docs/evolution/*.md</span>
+          <span class="pill">Static HTML, no external assets</span>
+        </div>
+      </section>
+
+      <h2 class="section-title">Reading Map</h2>
+      <div class="phase-grid"><section class="phase-card">
+    <h3>Phase 1: Project Operating System</h3>
+    <div class="phase-list">
+      <a href="#entry-0001"><strong>0001</strong> Project Directory Planning</a><a href="#entry-0002"><strong>0002</strong> Harness Foundations Study</a><a href="#entry-0003"><strong>0003</strong> Context Memory Working State Study</a><a href="#entry-0004"><strong>0004</strong> Guardrails Safe Autonomy Study</a><a href="#entry-0005"><strong>0005</strong> Specs Agent Workflows Study</a><a href="#entry-0006"><strong>0006</strong> - Evals and Observability Study</a><a href="#entry-0007"><strong>0007</strong> - Benchmarks and Runtimes Study</a><a href="#entry-0008"><strong>0008</strong> - Project Status Alignment</a><a href="#entry-0009"><strong>0009</strong> - Validation Framework Design</a><a href="#entry-0010"><strong>0010</strong> - Core Harness Study Retrospective</a>
+    </div>
+  </section>
+<section class="phase-card">
+    <h3>Phase 2: First Real Lab Validation</h3>
+    <div class="phase-list">
+      <a href="#entry-0011"><strong>0011</strong> - First Lab Project Dinner Picker</a><a href="#entry-0012"><strong>0012</strong> - Mobile LAN Validation Gap</a><a href="#entry-0013"><strong>0013</strong> Feedback-Driven Recommendation Loop</a><a href="#entry-0014"><strong>0014</strong> User-Corrected Process Gaps As Harness Evidence</a><a href="#entry-0015"><strong>0015</strong> Project Standards Capture Beyond Harness</a><a href="#entry-0016"><strong>0016</strong> Standard Capture Loop Methodology</a><a href="#entry-0017"><strong>0017</strong> Subagent Lifecycle Cost Control</a>
+    </div>
+  </section>
+<section class="phase-card">
+    <h3>Phase 3C: Pattern Extraction And Reuse</h3>
+    <div class="phase-list">
+      <a href="#entry-0018"><strong>0018</strong> Phase 3C Pattern Extraction Start</a><a href="#entry-0019"><strong>0019</strong> Mainline Continuity Standard</a><a href="#entry-0020"><strong>0020</strong> Subagent Delegation Handoff Standard</a><a href="#entry-0021"><strong>0021</strong> Phase 3C Evidence Inventory</a><a href="#entry-0022"><strong>0022</strong> Default Agent Role Set</a><a href="#entry-0023"><strong>0023</strong> Template Skill Playbook Reuse Decision</a><a href="#entry-0024"><strong>0024</strong> Minimum Template Skeleton Design</a><a href="#entry-0025"><strong>0025</strong> Template Skeleton Dry-Run Review</a><a href="#entry-0026"><strong>0026</strong> Agent-First Living Lab Template Skeleton</a><a href="#entry-0027"><strong>0027</strong> Template Skeleton Throwaway Validation</a><a href="#entry-0028"><strong>0028</strong> Phase 3C Pattern Extraction Retrospective</a>
+    </div>
+  </section>
+<section class="phase-card">
+    <h3>Post-Phase 3C: Template And Harness Modules</h3>
+    <div class="phase-list">
+      <a href="#entry-0029"><strong>0029</strong> Template Initialization Hardening</a><a href="#entry-0030"><strong>0030</strong> Template Target Conflict Hardening</a><a href="#entry-0031"><strong>0031</strong> Template Script Validation Gap</a><a href="#entry-0032"><strong>0032</strong> Independent Small Airplane Validation Project</a><a href="#entry-0033"><strong>0033</strong> Product Project Template Shape</a><a href="#entry-0034"><strong>0034</strong> Agent Learning Loop Module</a><a href="#entry-0035"><strong>0035</strong> Agent Orchestration Loop Module</a><a href="#entry-0036"><strong>0036</strong> Template Directory Merge Policy</a><a href="#entry-0037"><strong>0037</strong> Capability Discovery Gate</a>
+    </div>
+  </section></div>
+
+      <h2 class="section-title">Current Reusable Harness Modules</h2>
+      <div class="module-grid">
+        <section class="module-card"><h3><a href="../../harness/agent-delivery-contract.md">Agent delivery loop</a></h3><p>Proves current task completion through tests, inspection, user-path verification, commit, and evidence.</p></section>
+<section class="module-card"><h3><a href="../../harness/agent-learning-loop.md">Agent learning loop</a></h3><p>Turns corrections, failed checks, review findings, and repeated friction into durable project behavior.</p></section>
+<section class="module-card"><h3><a href="../../harness/agent-orchestration-loop.md">Agent orchestration loop</a></h3><p>Coordinates lead-agent and subagent work into one verified result.</p></section>
+<section class="module-card"><h3><a href="../../harness/capability-discovery.md">Capability discovery gate</a></h3><p>Decides when to look for existing skills, tools, plugins, playbooks, scripts, or runtime capabilities.</p></section>
+<section class="module-card"><h3><a href="../../templates/agent-first-living-lab/TEMPLATE.md">Reusable template skeleton</a></h3><p>Carries the agent-first project operating system into new projects.</p></section>
+      </div>
+
+      <h2 class="section-title">Evolution Entries</h2>
+      
+<section class="entry-card" id="entry-0001">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0001</div>
+      <h2>0001 Project Directory Planning</h2>
+    </div>
+    <a class="source-link" href="0001-project-directory-planning.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Project initiali</p></div>
+    <div><span>Goal</span><p>Design an agent-first directory structure for a harness + vibe coding best practices repository.</p></div>
+    <div><span>Outcome / Decision</span><p>The project adopted an Agent-First Living Lab structure. The first stage will produce AI-agent-readable project guidance and methodology. The lab/ directory will later host a real validation project that tests whether those practices help actual development work.</p></div>
+    <div><span>Takeaway</span><p>Project directories are not just file categories. In an AI-agent-first project, the directory structure is a cognitive path: agents need an entrance, durable context, operating rules, methodology, experiments, quality standards, decisions, and a real validation surface.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0001-0001-project-directory-planning">0001 Project Directory Planning</h2>
+<h3 id="entry-0001-stage">Stage</h3>
+<p>Project initialization.</p>
+<h3 id="entry-0001-goal">Goal</h3>
+<p>Design an agent-first directory structure for a harness + vibe coding best practices repository.</p>
+<h3 id="entry-0001-methodology-used">Methodology Used</h3>
+<ul>
+<li><code>superpowers:brainstorming</code></li>
+<li>Project context exploration</li>
+<li>One-question-at-a-time clarification</li>
+<li>Alternative comparison</li>
+<li>Incremental design approval</li>
+<li>Written design spec before implementation planning</li>
+</ul>
+<h3 id="entry-0001-key-questions">Key Questions</h3>
+<ul>
+<li>Should the project start as documentation, experiments, product code, or a</li>
+<p>mixed structure?</p>
+<li>What role should the first real project play?</li>
+<li>Which reader should the structure optimize for first?</li>
+<li>What language strategy should directory names and documents use?</li>
+<li>Where should stage-level learning be recorded for future sharing?</li>
+</ul>
+<h3 id="entry-0001-outcome">Outcome</h3>
+<p>The project adopted an Agent-First Living Lab structure.</p>
+<p>The first stage will produce AI-agent-readable project guidance and methodology. The <code>lab/</code> directory will later host a real validation project that tests whether those practices help actual development work.</p>
+<h3 id="entry-0001-artifacts-produced">Artifacts Produced</h3>
+<ul>
+<li><code>docs/superpowers/specs/2026-05-30-project-directory-planning-design.md</code></li>
+<li><code>docs/superpowers/plans/2026-05-30-project-directory-initialization.md</code></li>
+<li><code>decisions/0001-adopt-agent-first-living-lab.md</code></li>
+<li>Initial repository directory structure</li>
+</ul>
+<h3 id="entry-0001-shareable-takeaway">Shareable Takeaway</h3>
+<p>Project directories are not just file categories. In an AI-agent-first project, the directory structure is a cognitive path: agents need an entrance, durable context, operating rules, methodology, experiments, quality standards, decisions, and a real validation surface.</p>
+<h3 id="entry-0001-open-questions">Open Questions</h3>
+<ul>
+<li>What should the first <code>lab/</code> validation project be?</li>
+<li>Which harness adapters should be explored first?</li>
+<li>What evaluation rubric should judge agent-readable repository structure?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0002">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0002</div>
+      <h2>0002 Harness Foundations Study</h2>
+    </div>
+    <a class="source-link" href="0002-harness-foundations-study.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Harness engineering foundations.</p></div>
+    <div><span>Goal</span><p>Study the Foundations module from walkinglabs/awesome-harness-engineering and turn it into a project-local foundation for future harness design.</p></div>
+    <div><span>Outcome / Decision</span><p>The project adopted a working foundation model: This model will guide later harness docs, experiments, evals, and lab work.</p></div>
+    <div><span>Takeaway</span><p>Harness engineering is the discipline of designing the layer around the model: instructions, tools, state, runtime, verification, governance, and repository shape. Better models help, but many coding-agent failures are harness failures: bad context, weak state, unclear tools, mi...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0002-0002-harness-foundations-study">0002 Harness Foundations Study</h2>
+<h3 id="entry-0002-stage">Stage</h3>
+<p>Harness engineering foundations.</p>
+<h3 id="entry-0002-goal">Goal</h3>
+<p>Study the Foundations module from <a href="https://github.com/walkinglabs/awesome-harness-engineering">&lt;code&gt;walkinglabs/awesome-harness-engineering&lt;/code&gt;</a> and turn it into a project-local foundation for future harness design.</p>
+<h3 id="entry-0002-methodology-used">Methodology Used</h3>
+<ul>
+<li>Source inventory from the upstream Foundations module</li>
+<li>Parallel sub-agent research across three source groups</li>
+<li>Cross-source synthesis by the orchestrating agent</li>
+<li>Project-local extraction into <code>harness/foundations.md</code></li>
+</ul>
+<h3 id="entry-0002-source-groups">Source Groups</h3>
+<ul>
+<li>OpenAI and Anthropic: long-running agents, Codex harness practice, workflows,</li>
+<p>agents, evaluators, and handoff artifacts</p>
+<li>LangChain and Thoughtworks: harness component model, control systems,</li>
+<p>feedforward guides, feedback sensors, and harnessability</p>
+<li>HumanLayer, Inngest, codebase taxonomy, CAR preprint, and Many Hands:</li>
+<p>runtime, progressive disclosure, sub-agent isolation, governance, and codebase shape</p>
+</ul>
+<h3 id="entry-0002-outcome">Outcome</h3>
+<p>The project adopted a working foundation model:</p>
+<pre><code class="language-text">Control + Agency + Runtime + Substrate</code></pre>
+<p>This model will guide later harness docs, experiments, evals, and lab work.</p>
+<h3 id="entry-0002-artifacts-produced">Artifacts Produced</h3>
+<ul>
+<li><code>harness/foundations.md</code></li>
+<li>Updated <code>harness/index.md</code></li>
+<li>Updated <code>docs/evolution/index.md</code></li>
+</ul>
+<h3 id="entry-0002-shareable-takeaway">Shareable Takeaway</h3>
+<p>Harness engineering is the discipline of designing the layer around the model: instructions, tools, state, runtime, verification, governance, and repository shape. Better models help, but many coding-agent failures are harness failures: bad context, weak state, unclear tools, missing checks, or ungoverned multi-agent coordination.</p>
+<h3 id="entry-0002-open-questions">Open Questions</h3>
+<ul>
+<li>What is the smallest useful run record for this project?</li>
+<li>Which harness primitives should be documented next?</li>
+<li>What deterministic checks can enforce harness quality before real app code</li>
+<p>exists?</p>
+<li>How should future experiments report the harness setup, not just the model or</li>
+<p>final output?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0003">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0003</div>
+      <h2>0003 Context Memory Working State Study</h2>
+    </div>
+    <a class="source-link" href="0003-context-memory-working-state-study.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Harness engineering foundations.</p></div>
+    <div><span>Goal</span><p>Study the Context, Memory &amp; Working State module from walkinglabs/awesome-harness-engineering and define this repository's policy for context, durable memory, compaction, working state, and output backpressure.</p></div>
+    <div><span>Outcome / Decision</span><p>The project adopted a working memory model: This model will guide future handoffs, run records, compaction behavior, instruction design, and noisy command handling.</p></div>
+    <div><span>Takeaway</span><p>Context engineering is not about filling the largest possible window. It is about keeping the live context small and high-signal while storing durable state outside the prompt. The best harnesses use progressive disclosure, compact handoff artifacts, deterministic output backpre...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0003-0003-context-memory-working-state-study">0003 Context Memory Working State Study</h2>
+<h3 id="entry-0003-stage">Stage</h3>
+<p>Harness engineering foundations.</p>
+<h3 id="entry-0003-goal">Goal</h3>
+<p>Study the Context, Memory &amp; Working State module from <a href="https://github.com/walkinglabs/awesome-harness-engineering">&lt;code&gt;walkinglabs/awesome-harness-engineering&lt;/code&gt;</a> and define this repository's policy for context, durable memory, compaction, working state, and output backpressure.</p>
+<h3 id="entry-0003-methodology-used">Methodology Used</h3>
+<ul>
+<li>Source inventory from the upstream module</li>
+<li>Parallel sub-agent research across three source groups</li>
+<li>Cross-source synthesis by the orchestrating agent</li>
+<li>Project-local extraction into <code>harness/context-memory.md</code></li>
+</ul>
+<h3 id="entry-0003-source-groups">Source Groups</h3>
+<ul>
+<li>Anthropic and Manus: context budget, filesystem memory, cache locality,</li>
+<p>just-in-time retrieval, and failure retention</p>
+<li>Thoughtworks and HumanLayer: context interfaces, drift, intentional</li>
+<p>compaction, high-leverage review, and context-efficient backpressure</p>
+<li>OpenHands and HumanLayer: bounded condensation and repo-local instruction</li>
+<p>design for <code>CLAUDE.md</code> / <code>AGENTS.md</code></p>
+</ul>
+<h3 id="entry-0003-outcome">Outcome</h3>
+<p>The project adopted a working memory model:</p>
+<pre><code class="language-text">prompt = active working set
+filesystem = durable memory
+git = versioned memory and recovery path</code></pre>
+<p>This model will guide future handoffs, run records, compaction behavior, instruction design, and noisy command handling.</p>
+<h3 id="entry-0003-artifacts-produced">Artifacts Produced</h3>
+<ul>
+<li><code>harness/context-memory.md</code></li>
+<li>Updated <code>harness/index.md</code></li>
+<li>Updated <code>docs/evolution/index.md</code></li>
+</ul>
+<h3 id="entry-0003-shareable-takeaway">Shareable Takeaway</h3>
+<p>Context engineering is not about filling the largest possible window. It is about keeping the live context small and high-signal while storing durable state outside the prompt. The best harnesses use progressive disclosure, compact handoff artifacts, deterministic output backpressure, and repo-local memory so a fresh agent can resume without replaying the whole conversation.</p>
+<h3 id="entry-0003-open-questions">Open Questions</h3>
+<ul>
+<li>Where should active task working state live: <code>agents/handoffs/</code>,</li>
+<p><code>harness/runs/</code>, <code>experiments/reports/</code>, or a new convention?</p>
+<li>What is the smallest useful run record for long-running coding-agent work?</li>
+<li>Which commands need output backpressure wrappers once the lab project exists?</li>
+<li>How should this repository test that compaction preserves enough state to</li>
+<p>resume correctly?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0004">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0004</div>
+      <h2>0004 Guardrails Safe Autonomy Study</h2>
+    </div>
+    <a class="source-link" href="0004-guardrails-safe-autonomy-study.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Harness engineering foundations.</p></div>
+    <div><span>Goal</span><p>Study the Constraints, Guardrails &amp; Safe Autonomy module from walkinglabs/awesome-harness-engineering and define this repository's initial policy for safe agent autonomy.</p></div>
+    <div><span>Outcome / Decision</span><p>The project adopted an initial safe-autonomy principle: Safe autonomy should reduce approval fatigue by enforcing filesystem, network, credential, tool, prompt, and verifier boundaries rather than relying on frequent confirmation prompts.</p></div>
+    <div><span>Takeaway</span><p>The opposite of unsafe autonomy is not constant human approval. The better path is explicit boundaries: least-privilege workspaces, network controls, secret hygiene, task-shaped tools, prompt-injection defenses, static capability scans, and verifier gates. Humans should improve...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0004-0004-guardrails-safe-autonomy-study">0004 Guardrails Safe Autonomy Study</h2>
+<h3 id="entry-0004-stage">Stage</h3>
+<p>Harness engineering foundations.</p>
+<h3 id="entry-0004-goal">Goal</h3>
+<p>Study the Constraints, Guardrails &amp; Safe Autonomy module from <a href="https://github.com/walkinglabs/awesome-harness-engineering">&lt;code&gt;walkinglabs/awesome-harness-engineering&lt;/code&gt;</a> and define this repository's initial policy for safe agent autonomy.</p>
+<h3 id="entry-0004-methodology-used">Methodology Used</h3>
+<ul>
+<li>Source inventory from the upstream module</li>
+<li>Parallel sub-agent research across three source groups</li>
+<li>Cross-source synthesis by the orchestrating agent</li>
+<li>Project-local extraction into <code>harness/guardrails-safe-autonomy.md</code></li>
+</ul>
+<h3 id="entry-0004-source-groups">Source Groups</h3>
+<ul>
+<li>Anthropic: sandboxing, MCP code execution, and task-shaped tool design</li>
+<li>OpenHands and Lurkr: prompt injection, hard policies, capability-risk</li>
+<p>scanning, and scanner limitations</p>
+<li>Thoughtworks and Claude Code docs: internal quality, reference anchoring,</li>
+<p>humans on the loop, verification, sub-agents, and context hygiene</p>
+</ul>
+<h3 id="entry-0004-outcome">Outcome</h3>
+<p>The project adopted an initial safe-autonomy principle:</p>
+<pre><code class="language-text">more autonomy requires stronger boundaries</code></pre>
+<p>Safe autonomy should reduce approval fatigue by enforcing filesystem, network, credential, tool, prompt, and verifier boundaries rather than relying on frequent confirmation prompts.</p>
+<h3 id="entry-0004-artifacts-produced">Artifacts Produced</h3>
+<ul>
+<li><code>harness/guardrails-safe-autonomy.md</code></li>
+<li>Updated <code>harness/index.md</code></li>
+<li>Updated <code>docs/evolution/index.md</code></li>
+</ul>
+<h3 id="entry-0004-shareable-takeaway">Shareable Takeaway</h3>
+<p>The opposite of unsafe autonomy is not constant human approval. The better path is explicit boundaries: least-privilege workspaces, network controls, secret hygiene, task-shaped tools, prompt-injection defenses, static capability scans, and verifier gates. Humans should improve the harness and approve meaningful risk, not micromanage every low-risk command.</p>
+<h3 id="entry-0004-open-questions">Open Questions</h3>
+<ul>
+<li>What should the default filesystem and network policy be for future lab</li>
+<p>agents?</p>
+<li>Should this project adopt a static capability scanner once agent tool code</li>
+<p>exists?</p>
+<li>Where should MCP trust decisions and exceptions be recorded?</li>
+<li>Which verifier gates are mandatory for lab milestones?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0005">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0005</div>
+      <h2>0005 Specs Agent Workflows Study</h2>
+    </div>
+    <a class="source-link" href="0005-specs-agent-workflows-study.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Harness engineering foundations.</p></div>
+    <div><span>Goal</span><p>Study the Specs, Agent Files &amp; Workflow Design module from walkinglabs/awesome-harness-engineering and define this repository's initial policy for agent instruction files, spec-driven workflow, state, validation, and learning capture.</p></div>
+    <div><span>Outcome / Decision</span><p>The project adopted a workflow model: It also clarified that AGENTS.md is the canonical root agent instruction file, while specs, plans, handoffs, evals, and evolution records form the durable workflow contract around agent work.</p></div>
+    <div><span>Takeaway</span><p>Agent workflows should be treated like software systems: own the prompts, own the context packet, make state inspectable, put human gates at meaningful risk points, validate externally, and write learning back to the repository. Specs are useful when they become durable contract...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0005-0005-specs-agent-workflows-study">0005 Specs Agent Workflows Study</h2>
+<h3 id="entry-0005-stage">Stage</h3>
+<p>Harness engineering foundations.</p>
+<h3 id="entry-0005-goal">Goal</h3>
+<p>Study the Specs, Agent Files &amp; Workflow Design module from <a href="https://github.com/walkinglabs/awesome-harness-engineering">&lt;code&gt;walkinglabs/awesome-harness-engineering&lt;/code&gt;</a> and define this repository's initial policy for agent instruction files, spec-driven workflow, state, validation, and learning capture.</p>
+<h3 id="entry-0005-methodology-used">Methodology Used</h3>
+<ul>
+<li>Source inventory from the upstream module</li>
+<li>Parallel sub-agent research across two source groups</li>
+<li>Cross-source synthesis by the orchestrating agent</li>
+<li>Project-local extraction into <code>harness/specs-agent-workflows.md</code></li>
+</ul>
+<h3 id="entry-0005-source-groups">Source Groups</h3>
+<ul>
+<li>AGENTS.md, agent.md, GitHub Spec Kit, and Thoughtworks SDD: agent instruction</li>
+<p>surfaces, hierarchy, precedence, spec lifecycle, and review tradeoffs</p>
+<li>12 Factor Agents and 12-Factor AgentOps: owned prompts, explicit state,</li>
+<p>human gates, validation, pause/resume, and learning loops</p>
+</ul>
+<h3 id="entry-0005-outcome">Outcome</h3>
+<p>The project adopted a workflow model:</p>
+<pre><code class="language-text">Context -&gt; Work -&gt; Validation -&gt; Learning</code></pre>
+<p>It also clarified that <code>AGENTS.md</code> is the canonical root agent instruction file, while specs, plans, handoffs, evals, and evolution records form the durable workflow contract around agent work.</p>
+<h3 id="entry-0005-artifacts-produced">Artifacts Produced</h3>
+<ul>
+<li><code>harness/specs-agent-workflows.md</code></li>
+<li>Updated <code>harness/index.md</code></li>
+<li>Updated <code>docs/evolution/index.md</code></li>
+</ul>
+<h3 id="entry-0005-shareable-takeaway">Shareable Takeaway</h3>
+<p>Agent workflows should be treated like software systems: own the prompts, own the context packet, make state inspectable, put human gates at meaningful risk points, validate externally, and write learning back to the repository. Specs are useful when they become durable contracts, not when they become unreviewable Markdown piles.</p>
+<h3 id="entry-0005-open-questions">Open Questions</h3>
+<ul>
+<li>Should this repo create a formal workflow template under <code>agents/playbooks/</code>?</li>
+<li>What is the minimum artifact set for future lab milestones?</li>
+<li>How should spec-review and implementation-plan review be evaluated?</li>
+<li>Should nested <code>AGENTS.md</code> precedence be documented more explicitly in the</li>
+<p>root operating contract?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0006">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0006</div>
+      <h2>0006 - Evals and Observability Study</h2>
+    </div>
+    <a class="source-link" href="0006-evals-observability-study.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Harness engineering best-practice exploration.</p></div>
+    <div><span>Goal</span><p>Study the Evals &amp; Observability module from walkinglabs/awesome-harness-engineering and turn it into project-local guidance for measuring, tracing, and improving AI-agent work.</p></div>
+    <div><span>Outcome / Decision</span><p>Treat evals and observability as a single feedback loop: Evals answer whether a harness change improved behavior. Observability answers why the behavior changed and what should be modified next.</p></div>
+    <div><span>Takeaway</span><p>For harness engineering, &quot;the agent passed&quot; is too weak. A usable evaluation record needs task, run, trace, artifacts, grade, environment, and learning. The evaluation system should be small at first, but it must be comparative and repeatable. A skill, prompt, middleware, or wor...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0006-0006-evals-and-observability-study">0006 - Evals and Observability Study</h2>
+<h3 id="entry-0006-stage">Stage</h3>
+<p>Harness engineering best-practice exploration.</p>
+<h3 id="entry-0006-goal">Goal</h3>
+<p>Study the Evals &amp; Observability module from <code>walkinglabs/awesome-harness-engineering</code> and turn it into project-local guidance for measuring, tracing, and improving AI-agent work.</p>
+<h3 id="entry-0006-method">Method</h3>
+<p>We started with the same parallel-subagent learning method used in earlier modules, splitting sources into:</p>
+<ul>
+<li>OpenAI and OpenHands eval methodology</li>
+<li>observability frameworks, standards, and tools</li>
+<li>Anthropic and LangChain deep-agent eval practice</li>
+</ul>
+<p>The subagent runs hit the current usage limit, so the method degraded to a single-agent source review. The fallback preserved the same source grouping and synthesis questions:</p>
+<ul>
+<li>What should be measured?</li>
+<li>What trace evidence explains the score?</li>
+<li>What should become a local harness primitive?</li>
+<li>What failure modes and anti-patterns should be avoided?</li>
+</ul>
+<h3 id="entry-0006-decision">Decision</h3>
+<p>Treat evals and observability as a single feedback loop:</p>
+<pre><code class="language-text">Task -&gt; Run -&gt; Trace -&gt; Grade -&gt; Diagnose -&gt; Change -&gt; Regression Gate</code></pre>
+<p>Evals answer whether a harness change improved behavior. Observability answers why the behavior changed and what should be modified next.</p>
+<h3 id="entry-0006-outcome">Outcome</h3>
+<p>The project now has a dedicated Evals and Observability note that defines:</p>
+<ul>
+<li>evaluation primitives</li>
+<li>observability primitives</li>
+<li>baseline comparison rules</li>
+<li>deterministic-first grading</li>
+<li>trace grading guidance</li>
+<li>environment-control requirements</li>
+<li>first local eval candidates for this repository</li>
+<li>anti-patterns for agentic coding evals</li>
+</ul>
+<h3 id="entry-0006-artifacts">Artifacts</h3>
+<ul>
+<li><code>harness/evals-observability.md</code></li>
+<li><code>harness/index.md</code></li>
+<li><code>docs/evolution/0006-evals-observability-study.md</code></li>
+</ul>
+<h3 id="entry-0006-shareable-takeaway">Shareable Takeaway</h3>
+<p>For harness engineering, &quot;the agent passed&quot; is too weak. A usable evaluation record needs task, run, trace, artifacts, grade, environment, and learning.</p>
+<p>The evaluation system should be small at first, but it must be comparative and repeatable. A skill, prompt, middleware, or workflow rule is only a hypothesis until a baseline comparison shows it helps.</p>
+<h3 id="entry-0006-open-questions">Open Questions</h3>
+<ul>
+<li>When should this project introduce executable eval scripts instead of</li>
+<p>documentation-only checks?</p>
+<li>What trace schema should <code>harness/runs/</code> use before adopting a full</li>
+<p>observability backend?</p>
+<li>Which first local eval should become the canonical regression gate for future</li>
+<p>agents?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0007">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0007</div>
+      <h2>0007 - Benchmarks and Runtimes Study</h2>
+    </div>
+    <a class="source-link" href="0007-benchmarks-runtimes-study.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Harness engineering best-practice exploration.</p></div>
+    <div><span>Goal</span><p>Finish the remaining core modules from walkinglabs/awesome-harness-engineering: Benchmarks and Runtimes, Harnesses &amp; Reference Implementations.</p></div>
+    <div><span>Outcome / Decision</span><p>Treat benchmark results as measurements of a model-harness-environment bundle, not pure model capability. Treat frameworks, runtimes, and harnesses as separate but overlapping layers: framework: development abstractions runtime: durable execution infrastructure harness: operating system around agent behavior</p></div>
+    <div><span>Takeaway</span><p>Benchmarks are useful when they expose harness behavior. A leaderboard score is not enough; useful reporting needs model, harness revision, runtime setup, resource limits, trace evidence, cost, and evaluator limitations. Reference implementations should be mined for patterns bef...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0007-0007-benchmarks-and-runtimes-study">0007 - Benchmarks and Runtimes Study</h2>
+<h3 id="entry-0007-stage">Stage</h3>
+<p>Harness engineering best-practice exploration.</p>
+<h3 id="entry-0007-goal">Goal</h3>
+<p>Finish the remaining core modules from <code>walkinglabs/awesome-harness-engineering</code>: Benchmarks and Runtimes, Harnesses &amp; Reference Implementations.</p>
+<h3 id="entry-0007-method">Method</h3>
+<p>We grouped the remaining sources by the question they answer:</p>
+<ul>
+<li>Benchmarks: what external task surfaces expose harness quality?</li>
+<li>Runtimes and reference implementations: what implementation shapes already</li>
+<p>exist, and when should this project adopt them?</p>
+</ul>
+<p>Because subagent quota was unavailable, synthesis was done in the main session. The method emphasized taxonomy and local decision rules over exhaustive description of every link.</p>
+<h3 id="entry-0007-decision">Decision</h3>
+<p>Treat benchmark results as measurements of a model-harness-environment bundle, not pure model capability.</p>
+<p>Treat frameworks, runtimes, and harnesses as separate but overlapping layers:</p>
+<ul>
+<li>framework: development abstractions</li>
+<li>runtime: durable execution infrastructure</li>
+<li>harness: operating system around agent behavior</li>
+</ul>
+<h3 id="entry-0007-outcome">Outcome</h3>
+<p>The project now has:</p>
+<ul>
+<li>a benchmark taxonomy organized by task surface</li>
+<li>rules for reporting and interpreting benchmark results</li>
+<li>a staged adoption ladder for runtimes and reference implementations</li>
+<li>selection criteria before adopting external runtime infrastructure</li>
+</ul>
+<h3 id="entry-0007-artifacts">Artifacts</h3>
+<ul>
+<li><code>harness/benchmarks.md</code></li>
+<li><code>harness/runtimes-reference-implementations.md</code></li>
+<li><code>harness/index.md</code></li>
+<li><code>docs/evolution/0007-benchmarks-runtimes-study.md</code></li>
+</ul>
+<h3 id="entry-0007-shareable-takeaway">Shareable Takeaway</h3>
+<p>Benchmarks are useful when they expose harness behavior. A leaderboard score is not enough; useful reporting needs model, harness revision, runtime setup, resource limits, trace evidence, cost, and evaluator limitations.</p>
+<p>Reference implementations should be mined for patterns before being adopted as dependencies. A project should not add a runtime until its state, recovery, and verification needs exceed what files, git, and small scripts can provide.</p>
+<h3 id="entry-0007-open-questions">Open Questions</h3>
+<ul>
+<li>Which local mini-eval should become the first executable benchmark?</li>
+<li>What run-record schema should precede any observability backend?</li>
+<li>Which runtime reference should be explored first when this project moves from</li>
+<p>documentation to executable harness automation?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0008">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0008</div>
+      <h2>0008 - Project Status Alignment</h2>
+    </div>
+    <a class="source-link" href="0008-project-status-alignment.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Transition from harness engineering study to validation planning.</p></div>
+    <div><span>Goal</span><p>Align the human-facing and agent-facing entry documents with the actual project state after the core walkinglabs/awesome-harness-engineering learning pass.</p></div>
+    <div><span>Outcome / Decision</span><p>Update the project phase to:</p></div>
+    <div><span>Takeaway</span><p>Agent-readable projects need periodic status alignment. Once the real project state moves faster than the entry documents, future agents will start from stale assumptions even if the detailed artifacts are correct.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0008-0008-project-status-alignment">0008 - Project Status Alignment</h2>
+<h3 id="entry-0008-stage">Stage</h3>
+<p>Transition from harness engineering study to validation planning.</p>
+<h3 id="entry-0008-goal">Goal</h3>
+<p>Align the human-facing and agent-facing entry documents with the actual project state after the core <code>walkinglabs/awesome-harness-engineering</code> learning pass.</p>
+<h3 id="entry-0008-method">Method</h3>
+<p>We inspected the repository structure, recent commits, harness notes, and evolution log to compare documented phase descriptions with the real state of the project.</p>
+<p>The inspection found that <code>README.md</code> still described project initialization, and <code>CONTEXT.md</code> still emphasized only harness foundations, while the project had already completed the core methodology modules.</p>
+<h3 id="entry-0008-decision">Decision</h3>
+<p>Update the project phase to:</p>
+<pre><code class="language-text">Core harness engineering study is complete.
+The next phase is validation through local evals, run records, and lab work.</code></pre>
+<h3 id="entry-0008-outcome">Outcome</h3>
+<p>The project entrance now reflects the current stage:</p>
+<ul>
+<li><code>README.md</code> describes the transition from core study to validation.</li>
+<li><code>CONTEXT.md</code> lists current artifacts and recent methodology decisions.</li>
+</ul>
+<h3 id="entry-0008-artifacts">Artifacts</h3>
+<ul>
+<li><code>README.md</code></li>
+<li><code>CONTEXT.md</code></li>
+<li><code>docs/evolution/0008-project-status-alignment.md</code></li>
+</ul>
+<h3 id="entry-0008-shareable-takeaway">Shareable Takeaway</h3>
+<p>Agent-readable projects need periodic status alignment. Once the real project state moves faster than the entry documents, future agents will start from stale assumptions even if the detailed artifacts are correct.</p>
+<h3 id="entry-0008-open-questions">Open Questions</h3>
+<ul>
+<li>What should be the first executable local eval?</li>
+<li>What run-record schema should <code>harness/runs/</code> adopt?</li>
+<li>What real validation project should start under <code>lab/</code>?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0009">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0009</div>
+      <h2>0009 - Validation Framework Design</h2>
+    </div>
+    <a class="source-link" href="0009-validation-framework-design.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Validation planning after the core harness engineering study.</p></div>
+    <div><span>Goal</span><p>Turn the documented methodology into a first local validation framework before starting lab implementation. The immediate goal was to define: what the next learning phases are what evidence an agent run must preserve how harness quality should be judged which...</p></div>
+    <div><span>Outcome / Decision</span><p>Adopt this next-stage sequence: This keeps the lab from becoming an intuition-only exercise. Future lab work should produce run records, rubric scores, task-sample results, and stage-level learning.</p></div>
+    <div><span>Takeaway</span><p>Methodology becomes real only when it has an evidence contract. Before asking whether a harness &quot;works&quot;, define what a run must record, what a reviewer will score, and which small tasks reveal failure modes. Then the lab can test the methodology instead of merely using it.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0009-0009-validation-framework-design">0009 - Validation Framework Design</h2>
+<h3 id="entry-0009-stage">Stage</h3>
+<p>Validation planning after the core harness engineering study.</p>
+<h3 id="entry-0009-goal">Goal</h3>
+<p>Turn the documented methodology into a first local validation framework before starting lab implementation.</p>
+<p>The immediate goal was to define:</p>
+<ul>
+<li>what the next learning phases are</li>
+<li>what evidence an agent run must preserve</li>
+<li>how harness quality should be judged</li>
+<li>which local task samples can test the methodology</li>
+</ul>
+<h3 id="entry-0009-method">Method</h3>
+<p>We used the principle established in the Evals &amp; Observability module:</p>
+<pre><code class="language-text">Task -&gt; Run -&gt; Trace -&gt; Grade -&gt; Diagnose -&gt; Change -&gt; Regression Gate</code></pre>
+<p>Instead of starting with a real lab project immediately, we first defined the evidence contract that future lab work must satisfy.</p>
+<h3 id="entry-0009-decision">Decision</h3>
+<p>Adopt this next-stage sequence:</p>
+<pre><code class="language-text">Run Record -&gt; Local Evals -&gt; Lab Project -&gt; Pattern Extraction</code></pre>
+<p>This keeps the lab from becoming an intuition-only exercise. Future lab work should produce run records, rubric scores, task-sample results, and stage-level learning.</p>
+<h3 id="entry-0009-outcome">Outcome</h3>
+<p>The project now has a validation framework for the next learning stage:</p>
+<ul>
+<li>a validation-phase learning plan</li>
+<li>a run-record schema</li>
+<li>a harness-validation rubric</li>
+<li>local mini-eval task samples</li>
+</ul>
+<h3 id="entry-0009-artifacts">Artifacts</h3>
+<ul>
+<li><code>docs/workflows/validation-phase-learning-plan.md</code></li>
+<li><code>harness/runs/run-record-schema.md</code></li>
+<li><code>evals/rubrics/harness-validation-rubric.md</code></li>
+<li><code>experiments/task-samples/agent-first-project-tasks.md</code></li>
+</ul>
+<h3 id="entry-0009-shareable-takeaway">Shareable Takeaway</h3>
+<p>Methodology becomes real only when it has an evidence contract.</p>
+<p>Before asking whether a harness &quot;works&quot;, define what a run must record, what a reviewer will score, and which small tasks reveal failure modes. Then the lab can test the methodology instead of merely using it.</p>
+<h3 id="entry-0009-open-questions">Open Questions</h3>
+<ul>
+<li>Which lab project should be selected first?</li>
+<li>Should the first executable eval check directory contract, evolution logging,</li>
+<p>or verification-before-completion?</p>
+<li>Should run records start as manual Markdown or move quickly toward a schema</li>
+<p>that scripts can validate?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0010">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0010</div>
+      <h2>0010 - Core Harness Study Retrospective</h2>
+    </div>
+    <a class="source-link" href="0010-core-harness-study-retrospective.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Core harness engineering study retrospective. This record summari</p></div>
+    <div><span>Goal</span><p>Create a stage-level summary of what we learned from the core modules of walkinglabs/awesome-harness-engineering, what methodology we used, what local models we adopted, and how this learning changes the next phase of the project. This retrospective exists be...</p></div>
+    
+    
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0010-0010-core-harness-study-retrospective">0010 - Core Harness Study Retrospective</h2>
+<h3 id="entry-0010-stage">Stage</h3>
+<p>Core harness engineering study retrospective.</p>
+<p>This record summarizes the stage covered by:</p>
+<ul>
+<li><code>0002-harness-foundations-study.md</code></li>
+<li><code>0003-context-memory-working-state-study.md</code></li>
+<li><code>0004-guardrails-safe-autonomy-study.md</code></li>
+<li><code>0005-specs-agent-workflows-study.md</code></li>
+<li><code>0006-evals-observability-study.md</code></li>
+<li><code>0007-benchmarks-runtimes-study.md</code></li>
+</ul>
+<h3 id="entry-0010-goal">Goal</h3>
+<p>Create a stage-level summary of what we learned from the core modules of <code>walkinglabs/awesome-harness-engineering</code>, what methodology we used, what local models we adopted, and how this learning changes the next phase of the project.</p>
+<p>This retrospective exists because individual module notes are useful for detail, but future sharing needs a single narrative entry that explains the whole learning arc.</p>
+<h3 id="entry-0010-method">Method</h3>
+<p>We used a repeated synthesis loop:</p>
+<pre><code class="language-text">Source inventory -&gt; source-group research -&gt; cross-source synthesis -&gt;
+project-local document -&gt; evolution record -&gt; commit</code></pre>
+<p>For early modules, sources were split across parallel subagents. When subagent quota became unavailable, the process degraded to single-agent source review while preserving the same grouping questions:</p>
+<ul>
+<li>What is the source's core claim?</li>
+<li>What harness primitives does it imply?</li>
+<li>What should become local project policy?</li>
+<li>What risks or anti-patterns should be recorded?</li>
+<li>What should future lab work validate?</li>
+</ul>
+<p>The key methodological choice was to turn external reading into local operating concepts instead of creating article summaries. Each module had to produce a project-local artifact under <code>harness/</code> and a stage-level narrative record under <code>docs/evolution/</code>.</p>
+<h3 id="entry-0010-learning-arc">Learning Arc</h3>
+<h4 id="entry-0010-1-foundations">1. Foundations</h4>
+<p>We started by defining harness engineering as the system around the model: instructions, tools, context, state, runtime, verification, governance, and repository shape.</p>
+<p>Local model adopted:</p>
+<pre><code class="language-text">Control + Agency + Runtime + Substrate</code></pre>
+<p>This gave the project a way to discuss harness work without collapsing it into prompt engineering.</p>
+<h4 id="entry-0010-2-context-memory-and-working-state">2. Context, Memory, and Working State</h4>
+<p>We then clarified that context is a limited active working set, not a place to store everything.</p>
+<p>Local model adopted:</p>
+<pre><code class="language-text">prompt = active working set
+filesystem = durable memory
+git = versioned memory and recovery path</code></pre>
+<p>This shaped the project's preference for progressive disclosure, compact handoffs, durable docs, git history, and output backpressure.</p>
+<h4 id="entry-0010-3-guardrails-and-safe-autonomy">3. Guardrails and Safe Autonomy</h4>
+<p>The guardrails module shifted the safety framing away from constant approvals and toward explicit boundaries.</p>
+<p>Local principle adopted:</p>
+<pre><code class="language-text">more autonomy requires stronger boundaries</code></pre>
+<p>Safe autonomy means clear filesystem, network, credential, tool, prompt, and verifier boundaries. Humans should approve meaningful risk and improve the harness, not micromanage every low-risk command.</p>
+<h4 id="entry-0010-4-specs-agent-files-and-workflows">4. Specs, Agent Files, and Workflows</h4>
+<p>The workflow module connected repo-local instructions, specs, plans, validation, and learning capture.</p>
+<p>Local model adopted:</p>
+<pre><code class="language-text">Context -&gt; Work -&gt; Validation -&gt; Learning</code></pre>
+<p>This made <code>AGENTS.md</code> the root operating contract while specs, plans, handoffs, evals, and evolution entries became the durable workflow system around agent work.</p>
+<h4 id="entry-0010-5-evals-and-observability">5. Evals and Observability</h4>
+<p>The evals module turned evaluation from a final-answer check into a feedback loop.</p>
+<p>Local model adopted:</p>
+<pre><code class="language-text">Task -&gt; Run -&gt; Trace -&gt; Grade -&gt; Diagnose -&gt; Change -&gt; Regression Gate</code></pre>
+<p>The main lesson is that a useful agent evaluation must preserve task, run, trace, artifacts, grade, environment, and learning. Observability explains why a score changed; evals decide whether the change is acceptable.</p>
+<h4 id="entry-0010-6-benchmarks-and-runtimes">6. Benchmarks and Runtimes</h4>
+<p>The final core module clarified that benchmark scores are not pure model measurements.</p>
+<p>Local interpretation adopted:</p>
+<pre><code class="language-text">benchmark score = model + harness + environment</code></pre>
+<p>It also separated three implementation layers:</p>
+<ul>
+<li>framework: development abstractions</li>
+<li>runtime: durable execution infrastructure</li>
+<li>harness: operating system around agent behavior</li>
+</ul>
+<p>The project decided to mine reference implementations for patterns before adopting runtime dependencies.</p>
+<h3 id="entry-0010-consolidated-outcome">Consolidated Outcome</h3>
+<p>The core study produced a coherent harness engineering model:</p>
+<pre><code class="language-text">Harness engineering is the discipline of shaping the system around an AI agent
+so its work becomes context-aware, bounded, observable, recoverable, verifiable,
+and improvable over time.</code></pre>
+<p>The project now treats harness work as a stack:</p>
+<ol>
+<li><strong>Repository substrate</strong></li>
+<p>- readable directory structure - durable docs - git history</p>
+</ol>
+<ol>
+<li><strong>Operating contract</strong></li>
+<p>- <code>AGENTS.md</code> - <code>CONTEXT.md</code> - local rules and precedence</p>
+</ol>
+<ol>
+<li><strong>Workflow system</strong></li>
+<p>- specs - plans - handoffs - validation - evolution logs</p>
+</ol>
+<ol>
+<li><strong>Safety system</strong></li>
+<p>- tool boundaries - sandbox assumptions - prompt-injection controls - verifier gates</p>
+</ol>
+<ol>
+<li><strong>Feedback system</strong></li>
+<p>- run records - traces - eval rubrics - benchmark interpretation - regression gates</p>
+</ol>
+<ol>
+<li><strong>Future runtime layer</strong></li>
+<p>- adapters - executable checks - durable runtime only when needed</p>
+</ol>
+<h3 id="entry-0010-artifacts-produced">Artifacts Produced</h3>
+<p>Harness methodology:</p>
+<ul>
+<li><code>harness/foundations.md</code></li>
+<li><code>harness/context-memory.md</code></li>
+<li><code>harness/guardrails-safe-autonomy.md</code></li>
+<li><code>harness/specs-agent-workflows.md</code></li>
+<li><code>harness/evals-observability.md</code></li>
+<li><code>harness/benchmarks.md</code></li>
+<li><code>harness/runtimes-reference-implementations.md</code></li>
+</ul>
+<p>Shareable summary:</p>
+<ul>
+<li><code>docs/harness-engineering-summary-zh.md</code></li>
+</ul>
+<p>Evolution records:</p>
+<ul>
+<li><code>docs/evolution/0002-harness-foundations-study.md</code></li>
+<li><code>docs/evolution/0003-context-memory-working-state-study.md</code></li>
+<li><code>docs/evolution/0004-guardrails-safe-autonomy-study.md</code></li>
+<li><code>docs/evolution/0005-specs-agent-workflows-study.md</code></li>
+<li><code>docs/evolution/0006-evals-observability-study.md</code></li>
+<li><code>docs/evolution/0007-benchmarks-runtimes-study.md</code></li>
+</ul>
+<p>Validation preparation that followed the study:</p>
+<ul>
+<li><code>docs/workflows/validation-phase-learning-plan.md</code></li>
+<li><code>harness/runs/run-record-schema.md</code></li>
+<li><code>evals/rubrics/harness-validation-rubric.md</code></li>
+<li><code>experiments/task-samples/agent-first-project-tasks.md</code></li>
+</ul>
+<h3 id="entry-0010-shareable-takeaways">Shareable Takeaways</h3>
+<ol>
+<li><strong>Harness is bigger than prompt engineering.</strong></li>
+<p>Prompt is one control surface. Harness also includes context, tools, state, runtime, evals, guardrails, and repository shape.</p>
+</ol>
+<ol>
+<li><strong>Context should be managed as a working set.</strong></li>
+<p>Durable memory belongs in files and git, not only in the live prompt.</p>
+</ol>
+<ol>
+<li><strong>Autonomy needs boundaries, not constant interruption.</strong></li>
+<p>Approval prompts are a weak substitute for least-privilege tools, sandboxing, and verifier gates.</p>
+</ol>
+<ol>
+<li><strong>Specs and workflows turn intent into recoverable work.</strong></li>
+<p>Agent work becomes more stable when instructions, plans, validation, and learning are durable project artifacts.</p>
+</ol>
+<ol>
+<li><strong>Evals need traces.</strong></li>
+<p>Pass/fail tells us whether something worked. Trace evidence tells us why and what to improve.</p>
+</ol>
+<ol>
+<li><strong>Benchmarks measure systems.</strong></li>
+<p>For agentic coding and tool use, benchmark results reflect the model, the harness, and the environment together.</p>
+</ol>
+<ol>
+<li><strong>Reusable methodology should wait for lab evidence.</strong></li>
+<p>The likely reusable package is Template + Skill + Playbook, but extraction should happen after the lab validates which parts actually help.</p>
+</ol>
+<h3 id="entry-0010-what-changed-in-the-project">What Changed In The Project</h3>
+<p>Before this study, the project mainly had a proposed agent-first directory structure.</p>
+<p>After this study, the project has:</p>
+<ul>
+<li>a vocabulary for harness engineering</li>
+<li>a set of local methodology documents</li>
+<li>a shareable Chinese summary</li>
+<li>stage-level evolution records</li>
+<li>a validation plan</li>
+<li>a run-record schema</li>
+<li>a first rubric for evaluating harness quality</li>
+<li>local task samples for mini-evals</li>
+</ul>
+<p>This shifts the project from learning by reading to learning by validation.</p>
+<h3 id="entry-0010-next-phase">Next Phase</h3>
+<p>The next phase is lab validation:</p>
+<pre><code class="language-text">Run Record -&gt; Local Evals -&gt; Lab Project -&gt; Pattern Extraction</code></pre>
+<p>The first lab work should not try to prove everything. It should test a small number of concrete claims:</p>
+<ul>
+<li>Can a fresh agent read the project and understand the current phase?</li>
+<li>Does the run-record schema make work recoverable?</li>
+<li>Do local mini-evals catch missed obligations?</li>
+<li>Does the evolution log capture meaningful learning without becoming a</li>
+<p>changelog?</p>
+<li>Which parts of the methodology are useful enough to later become a reusable</li>
+<p>template, skill, or playbook?</p>
+</ul>
+<h3 id="entry-0010-open-questions">Open Questions</h3>
+<ul>
+<li>Which concrete lab project should be used for first validation?</li>
+<li>Should the first executable local eval target directory contracts, evolution</li>
+<p>logging, or verification-before-completion?</p>
+<li>What should the first manual run record look like in practice?</li>
+<li>Which parts of the current methodology are likely too heavy for small</li>
+<p>projects?</p>
+<li>When should this project start extracting a reusable Template + Skill +</li>
+<p>Playbook package?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0011">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0011</div>
+      <h2>0011 - First Lab Project Dinner Picker</h2>
+    </div>
+    <a class="source-link" href="0011-first-lab-project-dinner-picker.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3B - First Lab Project.</p></div>
+    <div><span>Goal</span><p>Start the first real validation project under lab/ and use the phase 3A evidence contract while doing real React application work. The selected project is Dinner Picker: a mobile-first app that helps users decide what to eat by drawing a random dish from a lo...</p></div>
+    <div><span>Outcome / Decision</span><p>Use lab/dinner-picker as the first concrete validation surface. This project is small enough to finish quickly, but real enough to exercise state, UI, persistence, testing, mobile layout, and stage-level evidence capture.</p></div>
+    <div><span>Takeaway</span><p>The first lab task validated why run records and visual checks matter. Automated tests proved the app behavior, but the mobile browser check caught a visual contrast issue in the recommendation card. That is a concrete example of the harness feedback loop working: the trace of v...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0011-0011-first-lab-project-dinner-picker">0011 - First Lab Project Dinner Picker</h2>
+<h3 id="entry-0011-stage">Stage</h3>
+<p>Phase 3B - First Lab Project.</p>
+<h3 id="entry-0011-goal">Goal</h3>
+<p>Start the first real validation project under <code>lab/</code> and use the phase 3A evidence contract while doing real React application work.</p>
+<p>The selected project is Dinner Picker: a mobile-first app that helps users decide what to eat by drawing a random dish from a local dish pool.</p>
+<h3 id="entry-0011-method">Method</h3>
+<p>We followed the validated sequence:</p>
+<pre><code class="language-text">Design -&gt; Plan -&gt; Implement -&gt; Verify -&gt; Record -&gt; Evaluate -&gt; Learn</code></pre>
+<p>The app was intentionally scoped as an MVP:</p>
+<ul>
+<li>React + TypeScript + Vite</li>
+<li>localStorage persistence</li>
+<li>mobile-first layout</li>
+<li>playful draw/lottery interaction</li>
+<li>no backend</li>
+<li>no login</li>
+<li>no complex recommendation algorithm</li>
+</ul>
+<p>The run also tested our harness evidence flow:</p>
+<ul>
+<li>design spec</li>
+<li>implementation plan</li>
+<li>automated tests</li>
+<li>build and lint verification</li>
+<li>browser/mobile smoke test</li>
+<li>run record</li>
+<li>experiment report</li>
+<li>rubric score</li>
+</ul>
+<h3 id="entry-0011-decision">Decision</h3>
+<p>Use <code>lab/dinner-picker</code> as the first concrete validation surface.</p>
+<p>This project is small enough to finish quickly, but real enough to exercise state, UI, persistence, testing, mobile layout, and stage-level evidence capture.</p>
+<h3 id="entry-0011-outcome">Outcome</h3>
+<p>The Dinner Picker MVP is implemented.</p>
+<p>Users can:</p>
+<ul>
+<li>add dishes</li>
+<li>choose a simple tag</li>
+<li>delete dishes</li>
+<li>draw a random recommendation</li>
+<li>keep data through <code>localStorage</code></li>
+</ul>
+<p>The work produced the first full lab evidence package.</p>
+<h3 id="entry-0011-artifacts">Artifacts</h3>
+<ul>
+<li><code>lab/dinner-picker/</code></li>
+<li><code>lab/README.md</code></li>
+<li><code>docs/superpowers/specs/2026-05-30-dinner-picker-lab-design.md</code></li>
+<li><code>docs/superpowers/plans/2026-05-30-dinner-picker-lab-mvp.md</code></li>
+<li><code>harness/runs/2026-05-31-dinner-picker-mvp.md</code></li>
+<li><code>experiments/reports/2026-05-31-dinner-picker-mvp.md</code></li>
+</ul>
+<h3 id="entry-0011-verification">Verification</h3>
+<ul>
+<li><code>npm test -- --run</code>: passed, 13 tests</li>
+<li><code>npm run build</code>: passed</li>
+<li><code>npm run lint</code>: passed</li>
+<li>mobile browser smoke check at 390x844: passed</li>
+<li>no horizontal overflow in mobile smoke check</li>
+</ul>
+<h3 id="entry-0011-shareable-takeaway">Shareable Takeaway</h3>
+<p>The first lab task validated why run records and visual checks matter.</p>
+<p>Automated tests proved the app behavior, but the mobile browser check caught a visual contrast issue in the recommendation card. That is a concrete example of the harness feedback loop working: the trace of verification changed the implementation before completion.</p>
+<h3 id="entry-0011-open-questions">Open Questions</h3>
+<ul>
+<li>Should the next lab task add history and avoid immediate repeats?</li>
+<li>Should we first automate the local evals for directory, evolution, and</li>
+<p>verification checks?</p>
+<li>How much run-record detail is useful before it becomes too heavy?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0012">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0012</div>
+      <h2>0012 - Mobile LAN Validation Gap</h2>
+    </div>
+    <a class="source-link" href="0012-mobile-lan-validation-gap.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3B - First Lab Project feedback loop.</p></div>
+    <div><span>Goal</span><p>Respond to the user's discovery that the Dinner Picker app could not add dishes from a phone and determine whether the harness process had a verification gap.</p></div>
+    <div><span>Outcome / Decision</span><p>Treat the issue as a harness validation gap, not only an app bug. The app had tests, build verification, lint verification, and a mobile viewport smoke check. However, the smoke check used 127.0.0.1, while the user tested from a phone through a LAN HTTP URL. Those paths have different browser security-context behavior.</p></div>
+    <div><span>Takeaway</span><p>Testing &quot;mobile viewport&quot; is not the same as testing &quot;phone access path&quot;. For local web apps, localhost and LAN IP URLs can differ in browser security context. If the user will validate from a phone, the harness should test the same network URL or explicitly state that real phon...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0012-0012-mobile-lan-validation-gap">0012 - Mobile LAN Validation Gap</h2>
+<h3 id="entry-0012-stage">Stage</h3>
+<p>Phase 3B - First Lab Project feedback loop.</p>
+<h3 id="entry-0012-goal">Goal</h3>
+<p>Respond to the user's discovery that the Dinner Picker app could not add dishes from a phone and determine whether the harness process had a verification gap.</p>
+<h3 id="entry-0012-method">Method</h3>
+<p>We used systematic debugging and TDD:</p>
+<pre><code class="language-text">Reproduce -&gt; root cause -&gt; failing test -&gt; minimal fix -&gt; real-path verification</code></pre>
+<p>The bug was reproduced through the Vite network URL rather than localhost.</p>
+<h3 id="entry-0012-decision">Decision</h3>
+<p>Treat the issue as a harness validation gap, not only an app bug.</p>
+<p>The app had tests, build verification, lint verification, and a mobile viewport smoke check. However, the smoke check used <code>127.0.0.1</code>, while the user tested from a phone through a LAN HTTP URL. Those paths have different browser security-context behavior.</p>
+<h3 id="entry-0012-outcome">Outcome</h3>
+<p>The app bug was fixed.</p>
+<p>Root cause:</p>
+<ul>
+<li><code>createDish()</code> called <code>crypto.randomUUID()</code> directly.</li>
+<li><code>crypto.randomUUID()</code> was available on localhost but unavailable on the LAN</li>
+<p>HTTP origin used by phone validation.</p>
+</ul>
+<p>Fix:</p>
+<ul>
+<li>use <code>crypto.randomUUID()</code> when available</li>
+<li>fallback to a timestamp/random ID when unavailable</li>
+</ul>
+<p>Regression:</p>
+<ul>
+<li>added a test for dish creation when <code>crypto.randomUUID</code> is unavailable</li>
+</ul>
+<h3 id="entry-0012-artifacts">Artifacts</h3>
+<ul>
+<li><code>lab/dinner-picker/src/lib/dishes.ts</code></li>
+<li><code>lab/dinner-picker/src/lib/dishes.test.ts</code></li>
+<li><code>harness/runs/2026-05-31-dinner-picker-mobile-add-bug.md</code></li>
+<li><code>experiments/reports/2026-05-31-dinner-picker-mobile-add-bug.md</code></li>
+</ul>
+<h3 id="entry-0012-shareable-takeaway">Shareable Takeaway</h3>
+<p>Testing &quot;mobile viewport&quot; is not the same as testing &quot;phone access path&quot;.</p>
+<p>For local web apps, <code>localhost</code> and LAN IP URLs can differ in browser security context. If the user will validate from a phone, the harness should test the same network URL or explicitly state that real phone validation is still untested.</p>
+<p>This is exactly the kind of gap a harness project should surface.</p>
+<h3 id="entry-0012-open-questions">Open Questions</h3>
+<ul>
+<li>Should all future lab UI tasks require LAN URL smoke checks when phone testing</li>
+<p>is expected?</p>
+<li>Should we add a checklist item for browser security-context APIs?</li>
+<li>Should access-path parity become one of the first executable local evals?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0013">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0013</div>
+      <h2>Feedback-Driven Recommendation Loop</h2>
+    </div>
+    <a class="source-link" href="0013-feedback-driven-recommendation-loop.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3B - First Lab Project. The project is using lab/dinner-picker to validate whether harness engineering practices help an AI agent mov...</p></div>
+    <div><span>Goal</span><p>Improve the random recommendation experience after mobile testing showed that the app worked functionally but felt too abrupt and did not respond to user preference. The key product rule was clarified: after a dish is drawn, the user can mark 想吃 or 不想吃 不想吃 au...</p></div>
+    <div><span>Outcome / Decision</span><p>The Dinner Picker app now supports a feedback-driven draw loop: 想吃 records positive preference and keeps the result. 不想吃 records negative preference and automatically redraws when another candidate exists. Recommendation weight changes are bounded, so dishes are not permanently hidden. The draw flow includes a lightwe...</p></div>
+    <div><span>Takeaway</span><p>Harness engineering should make subjective feedback executable. The user should not be the first QA surface for every iteration. A useful agent turns a complaint like &quot;this feels too abrupt&quot; into product rules, deterministic tests, browser-observed behavior, and a durable record...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0013-feedback-driven-recommendation-loop">Feedback-Driven Recommendation Loop</h2>
+<h3 id="entry-0013-stage">Stage</h3>
+<p>Phase 3B - First Lab Project.</p>
+<p>The project is using <code>lab/dinner-picker</code> to validate whether harness engineering practices help an AI agent move from user feedback to tested product behavior.</p>
+<h3 id="entry-0013-goal">Goal</h3>
+<p>Improve the random recommendation experience after mobile testing showed that the app worked functionally but felt too abrupt and did not respond to user preference.</p>
+<p>The key product rule was clarified:</p>
+<ul>
+<li>after a dish is drawn, the user can mark <code>想吃</code> or <code>不想吃</code></li>
+<li><code>不想吃</code> automatically redraws another dish</li>
+<li>rejected dishes should have lower future weight</li>
+</ul>
+<h3 id="entry-0013-methodology">Methodology</h3>
+<p>We treated the feedback as a harness validation opportunity, not as a small UI patch.</p>
+<p>The method was:</p>
+<pre><code class="language-text">subjective UX feedback -&gt; explicit interaction contract -&gt; deterministic helper
+tests -&gt; browser/mobile smoke check -&gt; durable run record</code></pre>
+<p>Concretely:</p>
+<ol>
+<li>Wrote a design spec before implementation.</li>
+<li>Wrote a task-level implementation plan.</li>
+<li>Implemented recommendation rules in testable helpers.</li>
+<li>Added UI tests for feedback and automatic redraw.</li>
+<li>Verified the flow with Browser MCP and a 390x844 Chrome viewport check.</li>
+<li>Captured evidence in run and experiment records.</li>
+</ol>
+<h3 id="entry-0013-outcome">Outcome</h3>
+<p>The Dinner Picker app now supports a feedback-driven draw loop:</p>
+<ul>
+<li><code>想吃</code> records positive preference and keeps the result.</li>
+<li><code>不想吃</code> records negative preference and automatically redraws when another</li>
+<p>candidate exists.</p>
+<li>Recommendation weight changes are bounded, so dishes are not permanently</li>
+<p>hidden.</p>
+<li>The draw flow includes a lightweight <code>重新抽签中</code> animation state.</li>
+<li>Mobile viewport verification confirmed thumb-sized controls and no horizontal</li>
+<p>overflow.</p>
+</ul>
+<h3 id="entry-0013-artifacts">Artifacts</h3>
+<ul>
+<li><code>docs/superpowers/specs/2026-05-31-dinner-picker-feedback-redraw-design.md</code></li>
+<li><code>docs/superpowers/plans/2026-05-31-dinner-picker-feedback-redraw.md</code></li>
+<li><code>harness/runs/2026-05-31-dinner-picker-feedback-redraw.md</code></li>
+<li><code>experiments/reports/2026-05-31-dinner-picker-feedback-redraw.md</code></li>
+<li><code>lab/dinner-picker/src/lib/dishes.ts</code></li>
+<li><code>lab/dinner-picker/src/App.tsx</code></li>
+<li><code>lab/dinner-picker/src/App.test.tsx</code></li>
+<li><code>lab/dinner-picker/src/lib/dishes.test.ts</code></li>
+</ul>
+<h3 id="entry-0013-shareable-takeaway">Shareable Takeaway</h3>
+<p>Harness engineering should make subjective feedback executable.</p>
+<p>The user should not be the first QA surface for every iteration. A useful agent turns a complaint like &quot;this feels too abrupt&quot; into product rules, deterministic tests, browser-observed behavior, and a durable record explaining what changed and why.</p>
+<h3 id="entry-0013-open-questions">Open Questions</h3>
+<ul>
+<li>Should future versions add a recent-picks cooldown window?</li>
+<li>Should the app explain why a dish was recommended once weights become more</li>
+<p>meaningful?</p>
+<li>Should mobile verification be promoted from smoke check to a reusable script</li>
+<p>once more lab workflows exist?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0014">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0014</div>
+      <h2>User-Corrected Process Gaps As Harness Evidence</h2>
+    </div>
+    <a class="source-link" href="0014-user-corrected-process-gaps.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3B - Harness engineering validation through the Dinner Picker lab.</p></div>
+    <div><span>Goal</span><p>Turn a recurring collaboration issue into an explicit harness rule: when the user catches an agent process gap, the agent should decide whether the lesson is reusable and update the canonical project contract without waiting for another reminder.</p></div>
+    <div><span>Outcome / Decision</span><p>User-corrected agent mistakes are not automatically just chat feedback. They are potential harness evidence. Future agents must classify them: one-off execution mistake reusable process rule quality gate or eval gap stage-level learning If reusable, the agent should update the relevant durable project surface before c...</p></div>
+    <div><span>Takeaway</span><p>Harness engineering is not only about pre-written rules. It is also about how a project learns when the agent fails in front of the user. A mature harness should turn repeated user correction into better future agent behavior.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0014-user-corrected-process-gaps-as-harness-evidence">User-Corrected Process Gaps As Harness Evidence</h2>
+<h3 id="entry-0014-stage">Stage</h3>
+<p>Phase 3B - Harness engineering validation through the Dinner Picker lab.</p>
+<h3 id="entry-0014-goal">Goal</h3>
+<p>Turn a recurring collaboration issue into an explicit harness rule: when the user catches an agent process gap, the agent should decide whether the lesson is reusable and update the canonical project contract without waiting for another reminder.</p>
+<h3 id="entry-0014-methodology">Methodology</h3>
+<p>The issue came from live collaboration:</p>
+<ol>
+<li>The user pointed out that verification and commit discipline should not need</li>
+<p>repeated reminders.</p>
+<li>We checked where the lesson had already been recorded.</li>
+<li>We found that evidence existed in run records and evolution notes, but the</li>
+<p>broader self-correction rule was not yet a runtime contract.</p>
+<li>We split the rule into two surfaces:</li>
+<p>- <code>AGENTS.md</code> for immediate agent behavior - <code>harness/agent-delivery-contract.md</code> for reusable methodology</p>
+</ol>
+<h3 id="entry-0014-decision">Decision</h3>
+<p>User-corrected agent mistakes are not automatically just chat feedback. They are potential harness evidence.</p>
+<p>Future agents must classify them:</p>
+<ul>
+<li>one-off execution mistake</li>
+<li>reusable process rule</li>
+<li>quality gate or eval gap</li>
+<li>stage-level learning</li>
+</ul>
+<p>If reusable, the agent should update the relevant durable project surface before closing the task.</p>
+<h3 id="entry-0014-artifacts">Artifacts</h3>
+<ul>
+<li><code>AGENTS.md</code></li>
+<li><code>harness/agent-delivery-contract.md</code></li>
+<li><code>CONTEXT.md</code></li>
+<li><code>docs/evolution/0014-user-corrected-process-gaps.md</code></li>
+</ul>
+<h3 id="entry-0014-shareable-takeaway">Shareable Takeaway</h3>
+<p>Harness engineering is not only about pre-written rules. It is also about how a project learns when the agent fails in front of the user.</p>
+<p>A mature harness should turn repeated user correction into better future agent behavior.</p>
+<h3 id="entry-0014-open-questions">Open Questions</h3>
+<ul>
+<li>Should this become a rubric item under <code>evals/rubrics/</code>?</li>
+<li>Should future run records include a dedicated &quot;User Correction&quot; section when</li>
+<p>the user changes the process direction?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0015">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0015</div>
+      <h2>Project Standards Capture Beyond Harness</h2>
+    </div>
+    <a class="source-link" href="0015-project-standards-capture.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3B - Harness engineering validation through live collaboration.</p></div>
+    <div><span>Goal</span><p>Generalise the self-correction rule. Some lessons discovered during harness work are not only harness rules. They may become directory standards, documentation standards, evaluation standards, lab standards, or runtime agent rules. Priority: high. This is a c...</p></div>
+    <div><span>Outcome / Decision</span><p>Use Project standard as the broader canonical term. A project standard is a reusable rule future agents should follow across harness, documentation, directory structure, lab implementation, or evaluation.</p></div>
+    <div><span>Takeaway</span><p>Harness work can produce standards outside the harness itself. A mature agent should not only ask &quot;should this update harness docs?&quot; It should ask &quot;which canonical project surface should own this reusable rule?&quot;</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0015-project-standards-capture-beyond-harness">Project Standards Capture Beyond Harness</h2>
+<h3 id="entry-0015-stage">Stage</h3>
+<p>Phase 3B - Harness engineering validation through live collaboration.</p>
+<h3 id="entry-0015-goal">Goal</h3>
+<p>Generalise the self-correction rule. Some lessons discovered during harness work are not only harness rules. They may become directory standards, documentation standards, evaluation standards, lab standards, or runtime agent rules.</p>
+<p>Priority: high. This is a core methodology for the project because it defines how live collaboration improves future agent behavior.</p>
+<h3 id="entry-0015-methodology">Methodology</h3>
+<p>We used a documentation-grilling lens:</p>
+<ol>
+<li>Compared the user's term &quot;规范&quot; against existing project language.</li>
+<li>Identified that <code>harness/</code> was too narrow as the only canonical surface.</li>
+<li>Created <code>docs/standards/</code> for cross-cutting project standards.</li>
+<li>Kept <code>AGENTS.md</code> as the runtime enforcement surface.</li>
+<li>Kept <code>harness/agent-delivery-contract.md</code> for delivery-specific standards.</li>
+<li>Allowed skills such as <code>grill-with-docs</code> and subagents to support future</li>
+<p>cross-surface standard updates.</p>
+</ol>
+<h3 id="entry-0015-decision">Decision</h3>
+<p>Use <code>Project standard</code> as the broader canonical term.</p>
+<p>A project standard is a reusable rule future agents should follow across harness, documentation, directory structure, lab implementation, or evaluation.</p>
+<h3 id="entry-0015-artifacts">Artifacts</h3>
+<ul>
+<li><code>docs/patterns/standard-capture-loop.md</code></li>
+<li><code>docs/standards/index.md</code></li>
+<li><code>docs/index.md</code></li>
+<li><code>AGENTS.md</code></li>
+<li><code>harness/agent-delivery-contract.md</code></li>
+<li><code>CONTEXT.md</code></li>
+<li><code>decisions/0002-create-project-standards-surface.md</code></li>
+<li><code>evals/rubrics/harness-validation-rubric.md</code></li>
+</ul>
+<h3 id="entry-0015-shareable-takeaway">Shareable Takeaway</h3>
+<p>Harness work can produce standards outside the harness itself.</p>
+<p>A mature agent should not only ask &quot;should this update harness docs?&quot; It should ask &quot;which canonical project surface should own this reusable rule?&quot;</p>
+<h3 id="entry-0015-open-questions">Open Questions</h3>
+<ul>
+<li>Should directory standards get their own page once more examples appear?</li>
+<li>Should <code>evals/rubrics/harness-validation-rubric.md</code> add a separate score for</li>
+<p>standards capture?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0016">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0016</div>
+      <h2>Standard Capture Loop Methodology</h2>
+    </div>
+    <a class="source-link" href="0016-standard-capture-loop-methodology.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3B - Harness engineering validation through live collaboration.</p></div>
+    <div><span>Goal</span><p>Mark the standard-capture loop as a high-priority project methodology for future sharing. The lesson is broader than a single Dinner Picker feature and broader than a single harness document. It describes how the project learns when the user, reviewer, test s...</p></div>
+    <div><span>Outcome / Decision</span><p>Record the method as a reusable pattern and mark it high priority. The method now has three surfaces: docs/patterns/standard-capture-loop.md for the reusable method docs/standards/index.md for standard routing and discoverability AGENTS.md / harness/agent-delivery-contract.md for runtime enforcement and delivery-speci...</p></div>
+    <div><span>Takeaway</span><p>The most important harness learning may come from the moments where the user has to correct the agent. The mature response is not only &quot;fix the issue.&quot; It is: This is one of the core mechanisms by which an AI-first repository improves over time.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0016-standard-capture-loop-methodology">Standard Capture Loop Methodology</h2>
+<h3 id="entry-0016-stage">Stage</h3>
+<p>Phase 3B - Harness engineering validation through live collaboration.</p>
+<h3 id="entry-0016-goal">Goal</h3>
+<p>Mark the standard-capture loop as a high-priority project methodology for future sharing.</p>
+<p>The lesson is broader than a single Dinner Picker feature and broader than a single harness document. It describes how the project learns when the user, reviewer, test suite, or browser verification exposes a reusable gap.</p>
+<h3 id="entry-0016-methodology">Methodology</h3>
+<p>The reusable loop is:</p>
+<pre><code class="language-text">observe correction -&gt; classify lesson -&gt; choose canonical surface -&gt;
+update standard -&gt; verify discoverability -&gt; commit -&gt; cite in evolution</code></pre>
+<p>This loop is important because it turns live collaboration into durable project memory. It prevents the same class of agent mistake from being rediscovered by future agents.</p>
+<h3 id="entry-0016-decision">Decision</h3>
+<p>Record the method as a reusable pattern and mark it high priority.</p>
+<p>The method now has three surfaces:</p>
+<ul>
+<li><code>docs/patterns/standard-capture-loop.md</code> for the reusable method</li>
+<li><code>docs/standards/index.md</code> for standard routing and discoverability</li>
+<li><code>AGENTS.md</code> / <code>harness/agent-delivery-contract.md</code> for runtime enforcement</li>
+<p>and delivery-specific behavior</p>
+</ul>
+<p>It also defines an optional cross-review mechanism:</p>
+<ul>
+<li>use <code>grill-with-docs</code> to challenge terminology and documentation ownership</li>
+<li>prompt the user to install the skill when it is not available</li>
+<li>use subagents for parallel placement or consistency review when the standard</li>
+<p>touches multiple surfaces</p>
+<li>keep final integration responsibility with the lead agent</li>
+</ul>
+<p>The method now also has a shareable flowchart in the canonical pattern document and the Chinese summary. The diagram preserves the current learning arc:</p>
+<pre><code class="language-text">real feedback -&gt; agent verification loop -&gt; evidence capture -&gt;
+standard capture -&gt; project evolution</code></pre>
+<h3 id="entry-0016-artifacts">Artifacts</h3>
+<ul>
+<li><code>docs/patterns/standard-capture-loop.md</code></li>
+<li><code>docs/patterns/index.md</code></li>
+<li><code>docs/standards/index.md</code></li>
+<li><code>docs/evolution/0015-project-standards-capture.md</code></li>
+<li><code>docs/harness-engineering-summary-zh.md</code></li>
+<li><code>docs/tools/grill-me.md</code></li>
+</ul>
+<h3 id="entry-0016-shareable-takeaway">Shareable Takeaway</h3>
+<p>The most important harness learning may come from the moments where the user has to correct the agent.</p>
+<p>The mature response is not only &quot;fix the issue.&quot; It is:</p>
+<pre><code class="language-text">fix the issue + teach the project how not to repeat it</code></pre>
+<p>This is one of the core mechanisms by which an AI-first repository improves over time.</p>
+<h3 id="entry-0016-open-questions">Open Questions</h3>
+<ul>
+<li>Should this pattern eventually become a reusable skill?</li>
+<li>Should every stage-level run record include an explicit &quot;standard capture&quot;</li>
+<p>check?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0017">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0017</div>
+      <h2>Subagent Lifecycle Cost Control</h2>
+    </div>
+    <a class="source-link" href="0017-subagent-lifecycle-cost-control.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3B - Harness engineering validation through live collaboration.</p></div>
+    <div><span>Goal</span><p>Clarify how this project should use subagents as the number of delegated agents increases. The question was whether many subagents increase token cost, and whether the lead agent should explicitly close them after completion or rely on Codex to clean them up.</p></div>
+    <div><span>Outcome / Decision</span><p>Subagents are useful but not free. They can improve throughput and quality when the work is bounded, independent, and worth a separate context. They also consume token budget through prompts, inherited context, exploration, reasoning, and reports. The project standard is: The project should not rely on implicit platfo...</p></div>
+    <div><span>Takeaway</span><p>Multi-agent harness work is not &quot;more agents means better work.&quot; The useful unit is a bounded, independently useful delegation with a clear lifecycle: This is part of making agent collaboration governable instead of just parallel.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0017-subagent-lifecycle-cost-control">Subagent Lifecycle Cost Control</h2>
+<h3 id="entry-0017-stage">Stage</h3>
+<p>Phase 3B - Harness engineering validation through live collaboration.</p>
+<h3 id="entry-0017-goal">Goal</h3>
+<p>Clarify how this project should use subagents as the number of delegated agents increases.</p>
+<p>The question was whether many subagents increase token cost, and whether the lead agent should explicitly close them after completion or rely on Codex to clean them up.</p>
+<h3 id="entry-0017-methodology">Methodology</h3>
+<p>We applied the standard-capture loop:</p>
+<pre><code class="language-text">observe correction -&gt; classify lesson -&gt; choose canonical surface -&gt;
+update standard -&gt; verify discoverability -&gt; commit -&gt; cite in evolution</code></pre>
+<p>This was classified as a reusable agent operating standard because it affects future task cost, context hygiene, and coordination discipline.</p>
+<h3 id="entry-0017-decision">Decision</h3>
+<p>Subagents are useful but not free. They can improve throughput and quality when the work is bounded, independent, and worth a separate context. They also consume token budget through prompts, inherited context, exploration, reasoning, and reports.</p>
+<p>The project standard is:</p>
+<pre><code class="language-text">delegate only when the subagent materially improves speed, quality, safety, or
+coverage; integrate or reject the result; then close the subagent promptly</code></pre>
+<p>The project should not rely on implicit platform cleanup as its operating standard. Explicit closure keeps coordination state small and makes cost visible.</p>
+<h3 id="entry-0017-artifacts">Artifacts</h3>
+<ul>
+<li><code>AGENTS.md</code></li>
+<li><code>harness/agent-delivery-contract.md</code></li>
+<li><code>docs/standards/index.md</code></li>
+</ul>
+<h3 id="entry-0017-shareable-takeaway">Shareable Takeaway</h3>
+<p>Multi-agent harness work is not &quot;more agents means better work.&quot; The useful unit is a bounded, independently useful delegation with a clear lifecycle:</p>
+<pre><code class="language-text">delegate -&gt; continue non-overlapping work -&gt; integrate -&gt; close</code></pre>
+<p>This is part of making agent collaboration governable instead of just parallel.</p>
+<h3 id="entry-0017-open-questions">Open Questions</h3>
+<ul>
+<li>Should run records include token or agent-count metadata when the platform</li>
+<p>exposes reliable numbers?</p>
+<li>Should future reusable templates define a default maximum number of concurrent</li>
+<p>subagents for common task types?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0018">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0018</div>
+      <h2>Phase 3C Pattern Extraction Start</h2>
+    </div>
+    <a class="source-link" href="0018-phase-3c-pattern-extraction-start.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3C - Pattern Extraction.</p></div>
+    <div><span>Goal</span><p>Confirm that Phase 3B has produced enough lab evidence to begin reviewing and abstracting reusable methodology. Phase 3C should not invent a reusable template or skill from intuition. It should extract only from what the project has already tested through rea...</p></div>
+    <div><span>Outcome / Decision</span><p>Enter Phase 3C. The next work should focus on extracting, comparing, and packaging reusable forms: reusable patterns under docs/patterns/ workflows under docs/workflows/ possible template notes possible public skill notes playbooks for agent execution standards for repeated project obligations The project should still...</p></div>
+    <div><span>Takeaway</span><p>A harness learning project should not jump directly from reading to reusable templates. The healthier sequence is: Phase 3C starts only after the lab has produced enough corrections, tests, records, and standards to make reuse evidence-based.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0018-phase-3c-pattern-extraction-start">Phase 3C Pattern Extraction Start</h2>
+<h3 id="entry-0018-stage">Stage</h3>
+<p>Phase 3C - Pattern Extraction.</p>
+<h3 id="entry-0018-goal">Goal</h3>
+<p>Confirm that Phase 3B has produced enough lab evidence to begin reviewing and abstracting reusable methodology.</p>
+<p>Phase 3C should not invent a reusable template or skill from intuition. It should extract only from what the project has already tested through real work.</p>
+<h3 id="entry-0018-methodology">Methodology</h3>
+<p>We checked the Phase 3 learning plan against the actual project artifacts.</p>
+<p>The Phase 3B evidence now includes:</p>
+<ul>
+<li>a real React + TypeScript lab app under <code>lab/dinner-picker</code></li>
+<li>MVP implementation evidence</li>
+<li>mobile add-flow bug evidence</li>
+<li>input responsiveness and UI-state feedback evidence</li>
+<li>feedback-driven recommendation behavior</li>
+<li>browser and mobile viewport verification records</li>
+<li>run records and experiment reports</li>
+<li>user-corrected process gaps turned into project standards</li>
+<li>standard-capture methodology promoted to a reusable pattern</li>
+</ul>
+<p>We also checked whether a Phase 3C artifact already existed. It did not, so the project should now explicitly move into pattern extraction instead of continuing to treat every task as Phase 3B feature validation.</p>
+<h3 id="entry-0018-decision">Decision</h3>
+<p>Enter Phase 3C.</p>
+<p>The next work should focus on extracting, comparing, and packaging reusable forms:</p>
+<ul>
+<li>reusable patterns under <code>docs/patterns/</code></li>
+<li>workflows under <code>docs/workflows/</code></li>
+<li>possible template notes</li>
+<li>possible public skill notes</li>
+<li>playbooks for agent execution</li>
+<li>standards for repeated project obligations</li>
+</ul>
+<p>The project should still use <code>lab/dinner-picker</code> for follow-up validation, but new work should be framed by the question: what can be reused by another project?</p>
+<h3 id="entry-0018-artifacts">Artifacts</h3>
+<ul>
+<li><code>CONTEXT.md</code></li>
+<li><code>README.md</code></li>
+<li><code>docs/workflows/validation-phase-learning-plan.md</code></li>
+<li><code>docs/evolution/0018-phase-3c-pattern-extraction-start.md</code></li>
+</ul>
+<h3 id="entry-0018-shareable-takeaway">Shareable Takeaway</h3>
+<p>A harness learning project should not jump directly from reading to reusable templates.</p>
+<p>The healthier sequence is:</p>
+<pre><code class="language-text">study -&gt; define evidence -&gt; validate in a real lab -&gt; extract reusable patterns</code></pre>
+<p>Phase 3C starts only after the lab has produced enough corrections, tests, records, and standards to make reuse evidence-based.</p>
+<h3 id="entry-0018-open-questions">Open Questions</h3>
+<ul>
+<li>Which validated practices belong in a project template?</li>
+<li>Which practices should become a reusable skill?</li>
+<li>Which practices are too project-local and should remain standards here?</li>
+<li>Should the first Phase 3C artifact be a template-vs-skill decision note or an</li>
+<p><code>agent-first-living-lab</code> pattern?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0019">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0019</div>
+      <h2>Mainline Continuity Standard</h2>
+    </div>
+    <a class="source-link" href="0019-mainline-continuity-standard.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3C - Pattern Extraction.</p></div>
+    <div><span>Goal</span><p>Capture a new cross-cutting methodology discovered during conversation: long agent sessions need an explicit mechanism for returning to the larger project direction after local work.</p></div>
+    <div><span>Outcome / Decision</span><p>Create a high-priority Mainline Continuity standard. Future agents should run a mainline check after meaningful subtasks, correction loops, side explorations, generated artifacts, or stage-level outcomes: The rule is enforced in two places: AGENTS.md for runtime agent behavior docs/standards/mainline-continuity.md for...</p></div>
+    <div><span>Takeaway</span><p>Mainline continuity is a harness concern. The goal is not to prevent detours. Detours are often where learning happens. The goal is to make every useful detour return to the project mission, update the current position, and clarify the next mainline step.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0019-mainline-continuity-standard">Mainline Continuity Standard</h2>
+<h3 id="entry-0019-stage">Stage</h3>
+<p>Phase 3C - Pattern Extraction.</p>
+<h3 id="entry-0019-goal">Goal</h3>
+<p>Capture a new cross-cutting methodology discovered during conversation: long agent sessions need an explicit mechanism for returning to the larger project direction after local work.</p>
+<h3 id="entry-0019-methodology">Methodology</h3>
+<p>The user identified a recurring risk:</p>
+<ul>
+<li>a large direction is agreed early</li>
+<li>later turns focus on local implementation, fixes, images, or documentation</li>
+<li>the agent can forget the larger direction and continue from the local branch</li>
+</ul>
+<p>We classified this as a reusable project standard rather than a one-off chat issue because it affects any long-running harness, lab, or documentation task.</p>
+<h3 id="entry-0019-decision">Decision</h3>
+<p>Create a high-priority <code>Mainline Continuity</code> standard.</p>
+<p>Future agents should run a mainline check after meaningful subtasks, correction loops, side explorations, generated artifacts, or stage-level outcomes:</p>
+<pre><code class="language-text">what was the larger goal -&gt; what did this subtask change -&gt;
+where are we now -&gt; what is the next mainline step</code></pre>
+<p>The rule is enforced in two places:</p>
+<ul>
+<li><code>AGENTS.md</code> for runtime agent behavior</li>
+<li><code>docs/standards/mainline-continuity.md</code> for the durable standard</li>
+</ul>
+<h3 id="entry-0019-artifacts">Artifacts</h3>
+<ul>
+<li><code>AGENTS.md</code></li>
+<li><code>docs/standards/index.md</code></li>
+<li><code>docs/standards/mainline-continuity.md</code></li>
+<li><code>docs/evolution/0019-mainline-continuity-standard.md</code></li>
+</ul>
+<h3 id="entry-0019-shareable-takeaway">Shareable Takeaway</h3>
+<p>Mainline continuity is a harness concern.</p>
+<p>The goal is not to prevent detours. Detours are often where learning happens. The goal is to make every useful detour return to the project mission, update the current position, and clarify the next mainline step.</p>
+<h3 id="entry-0019-open-questions">Open Questions</h3>
+<ul>
+<li>Should run records include a dedicated <code>Mainline continuity</code> field?</li>
+<li>Should final responses use a lightweight continuity footer during long</li>
+<p>project phases?</p>
+<li>Should future reusable templates include this as a default agent rule?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0020">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0020</div>
+      <h2>Subagent Delegation Handoff Standard</h2>
+    </div>
+    <a class="source-link" href="0020-subagent-delegation-handoff-standard.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3C - Pattern Extraction.</p></div>
+    <div><span>Goal</span><p>Review the current Phase 3C records and capture a reusable standard for delegating work from the main agent to subagents without losing the project mainline.</p></div>
+    <div><span>Outcome / Decision</span><p>Create a unified subagent delegation format: The main agent owns direction and integration. The subagent owns bounded execution or review. The result is not complete until the main agent accepts, rejects, defers, or partially integrates the report and states the next mainline step.</p></div>
+    <div><span>Takeaway</span><p>Subagents should not be treated as loose parallel chat threads. In a harness-quality workflow, delegation is a contract:</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0020-subagent-delegation-handoff-standard">Subagent Delegation Handoff Standard</h2>
+<h3 id="entry-0020-stage">Stage</h3>
+<p>Phase 3C - Pattern Extraction.</p>
+<h3 id="entry-0020-goal">Goal</h3>
+<p>Review the current Phase 3C records and capture a reusable standard for delegating work from the main agent to subagents without losing the project mainline.</p>
+<h3 id="entry-0020-methodology">Methodology</h3>
+<p>The user identified a coordination risk:</p>
+<ul>
+<li>important direction is discussed in the main agent context</li>
+<li>a subtask is delegated to another agent or context</li>
+<li>the subagent may finish local work, but the main agent may not integrate it</li>
+<p>back into the larger direction</p>
+</ul>
+<p>We classified this as a reusable workflow and handoff problem. It extends the existing subagent cost-control and mainline-continuity standards.</p>
+<h3 id="entry-0020-decision">Decision</h3>
+<p>Create a unified subagent delegation format:</p>
+<pre><code class="language-text">mainline goal -&gt; bounded subtask packet -&gt; subagent return report -&gt;
+main agent integration decision -&gt; mainline continuity check</code></pre>
+<p>The main agent owns direction and integration. The subagent owns bounded execution or review. The result is not complete until the main agent accepts, rejects, defers, or partially integrates the report and states the next mainline step.</p>
+<h3 id="entry-0020-artifacts">Artifacts</h3>
+<ul>
+<li><code>agents/handoffs/subagent-task-handoff.md</code></li>
+<li><code>agents/playbooks/subagent-delegation.md</code></li>
+<li><code>agents/handoffs/index.md</code></li>
+<li><code>agents/playbooks/index.md</code></li>
+<li><code>harness/agent-delivery-contract.md</code></li>
+<li><code>docs/standards/mainline-continuity.md</code></li>
+<li><code>docs/evolution/0020-subagent-delegation-handoff-standard.md</code></li>
+</ul>
+<h3 id="entry-0020-shareable-takeaway">Shareable Takeaway</h3>
+<p>Subagents should not be treated as loose parallel chat threads.</p>
+<p>In a harness-quality workflow, delegation is a contract:</p>
+<pre><code class="language-text">the main agent gives direction, the subagent returns evidence,
+the main agent integrates, and the project returns to the mainline</code></pre>
+<h3 id="entry-0020-open-questions">Open Questions</h3>
+<ul>
+<li>Should future run records include a <code>Subagents used</code> section?</li>
+<li>Should the reusable project template include this handoff by default?</li>
+<li>Should a public skill package include a subagent task packet generator?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0021">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0021</div>
+      <h2>Phase 3C Evidence Inventory</h2>
+    </div>
+    <a class="source-link" href="0021-phase-3c-evidence-inventory.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3C - Pattern Extraction.</p></div>
+    <div><span>Goal</span><p>Complete the first Phase 3C task: inventory the evidence produced by Phase 3B before deciding what should become reusable patterns, templates, skills, playbooks, or local standards.</p></div>
+    <div><span>Outcome / Decision</span><p>Create docs/workflows/phase-3c-evidence-map.md as the Phase 3C evidence map. This artifact becomes the input to the next Phase 3C step:</p></div>
+    <div><span>Takeaway</span><p>Pattern extraction should start with an evidence map. The project should not decide to publish a template or skill merely because a method sounds reusable. It should first show which real lab run, user feedback loop, verification record, or standard-capture moment proved that th...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0021-phase-3c-evidence-inventory">Phase 3C Evidence Inventory</h2>
+<h3 id="entry-0021-stage">Stage</h3>
+<p>Phase 3C - Pattern Extraction.</p>
+<h3 id="entry-0021-goal">Goal</h3>
+<p>Complete the first Phase 3C task: inventory the evidence produced by Phase 3B before deciding what should become reusable patterns, templates, skills, playbooks, or local standards.</p>
+<h3 id="entry-0021-methodology">Methodology</h3>
+<p>We used the newly defined subagent delegation protocol.</p>
+<p>The main agent created a bounded task packet:</p>
+<pre><code class="language-text">mainline goal -&gt; evidence inventory subtask -&gt; read-only scope -&gt;
+evidence categories -&gt; return report -&gt; integration decision</code></pre>
+<p>The first <code>explore</code> role spawn failed because that role's model was not available in the current account. The main agent treated this as a delegation runtime constraint and retried with a default subagent using the same task packet and boundaries.</p>
+<p>While the subagent worked, the main agent built the evidence-map skeleton from local artifacts. After the subagent returned, the main agent integrated the useful deltas:</p>
+<ul>
+<li><code>experiments/reports/index.md</code> was stale and omitted the feedback-redraw</li>
+<p>report</p>
+<li><code>lab/AGENTS.md</code>, <code>package.json</code>, <code>storage.ts</code>, and eval index surfaces were</li>
+<p>relevant evidence</p>
+<li>intermediate add-button feedback and input responsiveness work had run</li>
+<p>records and checklists but no dedicated experiment reports</p>
+<li>older rubric scores should be read as time-local because the rubric evolved</li>
+</ul>
+<h3 id="entry-0021-decision">Decision</h3>
+<p>Create <code>docs/workflows/phase-3c-evidence-map.md</code> as the Phase 3C evidence map.</p>
+<p>This artifact becomes the input to the next Phase 3C step:</p>
+<pre><code class="language-text">pattern -&gt; evidence -&gt; reuse form -&gt; minimum package -&gt; open risk</code></pre>
+<h3 id="entry-0021-artifacts">Artifacts</h3>
+<ul>
+<li><code>docs/workflows/phase-3c-evidence-map.md</code></li>
+<li><code>docs/workflows/index.md</code></li>
+<li><code>experiments/reports/index.md</code></li>
+<li><code>docs/evolution/0021-phase-3c-evidence-inventory.md</code></li>
+</ul>
+<h3 id="entry-0021-shareable-takeaway">Shareable Takeaway</h3>
+<p>Pattern extraction should start with an evidence map.</p>
+<p>The project should not decide to publish a template or skill merely because a method sounds reusable. It should first show which real lab run, user feedback loop, verification record, or standard-capture moment proved that the method survived practice.</p>
+<h3 id="entry-0021-open-questions">Open Questions</h3>
+<ul>
+<li>Should missing experiment reports be backfilled for add-button feedback and</li>
+<p>input responsiveness?</p>
+<li>Should access-path parity become an executable local eval?</li>
+<li>Should the next artifact be the reuse decision record under <code>decisions/</code>?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0022">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0022</div>
+      <h2>Default Agent Role Set</h2>
+    </div>
+    <a class="source-link" href="0022-default-agent-role-set.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3C - Pattern Extraction.</p></div>
+    <div><span>Goal</span><p>Capture a harness engineering question raised during reuse planning: should agent-first projects initiali</p></div>
+    <div><span>Outcome / Decision</span><p>Define a default specialist role set under agents/roles/. The recommended minimum set is: Main Agent Requirements / PRD Agent Coding Agent Design Review Agent Code Review Agent Verification Agent Documentation Agent These roles are defaults for a project template, not mandatory participants in every task. The main age...</p></div>
+    <div><span>Takeaway</span><p>Harness engineering should separate responsibilities, not only steps. The main agent keeps direction and integration. Specialist agents provide bounded viewpoints: requirements, implementation, design critique, code review, verification, and documentation. Review tasks are espec...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0022-default-agent-role-set">Default Agent Role Set</h2>
+<h3 id="entry-0022-stage">Stage</h3>
+<p>Phase 3C - Pattern Extraction.</p>
+<h3 id="entry-0022-goal">Goal</h3>
+<p>Capture a harness engineering question raised during reuse planning: should agent-first projects initialize with a default set of specialist agents for requirements, coding, review, verification, and documentation?</p>
+<h3 id="entry-0022-methodology">Methodology</h3>
+<p>We reviewed the current subagent delegation and mainline-continuity standards. The gap was not only how to delegate, but how to choose the right specialist viewpoint at the right time.</p>
+<p>Review work is a strong example:</p>
+<ul>
+<li>plan review benefits from an independent design or requirements viewpoint</li>
+<li>code review benefits from an independent reviewer viewpoint</li>
+<li>verification review benefits from a separate evidence-focused viewpoint</li>
+</ul>
+<h3 id="entry-0022-decision">Decision</h3>
+<p>Define a default specialist role set under <code>agents/roles/</code>.</p>
+<p>The recommended minimum set is:</p>
+<ul>
+<li>Main Agent</li>
+<li>Requirements / PRD Agent</li>
+<li>Coding Agent</li>
+<li>Design Review Agent</li>
+<li>Code Review Agent</li>
+<li>Verification Agent</li>
+<li>Documentation Agent</li>
+</ul>
+<p>These roles are defaults for a project template, not mandatory participants in every task. The main agent should choose the smallest role set that protects quality and keeps ownership clear.</p>
+<h3 id="entry-0022-artifacts">Artifacts</h3>
+<ul>
+<li><code>agents/roles/default-agent-roles.md</code></li>
+<li><code>agents/roles/index.md</code></li>
+<li><code>agents/playbooks/subagent-delegation.md</code></li>
+<li><code>docs/workflows/phase-3c-evidence-map.md</code></li>
+<li><code>docs/evolution/0022-default-agent-role-set.md</code></li>
+</ul>
+<h3 id="entry-0022-shareable-takeaway">Shareable Takeaway</h3>
+<p>Harness engineering should separate responsibilities, not only steps.</p>
+<p>The main agent keeps direction and integration. Specialist agents provide bounded viewpoints: requirements, implementation, design critique, code review, verification, and documentation. Review tasks are especially valuable when done by a specialist because independence is part of the quality signal.</p>
+<h3 id="entry-0022-open-questions">Open Questions</h3>
+<ul>
+<li>Should the reusable project template ship these roles by default?</li>
+<li>Should role definitions become a public skill or remain template files?</li>
+<li>Should code review and plan review have separate task-packet examples?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0023">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0023</div>
+      <h2>Template Skill Playbook Reuse Decision</h2>
+    </div>
+    <a class="source-link" href="0023-template-skill-playbook-reuse-decision.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3C - Pattern Extraction.</p></div>
+    <div><span>Goal</span><p>Decide how Phase 3B/3C evidence should be packaged for reuse by future projects. The project needed to distinguish several reuse forms that had been discussed together: project template public skill playbook standard pattern</p></div>
+    <div><span>Outcome / Decision</span><p>Record the reuse strategy in decisions/0003-template-skill-playbook-reuse-strategy.md. The core rule is: The first reusable package should be a project-template skeleton. Public skills remain future candidates, especially standard-capture-loop and user-feedback-to-executable-contract, but they should be evaluated sepa...</p></div>
+    <div><span>Takeaway</span><p>Reuse is not one bucket. A mature harness project should decide whether a lesson is structure, behavior, procedure, rule, or explanation before packaging it. Otherwise every good idea becomes either &quot;a template&quot; or &quot;a skill&quot;, and both forms become blurry.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0023-template-skill-playbook-reuse-decision">Template Skill Playbook Reuse Decision</h2>
+<h3 id="entry-0023-stage">Stage</h3>
+<p>Phase 3C - Pattern Extraction.</p>
+<h3 id="entry-0023-goal">Goal</h3>
+<p>Decide how Phase 3B/3C evidence should be packaged for reuse by future projects.</p>
+<p>The project needed to distinguish several reuse forms that had been discussed together:</p>
+<ul>
+<li>project template</li>
+<li>public skill</li>
+<li>playbook</li>
+<li>standard</li>
+<li>pattern</li>
+</ul>
+<h3 id="entry-0023-methodology">Methodology</h3>
+<p>We used the Phase 3C evidence map as the input.</p>
+<p>The main agent also delegated a bounded review task to a specialist reviewer to challenge the classification before finalizing the decision. The reviewer was asked to look for over-extraction, missing evidence, and classification risks.</p>
+<p>The reviewer recommended a more conservative rule: promote evidence to the weakest reusable form future agents can reliably apply. The main agent accepted that recommendation and adjusted the decision from &quot;public skill / packaged template&quot; language toward &quot;future skill candidate / template skeleton&quot; language.</p>
+<h3 id="entry-0023-decision">Decision</h3>
+<p>Record the reuse strategy in <code>decisions/0003-template-skill-playbook-reuse-strategy.md</code>.</p>
+<p>The core rule is:</p>
+<pre><code class="language-text">structure -&gt; template
+judgment loop -&gt; skill
+step sequence -&gt; playbook
+mandatory constraint -&gt; standard
+shareable concept -&gt; pattern</code></pre>
+<p>The first reusable package should be a project-template skeleton. Public skills remain future candidates, especially <code>standard-capture-loop</code> and <code>user-feedback-to-executable-contract</code>, but they should be evaluated separately before publication.</p>
+<h3 id="entry-0023-artifacts">Artifacts</h3>
+<ul>
+<li><code>decisions/0003-template-skill-playbook-reuse-strategy.md</code></li>
+<li><code>decisions/index.md</code></li>
+<li><code>docs/evolution/0023-template-skill-playbook-reuse-decision.md</code></li>
+</ul>
+<h3 id="entry-0023-shareable-takeaway">Shareable Takeaway</h3>
+<p>Reuse is not one bucket.</p>
+<p>A mature harness project should decide whether a lesson is structure, behavior, procedure, rule, or explanation before packaging it. Otherwise every good idea becomes either &quot;a template&quot; or &quot;a skill&quot;, and both forms become blurry.</p>
+<h3 id="entry-0023-open-questions">Open Questions</h3>
+<ul>
+<li>What is the minimum project-template package?</li>
+<li>Which skill candidate should get the first evaluation?</li>
+<li>Should the template include mobile checklists by default or as optional</li>
+<p>domain packs?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0024">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0024</div>
+      <h2>Minimum Template Skeleton Design</h2>
+    </div>
+    <a class="source-link" href="0024-minimum-template-skeleton-design.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3C - Pattern Extraction.</p></div>
+    <div><span>Goal</span><p>Turn the reuse strategy decision into a concrete minimum project-template skeleton design. The goal is not to publish a reusable template yet. It is to decide what belongs in the smallest viable Agent-First Living Lab skeleton and what should stay optional.</p></div>
+    <div><span>Outcome / Decision</span><p>Create docs/workflows/minimum-project-template-skeleton.md. The skeleton requires: root project context and agent contract documentation indexes evolution and standards surfaces default agent roles, handoffs, and subagent delegation playbook harness delivery contract and run-record schema eval rubric entrypoints exper...</p></div>
+    <div><span>Takeaway</span><p>A reusable harness template should start as a skeleton, not as a full copy of the learning repository. The skeleton should preserve the project operating system while leaving domain content, lab implementation, optional tool packs, and public skills out until a new project earns...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0024-minimum-template-skeleton-design">Minimum Template Skeleton Design</h2>
+<h3 id="entry-0024-stage">Stage</h3>
+<p>Phase 3C - Pattern Extraction.</p>
+<h3 id="entry-0024-goal">Goal</h3>
+<p>Turn the reuse strategy decision into a concrete minimum project-template skeleton design.</p>
+<p>The goal is not to publish a reusable template yet. It is to decide what belongs in the smallest viable Agent-First Living Lab skeleton and what should stay optional.</p>
+<h3 id="entry-0024-methodology">Methodology</h3>
+<p>We followed the Phase 3C reuse decision:</p>
+<pre><code class="language-text">structure -&gt; template skeleton
+judgment loop -&gt; future skill candidate
+step sequence -&gt; playbook
+mandatory constraint -&gt; standard
+shareable concept -&gt; pattern</code></pre>
+<p>The main agent drafted the skeleton from the evidence map and reuse strategy. A specialist reviewer was delegated to challenge the boundary between required core files and optional packs. The reviewer recommended treating the template as an operating and evidence spine, not as a copied version of this project or the Dinner Picker lab.</p>
+<h3 id="entry-0024-decision">Decision</h3>
+<p>Create <code>docs/workflows/minimum-project-template-skeleton.md</code>.</p>
+<p>The skeleton requires:</p>
+<ul>
+<li>root project context and agent contract</li>
+<li>documentation indexes</li>
+<li>evolution and standards surfaces</li>
+<li>default agent roles, handoffs, and subagent delegation playbook</li>
+<li>harness delivery contract and run-record schema</li>
+<li>eval rubric entrypoints</li>
+<li>experiment, lab, and decision entrypoints</li>
+</ul>
+<p>It keeps these as optional packs:</p>
+<ul>
+<li>mobile app checks</li>
+<li>Superpowers specs/plans</li>
+<li>deeper experiment reporting</li>
+<li>public skill candidate evaluation</li>
+<li>example lab artifacts such as Dinner Picker</li>
+<li>runtime-specific assumptions such as OMX state or platform-specific tooling</li>
+</ul>
+<p>The design also adds readiness criteria that prevent over-packaging:</p>
+<ul>
+<li>every mandatory file listed by an index must exist</li>
+<li>no Dinner Picker specifics, local paths, generated runtime state, or</li>
+<p>current-project phase constraints should leak into the core</p>
+<li>the skeleton must support a dry-run validation task without hidden context</li>
+</ul>
+<h3 id="entry-0024-artifacts">Artifacts</h3>
+<ul>
+<li><code>docs/workflows/minimum-project-template-skeleton.md</code></li>
+<li><code>docs/workflows/index.md</code></li>
+<li><code>docs/evolution/0024-minimum-template-skeleton-design.md</code></li>
+</ul>
+<h3 id="entry-0024-shareable-takeaway">Shareable Takeaway</h3>
+<p>A reusable harness template should start as a skeleton, not as a full copy of the learning repository.</p>
+<p>The skeleton should preserve the project operating system while leaving domain content, lab implementation, optional tool packs, and public skills out until a new project earns them.</p>
+<h3 id="entry-0024-open-questions">Open Questions</h3>
+<ul>
+<li>Should the next task create a real <code>templates/</code> directory or first do a dry</li>
+<p>run review?</p>
+<li>Which files need placeholder variables before packaging?</li>
+<li>Should optional packs be separate directories or documented install choices?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0025">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0025</div>
+      <h2>Template Skeleton Dry-Run Review</h2>
+    </div>
+    <a class="source-link" href="0025-template-skeleton-dry-run-review.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3C - Pattern Extraction.</p></div>
+    <div><span>Goal</span><p>Test whether the minimum project-template skeleton is ready to become a real template.</p></div>
+    <div><span>Outcome / Decision</span><p>The required-file check passed inside this repository. The portability review did not pass. The design is ready, but the actual template package is not. Several required files still contain this study project's history, Phase 3C state, Dinner Picker influence, or runtime-specific assumptions. They should be converted...</p></div>
+    <div><span>Takeaway</span><p>A reusable template is not created by copying the current repository. The current repository proves the operating system. The template must remove false history and project-specific details while preserving the agent-readable spine.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0025-template-skeleton-dry-run-review">Template Skeleton Dry-Run Review</h2>
+<h3 id="entry-0025-stage">Stage</h3>
+<p>Phase 3C - Pattern Extraction.</p>
+<h3 id="entry-0025-goal">Goal</h3>
+<p>Test whether the minimum project-template skeleton is ready to become a real template.</p>
+<h3 id="entry-0025-methodology">Methodology</h3>
+<p>We used the readiness criteria from <code>docs/workflows/minimum-project-template-skeleton.md</code>.</p>
+<p>The review checked:</p>
+<ul>
+<li>whether every required file exists in the current project</li>
+<li>whether those files are portable as-is</li>
+<li>whether a new project would inherit false history or project-specific</li>
+<p>assumptions</p>
+</ul>
+<h3 id="entry-0025-outcome">Outcome</h3>
+<p>The required-file check passed inside this repository.</p>
+<p>The portability review did not pass. The design is ready, but the actual template package is not.</p>
+<p>Several required files still contain this study project's history, Phase 3C state, Dinner Picker influence, or runtime-specific assumptions. They should be converted into template-safe source files before creating a real reusable template.</p>
+<h3 id="entry-0025-artifacts">Artifacts</h3>
+<ul>
+<li><code>docs/workflows/template-skeleton-dry-run-review.md</code></li>
+<li><code>docs/workflows/index.md</code></li>
+<li><code>docs/evolution/0025-template-skeleton-dry-run-review.md</code></li>
+</ul>
+<h3 id="entry-0025-shareable-takeaway">Shareable Takeaway</h3>
+<p>A reusable template is not created by copying the current repository.</p>
+<p>The current repository proves the operating system. The template must remove false history and project-specific details while preserving the agent-readable spine.</p>
+<h3 id="entry-0025-open-questions">Open Questions</h3>
+<ul>
+<li>Should the next task create <code>templates/agent-first-living-lab/</code>?</li>
+<li>Which blank templates are needed first: run record, evolution entry,</li>
+<p>experiment report, or ADR?</p>
+<li>Should optional packs live beside the core template or remain documented</li>
+<p>choices for now?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0026">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0026</div>
+      <h2>Agent-First Living Lab Template Skeleton</h2>
+    </div>
+    <a class="source-link" href="0026-agent-first-living-lab-template-skeleton.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3C - Pattern Extraction.</p></div>
+    <div><span>Goal</span><p>Create template-safe source files for the minimum Agent-First Living Lab skeleton.</p></div>
+    <div><span>Outcome / Decision</span><p>The first template-safe skeleton now exists. It includes: root context and agent contract files documentation indexes mainline continuity and standard capture starter docs default agent roles and subagent handoff/playbook harness delivery and run-record templates eval, experiment, lab, and decision entrypoints</p></div>
+    <div><span>Takeaway</span><p>The reusable template should preserve the project operating system, not the project history. The template core is intentionally blank where a new project must earn its own evidence.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0026-agent-first-living-lab-template-skeleton">Agent-First Living Lab Template Skeleton</h2>
+<h3 id="entry-0026-stage">Stage</h3>
+<p>Phase 3C - Pattern Extraction.</p>
+<h3 id="entry-0026-goal">Goal</h3>
+<p>Create template-safe source files for the minimum Agent-First Living Lab skeleton.</p>
+<h3 id="entry-0026-methodology">Methodology</h3>
+<p>We followed the dry-run review:</p>
+<pre><code class="language-text">template-safe source files -&gt; file-existence check -&gt;
+portability review -&gt; throwaway initialization later</code></pre>
+<p>The skeleton was created under <code>templates/agent-first-living-lab/</code> instead of copying the whole repository. It includes the operating and evidence spine while excluding Dinner Picker history, local runtime state, mobile-specific checks, and public skills.</p>
+<h3 id="entry-0026-outcome">Outcome</h3>
+<p>The first template-safe skeleton now exists.</p>
+<p>It includes:</p>
+<ul>
+<li>root context and agent contract files</li>
+<li>documentation indexes</li>
+<li>mainline continuity and standard capture starter docs</li>
+<li>default agent roles and subagent handoff/playbook</li>
+<li>harness delivery and run-record templates</li>
+<li>eval, experiment, lab, and decision entrypoints</li>
+</ul>
+<h3 id="entry-0026-artifacts">Artifacts</h3>
+<ul>
+<li><code>templates/index.md</code></li>
+<li><code>templates/agent-first-living-lab/</code></li>
+<li><code>templates/agent-first-living-lab/TEMPLATE.md</code></li>
+<li><code>AGENTS.md</code></li>
+<li><code>docs/index.md</code></li>
+<li><code>docs/evolution/0026-agent-first-living-lab-template-skeleton.md</code></li>
+</ul>
+<h3 id="entry-0026-shareable-takeaway">Shareable Takeaway</h3>
+<p>The reusable template should preserve the project operating system, not the project history.</p>
+<p>The template core is intentionally blank where a new project must earn its own evidence.</p>
+<h3 id="entry-0026-open-questions">Open Questions</h3>
+<ul>
+<li>Should the next task initialize a throwaway project from the template?</li>
+<li>Which optional pack should be designed first?</li>
+<li>Should template validation become an executable script?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0027">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0027</div>
+      <h2>Template Skeleton Throwaway Validation</h2>
+    </div>
+    <a class="source-link" href="0027-template-skeleton-throwaway-validation.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3C - Pattern Extraction.</p></div>
+    <div><span>Goal</span><p>Validate that the checked-in Agent-First Living Lab template skeleton can be copied into a clean temporary project and used to create first evidence records.</p></div>
+    <div><span>Outcome / Decision</span><p>The validation passed with notes. The template skeleton can be copied to a temporary project, all required files exist, and blank templates can produce: a first run record a first evolution entry a first decision record The skeleton is therefore ready as a checked-in reusable skeleton, but not yet as a released packag...</p></div>
+    <div><span>Takeaway</span><p>Template validation should not stop at &quot;the files exist&quot;. A useful harness template should prove that a new project can begin producing its own evidence without inheriting old project history.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0027-template-skeleton-throwaway-validation">Template Skeleton Throwaway Validation</h2>
+<h3 id="entry-0027-stage">Stage</h3>
+<p>Phase 3C - Pattern Extraction.</p>
+<h3 id="entry-0027-goal">Goal</h3>
+<p>Validate that the checked-in Agent-First Living Lab template skeleton can be copied into a clean temporary project and used to create first evidence records.</p>
+<h3 id="entry-0027-methodology">Methodology</h3>
+<p>We performed a file-level throwaway initialization:</p>
+<pre><code class="language-text">copy template -&gt; check required files -&gt; scan for leaks -&gt;
+create first records from blank templates -&gt; check placeholders</code></pre>
+<h3 id="entry-0027-outcome">Outcome</h3>
+<p>The validation passed with notes.</p>
+<p>The template skeleton can be copied to a temporary project, all required files exist, and blank templates can produce:</p>
+<ul>
+<li>a first run record</li>
+<li>a first evolution entry</li>
+<li>a first decision record</li>
+</ul>
+<p>The skeleton is therefore ready as a checked-in reusable skeleton, but not yet as a released package or generator.</p>
+<h3 id="entry-0027-artifacts">Artifacts</h3>
+<ul>
+<li><code>docs/workflows/template-skeleton-throwaway-validation.md</code></li>
+<li><code>docs/workflows/index.md</code></li>
+<li><code>docs/evolution/0027-template-skeleton-throwaway-validation.md</code></li>
+</ul>
+<h3 id="entry-0027-shareable-takeaway">Shareable Takeaway</h3>
+<p>Template validation should not stop at &quot;the files exist&quot;.</p>
+<p>A useful harness template should prove that a new project can begin producing its own evidence without inheriting old project history.</p>
+<h3 id="entry-0027-open-questions">Open Questions</h3>
+<ul>
+<li>Should the next reusable asset be an optional pack or a generator?</li>
+<li>Should a fresh-repo agent run be required before calling this template</li>
+<p>publishable?</p>
+<li>Which future skill candidate should receive the first eval?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0028">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0028</div>
+      <h2>Phase 3C Pattern Extraction Retrospective</h2>
+    </div>
+    <a class="source-link" href="0028-phase-3c-pattern-extraction-retrospective.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Phase 3C - Pattern Extraction.</p></div>
+    <div><span>Goal</span><p>Close the Phase 3C reusable-extraction loop. The goal was to move from Phase 3B lab evidence to a reusable package without over-claiming that every useful practice was ready to become a public skill or fully released template.</p></div>
+    <div><span>Outcome / Decision</span><p>Phase 3C produced a checked-in reusable skeleton: docs/workflows/phase-3c-evidence-map.md decisions/0003-template-skill-playbook-reuse-strategy.md docs/workflows/minimum-project-template-skeleton.md docs/workflows/template-skeleton-dry-run-review.md templates/agent-first-living-lab/ docs/workflows/template-skeleton-th...</p></div>
+    <div><span>Takeaway</span><p>Reusable harness assets should be extracted in layers: Skipping directly from &quot;this worked once&quot; to &quot;publish a skill&quot; or &quot;copy the whole repo as a template&quot; creates brittle reuse. Phase 3C showed a more careful path: preserve the operating system, remove false history, and valid...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0028-phase-3c-pattern-extraction-retrospective">Phase 3C Pattern Extraction Retrospective</h2>
+<h3 id="entry-0028-stage">Stage</h3>
+<p>Phase 3C - Pattern Extraction.</p>
+<h3 id="entry-0028-goal">Goal</h3>
+<p>Close the Phase 3C reusable-extraction loop.</p>
+<p>The goal was to move from Phase 3B lab evidence to a reusable package without over-claiming that every useful practice was ready to become a public skill or fully released template.</p>
+<h3 id="entry-0028-methodology">Methodology</h3>
+<p>We used an evidence-first sequence:</p>
+<pre><code class="language-text">evidence inventory -&gt; reuse classification -&gt; template skeleton design -&gt;
+dry-run review -&gt; template-safe source files -&gt; throwaway validation</code></pre>
+<p>Specialist reviewer agents were used for the reuse decision and template boundary checks. The main agent integrated their reports conservatively, choosing weaker reusable forms when evidence was not strong enough for public skill or packaged-template claims.</p>
+<h3 id="entry-0028-outcome">Outcome</h3>
+<p>Phase 3C produced a checked-in reusable skeleton:</p>
+<ul>
+<li><code>docs/workflows/phase-3c-evidence-map.md</code></li>
+<li><code>decisions/0003-template-skill-playbook-reuse-strategy.md</code></li>
+<li><code>docs/workflows/minimum-project-template-skeleton.md</code></li>
+<li><code>docs/workflows/template-skeleton-dry-run-review.md</code></li>
+<li><code>templates/agent-first-living-lab/</code></li>
+<li><code>docs/workflows/template-skeleton-throwaway-validation.md</code></li>
+</ul>
+<p>The template skeleton can initialize a temporary project and create first evidence records from blank templates.</p>
+<p>It is ready as a repository-local reusable skeleton. It is not yet a released generator, public package, or evaluated skill.</p>
+<h3 id="entry-0028-shareable-takeaway">Shareable Takeaway</h3>
+<p>Reusable harness assets should be extracted in layers:</p>
+<pre><code class="language-text">evidence -&gt; classification -&gt; skeleton -&gt; validation -&gt; packaging</code></pre>
+<p>Skipping directly from &quot;this worked once&quot; to &quot;publish a skill&quot; or &quot;copy the whole repo as a template&quot; creates brittle reuse. Phase 3C showed a more careful path: preserve the operating system, remove false history, and validate that a new project can start producing its own evidence.</p>
+<h3 id="entry-0028-open-questions">Open Questions</h3>
+<ul>
+<li>Should the next phase design optional packs, such as mobile validation or</li>
+<p>Superpowers specs/plans?</p>
+<li>Should a generator script be created for placeholder replacement?</li>
+<li>Should <code>standard-capture-loop</code> receive the first formal skill eval?</li>
+<li>Should a separate fresh-repo agent run be required before external sharing?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0029">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0029</div>
+      <h2>Template Initialization Hardening</h2>
+    </div>
+    <a class="source-link" href="0029-template-initialization-hardening.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Post-Phase 3C follow-up - Template reuse hardening.</p></div>
+    <div><span>Goal</span><p>Make templates/agent-first-living-lab/ easier to initiali</p></div>
+    <div><span>Outcome / Decision</span><p>The template now includes: `INITIALI</p></div>
+    <div><span>Takeaway</span><p>Template reuse should be hardened before optional packs or public skills. The first useful improvement is not a complex generator. It is a repeatable initiali</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0029-template-initialization-hardening">Template Initialization Hardening</h2>
+<h3 id="entry-0029-stage">Stage</h3>
+<p>Post-Phase 3C follow-up - Template reuse hardening.</p>
+<h3 id="entry-0029-goal">Goal</h3>
+<p>Make <code>templates/agent-first-living-lab/</code> easier to initialize repeatably without overbuilding a generator or expanding the template core.</p>
+<h3 id="entry-0029-methodology">Methodology</h3>
+<p>We kept the scope narrow:</p>
+<pre><code class="language-text">initialization guide -&gt; thin helper script -&gt; fresh git validation -&gt;
+record result</code></pre>
+<p>A specialist reviewer challenged the priority and recommended a documentation-first guide plus validation checklist. The main agent integrated that guidance and kept the script as a thin helper rather than a full generator.</p>
+<h3 id="entry-0029-outcome">Outcome</h3>
+<p>The template now includes:</p>
+<ul>
+<li><code>INITIALIZE.md</code></li>
+<li><code>init-template.sh</code></li>
+</ul>
+<p>The helper replaces core project placeholders, checks required files, and leaves blank record templates untouched.</p>
+<p>A fresh git repository validation passed.</p>
+<h3 id="entry-0029-artifacts">Artifacts</h3>
+<ul>
+<li><code>templates/agent-first-living-lab/INITIALIZE.md</code></li>
+<li><code>templates/agent-first-living-lab/init-template.sh</code></li>
+<li><code>docs/workflows/template-initialization-hardening.md</code></li>
+<li><code>docs/workflows/template-initialization-validation.md</code></li>
+<li><code>docs/evolution/0029-template-initialization-hardening.md</code></li>
+</ul>
+<h3 id="entry-0029-shareable-takeaway">Shareable Takeaway</h3>
+<p>Template reuse should be hardened before optional packs or public skills.</p>
+<p>The first useful improvement is not a complex generator. It is a repeatable initialization path that prevents false history, missed placeholders, and accidental app/runtime defaults.</p>
+<h3 id="entry-0029-open-questions">Open Questions</h3>
+<ul>
+<li>Should the next validation be performed by a fresh agent in a new repository?</li>
+<li>Should optional packs be documented first or implemented as separate template</li>
+<p>directories?</p>
+<li>Should the helper eventually become a real generator?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0030">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0030</div>
+      <h2>Template Target Conflict Hardening</h2>
+    </div>
+    <a class="source-link" href="0030-template-target-conflict-hardening.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Post-Phase 3C follow-up - Template reuse hardening.</p></div>
+    <div><span>Goal</span><p>Address the risk that template initiali</p></div>
+    <div><span>Outcome / Decision</span><p>templates/agent-first-living-lab/init-template.sh now supports --target-dir. The helper: creates and initiali</p></div>
+    <div><span>Takeaway</span><p>Reusable templates should fail closed around user directories. The safe default is: ```text nonexistent target -&gt; create empty target -&gt; initiali</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0030-template-target-conflict-hardening">Template Target Conflict Hardening</h2>
+<h3 id="entry-0030-stage">Stage</h3>
+<p>Post-Phase 3C follow-up - Template reuse hardening.</p>
+<h3 id="entry-0030-goal">Goal</h3>
+<p>Address the risk that template initialization could collide with an existing user directory.</p>
+<p>The review found that <code>init-template.sh</code> initialized the current directory but did not provide a safe way to create a target project directory. If a user copied the template into an existing project before running the script, the helper could not detect that the damage had already happened.</p>
+<h3 id="entry-0030-methodology">Methodology</h3>
+<p>We treated this as a template safety issue:</p>
+<pre><code class="language-text">review initialization path -&gt; identify overwrite risk -&gt;
+add fail-closed target handling -&gt; validate conflict cases -&gt; record result</code></pre>
+<h3 id="entry-0030-outcome">Outcome</h3>
+<p><code>templates/agent-first-living-lab/init-template.sh</code> now supports <code>--target-dir</code>.</p>
+<p>The helper:</p>
+<ul>
+<li>creates and initializes a nonexistent target directory</li>
+<li>initializes an existing empty target directory</li>
+<li>rejects existing non-empty target directories before writing</li>
+<li>rejects target directories inside the source template</li>
+<li>rejects execution from a directory that does not look like the template root</li>
+</ul>
+<p>The initialization docs now instruct users to prefer the safe target-directory path instead of manually copying into an ambiguous destination.</p>
+<h3 id="entry-0030-artifacts">Artifacts</h3>
+<ul>
+<li><code>templates/agent-first-living-lab/init-template.sh</code></li>
+<li><code>templates/agent-first-living-lab/INITIALIZE.md</code></li>
+<li><code>templates/agent-first-living-lab/TEMPLATE.md</code></li>
+<li><code>docs/workflows/template-initialization-hardening.md</code></li>
+<li><code>docs/workflows/template-initialization-validation.md</code></li>
+</ul>
+<h3 id="entry-0030-shareable-takeaway">Shareable Takeaway</h3>
+<p>Reusable templates should fail closed around user directories.</p>
+<p>The safe default is:</p>
+<pre><code class="language-text">nonexistent target -&gt; create
+empty target -&gt; initialize
+non-empty target -&gt; stop before writing</code></pre>
+<p>Do not make a project template silently merge into a user's existing project.</p>
+<h3 id="entry-0030-open-questions">Open Questions</h3>
+<ul>
+<li>Should the next hardening step add a <code>--dry-run</code> mode?</li>
+<li>Should a future generator support explicit backup or merge behavior, or keep</li>
+<p>the skeleton permanently fail-closed?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0031">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0031</div>
+      <h2>Template Script Validation Gap</h2>
+    </div>
+    <a class="source-link" href="0031-template-script-validation-gap.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Post-Phase 3C follow-up - Template reuse hardening.</p></div>
+    <div><span>Goal</span><p>Record and correct the process gap exposed when the template initiali</p></div>
+    <div><span>Outcome / Decision</span><p>Template and initiali</p></div>
+    <div><span>Takeaway</span><p>A reusable template script is not validated by documentation alone. The minimum bar is: If users are the first people to discover script safety behavior, the harness did not close the loop.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0031-template-script-validation-gap">Template Script Validation Gap</h2>
+<h3 id="entry-0031-stage">Stage</h3>
+<p>Post-Phase 3C follow-up - Template reuse hardening.</p>
+<h3 id="entry-0031-goal">Goal</h3>
+<p>Record and correct the process gap exposed when the template initialization script's conflict behavior was only reviewed after user concern.</p>
+<h3 id="entry-0031-what-happened">What Happened</h3>
+<p>The original template initialization helper was validated on a happy-path fresh repository flow. It was not protected by an executable regression check covering negative paths such as:</p>
+<ul>
+<li>non-empty target directory</li>
+<li>target directory inside the source template</li>
+<li>missing target parent directory</li>
+<li>wrong working directory</li>
+</ul>
+<p>That meant the user had to raise a failure mode that should have been caught before treating the template as hardened.</p>
+<h3 id="entry-0031-decision">Decision</h3>
+<p>Template and initialization scripts require executable validation before they are considered complete.</p>
+<p>The validation must cover:</p>
+<ul>
+<li>at least one successful initialization path</li>
+<li>known negative paths</li>
+<li>no accidental mutation of existing user files</li>
+<li>no creation of rejected target directories</li>
+</ul>
+<h3 id="entry-0031-artifacts">Artifacts</h3>
+<ul>
+<li><code>templates/agent-first-living-lab/validate-init-template.sh</code></li>
+<li><code>templates/agent-first-living-lab/init-template.sh</code></li>
+<li><code>templates/agent-first-living-lab/INITIALIZE.md</code></li>
+<li><code>templates/agent-first-living-lab/TEMPLATE.md</code></li>
+<li><code>docs/workflows/template-initialization-hardening.md</code></li>
+<li><code>docs/workflows/template-initialization-validation.md</code></li>
+<li><code>harness/agent-delivery-contract.md</code></li>
+</ul>
+<h3 id="entry-0031-shareable-takeaway">Shareable Takeaway</h3>
+<p>A reusable template script is not validated by documentation alone.</p>
+<p>The minimum bar is:</p>
+<pre><code class="language-text">happy path + negative paths + no user-file mutation</code></pre>
+<p>If users are the first people to discover script safety behavior, the harness did not close the loop.</p>
+<h3 id="entry-0031-open-questions">Open Questions</h3>
+<ul>
+<li>Should template validation become part of a repo-level pre-commit or CI gate?</li>
+<li>Should every future template helper ship with a sibling <code>validate-*</code> script?</li>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0032">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0032</div>
+      <h2>Independent Small Airplane Validation Project</h2>
+    </div>
+    <a class="source-link" href="0032-independent-small-airplane-validation-project.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Post-Phase 3C follow-up - Independent fresh-project validation.</p></div>
+    <div><span>Goal</span><p>Create a separate Codex project for validating the Agent-First Living Lab harness without continuing inside the source methodology repository's current conversation context.</p></div>
+    <div><span>Outcome / Decision</span><p>Use /Users/heaven/Projects/small-airplane-lab as the independent validation project. The project starts as an initiali</p></div>
+    <div><span>Takeaway</span><p>Harness accuracy is stronger when the harness is tested from a fresh project context instead of from the conversation that designed it. The validation target should inherit the reusable project operating system, but not the source repo's accumulated chat state, historical assump...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0032-independent-small-airplane-validation-project">Independent Small Airplane Validation Project</h2>
+<h3 id="entry-0032-stage">Stage</h3>
+<p>Post-Phase 3C follow-up - Independent fresh-project validation.</p>
+<h3 id="entry-0032-goal">Goal</h3>
+<p>Create a separate Codex project for validating the Agent-First Living Lab harness without continuing inside the source methodology repository's current conversation context.</p>
+<h3 id="entry-0032-methodology">Methodology</h3>
+<p>The validation setup used the checked-in template helper rather than manually copying files:</p>
+<pre><code class="language-text">source template -&gt; safe target-dir initialization -&gt; git init -&gt; Codex trusted project registration -&gt; structure checks</code></pre>
+<p>The target project is intentionally separate from <code>harness-vibe-coding-study</code>, so future agent conversations can start from the new project's own <code>AGENTS.md</code> and <code>CONTEXT.md</code>.</p>
+<h3 id="entry-0032-decision">Decision</h3>
+<p>Use <code>/Users/heaven/Projects/small-airplane-lab</code> as the independent validation project.</p>
+<p>The project starts as an initialized Agent-First Living Lab skeleton only. It does not contain application code, dependencies, framework directories, or a chosen product stack. The first real validation task should be defined from inside the new project.</p>
+<h3 id="entry-0032-artifacts">Artifacts</h3>
+<ul>
+<li><code>/Users/heaven/Projects/small-airplane-lab</code></li>
+<li><code>/Users/heaven/Projects/small-airplane-lab/AGENTS.md</code></li>
+<li><code>/Users/heaven/Projects/small-airplane-lab/CONTEXT.md</code></li>
+<li><code>/Users/heaven/Projects/small-airplane-lab/decisions/0001-adopt-agent-first-living-lab.md</code></li>
+<li><code>/Users/heaven/.codex/config.toml</code></li>
+</ul>
+<h3 id="entry-0032-evidence">Evidence</h3>
+<ul>
+<li>Template initialization completed successfully for <code>Small Airplane Lab</code>.</li>
+<li>The new project was initialized as a git repository on branch <code>main</code>.</li>
+<li>Initial skeleton commit: <code>ee6ef4d</code>.</li>
+<li>Core placeholder scan passed for <code>README.md</code>, <code>CONTEXT.md</code>, and the initial</li>
+<p>ADR.</p>
+<li>Forbidden first-stage directory scan found no <code>apps/</code>, <code>packages/</code>, <code>src/</code>,</li>
+<p><code>scripts/</code>, <code>infra/</code>, or <code>benchmarks/</code> directories.</p>
+<li>Codex config now includes the new trusted project path.</li>
+</ul>
+<h3 id="entry-0032-shareable-takeaway">Shareable Takeaway</h3>
+<p>Harness accuracy is stronger when the harness is tested from a fresh project context instead of from the conversation that designed it.</p>
+<p>The validation target should inherit the reusable project operating system, but not the source repo's accumulated chat state, historical assumptions, or local implementation momentum.</p>
+<h3 id="entry-0032-open-questions">Open Questions</h3>
+<ul>
+<li>What should the first small-airplane validation task be?</li>
+<li>Should the next run create a first project-specific run record and experiment</li>
+<p>report before any app code exists?</p>
+<li>After the first fresh-project task, which template assumptions should be</li>
+<p>promoted, revised, or removed?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0033">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0033</div>
+      <h2>Product Project Template Shape</h2>
+    </div>
+    <a class="source-link" href="0033-product-project-template-shape.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Post-Phase 3C follow-up - Template semantics correction.</p></div>
+    <div><span>Goal</span><p>Correct the reusable template after an independent Small Airplane Lab initiali</p></div>
+    <div><span>Outcome / Decision</span><p>The reusable template now defaults to: ```text real product project + harness initiali</p></div>
+    <div><span>Takeaway</span><p>A harness template for real products should not hide the product inside a lab directory. Use lab/ when the repository is studying methods or comparing multiple validation samples. Use explicit source packs when the repository is itself the product.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0033-product-project-template-shape">Product Project Template Shape</h2>
+<h3 id="entry-0033-stage">Stage</h3>
+<p>Post-Phase 3C follow-up - Template semantics correction.</p>
+<h3 id="entry-0033-goal">Goal</h3>
+<p>Correct the reusable template after an independent Small Airplane Lab initialization exposed an ambiguity: a real product project should not default to a <code>lab/</code> container for its own source code.</p>
+<h3 id="entry-0033-what-happened">What Happened</h3>
+<p>The previous template treated <code>lab/</code> as required because this source repository is a methodology study that needs separate validation samples such as <code>lab/dinner-picker</code>.</p>
+<p>That design did not transfer cleanly to a new real product project. In a product repository, the project itself is the real work. Adding <code>lab/</code> by default makes future agents wonder whether source code belongs at the root or inside <code>lab/&lt;project-name&gt;/</code>.</p>
+<h3 id="entry-0033-decision">Decision</h3>
+<p>The reusable template now defaults to:</p>
+<pre><code class="language-text">real product project + harness initialization</code></pre>
+<p>The default core does not create:</p>
+<ul>
+<li><code>lab/</code></li>
+<li><code>src/</code></li>
+<li><code>package.json</code></li>
+</ul>
+<p>Product source scaffolds are explicit app packs. The first supported pack is:</p>
+<pre><code class="language-text">--app-pack frontend-react-ts</code></pre>
+<p>That pack creates root-level React + TypeScript + Vite files. It does not leave the template-only <code>packs/</code> directory in the initialized project.</p>
+<p><code>lab/</code> is now a research-lab pattern, not a default product-project directory. Methodology repositories and multi-sample validation projects may still add it as a project-specific decision.</p>
+<h3 id="entry-0033-artifacts">Artifacts</h3>
+<ul>
+<li><code>templates/agent-first-living-lab/init-template.sh</code></li>
+<li><code>templates/agent-first-living-lab/validate-init-template.sh</code></li>
+<li><code>templates/agent-first-living-lab/packs/frontend-react-ts/</code></li>
+<li><code>templates/agent-first-living-lab/AGENTS.md</code></li>
+<li><code>templates/agent-first-living-lab/CONTEXT.md</code></li>
+<li><code>templates/agent-first-living-lab/README.md</code></li>
+<li><code>templates/agent-first-living-lab/TEMPLATE.md</code></li>
+<li><code>templates/agent-first-living-lab/INITIALIZE.md</code></li>
+<li><code>docs/workflows/minimum-project-template-skeleton.md</code></li>
+<li><code>docs/workflows/template-initialization-validation.md</code></li>
+</ul>
+<h3 id="entry-0033-evidence">Evidence</h3>
+<p>The validation script now checks both paths:</p>
+<ul>
+<li>default initialization rejects accidental <code>lab/</code>, <code>src/</code>, and <code>package.json</code></li>
+<li><code>frontend-react-ts</code> initialization creates root-level product source files</li>
+<p>and removes template-only pack files</p>
+</ul>
+<p>The initial failing validation caught the stale default <code>lab/</code> behavior before the implementation changed the template.</p>
+<h3 id="entry-0033-shareable-takeaway">Shareable Takeaway</h3>
+<p>A harness template for real products should not hide the product inside a lab directory.</p>
+<p>Use <code>lab/</code> when the repository is studying methods or comparing multiple validation samples. Use explicit source packs when the repository is itself the product.</p>
+<h3 id="entry-0033-open-questions">Open Questions</h3>
+<ul>
+<li>Which source pack should come next: Next.js, Node CLI TypeScript, or Python</li>
+<p>service?</p>
+<li>Should app packs eventually live outside the core template directory as</li>
+<p>independently versioned packages?</p>
+<li>Should initialized projects record the selected app pack in their first</li>
+<p>decision record automatically?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0034">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0034</div>
+      <h2>Agent Learning Loop Module</h2>
+    </div>
+    <a class="source-link" href="0034-agent-learning-loop-module.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Post-Phase 3C follow-up - Learning loop modulari</p></div>
+    <div><span>Goal</span><p>Extract the repository's self-improvement behavior into a canonical harness module before turning it into a future skill candidate.</p></div>
+    <div><span>Outcome / Decision</span><p>harness/agent-learning-loop.md is now the canonical owner for the learning loop: docs/patterns/standard-capture-loop.md remains the shareable explanation. AGENTS.md remains the runtime enforcement surface. Template projects now carry their own minimal harness/agent-learning-loop.md so the behavior can travel without c...</p></div>
+    <div><span>Takeaway</span><p>An agent-first project should not only verify task completion. It should verify that useful failures become durable project behavior. The learning loop is the bridge from harness documentation to a future portable skill: package the judgment loop, not the whole repository.</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0034-agent-learning-loop-module">Agent Learning Loop Module</h2>
+<h3 id="entry-0034-stage">Stage</h3>
+<p>Post-Phase 3C follow-up - Learning loop modularization.</p>
+<h3 id="entry-0034-goal">Goal</h3>
+<p>Extract the repository's self-improvement behavior into a canonical harness module before turning it into a future skill candidate.</p>
+<h3 id="entry-0034-what-triggered-this">What Triggered This</h3>
+<p>The project already had a working standard-capture behavior, but it was spread across <code>AGENTS.md</code>, <code>harness/agent-delivery-contract.md</code>, <code>docs/patterns/standard-capture-loop.md</code>, <code>docs/standards/</code>, and template files.</p>
+<p>That was enough for this repository, but not enough for clean reuse. A future project or skill needs one authoritative loop that explains how an agent learns from corrections, failed checks, review findings, and repeated friction.</p>
+<p>The external harness articles reinforced the same shape: a reliable agent is driven by loops around the model. Tool loops help the agent act; verification hooks prevent false completion; context management keeps the right evidence in view. This project needed the analogous loop for learning.</p>
+<h3 id="entry-0034-method">Method</h3>
+<p>We classified the existing behavior as an agent learning rule rather than only a standard-capture pattern.</p>
+<p>The implementation followed:</p>
+<pre><code class="language-text">identify scattered rule -&gt; choose canonical surface -&gt; add harness module -&gt;
+link runtime and pattern surfaces -&gt; sync template -&gt; verify discoverability</code></pre>
+<h3 id="entry-0034-decision">Decision</h3>
+<p><code>harness/agent-learning-loop.md</code> is now the canonical owner for the learning loop:</p>
+<pre><code class="language-text">trigger -&gt; observe -&gt; classify -&gt; choose surface -&gt; update contract -&gt;
+verify discoverability -&gt; record evolution -&gt; return to mainline</code></pre>
+<p><code>docs/patterns/standard-capture-loop.md</code> remains the shareable explanation. <code>AGENTS.md</code> remains the runtime enforcement surface. Template projects now carry their own minimal <code>harness/agent-learning-loop.md</code> so the behavior can travel without copying this entire study repository.</p>
+<h3 id="entry-0034-artifacts">Artifacts</h3>
+<ul>
+<li><code>harness/agent-learning-loop.md</code></li>
+<li><code>harness/index.md</code></li>
+<li><code>AGENTS.md</code></li>
+<li><code>CONTEXT.md</code></li>
+<li><code>docs/patterns/standard-capture-loop.md</code></li>
+<li><code>docs/standards/index.md</code></li>
+<li><code>docs/workflows/minimum-project-template-skeleton.md</code></li>
+<li><code>templates/agent-first-living-lab/harness/agent-learning-loop.md</code></li>
+<li><code>templates/agent-first-living-lab/AGENTS.md</code></li>
+<li><code>templates/agent-first-living-lab/CONTEXT.md</code></li>
+<li><code>templates/agent-first-living-lab/TEMPLATE.md</code></li>
+<li><code>templates/agent-first-living-lab/INITIALIZE.md</code></li>
+<li><code>templates/agent-first-living-lab/init-template.sh</code></li>
+</ul>
+<h3 id="entry-0034-shareable-takeaway">Shareable Takeaway</h3>
+<p>An agent-first project should not only verify task completion. It should verify that useful failures become durable project behavior.</p>
+<p>The learning loop is the bridge from harness documentation to a future portable skill: package the judgment loop, not the whole repository.</p>
+<h3 id="entry-0034-open-questions">Open Questions</h3>
+<ul>
+<li>Should <code>agent-learning-loop</code> become the first formal skill candidate, or</li>
+<p>should it remain paired with <code>standard-capture-loop</code>?</p>
+<li>What no-skill baseline should be used to evaluate whether the skill improves</li>
+<p>future agents?</p>
+<li>Should initialized templates automatically create a first decision record when</li>
+<p>they adopt the learning loop?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0035">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0035</div>
+      <h2>Agent Orchestration Loop Module</h2>
+    </div>
+    <a class="source-link" href="0035-agent-orchestration-loop-module.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Post-Phase 3C follow-up - Multi-agent orchestration modulari</p></div>
+    <div><span>Goal</span><p>Extract the lead-agent and subagent collaboration model into a canonical harness module, parallel to the learning loop.</p></div>
+    <div><span>Outcome / Decision</span><p>harness/agent-orchestration-loop.md is now the canonical owner for lead-agent and subagent coordination: agents/playbooks/subagent-delegation.md remains the execution playbook. agents/handoffs/subagent-task-handoff.md remains the packet and return-report template. AGENTS.md remains the runtime enforcement surface.</p></div>
+    <div><span>Takeaway</span><p>Multi-agent work is not a role list. It is an orchestration loop. The lead agent must own decomposition, packet quality, report verification, integration decisions, lifecycle closure, and mainline continuity. Subagents are useful when they create real independence or review valu...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0035-agent-orchestration-loop-module">Agent Orchestration Loop Module</h2>
+<h3 id="entry-0035-stage">Stage</h3>
+<p>Post-Phase 3C follow-up - Multi-agent orchestration modularization.</p>
+<h3 id="entry-0035-goal">Goal</h3>
+<p>Extract the lead-agent and subagent collaboration model into a canonical harness module, parallel to the learning loop.</p>
+<h3 id="entry-0035-what-triggered-this">What Triggered This</h3>
+<p>After extracting <code>harness/agent-learning-loop.md</code>, the same structural issue became visible for subagent collaboration. The repository already had useful materials:</p>
+<ul>
+<li><code>agents/playbooks/subagent-delegation.md</code></li>
+<li><code>agents/handoffs/subagent-task-handoff.md</code></li>
+<li><code>harness/agent-delivery-contract.md</code></li>
+<li>runtime rules in <code>AGENTS.md</code></li>
+</ul>
+<p>But those files described how to delegate or format handoffs. They did not own the full orchestration loop: when to stay solo, when to delegate, how to decompose, how to verify subagent claims, how to integrate or reject outputs, and how to close the lifecycle.</p>
+<h3 id="entry-0035-method">Method</h3>
+<p>We classified orchestration as a harness loop rather than only an agent playbook.</p>
+<p>The implementation followed:</p>
+<pre><code class="language-text">identify scattered delegation rules -&gt; choose canonical surface -&gt;
+add orchestration loop -&gt; point playbooks and handoffs to it -&gt;
+sync template -&gt; verify discoverability</code></pre>
+<h3 id="entry-0035-decision">Decision</h3>
+<p><code>harness/agent-orchestration-loop.md</code> is now the canonical owner for lead-agent and subagent coordination:</p>
+<pre><code class="language-text">intake -&gt; choose solo or delegate -&gt; decompose -&gt; assign bounded packets -&gt;
+parallel or sequential execution -&gt; receive reports -&gt; verify claims -&gt;
+integrate / reject / defer -&gt; close subagents -&gt; record evidence -&gt;
+return to mainline</code></pre>
+<p><code>agents/playbooks/subagent-delegation.md</code> remains the execution playbook. <code>agents/handoffs/subagent-task-handoff.md</code> remains the packet and return-report template. <code>AGENTS.md</code> remains the runtime enforcement surface.</p>
+<h3 id="entry-0035-artifacts">Artifacts</h3>
+<ul>
+<li><code>harness/agent-orchestration-loop.md</code></li>
+<li><code>harness/index.md</code></li>
+<li><code>harness/agent-delivery-contract.md</code></li>
+<li><code>AGENTS.md</code></li>
+<li><code>CONTEXT.md</code></li>
+<li><code>agents/playbooks/subagent-delegation.md</code></li>
+<li><code>agents/handoffs/subagent-task-handoff.md</code></li>
+<li><code>docs/workflows/minimum-project-template-skeleton.md</code></li>
+<li><code>templates/agent-first-living-lab/harness/agent-orchestration-loop.md</code></li>
+<li><code>templates/agent-first-living-lab/AGENTS.md</code></li>
+<li><code>templates/agent-first-living-lab/agents/playbooks/subagent-delegation.md</code></li>
+<li><code>templates/agent-first-living-lab/agents/handoffs/subagent-task-handoff.md</code></li>
+<li><code>templates/agent-first-living-lab/init-template.sh</code></li>
+</ul>
+<h3 id="entry-0035-shareable-takeaway">Shareable Takeaway</h3>
+<p>Multi-agent work is not a role list. It is an orchestration loop.</p>
+<p>The lead agent must own decomposition, packet quality, report verification, integration decisions, lifecycle closure, and mainline continuity. Subagents are useful when they create real independence or review value, not when they serve as extra ceremony.</p>
+<h3 id="entry-0035-open-questions">Open Questions</h3>
+<ul>
+<li>Should a future <code>agent-orchestration-loop</code> skill generate task packets</li>
+<p>directly?</p>
+<li>What eval should compare solo execution, unstructured delegation, and</li>
+<p>structured orchestration?</p>
+<li>Should run records require a dedicated orchestration section whenever</li>
+<p>subagents are used?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0036">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0036</div>
+      <h2>Template Directory Merge Policy</h2>
+    </div>
+    <a class="source-link" href="0036-template-directory-merge-policy.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Post-Phase 3C follow-up - Template reuse hardening.</p></div>
+    <div><span>Goal</span><p>Refine template initiali</p></div>
+    <div><span>Outcome / Decision</span><p>templates/agent-first-living-lab/init-template.sh now uses a path-level conflict policy: nonexistent targets are created existing target directories can be merged existing file paths that the template would write stop initiali</p></div>
+    <div><span>Takeaway</span><p>Template safety does not have to mean rejecting all existing directories. A better default is: This keeps initiali</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0036-template-directory-merge-policy">Template Directory Merge Policy</h2>
+<h3 id="entry-0036-stage">Stage</h3>
+<p>Post-Phase 3C follow-up - Template reuse hardening.</p>
+<h3 id="entry-0036-goal">Goal</h3>
+<p>Refine template initialization so an existing target directory can be used when the operation is still safe.</p>
+<p>The prior policy rejected every non-empty target directory. That was safe, but too coarse: a target can contain unrelated local files or directories that do not conflict with the template.</p>
+<h3 id="entry-0036-methodology">Methodology</h3>
+<p>We used the template validation script as the contract:</p>
+<pre><code class="language-text">capture merge expectation -&gt; add regression cases -&gt; update helper -&gt;
+refresh initialization docs -&gt; verify structure</code></pre>
+<h3 id="entry-0036-outcome">Outcome</h3>
+<p><code>templates/agent-first-living-lab/init-template.sh</code> now uses a path-level conflict policy:</p>
+<ul>
+<li>nonexistent targets are created</li>
+<li>existing target directories can be merged</li>
+<li>existing file paths that the template would write stop initialization</li>
+<li>existing file paths that the selected app pack would write stop initialization</li>
+<li>existing agent instruction files such as <code>AGENTS.md</code> are not auto-merged</li>
+<li>an existing <code>packs/</code> path stops initialization because template packs are</li>
+<p>removed after initialization</p>
+</ul>
+<p><code>templates/agent-first-living-lab/validate-init-template.sh</code> now covers both the mergeable case, ordinary file conflicts, agent-contract conflicts, symlink path conflicts, app-pack conflicts, and pack-cleanup conflicts.</p>
+<h3 id="entry-0036-artifacts">Artifacts</h3>
+<ul>
+<li><code>templates/agent-first-living-lab/init-template.sh</code></li>
+<li><code>templates/agent-first-living-lab/validate-init-template.sh</code></li>
+<li><code>templates/agent-first-living-lab/INITIALIZE.md</code></li>
+<li><code>templates/agent-first-living-lab/TEMPLATE.md</code></li>
+<li><code>docs/workflows/template-initialization-hardening.md</code></li>
+<li><code>docs/workflows/template-initialization-validation.md</code></li>
+</ul>
+<h3 id="entry-0036-shareable-takeaway">Shareable Takeaway</h3>
+<p>Template safety does not have to mean rejecting all existing directories.</p>
+<p>A better default is:</p>
+<pre><code class="language-text">merge directories, never overwrite files, never delete user-owned reserved paths</code></pre>
+<p>This keeps initialization useful for prepared project folders while preserving a clear stop condition for real conflicts. Agent instruction files should stop initialization for review instead of being concatenated or rewritten by default.</p>
+<h3 id="entry-0036-open-questions">Open Questions</h3>
+<ul>
+<li>Should a future <code>--dry-run</code> show the planned writes and conflicts before</li>
+<p>copying?</p>
+<li>Should the helper print a summary of preserved local paths after merge</li>
+<p>initialization?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+<section class="entry-card" id="entry-0037">
+  <div class="entry-head">
+    <div>
+      <div class="entry-number">0037</div>
+      <h2>Capability Discovery Gate</h2>
+    </div>
+    <a class="source-link" href="0037-capability-discovery-gate.md">Open source</a>
+  </div>
+  <div class="summary-grid">
+    <div><span>Stage</span><p>Post-Phase 3C follow-up - Harness capability selection.</p></div>
+    <div><span>Goal</span><p>Add a reusable harness rule for deciding when an agent should actively look for existing skills, tools, plugins, playbooks, scripts, or runtime capabilities before doing work directly.</p></div>
+    <div><span>Outcome / Decision</span><p>harness/capability-discovery.md is now the canonical owner for the conditional capability discovery gate: The gate is conditional. It should run for speciali</p></div>
+    <div><span>Takeaway</span><p>Skill discovery is useful only when it is treated as a gate with triggers, skip conditions, trust review, and installation boundaries. An agent should look for existing capabilities when that can improve quality, but it should not silently install tools or search the ecosystem f...</p></div>
+  </div>
+  <details>
+    <summary>Read full evolution entry</summary>
+    <article class="markdown-body">
+      <h2 id="entry-0037-capability-discovery-gate">Capability Discovery Gate</h2>
+<h3 id="entry-0037-stage">Stage</h3>
+<p>Post-Phase 3C follow-up - Harness capability selection.</p>
+<h3 id="entry-0037-goal">Goal</h3>
+<p>Add a reusable harness rule for deciding when an agent should actively look for existing skills, tools, plugins, playbooks, scripts, or runtime capabilities before doing work directly.</p>
+<h3 id="entry-0037-what-triggered-this">What Triggered This</h3>
+<p>The repository already encouraged optional skills such as <code>grill-with-docs</code> for documentation sharpening and had <code>docs/tools/</code> for install notes. But it did not define a general discovery gate.</p>
+<p>That left an avoidable gap: when a task has an established skill or tool, a future agent might hand-roll a weaker path. The opposite failure was also possible: an agent could search or install tools for every small task and turn capability discovery into process noise.</p>
+<h3 id="entry-0037-method">Method</h3>
+<p>We classified this as a capability-selection rule, not a skill-specific rule.</p>
+<p>The implementation followed:</p>
+<pre><code class="language-text">identify capability gap -&gt; define trigger and skip conditions -&gt;
+set trust and install boundaries -&gt; add harness module -&gt;
+wire runtime and template surfaces -&gt; verify discoverability</code></pre>
+<h3 id="entry-0037-decision">Decision</h3>
+<p><code>harness/capability-discovery.md</code> is now the canonical owner for the conditional capability discovery gate:</p>
+<pre><code class="language-text">task intake -&gt; classify capability need -&gt; inspect available capabilities -&gt;
+search installable capabilities when useful -&gt; evaluate trust and fit -&gt;
+use / recommend / fallback -&gt; record reusable gap if needed</code></pre>
+<p>The gate is conditional. It should run for specialized, repeated, tool-shaped, or capability-uncertain work. It should be skipped for simple lookups, clear repo-local paths, or cases where search and installation would add more risk than value.</p>
+<h3 id="entry-0037-artifacts">Artifacts</h3>
+<ul>
+<li><code>harness/capability-discovery.md</code></li>
+<li><code>AGENTS.md</code></li>
+<li><code>CONTEXT.md</code></li>
+<li><code>harness/index.md</code></li>
+<li><code>harness/agent-delivery-contract.md</code></li>
+<li><code>docs/tools/index.md</code></li>
+<li><code>docs/workflows/minimum-project-template-skeleton.md</code></li>
+<li><code>templates/agent-first-living-lab/harness/capability-discovery.md</code></li>
+<li><code>templates/agent-first-living-lab/AGENTS.md</code></li>
+<li><code>templates/agent-first-living-lab/docs/tools/index.md</code></li>
+<li><code>templates/agent-first-living-lab/init-template.sh</code></li>
+</ul>
+<h3 id="entry-0037-shareable-takeaway">Shareable Takeaway</h3>
+<p>Skill discovery is useful only when it is treated as a gate with triggers, skip conditions, trust review, and installation boundaries.</p>
+<p>An agent should look for existing capabilities when that can improve quality, but it should not silently install tools or search the ecosystem for every tiny task.</p>
+<h3 id="entry-0037-open-questions">Open Questions</h3>
+<ul>
+<li>Should future run records include a <code>Capabilities considered</code> field?</li>
+<li>Should repeated capability gaps automatically become skill-candidate issues?</li>
+<li>Should the template eventually include a no-skill baseline note for evaluating</li>
+<p>discovered skills?</p>
+</ul>
+    </article>
+  </details>
+</section>
+
+      <p class="footer">Generated from repository Markdown files. Edit the source entries under <code>docs/evolution/</code>, then regenerate this HTML when the evolution log changes.</p>
+    </main>
+  </div>
+</body>
+</html>

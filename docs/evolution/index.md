@@ -5,6 +5,8 @@ Use this directory to record stage-level project evolution.
 Evolution entries are narrative records for future sharing. They are not
 changelogs and should not capture every small edit.
 
+For a consolidated reading view, open `evolution-report.html`.
+
 Each entry should explain:
 
 - what stage we were in
