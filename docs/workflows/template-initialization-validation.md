@@ -70,7 +70,13 @@ validation checked these cases:
 
 - nonexistent target directory initializes successfully
 - existing empty target directory initializes successfully
-- existing non-empty target directory is rejected before writing
+- existing target directory with only non-conflicting paths merges directories
+  and preserves local files
+- existing target directory with file path conflicts is rejected before writing
+- existing `AGENTS.md` is rejected before writing and preserved, rather than
+  auto-merged
+- existing `packs/` path is rejected before writing because initialization removes
+  template packs
 - target directory inside the source template is rejected before creation
 - missing target parent directory is rejected
 - running without `--target-dir` from the wrong working directory is rejected
@@ -87,8 +93,11 @@ Observed result:
 template conflict checks passed
 ```
 
-The conflict policy is now fail closed: do not merge into or overwrite an
-existing non-empty user directory.
+The conflict policy now allows directory merges but fails closed on file writes:
+do not overwrite existing user files, and do not delete an existing `packs/`
+path during template-pack cleanup. Agent instruction files such as `AGENTS.md`
+are not auto-merged because they define execution authority and project-specific
+operating boundaries.
 
 ## Executable Regression Check
 

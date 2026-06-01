@@ -23,7 +23,8 @@ By default, it creates only the product-project harness core. Use
 scaffold.
 
 When --target-dir is provided, the script first copies the template into that
-directory. Existing non-empty target directories are rejected.
+directory. Existing directories are merged, but existing file paths that the
+template would write are rejected.
 USAGE
 }
 
@@ -151,13 +152,46 @@ if [[ -n "$target_dir" ]]; then
     exit 1
   fi
 
-  if [[ -e "$target_dir" ]] && [[ -n "$(find "$target_dir" -mindepth 1 -maxdepth 1 -print -quit)" ]]; then
-    echo "Target directory already exists and is not empty: $target_dir" >&2
-    echo "Choose a new directory name, empty the directory, or back it up first." >&2
+  if [[ -L "$target_dir" ]]; then
+    echo "Target path already exists and is a symlink, not a directory: $target_dir" >&2
+    exit 1
+  fi
+
+  if [[ -e "$target_dir" && ! -d "$target_dir" ]]; then
+    echo "Target path already exists and is not a directory: $target_dir" >&2
     exit 1
   fi
 
   mkdir -p "$target_dir"
+
+  while IFS= read -r path; do
+    if [[ -e "$target_dir/$path" || -L "$target_dir/$path" ]]; then
+      echo "Target file already exists: $target_dir/$path" >&2
+      echo "Existing directories can be merged, but files are never overwritten." >&2
+      exit 1
+    fi
+  done < <(
+    cd "$script_dir"
+    find . -type f -print | sed 's#^\./##' | sort
+  )
+
+  if [[ -e "$target_dir/packs" || -L "$target_dir/packs" ]]; then
+    echo "Target path already exists and would be removed after initialization: $target_dir/packs" >&2
+    exit 1
+  fi
+
+  if [[ "$app_pack" == "frontend-react-ts" ]]; then
+    while IFS= read -r path; do
+      if [[ -e "$target_dir/$path" || -L "$target_dir/$path" ]]; then
+        echo "Target file already exists: $target_dir/$path" >&2
+        echo "Existing directories can be merged, but files are never overwritten." >&2
+        exit 1
+      fi
+    done < <(
+      cd "$script_dir/packs/frontend-react-ts"
+      find . -type f -print | sed 's#^\./##' | sort
+    )
+  fi
 
   (
     cd "$script_dir"

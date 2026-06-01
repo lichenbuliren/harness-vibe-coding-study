@@ -86,7 +86,10 @@ Conflict policy:
 ```text
 nonexistent target -> create and initialize
 empty target -> initialize
-non-empty target -> stop before writing
+existing target with only non-conflicting paths -> merge directories
+existing target with file path conflicts -> stop before writing
+existing target with AGENTS.md -> stop before writing
+existing target with packs/ -> stop before writing
 target inside source template -> stop before writing
 ```
 
@@ -134,9 +137,11 @@ Initialization is strong enough for the next milestone when:
 It is not a full generator. It has no external dependencies, does not create app
 code, and does not replace placeholders in blank record templates.
 
-It also rejects non-empty target directories when `--target-dir` is used. This
-prevents the template from being copied over an existing user project by
-accident.
+It also rejects file path conflicts when `--target-dir` is used. Existing
+directories can be merged, but files are never overwritten. An existing `packs/`
+path is rejected because the helper removes template packs after initialization.
+Agent instruction files such as `AGENTS.md` are treated as normal file conflicts,
+not auto-merged contracts.
 
 `templates/agent-first-living-lab/validate-init-template.sh` is the required
 regression check for the helper. Template script changes are not complete until

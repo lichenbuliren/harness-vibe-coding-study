@@ -20,8 +20,8 @@ bash init-template.sh \
 ```
 
 `--target-dir` creates the target directory when it does not exist. If the
-target directory already exists and is not empty, initialization stops before
-copying or modifying files.
+target directory already exists, initialization merges directories but stops
+before copying or modifying files when a file path already exists.
 
 By default, initialization creates only the harness core. It does not create
 `lab/`, `src/`, or `package.json`.
@@ -71,9 +71,16 @@ initialize the current copied template root.
 
 It rejects:
 
-- non-empty target directories
+- existing file paths that the template or selected app pack would write
+- existing agent instruction files such as `AGENTS.md`; do not auto-merge agent
+  contracts during initialization
+- existing `packs/` paths, because template packs are removed after
+  initialization
 - target directories inside the source template
 - execution from a directory that does not look like the template root
+
+All conflict checks run before copying template files or removing template pack
+directories.
 
 After the safety checks, it replaces the core project placeholders in:
 

@@ -61,8 +61,11 @@ To include the React + TypeScript source scaffold:
 bash init-template.sh --target-dir "../my-product-project" --app-pack frontend-react-ts ...
 ```
 
-The helper rejects non-empty target directories instead of merging or
-overwriting existing user files.
+The helper can merge into an existing target directory, but it rejects any file
+path that the template or selected app pack would write. It also rejects an
+existing `packs/` path because template packs are removed after initialization.
+Agent instruction files such as `AGENTS.md` are not auto-merged; a conflict
+there should stop for explicit human or agent review.
 
 Before changing `init-template.sh`, run:
 

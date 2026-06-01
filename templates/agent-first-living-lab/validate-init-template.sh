@@ -20,7 +20,7 @@ run_init() {
     --current-phase "Initialization" \
     --date "2026-05-31" \
     --working-assumption "Safe initialization should fail before overwriting user files." \
-    --non-goal "Do not merge into an existing project automatically." \
+    --non-goal "Do not overwrite existing user files during merge initialization." \
     --alternative "Copy the template into an existing directory."
 }
 
@@ -53,6 +53,12 @@ assert_file_not_contains() {
 new_target="$tmp_root/new-project"
 empty_target="$tmp_root/empty-project"
 conflict_target="$tmp_root/existing-project"
+merge_target="$tmp_root/merge-project"
+file_conflict_target="$tmp_root/file-conflict-project"
+agents_conflict_target="$tmp_root/agents-conflict-project"
+symlink_conflict_target="$tmp_root/symlink-conflict-project"
+pack_conflict_target="$tmp_root/pack-conflict-project"
+packs_path_conflict_target="$tmp_root/packs-path-conflict-project"
 missing_parent_target="$tmp_root/missing/child"
 template_nested="$script_dir/nested-target"
 
@@ -88,11 +94,66 @@ fi
 run_init --target-dir "$empty_target"
 assert_file_exists "$empty_target/AGENTS.md"
 
-if run_init --target-dir "$conflict_target" 2>"$tmp_root/conflict.err"; then
-  echo "Expected non-empty target to fail" >&2
+mkdir -p "$merge_target/docs"
+printf '%s\n' "keep me" > "$merge_target/docs/local-note.md"
+run_init --target-dir "$merge_target"
+assert_file_exists "$merge_target/AGENTS.md"
+assert_file_exists "$merge_target/docs/local-note.md"
+assert_file_contains "$merge_target/docs/local-note.md" "keep me"
+
+mkdir -p "$file_conflict_target/docs"
+printf '%s\n' "local docs index" > "$file_conflict_target/docs/index.md"
+if run_init --target-dir "$file_conflict_target" 2>"$tmp_root/file-conflict.err"; then
+  echo "Expected existing file conflict to fail" >&2
   exit 1
 fi
-assert_file_contains "$tmp_root/conflict.err" "Target directory already exists and is not empty"
+assert_file_contains "$tmp_root/file-conflict.err" "Target file already exists"
+assert_file_contains "$file_conflict_target/docs/index.md" "local docs index"
+
+mkdir -p "$agents_conflict_target"
+printf '%s\n' "local agent contract" > "$agents_conflict_target/AGENTS.md"
+if run_init --target-dir "$agents_conflict_target" 2>"$tmp_root/agents-conflict.err"; then
+  echo "Expected AGENTS.md conflict to fail" >&2
+  exit 1
+fi
+assert_file_contains "$tmp_root/agents-conflict.err" "Target file already exists"
+assert_file_contains "$agents_conflict_target/AGENTS.md" "local agent contract"
+
+mkdir -p "$symlink_conflict_target"
+ln -s "$tmp_root/missing-readme-target" "$symlink_conflict_target/README.md"
+if run_init --target-dir "$symlink_conflict_target" 2>"$tmp_root/symlink-conflict.err"; then
+  echo "Expected symlink path conflict to fail" >&2
+  exit 1
+fi
+assert_file_contains "$tmp_root/symlink-conflict.err" "Target file already exists"
+if [[ ! -L "$symlink_conflict_target/README.md" ]]; then
+  echo "Expected symlink conflict path to remain a symlink" >&2
+  exit 1
+fi
+
+mkdir -p "$pack_conflict_target/src"
+printf '%s\n' "local app" > "$pack_conflict_target/src/App.tsx"
+if run_init --target-dir "$pack_conflict_target" --app-pack frontend-react-ts 2>"$tmp_root/pack-conflict.err"; then
+  echo "Expected app pack file conflict to fail" >&2
+  exit 1
+fi
+assert_file_contains "$tmp_root/pack-conflict.err" "Target file already exists"
+assert_file_contains "$pack_conflict_target/src/App.tsx" "local app"
+
+mkdir -p "$packs_path_conflict_target/packs"
+printf '%s\n' "local pack note" > "$packs_path_conflict_target/packs/local-note.md"
+if run_init --target-dir "$packs_path_conflict_target" 2>"$tmp_root/packs-path-conflict.err"; then
+  echo "Expected existing packs path to fail" >&2
+  exit 1
+fi
+assert_file_contains "$tmp_root/packs-path-conflict.err" "would be removed after initialization"
+assert_file_contains "$packs_path_conflict_target/packs/local-note.md" "local pack note"
+
+if run_init --target-dir "$conflict_target" 2>"$tmp_root/conflict.err"; then
+  echo "Expected root file conflict to fail" >&2
+  exit 1
+fi
+assert_file_contains "$tmp_root/conflict.err" "Target file already exists"
 assert_file_contains "$conflict_target/README.md" "existing"
 
 rm -rf "$template_nested"
