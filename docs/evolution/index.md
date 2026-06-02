@@ -1,29 +1,39 @@
-# Evolution Log
+# Evolution Log / 演进日志
+
+使用本目录记录阶段级别的项目演进。
 
 Use this directory to record stage-level project evolution.
+
+演进条目是面向未来分享的叙事记录。它们不是变更日志，不应捕获每一次小改动。
 
 Evolution entries are narrative records for future sharing. They are not
 changelogs and should not capture every small edit.
 
+如需合并阅读视图，请打开 `evolution-report.html`。
+
 For a consolidated reading view, open `evolution-report.html`.
+
+当前可视化摘要：
 
 Current visual summaries:
 
 - `project-architecture-business-tech.svg`
 - `project-evolution-business-tech.svg`
 
+每条记录应说明：
+
 Each entry should explain:
 
-- what stage we were in
-- what goal we pursued
-- what methodology we used
-- what questions or constraints shaped the work
-- what outcome we reached
-- what artifacts were produced
-- what can be shared with others
-- what remains open
+- 我们处于哪个阶段 / what stage we were in
+- 我们追求什么目标 / what goal we pursued
+- 我们使用了什么方法论 / what methodology we used
+- 哪些问题或约束影响了工作 / what questions or constraints shaped the work
+- 我们达成了什么结果 / what outcome we reached
+- 产出了哪些产物 / what artifacts were produced
+- 哪些内容可以分享给他人 / what can be shared with others
+- 还有哪些开放事项 / what remains open
 
-## Entries
+## Entries / 条目
 
 - `0001-project-directory-planning.md`
 - `0002-harness-foundations-study.md`
