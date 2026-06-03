@@ -15,3 +15,5 @@ or handoff format has been validated enough to reuse.
   High-priority methodology for turning meaningful user corrections, failed
   runs, review findings, and repeated friction into discoverable project
   standards.
+- `success-patterns.md`：成功模式捕获 — 当某件事意外做得好时，捕获促成条件以便项目可以复现。
+  Captures unexpectedly good outcomes and their contributing factors so the project can reproduce them.

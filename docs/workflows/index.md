@@ -11,6 +11,8 @@ planning, implementation, verification, experiment reporting, and evolution-log
 updates.
 
 ## Current Workflows / 当前工作流
+- `harness-maturity-assessment.md`：结构化成熟度评估框架，用于评估项目在七个 harness 层的成熟度。
+  Structured maturity assessment framework for evaluating a project across seven harness layers.
 
 - `validation-phase-learning-plan.md`：从 harness 方法论研究转向本地评估、运行记录、lab 验证和模式提取的分阶段计划。
   Staged plan for moving from harness methodology study into local evals, run

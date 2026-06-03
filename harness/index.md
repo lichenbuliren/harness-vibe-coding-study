@@ -16,6 +16,10 @@ are clear.
 - `foundations.md`：对 `walkinglabs/awesome-harness-engineering` 中 Foundations 模块的综合总结。
   Synthesis of the Foundations module from
   `walkinglabs/awesome-harness-engineering`.
+- `primitives.md`：可复用 harness 原语及选型指南。按 Control / Agency / Runtime / Substrate 四层组织。
+  Reusable harness primitives and when to use them, organized by the four-layer model.
+- `verification.md`：确定性检查、推理式检查、审批关卡及按风险分级验证。
+  Deterministic checks, inferential checks, approval gates, and verification levels by risk.
 - `context-memory.md`：上下文、记忆、压缩及工作状态策略。
   Context, memory, compaction, and working-state policy.
 - `guardrails-safe-autonomy.md`：约束、沙箱边界、工具策略、注入控制及安全自主的验证关卡。
@@ -30,6 +34,10 @@ are clear.
 - `agent-orchestration-loop.md`：主 agent 与子 agent 协作、集成、生命周期关闭及证据的规范循环。
   Canonical loop for lead-agent and subagent coordination, integration,
   lifecycle closure, and evidence.
+- `session-lifecycle.md`：会话生命周期 — bootstrap、progress、handoff 和 recovery。
+  Bootstrap, progress, handoff, and recovery across session boundaries.
+- `multi-agent.md`：多 agent 系统 — 子 agent 使用场景、共享状态规则和冲突处理。
+  Sub-agent use cases, shared-state rules, conflict handling, and governance.
 - `capability-discovery.md`：在直接执行工作前，查找已有技能、工具、插件、playbook、脚本及运行时能力的条件关。
   Conditional gate for finding existing skills, tools, plugins, playbooks,
   scripts, and runtime capabilities before doing work directly.
@@ -45,6 +53,10 @@ are clear.
 - `runtimes-reference-implementations.md`：框架/运行时/harness 的区别及参考实现的采纳标准。
   Framework/runtime/harness distinctions and adoption criteria for reference
   implementations.
+- `tools-and-context.md`：工具与上下文管理 — 渐进式披露、工具策略、MCP/CLI 边界。
+  Progressive disclosure, tool policy, MCP/CLI boundaries, and context hygiene.
+- `adoption-playbook.md`：落地 playbook — 如何在真实项目中分阶段引入 harness 工程。
+  Stage-by-stage adoption guide with success criteria, resistance handling, and time estimates.
 - `adapters/`：本项目与外部运行时、工具或评估界面之间的适配器边界。
   Adapter boundaries between this project and external runtimes, tools, or
   evaluation surfaces.

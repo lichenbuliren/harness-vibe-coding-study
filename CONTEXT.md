@@ -134,6 +134,15 @@ when a new practice has been validated or rejected.
 - `templates/agent-first-living-lab/`: template-safe skeleton extracted during
   Phase 3C.
 - `templates/agent-first-living-lab/INITIALIZE.md` and `init-template.sh`:
+- `harness/primitives.md`: reusable harness primitives and when to use them, organized by Control / Agency / Runtime / Substrate.
+- `harness/verification.md`: deterministic checks, inferential checks, approval gates, and verification levels by risk.
+- `docs/workflows/harness-maturity-assessment.md`: structured maturity assessment framework for evaluating a project across seven harness layers.
+- `harness/session-lifecycle.md`: bootstrap, progress, handoff, and recovery across session boundaries.
+- `harness/tools-and-context.md`: progressive disclosure, tool policy, MCP/CLI boundaries, and context hygiene.
+- `harness/multi-agent.md`: sub-agent use cases, shared-state rules, conflict handling, and governance.
+- `harness/adoption-playbook.md`: stage-by-stage adoption guide for real projects.
+- `docs/patterns/success-patterns.md`: captures unexpectedly good outcomes and their contributing factors.
+- `harness/adapters/`: now contains adapter notes for Codex Desktop and generic MCP runtimes.
   repeatable initialization guide and thin helper for the template skeleton.
 - `docs/workflows/template-skeleton-throwaway-validation.md`: validation report
   showing the template skeleton can initialize a temporary project and create

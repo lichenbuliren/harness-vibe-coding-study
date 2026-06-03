@@ -5,9 +5,14 @@
 `harness/` stores project-local harness methodology and delivery records.
 
 ## Current Files / 当前文件
-
+- `adoption-playbook.md`
+- `agent-delivery-contract.md`
 - `agent-learning-loop.md`
 - `agent-orchestration-loop.md`
 - `capability-discovery.md`
-- `agent-delivery-contract.md`
+- `multi-agent.md`
+- `primitives.md`
+- `session-lifecycle.md`
+- `tools-and-context.md`
+- `verification.md`
 - `runs/`
