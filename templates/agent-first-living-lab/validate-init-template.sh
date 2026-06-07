@@ -78,6 +78,9 @@ fi
 assert_file_not_contains "$new_target/README.md" "{{PROJECT_NAME}}"
 assert_file_not_contains "$new_target/CONTEXT.md" "{{PROJECT_INTENT}}"
 assert_file_not_contains "$new_target/decisions/0001-adopt-agent-first-living-lab.md" "{{CURRENT_PHASE}}"
+assert_file_exists "$new_target/init.sh"
+assert_file_exists "$new_target/feature_list.json"
+assert_file_exists "$new_target/scripts/validate-harness.mjs"
 
 react_target="$tmp_root/react-project"
 run_init --target-dir "$react_target" --app-pack frontend-react-ts
@@ -86,6 +89,9 @@ assert_file_exists "$react_target/src/App.tsx"
 assert_file_exists "$react_target/src/App.test.tsx"
 assert_file_contains "$react_target/package.json" '"name": "conflict-safe-lab"'
 assert_file_not_contains "$react_target/package.json" "{{PACKAGE_NAME}}"
+assert_file_exists "$react_target/init.sh"
+assert_file_exists "$react_target/feature_list.json"
+assert_file_exists "$react_target/scripts/validate-harness.mjs"
 if [[ -e "$react_target/lab" || -e "$react_target/packs" ]]; then
   echo "Initialized React project should not keep lab/ or template packs/." >&2
   exit 1

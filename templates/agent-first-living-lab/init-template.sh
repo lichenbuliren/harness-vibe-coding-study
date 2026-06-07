@@ -209,6 +209,8 @@ required_files=(
   README.md
   CONTEXT.md
   AGENTS.md
+  init.sh
+  feature_list.json
   .gitignore
   TEMPLATE.md
   INITIALIZE.md
