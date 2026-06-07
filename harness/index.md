@@ -1,64 +1,60 @@
 # Harness / 操纵框架
 
-`harness/` 描述本项目如何构建、运行、观测和评估 AI agent 的工作。
+`harness/` 定义如何构建、运行、观测和评估 AI agent 的工作。
 
-`harness/` describes how this project frames, runs, observes, and evaluates
-AI-agent work.
+`harness/` defines how to frame, run, observe, and evaluate AI-agent work.
 
-在初始阶段，本目录以文档为主。只有在概念、适配器边界和运行记录约定明确之后，再添加可执行的 harness 代码。
+---
 
-In the first stage this directory is documentation-first. Add executable harness
-code only after the concepts, adapter boundaries, and run-recording conventions
-are clear.
+## 如果只读一篇
 
-## Current Notes / 当前笔记
+从 [quick-start.md](./quick-start.md) 开始 — 最短上手路径，5 篇核心文档 + 1 个对比实验。
 
-- `foundations.md`：对 `walkinglabs/awesome-harness-engineering` 中 Foundations 模块的综合总结。
-  Synthesis of the Foundations module from
-  `walkinglabs/awesome-harness-engineering`.
-- `primitives.md`：可复用 harness 原语及选型指南。按 Control / Agency / Runtime / Substrate 四层组织。
-  Reusable harness primitives and when to use them, organized by the four-layer model.
-- `verification.md`：确定性检查、推理式检查、审批关卡及按风险分级验证。
-  Deterministic checks, inferential checks, approval gates, and verification levels by risk.
-- `context-memory.md`：上下文、记忆、压缩及工作状态策略。
-  Context, memory, compaction, and working-state policy.
-- `guardrails-safe-autonomy.md`：约束、沙箱边界、工具策略、注入控制及安全自主的验证关卡。
-  Constraints, sandbox boundaries, tool policy, prompt-injection controls, and
-  verifier gates for safe autonomy.
-- `specs-agent-workflows.md`：agent 指令文件、规约生命周期、工作流状态、验证和学习捕获。
-  Agent instruction files, spec lifecycle, workflow state, validation, and
-  learning capture.
-- `agent-learning-loop.md`：将修正、未通过的检查、评审发现和反复摩擦转化为持久项目行为的规范循环。
-  Canonical loop for turning corrections, failed checks, review findings, and
-  repeated friction into durable project behavior.
-- `agent-orchestration-loop.md`：主 agent 与子 agent 协作、集成、生命周期关闭及证据的规范循环。
-  Canonical loop for lead-agent and subagent coordination, integration,
-  lifecycle closure, and evidence.
-- `session-lifecycle.md`：会话生命周期 — bootstrap、progress、handoff 和 recovery。
-  Bootstrap, progress, handoff, and recovery across session boundaries.
-- `multi-agent.md`：多 agent 系统 — 子 agent 使用场景、共享状态规则和冲突处理。
-  Sub-agent use cases, shared-state rules, conflict handling, and governance.
-- `capability-discovery.md`：在直接执行工作前，查找已有技能、工具、插件、playbook、脚本及运行时能力的条件关。
-  Conditional gate for finding existing skills, tools, plugins, playbooks,
-  scripts, and runtime capabilities before doing work directly.
-- `agent-delivery-contract.md`：测试、面向用户验证、提交和持久证据的最小交付循环。
-  Minimum delivery loop for testing, user-facing verification, commits, and
-  durable evidence.
-- `evals-observability.md`：评估原语、追踪/可观测实践、基线对比、环境控制和回归关卡。
-  Eval primitives, trace/observability practices, baseline comparison,
-  environment control, and regression gates.
-- `benchmarks.md`：基准测试分类法，以及将基准结果解释为模型-harness-环境测量值的规则。
-  Benchmark taxonomy and rules for interpreting benchmark results as
-  model-harness-environment measurements.
-- `runtimes-reference-implementations.md`：框架/运行时/harness 的区别及参考实现的采纳标准。
-  Framework/runtime/harness distinctions and adoption criteria for reference
-  implementations.
-- `tools-and-context.md`：工具与上下文管理 — 渐进式披露、工具策略、MCP/CLI 边界。
-  Progressive disclosure, tool policy, MCP/CLI boundaries, and context hygiene.
-- `adoption-playbook.md`：落地 playbook — 如何在真实项目中分阶段引入 harness 工程。
-  Stage-by-stage adoption guide with success criteria, resistance handling, and time estimates.
-- `adapters/`：本项目与外部运行时、工具或评估界面之间的适配器边界。
-  Adapter boundaries between this project and external runtimes, tools, or
-  evaluation surfaces.
-- `runs/`：记录 harness 运行和证据的约定。
-  Conventions for recording harness runs and evidence.
+## 核心（5 子系统）
+
+| 子系统 | 职责 | 入口文档 |
+|--------|------|---------|
+| **Instructions** | 告诉 agent 做什么、按什么顺序、完成标准 | [instructions.md](./instructions.md) |
+| **Tools** | agent 用什么工具、如何发现、上下文卫生 | [tools.md](./tools.md) |
+| **Environment** | 运行时环境、可重现、适配器 | [environment.md](./environment.md) |
+| **State** | 会话生命周期、跨 session 持久化、安全边界 | [state.md](./state.md) |
+| **Feedback** | 验证、评估框架、实验记录 | [feedback.md](./feedback.md) |
+
+## 操作模式
+
+跨子系统的操作模式，不在任何一个子系统内：
+
+| 模式 | 解决的问题 |
+|------|-----------|
+| [agent-learning-loop.md](./agent-learning-loop.md) | 把错误和摩擦转化为项目标准 |
+| [agent-orchestration-loop.md](./agent-orchestration-loop.md) | 主 agent 与子 agent 的协调与集成 |
+| [multi-agent.md](./multi-agent.md) | 多 agent 并发治理、共享状态、冲突处理 |
+
+## 落地
+
+| 文档 | 用途 |
+|------|------|
+| [adoption-playbook.md](./adoption-playbook.md) | 如何在真实项目中分阶段引入 harness |
+
+## 参考（原始学习笔记）
+
+这些是早期研究阶段的原始文档，不在核心方法论中。需要深层背景时查阅：
+
+- [docs/reference/awesome-harness-synthesis.md](/docs/reference/awesome-harness-synthesis.md)
+- [docs/reference/primitives-taxonomy.md](/docs/reference/primitives-taxonomy.md)
+- [docs/reference/benchmarks-taxonomy.md](/docs/reference/benchmarks-taxonomy.md)
+- [docs/reference/runtimes-taxonomy.md](/docs/reference/runtimes-taxonomy.md)
+
+## 记录
+
+| 目录 | 用途 |
+|------|------|
+| [runs/](./runs/) | 实验运行记录（历史数据） |
+| [adapters/](./adapters/) | 运行时适配器笔记 |
+
+## 设计原则
+
+1. **阅读顺序优先**：从 quick-start.md 开始，需要时深入子系统
+2. **5 子系统是默认分类**：新发现先归到子系统，除非跨子系统才单独成篇
+3. **参考内容不放在核心路径**：原始学习笔记放到 docs/reference/
+4. **入口薄、深层厚**：每篇子系统文档 60-100 行，完整参考在原位
