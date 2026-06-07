@@ -89,63 +89,52 @@ when a new practice has been validated or rejected.
 
 ## Current Artifacts
 
-- `harness/foundations.md`: foundation model for harness engineering.
-- `harness/context-memory.md`: context, memory, compaction, and working-state
-  policy.
-- `harness/guardrails-safe-autonomy.md`: safe-autonomy boundaries and verifier
-  gates.
-- `harness/specs-agent-workflows.md`: spec lifecycle and workflow state model.
-- `harness/agent-learning-loop.md`: canonical loop for turning corrections,
-  failed checks, review findings, and repeated friction into durable project
-  behavior.
-- `harness/agent-orchestration-loop.md`: canonical loop for lead-agent and
-  subagent coordination, integration, lifecycle closure, and evidence.
-- `harness/capability-discovery.md`: conditional gate for finding existing
-  skills, tools, plugins, playbooks, scripts, and runtime capabilities before
-  doing work directly.
-- `harness/agent-delivery-contract.md`: minimum delivery loop for testing,
-  user-facing verification, commits, and durable evidence.
-- `docs/standards/`: cross-cutting standards that future agents should treat as
-  reusable project rules.
-- `docs/patterns/standard-capture-loop.md`: high-priority methodology for
-  turning meaningful corrections and failed runs into project standards.
-- `harness/evals-observability.md`: eval, trace, grader, and regression-gate
-  practices.
-- `harness/benchmarks.md`: benchmark taxonomy and interpretation rules.
-- `harness/runtimes-reference-implementations.md`: framework/runtime/harness
-  distinctions and adoption criteria.
-- `docs/workflows/validation-phase-learning-plan.md`: staged plan for local
-  evals, run records, lab validation, and pattern extraction.
-- `harness/runs/run-record-schema.md`: required structure for durable run
-  records.
-- `evals/rubrics/harness-validation-rubric.md`: evidence-based scoring rubric
-  for harness validation.
-- `experiments/task-samples/agent-first-project-tasks.md`: local mini-eval task
-  samples for testing harness behavior.
+### Core Harness (5 Subsystems)
+
+- `harness/quick-start.md`: recommended entry point — shortest path to use
+  the methodology.
+- `harness/instructions.md`: specs, agent files, definition of done, delivery
+  loop.
+- `harness/tools.md`: tool categories, progressive disclosure, capability
+  discovery gate.
+- `harness/environment.md`: runtime environment, reproducibility, adapters.
+- `harness/state.md`: session lifecycle, context management, cross-session
+  persistence, safety boundaries.
+- `harness/feedback.md`: verification, evals framework, run record schema.
+
+### Operating Modes
+
+- `harness/agent-learning-loop.md`: canonical loop for turning corrections
+  into project standards.
+- `harness/agent-orchestration-loop.md`: lead-agent and subagent coordination.
+- `harness/multi-agent.md`: multi-agent governance and shared-state rules.
+
+### Adoption
+
+- `harness/adoption-playbook.md`: stage-by-stage adoption guide.
+
+### Reference (deep docs moved to docs/reference/)
+
+- `docs/reference/awesome-harness-synthesis.md`
+- `docs/reference/primitives-taxonomy.md`
+- `docs/reference/benchmarks-taxonomy.md`
+- `docs/reference/runtimes-taxonomy.md`
+
+    (original docs remain at harness/ paths for backward compatibility)
+
+### Supporting
+
+- `docs/standards/`: cross-cutting project standards.
+- `docs/patterns/`: standard-capture-loop, success-patterns.
+- `harness/runs/`: experimental run records (historical).
+- `harness/adapters/`: runtime adapter notes.
+- `docs/workflows/`: maturity assessment, template validation.
+- `evals/`: rubrics and checklists.
+- `experiments/`: task samples and experiment reports.
 - `lab/dinner-picker/`: first real lab validation app.
-- `harness/runs/2026-05-31-dinner-picker-mvp.md`: first lab run record.
-- `harness/runs/2026-05-31-dinner-picker-feedback-redraw.md`: lab run record
-  for feedback-driven recommendation behavior.
-- `experiments/reports/2026-05-31-dinner-picker-mvp.md`: first lab experiment
-  report.
-- `experiments/reports/2026-05-31-dinner-picker-feedback-redraw.md`: experiment
-  report for converting subjective UX feedback into verified behavior.
 - `docs/harness-engineering-summary-zh.md`: Chinese share-oriented summary.
-- `templates/agent-first-living-lab/`: template-safe skeleton extracted during
-  Phase 3C.
+- `templates/agent-first-living-lab/`: template skeleton with init.sh,
+  feature_list.json, and validate-harness.mjs.
 - `templates/agent-first-living-lab/INITIALIZE.md` and `init-template.sh`:
-- `harness/primitives.md`: reusable harness primitives and when to use them, organized by Control / Agency / Runtime / Substrate.
-- `harness/verification.md`: deterministic checks, inferential checks, approval gates, and verification levels by risk.
-- `docs/workflows/harness-maturity-assessment.md`: structured maturity assessment framework for evaluating a project across seven harness layers.
-- `harness/session-lifecycle.md`: bootstrap, progress, handoff, and recovery across session boundaries.
-- `harness/tools-and-context.md`: progressive disclosure, tool policy, MCP/CLI boundaries, and context hygiene.
-- `harness/multi-agent.md`: sub-agent use cases, shared-state rules, conflict handling, and governance.
-- `harness/adoption-playbook.md`: stage-by-stage adoption guide for real projects.
-- `docs/patterns/success-patterns.md`: captures unexpectedly good outcomes and their contributing factors.
-- `harness/adapters/`: now contains adapter notes for Codex Desktop and generic MCP runtimes.
-  repeatable initialization guide and thin helper for the template skeleton.
-- `docs/workflows/template-skeleton-throwaway-validation.md`: validation report
-  showing the template skeleton can initialize a temporary project and create
-  first evidence records.
-- `docs/workflows/template-initialization-validation.md`: fresh git repository
-  validation for the initialization helper.
+  initialization helper.
+

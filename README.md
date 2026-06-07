@@ -31,8 +31,11 @@ skill package.
 
 ## How To Read This Repository
 
-- Start with `CONTEXT.md` for project intent and current assumptions.
+- Start with `harness/quick-start.md` for the shortest path into the
+  methodology — 5 core docs, 3 runtime files, 1 validation experiment.
+- Read `CONTEXT.md` for project intent and current assumptions.
 - Read `AGENTS.md` for agent operating rules.
+- Use `harness/` for the core methodology (5 subsystems + operating modes).
 - Use `docs/` for methodology, standards, and tool notes.
 - Use `docs/standards/` for cross-cutting project standards future agents
   should follow.
