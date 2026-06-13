@@ -1,0 +1,63 @@
+{
+  "features": [
+    {
+      "id": "feat-001",
+      "name": "Project Review Entrypoint",
+      "description": "Establish README and docs navigation as a future-review map for the harness learning project.",
+      "dependencies": [],
+      "status": "done",
+      "evidence": "2026-06-13: Commit ba1544b added README.md, docs/index.md, and docs/evolution/index.md as the initial review entrypoint."
+    },
+    {
+      "id": "feat-002",
+      "name": "Harness Lifecycle Scaffold",
+      "description": "Adapt the harness-creator lifecycle artifacts to this repo without overwriting the existing AGENTS.md contract.",
+      "dependencies": [
+        "feat-001"
+      ],
+      "status": "done",
+      "evidence": "2026-06-13: Added project-specific feature_list.json, progress.md, session-handoff.md, init.sh, AGENTS.md lifecycle pointers, and docs/evolution/0001-harness-lifecycle-bootstrap.md. ./init.sh passed. harness-creator validate-harness returned 100/100."
+    },
+    {
+      "id": "feat-003",
+      "name": "Project Context Restoration",
+      "description": "Fill CONTEXT.md with the durable project purpose, boundaries, terminology, and restart assumptions for future sessions.",
+      "dependencies": [
+        "feat-002"
+      ],
+      "status": "next",
+      "evidence": ""
+    },
+    {
+      "id": "feat-004",
+      "name": "Evolution Record Backfill",
+      "description": "Backfill the first concrete docs/evolution stage record for the README and lifecycle bootstrap work.",
+      "dependencies": [
+        "feat-002"
+      ],
+      "status": "done",
+      "evidence": "2026-06-13: Added docs/evolution/0001-harness-lifecycle-bootstrap.md with goal, starting state, method, decisions, evidence, reusable conclusions, open questions, and next step."
+    },
+    {
+      "id": "feat-005",
+      "name": "Template Boundary Review",
+      "description": "Decide which lifecycle artifacts belong in templates/ and which remain project-specific to this learning repo.",
+      "dependencies": [
+        "feat-003",
+        "feat-004"
+      ],
+      "status": "not-started",
+      "evidence": ""
+    },
+    {
+      "id": "feat-006",
+      "name": "Agent Operating Contract Slimming",
+      "description": "Reduce AGENTS.md to a short root operating contract and move long OMX/generated reference material into docs.",
+      "dependencies": [
+        "feat-002"
+      ],
+      "status": "done",
+      "evidence": "2026-06-13: Slimmed AGENTS.md from 249 lines to 111 lines, moved OMX reference material to docs/workflows/omx-runtime.md, added docs/adr/0001-keep-agents-md-as-root-operating-contract.md, updated CONTEXT.md terminology, and verified with ./init.sh plus harness-creator validate-harness 100/100."
+    }
+  ]
+}

@@ -24,3 +24,10 @@
 
 当前目录刚建立，后续阶段性成果应持续写入这里。README 只保留总览和导航，
 详细复盘沉淀在本目录中。
+
+## 记录列表
+
+- [`0001-harness-lifecycle-bootstrap.md`](0001-harness-lifecycle-bootstrap.md)：将
+  `harness-creator` 生命周期五件套改写并验证为当前项目的 restartable harness。
+- [`0002-agents-root-contract-slimming.md`](0002-agents-root-contract-slimming.md)：将
+  根 `AGENTS.md` 精简为短操作合同，并把 OMX 细节下沉到 workflow reference。

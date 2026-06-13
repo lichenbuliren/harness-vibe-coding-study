@@ -24,9 +24,15 @@ living lab。
 
 - [`CONTEXT.md`](CONTEXT.md)：项目长期上下文入口，目前待补齐。
 - [`AGENTS.md`](AGENTS.md)：agent 在本仓库工作的操作契约。
+- [`feature_list.json`](feature_list.json)：当前 feature 范围、状态和证据。
+- [`progress.md`](progress.md)：跨 session 的连续性日志。
+- [`session-handoff.md`](session-handoff.md)：较大或中断任务的交接入口。
+- [`init.sh`](init.sh)：标准启动和结构验证脚本。
 - [`docs/`](docs/)：方法论、工具说明和演进记录。
 - [`docs/evolution/`](docs/evolution/)：阶段性复盘入口。
+- [`docs/adr/`](docs/adr/)：重要项目决策记录。
 - [`docs/tools/`](docs/tools/)：支持本项目的工具和 skill 说明。
+- [`docs/workflows/`](docs/workflows/)：按需阅读的工作流参考。
 - [`templates/`](templates/)：从已验证项目证据中抽取的可复用骨架。
 
 ## 演进记录
@@ -47,7 +53,9 @@ living lab。
 短期目标是把仓库从空骨架整理成一个可复盘、可继续、可验证的项目入口：
 
 - 补齐 README 和 `CONTEXT.md` 的项目定位
+- 维护 `feature_list.json`、`progress.md` 和 `session-handoff.md` 的 session 生命周期
 - 建立 `docs/evolution/` 的阶段记录习惯
+- 保持 `AGENTS.md` 作为短的根操作合同，把长参考下沉到 `docs/`
 - 保持 `templates/` 精简，只抽取经过验证的结构
 - 让 agent 能通过现有文档快速理解当前阶段和下一步
 
