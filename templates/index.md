@@ -10,8 +10,3 @@ evidence.
 These templates should be conservative. Do not copy project-specific lab
 history, runtime state, local paths, or completed evolution entries into a
 template core.
-
-## Templates / 模板
-
-- `agent-first-living-lab/`：最小化的 Agent-First Living Lab 骨架。
-  Minimum Agent-First Living Lab skeleton.

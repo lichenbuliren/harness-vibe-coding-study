@@ -1,9 +1,0 @@
-{
-  "name": "harness-scripts",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "validate": "node scripts/validate-harness.mjs --target ../",
-    "benchmark": "node scripts/validate-harness.mjs --target ../ --json"
-  }
-}
