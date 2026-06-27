@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0",
+  "mode": "serial",
+  "features": [
+    {
+      "id": "fixture-001",
+      "name": "Add operational surfaces",
+      "behavior": "The fixture gains executable initialization and verification.",
+      "dependencies": [],
+      "status": "next",
+      "verification": null,
+      "evidence": []
+    }
+  ]
+}

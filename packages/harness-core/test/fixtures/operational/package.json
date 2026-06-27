@@ -1,0 +1,7 @@
+{
+  "name": "operational-harness-fixture",
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  }
+}

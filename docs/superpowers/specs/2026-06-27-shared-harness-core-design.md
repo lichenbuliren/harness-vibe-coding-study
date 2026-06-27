@@ -198,8 +198,10 @@ When discovery cannot support a fair assertion, the subsystem uses
 `level: null` and `label: "Unknown"`. Unknown is not a fifth maturity level and
 is excluded from candidate-bottleneck calculations.
 
-No overall score is computed. All subsystems tied for the lowest known level
-are candidate bottlenecks, not proven causal bottlenecks.
+No overall score is computed. When the lowest known level is below
+`Operational`, all subsystems tied at that level are candidate bottlenecks, not
+proven causal bottlenecks. An all-Operational profile has no candidate
+bottleneck.
 
 ## Assessment Contract
 

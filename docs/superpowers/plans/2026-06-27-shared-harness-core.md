@@ -346,7 +346,7 @@ git commit -m "feat: validate harness feature state"
 - Create: `packages/harness-core/test/fixtures/operational/*`
 - Create: `packages/harness-core/test/fixtures/escaping-manifest/*`
 
-- [ ] **Step 1: Write failing fixture matrix tests**
+- [x] **Step 1: Write failing fixture matrix tests**
 
 ```js
 const cases = [
@@ -374,7 +374,7 @@ Add explicit assertions that malformed/escaping evidence yields `Unknown`
 where a fair absence claim cannot be made and that Unknown is omitted from
 `candidateBottlenecks`.
 
-- [ ] **Step 2: Run tests and verify RED**
+- [x] **Step 2: Run tests and verify RED**
 
 Run:
 
@@ -384,7 +384,7 @@ node --test packages/harness-core/test/assessment.test.mjs
 
 Expected: FAIL because discovery and assessment modules do not exist.
 
-- [ ] **Step 3: Implement evidence discovery**
+- [x] **Step 3: Implement evidence discovery**
 
 Load `capabilities.json`, the optional manifest, and only conventional or
 declared paths. Produce normalized evidence:
@@ -402,7 +402,7 @@ declared paths. Produce normalized evidence:
 Inspect file existence/readability, JSON validity, executable mode, package
 scripts, and canonical feature-state semantics. Never execute a command.
 
-- [ ] **Step 4: Implement readiness assessment**
+- [x] **Step 4: Implement readiness assessment**
 
 Classification rules:
 
@@ -412,10 +412,11 @@ Classification rules:
 - unresolved discovery uncertainty -> `null Unknown`;
 - never emit `3 Evidenced` in Readiness mode.
 
-Sort all arrays by stable identifiers. Emit all tied lowest known subsystems as
-candidate bottlenecks and attach rule-linked recommendations.
+Sort all arrays by stable identifiers. When the lowest known level is below
+Operational, emit all tied subsystems as candidate bottlenecks and attach
+rule-linked recommendations. Emit none for an all-Operational profile.
 
-- [ ] **Step 5: Run tests and verify GREEN**
+- [x] **Step 5: Run tests and verify GREEN**
 
 Run:
 
@@ -425,7 +426,7 @@ node --test packages/harness-core/test/assessment.test.mjs
 
 Expected: PASS for the complete fixture matrix.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add packages/harness-core/src packages/harness-core/test

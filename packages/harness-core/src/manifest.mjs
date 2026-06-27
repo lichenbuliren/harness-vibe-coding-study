@@ -186,11 +186,14 @@ export async function loadManifest(root, options = {}) {
     for (const declaredPath of artifacts[key] ?? []) {
       const normalized = normalizeDeclaredPath(root, declaredPath);
       if (!normalized.ok) {
-        unknowns.push(unknown(
-          declaredPath,
-          normalized.reason,
-          `Declared ${key} path must stay inside the target repository.`
-        ));
+        unknowns.push({
+          ...unknown(
+            declaredPath,
+            normalized.reason,
+            `Declared ${key} path must stay inside the target repository.`
+          ),
+          ruleId: `manifest.artifacts.${key}`
+        });
         continue;
       }
       manifest.artifacts[key].push(normalized.relativePath);
