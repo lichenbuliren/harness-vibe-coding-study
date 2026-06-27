@@ -486,7 +486,7 @@ git commit -m "feat: complete harness doctor skill"
 **Files:**
 - Verify only
 
-- [ ] **Step 1: Prove renderer purity and scope exclusions**
+- [x] **Step 1: Prove renderer purity and scope exclusions**
 
 Run:
 
@@ -500,13 +500,13 @@ rg -n "writeFile|copyFile|mkdir|rm\\(|fetch\\(|child_process" \
 Expected: no renderer inspection/filesystem imports and no Doctor
 write/network/target-command implementation.
 
-- [ ] **Step 2: Prove one canonical assessment**
+- [x] **Step 2: Prove one canonical assessment**
 
 Compare direct shared-core JSON with Doctor JSON using `cmp`. Run Text,
 Markdown, and HTML against the same fixture and assert every canonical level,
 label, bottleneck, and Effectiveness status appears.
 
-- [ ] **Step 3: Re-run required verification**
+- [x] **Step 3: Re-run required verification**
 
 Run:
 
