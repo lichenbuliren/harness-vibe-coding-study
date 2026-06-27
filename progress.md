@@ -4,7 +4,7 @@
 
 **Last Updated:** 2026-06-27 CST
 **Active Feature:** feat-010 - Harness Creator Skill
-**Status:** feat-009 complete; feat-010 ready for design and implementation
+**Status:** feat-010 in progress; safe plan/apply protocol selected
 
 ## What's Done
 
@@ -58,7 +58,8 @@
 
 ## What's In Progress
 
-- [ ] Design the non-destructive `harness-creator` skill over the shared core.
+- [ ] Specify and implement the non-destructive `harness-creator` skill over
+  the shared core.
 
 ## What's Next
 

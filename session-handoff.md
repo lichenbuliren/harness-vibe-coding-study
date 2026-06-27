@@ -3,7 +3,7 @@
 ## Current Objective
 
 - Goal: Build the doctor and creator products over the verified shared core.
-- Current status: `feat-009` is complete; `feat-010` is the only next feature.
+- Current status: `feat-009` is complete; `feat-010` is in progress.
 - Active feature: `feat-010` in `feature_list.json`.
 - Branch / commit: Current branch is `codex/harness-doctor`; Doctor
   implementation commits follow the shared-core baseline on local `main`.
