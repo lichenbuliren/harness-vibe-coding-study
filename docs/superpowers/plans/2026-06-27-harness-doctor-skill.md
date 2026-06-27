@@ -130,7 +130,7 @@ git commit -m "test: define harness doctor contracts"
 - Create: `skills/harness-doctor/agents/openai.yaml`
 - Remove: any scaffold placeholder/example files
 
-- [ ] **Step 1: Initialize with the official scaffold**
+- [x] **Step 1: Initialize with the official scaffold**
 
 Run:
 
@@ -147,7 +147,7 @@ python3 /Users/heaven/.codex/skills/.system/skill-creator/scripts/init_skill.py 
 Expected: `skills/harness-doctor` with `SKILL.md`, `agents/openai.yaml`, and
 `scripts/`.
 
-- [ ] **Step 2: Replace the scaffold body**
+- [x] **Step 2: Replace the scaffold body**
 
 Use exactly two frontmatter fields:
 
@@ -170,7 +170,7 @@ The body must:
 
 Keep the complete file below 500 words. Do not add a README or reference file.
 
-- [ ] **Step 3: Verify metadata**
+- [x] **Step 3: Verify metadata**
 
 Ensure `agents/openai.yaml` contains only:
 
@@ -181,7 +181,7 @@ interface:
   default_prompt: "Use $harness-doctor to inspect this repository and explain its highest-priority harness gaps without modifying files."
 ```
 
-- [ ] **Step 4: Run skill contract validation**
+- [x] **Step 4: Run skill contract validation**
 
 Run:
 
@@ -195,7 +195,7 @@ uv run --offline --with pyyaml python \
 Expected: Node contract test and official validator PASS. Renderer test remains
 RED because renderer code is not implemented.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add skills/harness-doctor tests/harness-doctor/skill-contract.test.mjs
@@ -208,7 +208,7 @@ git commit -m "feat: add harness doctor skill"
 - Create: `skills/harness-doctor/scripts/renderers.mjs`
 - Modify: `tests/harness-doctor/renderers.test.mjs`
 
-- [ ] **Step 1: Confirm renderer RED independently**
+- [x] **Step 1: Confirm renderer RED independently**
 
 Run:
 

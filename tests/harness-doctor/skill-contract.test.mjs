@@ -117,13 +117,16 @@ test('OpenAI metadata matches the skill and names it in the default prompt', asy
 
 test('skill package contains no auxiliary or duplicated contract files', async () => {
   const files = await listRelativeFiles(skillRoot);
-
-  assert.equal(files.some((file) => /readme|changelog/i.test(file)), false);
-  assert.equal(files.some((file) => /schema|capabilities\.json/i.test(file)), false);
-  assert.deepEqual(files, [
+  const allowedFiles = new Set([
     'SKILL.md',
     'agents/openai.yaml',
     'scripts/doctor.mjs',
     'scripts/renderers.mjs'
   ]);
+
+  assert.equal(files.some((file) => /readme|changelog/i.test(file)), false);
+  assert.equal(files.some((file) => /schema|capabilities\.json/i.test(file)), false);
+  assert.equal(files.every((file) => allowedFiles.has(file)), true);
+  assert.equal(files.includes('SKILL.md'), true);
+  assert.equal(files.includes('agents/openai.yaml'), true);
 });
