@@ -98,7 +98,18 @@ function assessRule(rule, discovery) {
   };
 }
 
-function recommendationsFor(rules, subsystems) {
+function unmetRecommendation(rule, discovery) {
+  return rule.operationalAll
+    .map((group, index) => (
+      group.some((id) => discovery.signals[id].operational)
+        ? null
+        : rule.recommendations[index]
+    ))
+    .filter(Boolean)
+    .join(' ');
+}
+
+function recommendationsFor(rules, subsystems, discovery) {
   const recommendations = [];
   for (const rule of rules.rules) {
     const assessment = subsystems[rule.subsystem];
@@ -109,7 +120,7 @@ function recommendationsFor(rules, subsystems) {
       ruleId: rule.id,
       subsystem: rule.subsystem,
       priority: assessment.level === 1 ? 2 : 1,
-      message: rule.recommendation
+      message: unmetRecommendation(rule, discovery)
     });
   }
   return recommendations.sort((left, right) => (
@@ -155,7 +166,11 @@ export async function inspectHarness(options) {
       subsystems,
       discovery.rules.subsystemOrder
     ),
-    recommendations: recommendationsFor(discovery.rules, subsystems),
+    recommendations: recommendationsFor(
+      discovery.rules,
+      subsystems,
+      discovery
+    ),
     unknowns: discovery.globalUnknowns,
     limitations: [...LIMITATIONS],
     effectiveness: {

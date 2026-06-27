@@ -52,6 +52,24 @@ test('rules use only the canonical five-subsystem model', async () => {
   assert.equal(JSON.stringify(rules).includes('"lifecycle"'), false);
 });
 
+test('rules align one recommendation with each operational requirement', async () => {
+  const rules = await readJson('rules/capabilities.json');
+
+  for (const rule of rules.rules) {
+    assert.equal(
+      rule.recommendations.length,
+      rule.operationalAll.length,
+      rule.id
+    );
+    assert.ok(
+      rule.recommendations.every(
+        (message) => typeof message === 'string' && message.length > 0
+      ),
+      rule.id
+    );
+  }
+});
+
 test('assessment contract has no total score and represents Unknown explicitly', async () => {
   const schema = await readJson('schemas/assessment.schema.json');
   const subsystem = schema.$defs.subsystem;

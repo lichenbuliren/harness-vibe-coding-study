@@ -1,4 +1,9 @@
 import assert from 'node:assert/strict';
+import {
+  mkdtemp,
+  writeFile
+} from 'node:fs/promises';
+import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
@@ -122,4 +127,22 @@ test('reports the structural Readiness limitation explicitly', async () => {
   assert.ok(result.limitations.some((item) => (
     item.includes('Readiness') && item.includes('Effectiveness')
   )));
+});
+
+test('recommends only unsatisfied operational requirements', async () => {
+  const root = await mkdtemp(path.join(
+    os.tmpdir(),
+    'harness-partial-recommendation-'
+  ));
+  await writeFile(path.join(root, 'init.sh'), '#!/bin/sh\nexit 0\n', {
+    mode: 0o755
+  });
+
+  const result = await inspectHarness({root});
+  const recommendation = result.recommendations.find(
+    (item) => item.ruleId === 'environment.bootstrap'
+  );
+
+  assert.equal(recommendation.message, 'Add environment metadata.');
+  assert.doesNotMatch(recommendation.message, /initialization command/i);
 });

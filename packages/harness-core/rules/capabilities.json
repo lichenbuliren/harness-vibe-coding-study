@@ -116,7 +116,10 @@
           "context.file"
         ]
       ],
-      "recommendation": "Add durable operating instructions and project context."
+      "recommendations": [
+        "Add durable operating instructions.",
+        "Add project context."
+      ]
     },
     {
       "id": "tools.access",
@@ -135,7 +138,10 @@
           "verify.command"
         ]
       ],
-      "recommendation": "Declare discoverable tools and at least one usable project command."
+      "recommendations": [
+        "Declare discoverable tools.",
+        "Add at least one usable project command."
+      ]
     },
     {
       "id": "environment.bootstrap",
@@ -152,7 +158,10 @@
           "initialize.executable"
         ]
       ],
-      "recommendation": "Add environment metadata and a check-first initialization command."
+      "recommendations": [
+        "Add environment metadata.",
+        "Add a check-first initialization command."
+      ]
     },
     {
       "id": "state.continuity",
@@ -169,7 +178,10 @@
           "state.progress"
         ]
       ],
-      "recommendation": "Add valid feature state and a resumable progress surface."
+      "recommendations": [
+        "Add valid feature state.",
+        "Add a resumable progress surface."
+      ]
     },
     {
       "id": "feedback.verification",
@@ -187,7 +199,9 @@
           "verify.package-script"
         ]
       ],
-      "recommendation": "Provide at least one discoverable verification command."
+      "recommendations": [
+        "Provide at least one discoverable verification command."
+      ]
     }
   ]
 }
