@@ -55,16 +55,16 @@ Codex skill metadata, offline `uv` validation
 - Create: `tests/harness-creator/planner.test.mjs`
 - Create: `tests/harness-creator/fixtures/`
 
-- [ ] Write RED fixture tests for empty, partial, operational, malformed,
+- [x] Write RED fixture tests for empty, partial, operational, malformed,
   conflict, and non-standard targets.
-- [ ] Discover stack and verification commands without executing them.
-- [ ] Call `inspectHarness()` once per plan.
-- [ ] Emit stable create/merge/skip/block actions with exact preconditions,
+- [x] Discover stack and verification commands without executing them.
+- [x] Call `inspectHarness()` once per plan.
+- [x] Emit stable create/merge/skip/block actions with exact preconditions,
   intended content, and SHA-256 `planId`.
-- [ ] Merge the context restoration feature only into valid canonical feature
+- [x] Merge the context restoration feature only into valid canonical feature
   state; preserve existing feature values and serial active-count invariants.
-- [ ] Prove planning causes zero target writes and leaks no host paths.
-- [ ] Commit `feat: plan non-destructive harness changes`.
+- [x] Prove planning causes zero target writes and leaks no host paths.
+- [x] Commit `feat: plan non-destructive harness changes`.
 
 ## Task 4: Apply Accepted Plans Atomically
 

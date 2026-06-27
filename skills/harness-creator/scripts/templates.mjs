@@ -74,15 +74,40 @@ from this workflow.
 `);
 }
 
-export function renderFeatureState() {
+export function renderFeatureState({needsContext = true} = {}) {
   return finalNewline(JSON.stringify({
     schemaVersion: '1.0.0',
     mode: 'serial',
-    features: [contextRestorationFeature()]
+    features: needsContext ? [contextRestorationFeature()] : []
   }, null, 2));
 }
 
-export function renderProgress() {
+export function renderProgress({needsContext = true} = {}) {
+  if (!needsContext) {
+    return finalNewline(`# Session Progress
+
+## Current State
+
+- Active feature: none
+- Status: The minimal harness exists and awaits the next real project task.
+
+## Completed
+
+- Created a check-first coding-agent harness without replacing project files.
+
+## Next
+
+1. Add the next real project behavior to \`feature_list.json\`.
+2. Set exactly one serial feature to \`next\`.
+3. Run \`./init.sh\` and the documented project verification commands.
+4. Record evidence before marking work done.
+
+## Blockers And Risks
+
+- No project feature was invented during harness creation.
+`);
+  }
+
   return finalNewline(`# Session Progress
 
 ## Current State
@@ -184,28 +209,33 @@ echo "Next: read feature_list.json and progress.md, then run the listed verifica
 
 export function renderManifest({
   agentFile,
+  contextPath = 'CONTEXT.md',
+  featureStatePath = 'feature_list.json',
+  progressPath = 'progress.md',
+  handoffPath = 'session-handoff.md',
+  initPath = 'init.sh',
   environmentPaths,
   includeHandoff,
   verificationCommands
 }) {
   const artifacts = {
     instructions: [agentFile],
-    context: ['CONTEXT.md'],
-    featureState: ['feature_list.json'],
-    progress: ['progress.md'],
+    context: [contextPath],
+    featureState: [featureStatePath],
+    progress: [progressPath],
     environment: environmentPaths,
-    tools: ['init.sh']
+    tools: [initPath]
   };
   if (includeHandoff) {
-    artifacts.handoff = ['session-handoff.md'];
+    artifacts.handoff = [handoffPath];
   }
 
   return finalNewline(JSON.stringify({
     schemaVersion: '1.0.0',
     artifacts,
     commands: {
-      initialize: ['./init.sh'],
-      verify: [...new Set(['./init.sh', ...verificationCommands])]
+      initialize: [`./${initPath}`],
+      verify: [...new Set([`./${initPath}`, ...verificationCommands])]
     }
   }, null, 2));
 }
