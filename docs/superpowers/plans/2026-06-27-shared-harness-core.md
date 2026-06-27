@@ -439,7 +439,7 @@ git commit -m "feat: assess harness readiness"
 - Create: `packages/harness-core/bin/inspect-harness.mjs`
 - Create: `packages/harness-core/test/cli.test.mjs`
 
-- [ ] **Step 1: Write failing CLI tests**
+- [x] **Step 1: Write failing CLI tests**
 
 ```js
 test('emits byte-stable compact JSON and preserves the target', async () => {
@@ -463,7 +463,7 @@ test('uses exit 2 for invalid arguments', async () => {
 Also test `--pretty`, explicit `--manifest`, missing target, no timestamps or
 absolute host paths, and gap assessments exiting `0`.
 
-- [ ] **Step 2: Run tests and verify RED**
+- [x] **Step 2: Run tests and verify RED**
 
 Run:
 
@@ -473,13 +473,13 @@ node --test packages/harness-core/test/cli.test.mjs
 
 Expected: FAIL because the CLI does not exist.
 
-- [ ] **Step 3: Implement CLI parsing and serialization**
+- [x] **Step 3: Implement CLI parsing and serialization**
 
 Support only `--target`, `--manifest`, `--pretty`, and `--help`. Serialize the
 canonical assessment plus one newline. Print usage/errors to stderr. Do not
 render text/Markdown/HTML and do not rescore the result.
 
-- [ ] **Step 4: Run the complete package suite**
+- [x] **Step 4: Run the complete package suite**
 
 Run:
 
@@ -489,7 +489,7 @@ node --test packages/harness-core/test/*.test.mjs
 
 Expected: all tests PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add packages/harness-core/bin packages/harness-core/test
