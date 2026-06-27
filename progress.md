@@ -4,7 +4,7 @@
 
 **Last Updated:** 2026-06-27 CST
 **Active Feature:** feat-009 - Harness Doctor Skill
-**Status:** feat-008 complete and verified; feat-009 next
+**Status:** feat-009 design complete; implementation pending
 
 ## What's Done
 
@@ -45,18 +45,19 @@
   harness manifest.
 - [x] Recorded the implementation in
   `docs/evolution/0006-shared-harness-contract-core.md`.
+- [x] Captured the legacy audit baseline and finalized the thin, read-only
+  Harness Doctor design.
 
 ## What's In Progress
 
-- [ ] Design and implement the read-only Harness Doctor skill over the shared
+- [ ] Implement the read-only skill, command, and renderers over the shared
   assessment contract.
 
 ## What's Next
 
-1. Continue `feat-009 - Harness Doctor Skill`.
-2. Define terminal and Markdown views that render canonical JSON without
-   rescoring.
-3. Keep all doctor operations read-only.
+1. Review the Harness Doctor design specification.
+2. Write the implementation plan.
+3. Implement the skill and renderers test-first.
 
 ## Blockers / Risks
 
@@ -93,6 +94,10 @@
 - `./init.sh` passed with shared-core tests and self-inspection enabled.
 - `docs/evolution/0006-shared-harness-contract-core.md` records the before/after
   maturity profile and remaining product work.
+- The old validator baseline returned `overall: 96` and the obsolete
+  `instructions/state/verification/scope/lifecycle` taxonomy.
+- `docs/superpowers/specs/2026-06-27-harness-doctor-skill-design.md` records
+  the accepted thin-skill, pure-renderer, and read-only command contracts.
 
 ## Notes for Next Session
 

@@ -199,8 +199,17 @@
       "dependencies": [
         "feat-008"
       ],
-      "status": "next",
-      "verification": null,
+      "status": "in-progress",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test tests/harness-doctor/*.test.mjs",
+          "python3 ${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py skills/harness-doctor",
+          "node skills/harness-doctor/scripts/doctor.mjs --target . --format json",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
       "evidence": []
     },
     {

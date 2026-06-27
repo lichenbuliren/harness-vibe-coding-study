@@ -3,7 +3,8 @@
 ## Current Objective
 
 - Goal: Build the doctor and creator products over the verified shared core.
-- Current status: `feat-008` is complete and verified; `feat-009` is next.
+- Current status: `feat-008` is complete; the accepted `feat-009` design is
+  complete and ready for implementation planning.
 - Active feature: `feat-009` in `feature_list.json`.
 - Branch / commit: Current branch is `codex/shared-harness-core`; product-boundary
   baseline is commit `7786490`.
@@ -45,6 +46,10 @@
   unsafe target shapes.
 - [x] Migrated this repository to canonical feature state and five-dimensional
   Operational Readiness.
+- [x] Captured the legacy validator baseline with total score and obsolete
+  taxonomy.
+- [x] Selected a thin, read-only Doctor skill over the shared core with pure
+  JSON/Text/Markdown/HTML renderers.
 
 ## Verification Evidence
 
@@ -98,6 +103,7 @@
 - Doctor and creator skill entrypoints are not implemented.
 - Level 3 and Effectiveness remain unproven until representative task evidence
   is available.
+- Doctor implementation must not duplicate or rescore shared-core conclusions.
 - The template project's generated handoff said "Not a git repository"; do not copy generated facts without checking local reality.
 - Future generated overlays could reintroduce root `AGENTS.md` bulk; keep ADR 0001 as the boundary.
 
@@ -108,4 +114,5 @@
 3. Read `progress.md`.
 4. Run `./init.sh`.
 5. Read `docs/evolution/0006-shared-harness-contract-core.md`.
-6. Continue the single `next` feature, `feat-009`.
+6. Review `docs/superpowers/specs/2026-06-27-harness-doctor-skill-design.md`.
+7. Continue the single `in-progress` feature, `feat-009`.
