@@ -345,9 +345,38 @@
       "dependencies": [
         "feat-011"
       ],
-      "status": "next",
-      "verification": null,
-      "evidence": []
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test packages/harness-core/test/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-creator/*.test.mjs tests/harness-product/*.test.mjs tests/field-validation/*.test.mjs",
+          "node experiments/field-validation/validate-results.mjs experiments/field-validation/runs/pilot-001.json",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "All four predeclared bare/harness coding tasks passed 3/3 tests after the first implementation edit with zero correction loops and zero scope violations.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "The field result validator accepted pilot-001 as four complete runs with observed-only conclusions and Readiness capped at level 2.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh passed all product, plugin, skill, experiment contract, and field-result checks.",
+          "verificationStep": 2
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors; the pilot supports durable-state and coordination-cost observations but no general Effectiveness claim.",
+          "verificationStep": 3
+        }
+      ]
     }
   ]
 }

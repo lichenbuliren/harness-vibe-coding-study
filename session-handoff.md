@@ -2,13 +2,11 @@
 
 ## Current Objective
 
-- Goal: Validate whether the packaged harness improves representative
-  coding-agent task Effectiveness.
-- Current status: `feat-009`, `feat-010`, and `feat-011` are complete;
-  `feat-012` is next.
-- Active feature: `feat-012` in `feature_list.json`.
-- Branch / commit: Current branch is `codex/harness-product-integration`;
-  Creator and Doctor are merged into local `main`.
+- Goal: Preserve the completed harness product and its honest evidence boundary.
+- Current status: `feat-009` through `feat-012` are complete.
+- Active feature: none; `feature_list.json` has no `next` or `in-progress` item.
+- Delivery history: product integration starts at `be6d7aa`; inspect the latest
+  local `main` commit for the completed field-validation stage.
 
 ## Completed This Session
 
@@ -71,6 +69,14 @@
   non-standard, conflict, atomic-failure, and concurrent workflows.
 - [x] Passed 107 tests plus official plugin and packaged-skill validation.
 - [x] Added `docs/evolution/0009-harness-product-integration.md`.
+- [x] Built deterministic four-run field fixtures and an observed-only result
+  validator.
+- [x] Executed fresh and interrupted bare/harness tasks without child agents.
+- [x] Recorded four passing runs, zero correction loops, zero scope violations,
+  and SHA-256 evidence.
+- [x] Added `docs/evolution/0010-harness-field-validation.md`.
+- [x] Updated `CONTEXT.md` and the compressed theory with the observed fixed
+  coordination cost and durable-state boundary.
 
 ## Verification Evidence
 
@@ -106,6 +112,8 @@
 | Full product suite | `node --test packages/harness-core/test/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-creator/*.test.mjs tests/harness-product/*.test.mjs` | Pass | 107 tests, 0 failures. |
 | Packaged product validation | `./init.sh` | Pass | Generated plugin plus both packaged skills passed official validators. |
 | Packaged workflow | product integration suite | Pass | Conventional Context completion reached five level-2 subsystems; non-standard, conflict, resume, determinism, and concurrency passed. |
+| Field contract | `node --test tests/field-validation/*.test.mjs` | Pass | Four balanced fixtures, real failing starts, metric derivation, and evidence caps passed. |
+| Pilot result | `node experiments/field-validation/validate-results.mjs experiments/field-validation/runs/pilot-001.json` | Pass | Four runs accepted; evidence remains observed and Readiness level 2. |
 
 ## Files Changed
 
@@ -133,10 +141,8 @@
 
 ## Blockers / Risks
 
-- Product distribution/integration is complete; field validation is not
-  implemented.
-- Level 3 and Effectiveness remain unproven until representative task evidence
-  is available.
+- Level 3 and general Effectiveness remain unproven; the pilot is same-agent,
+  same-session, synthetic, sequential, and small.
 - Doctor implementation must not duplicate or rescore shared-core conclusions.
 - The template project's generated handoff said "Not a git repository"; do not copy generated facts without checking local reality.
 - Future generated overlays could reintroduce root `AGENTS.md` bulk; keep ADR 0001 as the boundary.
@@ -149,4 +155,5 @@
 4. Run `./init.sh`.
 5. Read `docs/evolution/0006-shared-harness-contract-core.md`.
 6. Read `docs/evolution/0008-harness-creator-skill.md`.
-7. Continue the single `next` feature, `feat-012`.
+7. Confirm there is no active feature; create one only for a newly accepted
+   scope.

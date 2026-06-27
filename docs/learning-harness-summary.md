@@ -287,6 +287,15 @@ Harness 是适应当前模型能力和项目风险的工程结构，不应永久
 - 哪些状态文件重复表达同一事实？
 - 哪些验证仍然捕获真实缺陷？
 可以暂时移除一个组件，在相同任务上比较完成时间、验证通过率、返工次数和会话数量。如果结果没有退化，就保留更简单的结构。
+
+本仓库的首个四任务 pilot 提供了一个克制的反例：在微小、边界清晰、单会话任务
+中，bare 与 harness 条件都首次实现即通过，harness 反而增加了读取、验证和状态
+更新操作。它的可见收益是留下 machine-readable done/evidence，而不是已证明的
+速度提升。
+
+因此 Harness 有固定协调成本。应根据任务规模、风险和跨会话需求选择最小表面，
+而不是默认文件越多越成熟。一次同 agent 的合成实验只能形成 `observed` 结论；
+独立 fresh-session 重复以前，不应晋级为 level 3 或强诊断规则。
 ## 7. 最小落地路径
 不需要一次建设完整平台。先建立最小闭环，再根据真实失败增加能力。
 ### 7.1 第一阶段：让项目可进入
@@ -313,11 +322,16 @@ Harness 是适应当前模型能力和项目风险的工程结构，不应永久
 - `session-handoff.md`：重启路径；
 - `init.sh`：结构和启动检查；
 - `docs/evolution/`：阶段性证据。
-下一步重点不是增加更多文档，而是补齐现有工件的行为能力：
-1. 为有实际行为的功能项增加明确验证命令；
-2. 区分结构验证与行为验证，避免把结构完整误认为方法有效；
-3. 在实质性工作后同步更新状态、证据和交接；
-4. 用 fresh-session test 定期检查仓库是否仍可被快速接手。
+- `packages/harness-core/`：五子系统 shared contract 与 Readiness inspector；
+- `skills/harness-creator/`、`skills/harness-doctor/`：创建与诊断双入口；
+- `scripts/package-harness-plugin.mjs`：生成自包含 `harness-engineering` plugin；
+- `experiments/field-validation/`：受控任务协议与 observed pilot 证据。
+
+下一步重点不是增加更多默认工件，而是提高 Effectiveness 证据质量：
+1. 用独立 fresh-session agent 重复任务，降低同 agent 与顺序偏差；
+2. 使用更接近真实项目的多文件、跨会话任务；
+3. 预先定义成功率、返工、恢复成本和停止条件；
+4. 只有重复证据稳定后，才把观察晋级为 creator/doctor 规则。
 ### 7.5 最终检查清单
 一个最小但可靠的 harness 应当让全新会话回答：
 - 我正在维护什么系统？

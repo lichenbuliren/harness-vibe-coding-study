@@ -19,6 +19,9 @@ required_paths=(
   "docs/workflows/index.md"
   "docs/workflows/omx-runtime.md"
   "templates/index.md"
+  "experiments/field-validation/fixtures.mjs"
+  "experiments/field-validation/runs/pilot-001.json"
+  "experiments/field-validation/validate-results.mjs"
   "packages/harness-core/package.json"
   "packages/harness-core/bin/inspect-harness.mjs"
   "scripts/package-harness-plugin.mjs"
@@ -75,6 +78,11 @@ uv run --offline --with pyyaml python \
 uv run --offline --with pyyaml python \
   "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" \
   "$plugin_tmp/harness-engineering/skills/harness-doctor"
+
+echo "=== Harness Field Validation check ==="
+node --test tests/field-validation/*.test.mjs
+node experiments/field-validation/validate-results.mjs \
+  experiments/field-validation/runs/pilot-001.json
 
 echo "=== Documentation entrypoint check ==="
 grep -q "docs/evolution" README.md

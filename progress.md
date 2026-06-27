@@ -3,8 +3,8 @@
 ## Current State
 
 **Last Updated:** 2026-06-27 CST
-**Active Feature:** feat-012 - Harness Field Validation
-**Status:** feat-011 complete; feat-012 ready for experiment design
+**Active Feature:** none
+**Status:** product roadmap complete; further work requires a new validated scope
 
 ## What's Done
 
@@ -70,28 +70,37 @@
 - [x] Passed official plugin validation and both packaged skill validations.
 - [x] Recorded the outcome in
   `docs/evolution/0009-harness-product-integration.md`.
+- [x] Ran four counterordered bare/harness coding tasks with executable tests.
+- [x] Recorded actions, derived metrics, scope, and SHA-256 evidence in
+  `experiments/field-validation/runs/pilot-001.json`.
+- [x] Kept conclusions at `observed` and Readiness at level 2.
+- [x] Updated the canonical theory with fixed coordination cost and evidence
+  boundaries.
+- [x] Recorded the outcome in
+  `docs/evolution/0010-harness-field-validation.md`.
 
 ## What's In Progress
 
-- [ ] Design representative before/after coding-agent field experiments
-  without conflating Readiness and Effectiveness.
+- No active feature.
 
 ## What's Next
 
-1. Define controlled task pairs and Effectiveness measures.
-2. Run the same representative tasks without and with the packaged harness.
-3. Record limitations, observed effects, and whether any level-3 evidence is
-   justified.
+1. Do not expand the default harness from this pilot.
+2. Start a new feature only when independent fresh-session agents and a
+   realistic multi-file, cross-session task are available.
+3. Pre-register repetitions, ordering, success, correction, and recovery-cost
+   thresholds before the next Effectiveness study.
 
 ## Blockers / Risks
 
 - `harness-creator` validation is structural. The 100/100 score means the harness is easy to inspect, not that the project methodology is fully proven.
 - `AGENTS.md` is now shorter and verified, but future generated overlays could reintroduce bulk if not kept behind the ADR boundary.
-- Doctor, Creator, and plugin distribution are implemented; field validation
-  remains.
-- Readiness level 3 remains reserved until a later evidence provider can supply
-  representative task evidence.
-- Fixture evidence proves contract consistency, not real-task Effectiveness.
+- Doctor, Creator, plugin distribution, and the bounded field pilot are
+  complete.
+- Readiness level 3 remains reserved; the same-agent synthetic pilot is
+  `observed`, not `validated`.
+- The pilot does not demonstrate a general delivery-speed, success-rate, or
+  recovery-cost improvement.
 
 ## Evidence
 
@@ -143,6 +152,12 @@
 - Packaged workflows moved a conventional fixture from `1/2/2/2/2` to
   `2/2/2/2/2` only after project-owned Context completion; non-standard and
   conflict paths behaved as specified.
+- Four field runs all passed on the first implementation edit with zero
+  corrections and scope violations.
+- Bare runs used 8 orientation reads and 2 verification commands in aggregate;
+  harness runs used 12 reads, 4 verification commands, and 4 state updates.
+- Only harness runs left machine-readable done/evidence state; this is a
+  continuity observation, not proof of lower recovery cost.
 
 ## Notes for Next Session
 

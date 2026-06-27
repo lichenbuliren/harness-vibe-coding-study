@@ -21,6 +21,7 @@
     ],
     "tools": [
       ".codex/config.toml",
+      "experiments/field-validation/validate-results.mjs",
       "scripts/package-harness-plugin.mjs",
       "skills/harness-creator/SKILL.md",
       "skills/harness-creator/scripts/creator.mjs",
@@ -34,7 +35,9 @@
     ],
     "verify": [
       "node --test packages/harness-core/test/*.test.mjs",
+      "node --test tests/field-validation/*.test.mjs",
       "node --test tests/harness-product/*.test.mjs",
+      "node experiments/field-validation/validate-results.mjs experiments/field-validation/runs/pilot-001.json",
       "./init.sh"
     ]
   }

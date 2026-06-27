@@ -45,3 +45,5 @@
   实现 plan-bound Creator，并把 Context 缺口转化为真实 bootstrap feature。
 - [`0009-harness-product-integration.md`](0009-harness-product-integration.md)：
   将 Creator、Doctor 与唯一 shared core 打包为可独立验证的 Codex plugin。
+- [`0010-harness-field-validation.md`](0010-harness-field-validation.md)：
+  运行四任务 bare/harness pilot，并把结论限制在 observed evidence。

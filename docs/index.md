@@ -22,6 +22,8 @@
 - [`../scripts/package-harness-plugin.mjs`](../scripts/package-harness-plugin.mjs)：
   将两个 skill 与唯一 shared core 确定性打包为 `harness-engineering`
   Codex plugin。
+- [`../experiments/field-validation/`](../experiments/field-validation/)：
+  bare/harness 受控任务协议、机器结果与 observed-only validator。
 - [`workflows/harness-product-boundaries.md`](workflows/harness-product-boundaries.md)：
   shared core、creator、doctor 与项目事实的边界。
 

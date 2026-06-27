@@ -1,0 +1,323 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "pilot-001",
+  "evidenceLevel": "observed",
+  "execution": {
+    "agent": "current-codex-session",
+    "independent": false
+  },
+  "runs": [
+    {
+      "id": "fresh-bare",
+      "order": 1,
+      "family": "fresh",
+      "condition": "bare",
+      "taskName": "Normalize tags",
+      "start": {
+        "gitClean": true,
+        "verification": "failed-as-expected"
+      },
+      "actions": [
+        {
+          "kind": "read",
+          "path": "TASK.md"
+        },
+        {
+          "kind": "read",
+          "path": "package.json"
+        },
+        {
+          "kind": "read",
+          "path": "src/normalize.mjs"
+        },
+        {
+          "kind": "read",
+          "path": "test/normalize.test.mjs"
+        },
+        {
+          "kind": "edit",
+          "paths": [
+            "src/normalize.mjs"
+          ]
+        },
+        {
+          "kind": "verify",
+          "command": "npm test",
+          "result": "passed"
+        }
+      ],
+      "metrics": {
+        "orientationReads": 4,
+        "verificationCommands": 1,
+        "correctionLoops": 0,
+        "stateUpdates": 0,
+        "changedFiles": 1
+      },
+      "outcome": {
+        "verification": "passed",
+        "scopeViolations": [],
+        "restartStateCorrect": null,
+        "elapsedMs": 14670,
+        "diffSha256": "71223cc72ac040c6300fe2ae4dba71e2b718c0b6fb9fb7c6bd01ba95a243172c",
+        "testOutputSha256": "e0d3c155a8d0bffd6b021de68f1d5221bcadede1a02b178b23e4306c7b0722bd"
+      }
+    },
+    {
+      "id": "fresh-harness",
+      "order": 2,
+      "family": "fresh",
+      "condition": "harness",
+      "taskName": "Normalize labels",
+      "start": {
+        "gitClean": true,
+        "verification": "failed-as-expected"
+      },
+      "actions": [
+        {
+          "kind": "read",
+          "path": "AGENTS.md"
+        },
+        {
+          "kind": "read",
+          "path": "CONTEXT.md"
+        },
+        {
+          "kind": "read",
+          "path": "feature_list.json"
+        },
+        {
+          "kind": "read",
+          "path": "progress.md"
+        },
+        {
+          "kind": "read",
+          "path": "src/normalize.mjs"
+        },
+        {
+          "kind": "read",
+          "path": "test/normalize.test.mjs"
+        },
+        {
+          "kind": "verify",
+          "command": "./init.sh",
+          "result": "failed-as-expected"
+        },
+        {
+          "kind": "edit",
+          "paths": [
+            "src/normalize.mjs"
+          ]
+        },
+        {
+          "kind": "verify",
+          "command": "npm test",
+          "result": "passed"
+        },
+        {
+          "kind": "edit",
+          "paths": [
+            "feature_list.json",
+            "progress.md"
+          ]
+        }
+      ],
+      "metrics": {
+        "orientationReads": 6,
+        "verificationCommands": 2,
+        "correctionLoops": 0,
+        "stateUpdates": 2,
+        "changedFiles": 3
+      },
+      "outcome": {
+        "verification": "passed",
+        "scopeViolations": [],
+        "restartStateCorrect": true,
+        "elapsedMs": 26528,
+        "diffSha256": "7afcc6b28bd02d32510e644f14dfddba12e84f52fdc88bcbf84f2bc0b1801b95",
+        "testOutputSha256": "0641002b9cf69c4f87dbec52f01001cceb5eaa4e012c32a3ff4963093d40590d"
+      }
+    },
+    {
+      "id": "resume-harness",
+      "order": 3,
+      "family": "resume",
+      "condition": "harness",
+      "taskName": "Resume duration parsing",
+      "start": {
+        "gitClean": true,
+        "verification": "failed-as-expected"
+      },
+      "actions": [
+        {
+          "kind": "read",
+          "path": "AGENTS.md"
+        },
+        {
+          "kind": "read",
+          "path": "CONTEXT.md"
+        },
+        {
+          "kind": "read",
+          "path": "feature_list.json"
+        },
+        {
+          "kind": "read",
+          "path": "progress.md"
+        },
+        {
+          "kind": "read",
+          "path": "src/units.mjs"
+        },
+        {
+          "kind": "read",
+          "path": "test/units.test.mjs"
+        },
+        {
+          "kind": "verify",
+          "command": "./init.sh",
+          "result": "failed-as-expected"
+        },
+        {
+          "kind": "edit",
+          "paths": [
+            "src/units.mjs"
+          ]
+        },
+        {
+          "kind": "verify",
+          "command": "npm test",
+          "result": "passed"
+        },
+        {
+          "kind": "edit",
+          "paths": [
+            "feature_list.json",
+            "progress.md"
+          ]
+        }
+      ],
+      "metrics": {
+        "orientationReads": 6,
+        "verificationCommands": 2,
+        "correctionLoops": 0,
+        "stateUpdates": 2,
+        "changedFiles": 3
+      },
+      "outcome": {
+        "verification": "passed",
+        "scopeViolations": [],
+        "restartStateCorrect": true,
+        "elapsedMs": 26652,
+        "diffSha256": "febd858caa23854a4ed2a33a3514c9c110b7b7ca1af10677522ed0d18b34adf3",
+        "testOutputSha256": "51413e10844731d0daa9a0f325fe9e47262404ceb6027158bd44e64e2f35313e"
+      }
+    },
+    {
+      "id": "resume-bare",
+      "order": 4,
+      "family": "resume",
+      "condition": "bare",
+      "taskName": "Resume byte parsing",
+      "start": {
+        "gitClean": true,
+        "verification": "failed-as-expected"
+      },
+      "actions": [
+        {
+          "kind": "read",
+          "path": "TASK.md"
+        },
+        {
+          "kind": "read",
+          "path": "package.json"
+        },
+        {
+          "kind": "read",
+          "path": "src/units.mjs"
+        },
+        {
+          "kind": "read",
+          "path": "test/units.test.mjs"
+        },
+        {
+          "kind": "edit",
+          "paths": [
+            "src/units.mjs"
+          ]
+        },
+        {
+          "kind": "verify",
+          "command": "npm test",
+          "result": "passed"
+        }
+      ],
+      "metrics": {
+        "orientationReads": 4,
+        "verificationCommands": 1,
+        "correctionLoops": 0,
+        "stateUpdates": 0,
+        "changedFiles": 1
+      },
+      "outcome": {
+        "verification": "passed",
+        "scopeViolations": [],
+        "restartStateCorrect": null,
+        "elapsedMs": 16255,
+        "diffSha256": "bab454d662de148c657c792d0695e59f14f6974652af98cf60f6dd4831a18d88",
+        "testOutputSha256": "6521eb116efcf5a03fc006e0be195f6aed688b3f2fa0d98b59bfc404d2ae7c88"
+      }
+    }
+  ],
+  "conclusions": [
+    {
+      "id": "verified-completion-parity",
+      "status": "observed",
+      "claim": "All four tasks passed their declared tests after the first implementation edit with zero scope violations.",
+      "supportingRuns": [
+        "fresh-bare",
+        "fresh-harness",
+        "resume-harness",
+        "resume-bare"
+      ]
+    },
+    {
+      "id": "microtask-coordination-tax",
+      "status": "observed",
+      "claim": "For these small tasks, harnessed conditions required two additional orientation reads, one additional verification command, and two state updates without reducing correction loops.",
+      "supportingRuns": [
+        "fresh-bare",
+        "fresh-harness",
+        "resume-harness",
+        "resume-bare"
+      ]
+    },
+    {
+      "id": "durable-completion-state",
+      "status": "observed",
+      "claim": "Harnessed runs ended with machine-readable done status and passing evidence; bare runs ended with passing code but no durable restart state.",
+      "supportingRuns": [
+        "fresh-harness",
+        "resume-harness"
+      ]
+    },
+    {
+      "id": "no-general-effectiveness-claim",
+      "status": "observed",
+      "claim": "This pilot does not demonstrate a general delivery-speed, success-rate, or recovery-cost improvement.",
+      "supportingRuns": [
+        "fresh-bare",
+        "fresh-harness",
+        "resume-harness",
+        "resume-bare"
+      ]
+    }
+  ],
+  "limitations": [
+    "The same agent executed every condition in one session.",
+    "Sequential runs can transfer implementation and evaluation learning.",
+    "The four synthetic Node tasks are much smaller than production work.",
+    "Elapsed time includes conversation and tool latency and is descriptive only.",
+    "Bare task files were already concise and explicit, reducing the possible orientation benefit of a harness."
+  ],
+  "readinessLevelClaim": 2
+}

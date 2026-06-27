@@ -14,7 +14,10 @@
 - `harness-doctor` 负责只读诊断缺口、解释风险和给出修复顺序。
 - 两个入口共享同一套理论模型、schema、validator 和证据规则。
 
-这些产品仍是明确的演进方向，不是当前已经完成的能力。
+当前仓库已经实现 shared core、`harness-creator`、`harness-doctor`，并可通过
+`scripts/package-harness-plugin.mjs` 生成包含两个 skill 与唯一 shared core 的
+`harness-engineering` Codex plugin。它们已通过合同、集成和官方 manifest/skill
+验证，但真实任务 Effectiveness 仍只有初步观察证据。
 
 ## Scope
 
@@ -72,15 +75,15 @@ Lifecycle 五维模型。本项目统一映射为：
 新产品基于现有 `harness-creator` 的脚本、模板和实践经验继续演进，但最终必须
 自包含，不能在运行时依赖机器本地的 skill 路径。
 
-第一阶段以 Codex skill bundle 为交付面：
+当前以 Codex plugin 中的 skill bundle 为交付面：
 
 - `$harness-creator` 是创建和改进入口；
 - `$harness-doctor` 是只读诊断入口；
 - 共享脚本负责确定性的诊断和安全改进；
 - 共享 schema、规则、模板和 fixtures 保证两个入口结论一致。
 
-独立 CLI 后置。只有 skill 工作流和输出协议稳定后，才考虑封装
-`harness doctor` 等命令。
+独立 CLI 后置。当前稳定入口仍是 packaged skills 及其 Node command，不额外维护
+第二套产品协议。
 
 Doctor 按能力判断项目是否缺失 harness，而不是迷信固定文件名。约定路径用于
 发现能力，非标准项目可以显式声明等价工件。
@@ -125,6 +128,16 @@ validator。未经验证的判断只能作为提示或实验建议。
 - fixture 合同测试，证明 creator 和 doctor 的行为稳定；
 - 真实任务对照实验，衡量完成时间、验证完成率、返工、会话数量和恢复成本。
 
+首个同 agent 四任务 pilot 的结论状态是 `observed`：
+
+- bare 与 harness 条件都在首次实现后通过验证，纠错和越界次数相同；
+- harness 对微小任务增加了固定的读取、验证和状态记录成本；
+- harness 条件留下 machine-readable done/evidence，bare 条件没有 durable
+  restart state；
+- 该 pilot 不足以证明普遍的速度、成功率或恢复成本改善，也不支持 level 3。
+
+结论晋级需要独立 fresh-session agent、更真实代码库、重复与顺序控制。
+
 ## Repository Contract
 
 `CONTEXT.md` 是项目长期目的、边界和规范术语的权威来源。它不保存实现细节、
@@ -137,8 +150,9 @@ validator。未经验证的判断只能作为提示或实验建议。
 本仓库优先保留最小但完备的操作面。新规则必须说明它解决的真实失败、适用条件和
 删除条件。能由自动化检查表达的规则，不长期依赖文字提醒。
 
-当前阶段已经统一理论语言和产品方向，但 creator/doctor 的共享 schema、脚本和
-验证 fixtures 尚未实现。未来会话不得把目标架构描述为现有能力。
+当前阶段已经统一理论语言，实现并打包 creator/doctor/shared core，完成 fixture
+集成验证和一次受限 field pilot。未来会话必须区分“产品已实现”和
+“Effectiveness 尚未充分验证”，不得把结构可用描述为方法论已被普遍证明。
 
 新会话应当能够只读取仓库回答：
 
