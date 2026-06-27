@@ -248,7 +248,8 @@ multi-agent authorization is available.
 
 ```text
 node --test tests/harness-doctor/*.test.mjs
-python3 .../skill-creator/scripts/quick_validate.py skills/harness-doctor
+uv run --offline --with pyyaml python \
+  .../skill-creator/scripts/quick_validate.py skills/harness-doctor
 node skills/harness-doctor/scripts/doctor.mjs --target . --format json
 ```
 
