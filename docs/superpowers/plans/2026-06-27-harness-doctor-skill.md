@@ -38,7 +38,7 @@
 - Create: `tests/harness-doctor/skill-contract.test.mjs`
 - Create: `tests/harness-doctor/renderers.test.mjs`
 
-- [ ] **Step 1: Record the legacy baseline**
+- [x] **Step 1: Record the legacy baseline**
 
 Store the observed legacy output:
 
@@ -60,7 +60,7 @@ The baseline test must assert `overall` exists and the subsystem keys differ
 from the canonical five. It is evidence of the old behavior, not the desired
 contract.
 
-- [ ] **Step 2: Write the failing skill contract test**
+- [x] **Step 2: Write the failing skill contract test**
 
 Test that:
 
@@ -77,7 +77,7 @@ assert.match(openaiYaml, /\$harness-doctor/);
 Also assert the skill contains no `README.md`, changelog, or duplicated
 schema/rules files.
 
-- [ ] **Step 3: Write failing pure-renderer tests**
+- [x] **Step 3: Write failing pure-renderer tests**
 
 Import:
 
@@ -105,7 +105,7 @@ Assert each renderer preserves those exact labels, preserves candidate order,
 shows Effectiveness and limitations, and renders rule IDs. Include
 `<unsafe & value>` in evidence and require HTML escaping.
 
-- [ ] **Step 4: Run tests and verify RED**
+- [x] **Step 4: Run tests and verify RED**
 
 Run:
 
@@ -116,7 +116,7 @@ node --test tests/harness-doctor/skill-contract.test.mjs \
 
 Expected: FAIL because `skills/harness-doctor` does not exist.
 
-- [ ] **Step 5: Commit RED evidence**
+- [x] **Step 5: Commit RED evidence**
 
 ```bash
 git add tests/harness-doctor

@@ -1,0 +1,11 @@
+{
+  "overall": 96,
+  "bottleneck": "state",
+  "subsystems": {
+    "instructions": {},
+    "state": {},
+    "verification": {},
+    "scope": {},
+    "lifecycle": {}
+  }
+}
