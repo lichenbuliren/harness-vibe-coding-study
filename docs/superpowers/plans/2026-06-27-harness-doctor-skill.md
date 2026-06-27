@@ -218,7 +218,7 @@ node --test tests/harness-doctor/renderers.test.mjs
 
 Expected: FAIL with missing `renderers.mjs`.
 
-- [ ] **Step 2: Implement common view extraction**
+- [x] **Step 2: Implement common view extraction**
 
 Keep renderers pure:
 
@@ -247,7 +247,7 @@ escapeHtml(value)
 
 Do not import `inspectHarness`, capability rules, `fs`, or path APIs.
 
-- [ ] **Step 3: Implement Text and Markdown**
+- [x] **Step 3: Implement Text and Markdown**
 
 Text begins:
 
@@ -273,13 +273,13 @@ Markdown begins:
 Both include Candidate Bottlenecks, Recommendations, Unknowns, Effectiveness,
 and Limitations. Preserve canonical array order.
 
-- [ ] **Step 4: Implement safe standalone HTML**
+- [x] **Step 4: Implement safe standalone HTML**
 
 Return a complete UTF-8 document with semantic `<main>`, `<table>`,
 `<section>`, and escaped dynamic values. Use inline CSS only. Do not include
 `<script>`, external URLs, images, or embedded assessment JSON.
 
-- [ ] **Step 5: Run renderer tests and verify GREEN**
+- [x] **Step 5: Run renderer tests and verify GREEN**
 
 Run:
 
@@ -289,7 +289,7 @@ node --test tests/harness-doctor/renderers.test.mjs
 
 Expected: all renderer parity, unusual-value, and escaping tests PASS.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add skills/harness-doctor/scripts/renderers.mjs \
