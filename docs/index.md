@@ -22,10 +22,30 @@
 - [`../scripts/package-harness-plugin.mjs`](../scripts/package-harness-plugin.mjs)：
   将两个 skill 与唯一 shared core 确定性打包为 `harness-engineering`
   Codex plugin。
+- [`../scripts/install-harness-plugin.mjs`](../scripts/install-harness-plugin.mjs)：
+  生成 cache-busted 本地插件、注册仓库 marketplace 并安装到 Codex。
 - [`../experiments/field-validation/`](../experiments/field-validation/)：
   bare/harness 受控任务协议、机器结果与 observed-only validator。
 - [`workflows/harness-product-boundaries.md`](workflows/harness-product-boundaries.md)：
   shared core、creator、doctor 与项目事实的边界。
+
+## 安装和调用
+
+在仓库根目录运行：
+
+```bash
+node scripts/install-harness-plugin.mjs
+```
+
+安装成功后，新建 Codex thread，再使用：
+
+```text
+$harness-engineering:harness-creator
+$harness-engineering:harness-doctor
+```
+
+机器上已有的裸名 `$harness-creator` 是独立的 legacy skill，不属于本插件。
+本项目不安装或维护裸名兼容层。
 
 ## 根目录生命周期入口
 
