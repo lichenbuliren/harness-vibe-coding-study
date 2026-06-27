@@ -25,8 +25,8 @@
       "dependencies": [
         "feat-002"
       ],
-      "status": "next",
-      "evidence": ""
+      "status": "done",
+      "evidence": "2026-06-27: Expanded CONTEXT.md with mission, scope, canonical five-subsystem model, product direction, evidence model, repository contract, and restart assumptions. Reconciled the harness-creator taxonomy in docs/learning-harness-summary.md and verified with ./init.sh."
     },
     {
       "id": "feat-004",
@@ -46,7 +46,7 @@
         "feat-003",
         "feat-004"
       ],
-      "status": "not-started",
+      "status": "next",
       "evidence": ""
     },
     {

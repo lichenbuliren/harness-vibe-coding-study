@@ -3,8 +3,8 @@
 ## Current State
 
 **Last Updated:** 2026-06-27 CST
-**Active Feature:** feat-003 - Project Context Restoration  
-**Status:** feat-007 complete; feat-003 next
+**Active Feature:** feat-005 - Template Boundary Review
+**Status:** feat-003 complete; feat-005 next
 
 ## What's Done
 
@@ -27,21 +27,25 @@
 - [x] Reorganized the summary around five harness subsystems and one execution lifecycle.
 - [x] Removed repeated examples, unsupported precision, and accidental example headings.
 - [x] Added `docs/evolution/0003-learning-harness-summary-compression.md`.
+- [x] Restored `CONTEXT.md` with durable mission, scope, canonical language, product direction, evidence rules, and restart assumptions.
+- [x] Unified the five-subsystem model with the earlier `harness-creator` taxonomy.
+- [x] Recorded creator/doctor as an accepted direction without claiming the products already exist.
+- [x] Added `docs/evolution/0004-project-context-restoration.md`.
 
 ## What's In Progress
 
-- [ ] Fill `CONTEXT.md` with durable project purpose, boundaries, terminology, and restart assumptions beyond the terms already resolved.
+- [ ] Review which validated lifecycle artifacts belong in the future creator/doctor skill bundle.
 
 ## What's Next
 
-1. Continue `feat-003 - Project Context Restoration`.
-2. Review whether lifecycle artifacts should be extracted into `templates/` as feat-005.
+1. Continue `feat-005 - Template Boundary Review`.
+2. Separate reusable capability rules from project-specific state and narrative.
 
 ## Blockers / Risks
 
-- `CONTEXT.md` still exists as an empty placeholder, so future sessions have README-level context but not a durable project context file yet.
 - `harness-creator` validation is structural. The 100/100 score means the harness is easy to inspect, not that the project methodology is fully proven.
 - `AGENTS.md` is now shorter and verified, but future generated overlays could reintroduce bulk if not kept behind the ADR boundary.
+- The creator/doctor architecture is an accepted direction, but its shared schema, scripts, and fixtures are not implemented.
 
 ## Evidence
 
@@ -54,6 +58,9 @@
 - `docs/learning-harness-summary.md` contains 318 lines and exactly seven numbered top-level sections.
 - Markdown fence validation returned an even count of 22.
 - `git diff --check` and `./init.sh` passed after the summary rewrite.
+- `CONTEXT.md` now answers the project mission, scope, canonical model, product direction, evidence rules, and restart assumptions.
+- `docs/learning-harness-summary.md` now explicitly maps the earlier creator taxonomy into the canonical five-subsystem model.
+- `./init.sh` passed after context restoration.
 
 ## Notes for Next Session
 

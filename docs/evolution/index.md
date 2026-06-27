@@ -31,3 +31,7 @@
   `harness-creator` 生命周期五件套改写并验证为当前项目的 restartable harness。
 - [`0002-agents-root-contract-slimming.md`](0002-agents-root-contract-slimming.md)：将
   根 `AGENTS.md` 精简为短操作合同，并把 OMX 细节下沉到 workflow reference。
+- [`0003-learning-harness-summary-compression.md`](0003-learning-harness-summary-compression.md)：
+  将长研究笔记压缩为五子系统模型和一条执行生命周期。
+- [`0004-project-context-restoration.md`](0004-project-context-restoration.md)：
+  补齐长期项目上下文，并统一 creator/doctor 的理论与产品边界。

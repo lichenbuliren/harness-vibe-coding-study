@@ -60,6 +60,19 @@ flowchart LR
     F --> A
     A --> S
 ```
+### 模型层级
+五个子系统描述 Harness 由什么组成，它们是本项目唯一的一级模型。
+Lifecycle 描述五个子系统协同工作的时间顺序。Scope Control 是跨系统约束，
+Verification 是 Feedback 产生证据的主要过程；三者都是运行机制，不与子系统并列。
+现有 `harness-creator` 的五维模型统一映射如下：
+| 原概念 | 规范模型中的位置 |
+|---|---|
+| Instructions | Instructions |
+| State | State |
+| Verification | Feedback 的主要过程 |
+| Scope | Instructions + State + Feedback |
+| Lifecycle | 跨子系统执行流程 |
+Tools 和 Environment 补齐原模型没有独立表达的执行能力与运行条件。
 ### 2.1 Instructions：表达意图与不变量
 指令子系统告诉 agent：这是什么项目、怎样开始、哪些规则不能违反、什么叫完成。
 根级 `AGENTS.md` 应当是路由器，而不是百科全书。它只需要包含：
@@ -301,11 +314,10 @@ Harness 是适应当前模型能力和项目风险的工程结构，不应永久
 - `init.sh`：结构和启动检查；
 - `docs/evolution/`：阶段性证据。
 下一步重点不是增加更多文档，而是补齐现有工件的行为能力：
-1. 完善 `CONTEXT.md` 的项目目的、边界和长期假设；
-2. 为有实际行为的功能项增加明确验证命令；
-3. 区分结构验证与行为验证，避免把结构完整误认为方法有效；
-4. 在实质性工作后同步更新状态、证据和交接；
-5. 用 fresh-session test 定期检查仓库是否仍可被快速接手。
+1. 为有实际行为的功能项增加明确验证命令；
+2. 区分结构验证与行为验证，避免把结构完整误认为方法有效；
+3. 在实质性工作后同步更新状态、证据和交接；
+4. 用 fresh-session test 定期检查仓库是否仍可被快速接手。
 ### 7.5 最终检查清单
 一个最小但可靠的 harness 应当让全新会话回答：
 - 我正在维护什么系统？

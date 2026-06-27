@@ -26,8 +26,8 @@ in workflow references under `docs/`.
 - This repository is a living lab for agent-first work, harness engineering,
   and restartable project memory.
 - `README.md` is the future-review map.
-- `CONTEXT.md` is the project glossary only; do not put implementation detail
-  or process rationale there.
+- `CONTEXT.md` owns durable purpose, boundaries, and canonical language; do not
+  put implementation detail, temporary state, or long method explanations there.
 - `docs/evolution/` records stage narratives and durable evidence.
 - `docs/adr/` records short decisions only when the decision is hard to
   reverse, surprising without context, and the result of a real trade-off.

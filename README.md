@@ -22,7 +22,7 @@ living lab。
 
 从这里开始：
 
-- [`CONTEXT.md`](CONTEXT.md)：项目长期上下文入口，目前待补齐。
+- [`CONTEXT.md`](CONTEXT.md)：项目目的、边界和规范术语的长期上下文入口。
 - [`AGENTS.md`](AGENTS.md)：agent 在本仓库工作的操作契约。
 - [`feature_list.json`](feature_list.json)：当前 feature 范围、状态和证据。
 - [`progress.md`](progress.md)：跨 session 的连续性日志。
@@ -52,7 +52,7 @@ living lab。
 
 短期目标是把仓库从空骨架整理成一个可复盘、可继续、可验证的项目入口：
 
-- 补齐 README 和 `CONTEXT.md` 的项目定位
+- 评审哪些已验证工件应进入未来的 creator/doctor skill bundle
 - 维护 `feature_list.json`、`progress.md` 和 `session-handoff.md` 的 session 生命周期
 - 建立 `docs/evolution/` 的阶段记录习惯
 - 保持 `AGENTS.md` 作为短的根操作合同，把长参考下沉到 `docs/`
