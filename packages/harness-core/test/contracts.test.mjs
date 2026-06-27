@@ -107,4 +107,5 @@ test('public API exposes bounded path safety for creator writes', () => {
   assert.equal(typeof harnessCore.normalizeDeclaredPath, 'function');
   assert.equal(typeof harnessCore.statSafePath, 'function');
   assert.equal(typeof harnessCore.readBoundedFile, 'function');
+  assert.equal(typeof harnessCore.resolveSafeWritePath, 'function');
 });

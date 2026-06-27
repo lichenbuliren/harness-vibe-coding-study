@@ -15,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 import {
   normalizeDeclaredPath,
   readBoundedFile,
+  resolveSafeWritePath,
   statSafePath
 } from '../src/path-safety.mjs';
 import { loadManifest } from '../src/manifest.mjs';
@@ -89,6 +90,29 @@ test('rejects a symlink whose real target escapes the root', async (context) => 
     ok: false,
     relativePath: 'linked.md',
     reason: 'symlink-escapes-root'
+  });
+});
+
+test('rejects a missing write target beneath an escaping parent symlink', async (context) => {
+  const parent = await mkdtemp(path.join(os.tmpdir(), 'harness-write-'));
+  const root = path.join(parent, 'project');
+  const outside = path.join(parent, 'outside');
+  await mkdir(root);
+  await mkdir(outside);
+  await symlink(outside, path.join(root, 'generated'));
+  context.after(async () => {
+    await import('node:fs/promises').then(({ rm }) => rm(parent, {
+      recursive: true,
+      force: true
+    }));
+  });
+
+  const result = await resolveSafeWritePath(root, 'generated/new-file.md');
+
+  assert.deepEqual(result, {
+    ok: false,
+    relativePath: 'generated/new-file.md',
+    reason: 'parent-escapes-root'
   });
 });
 

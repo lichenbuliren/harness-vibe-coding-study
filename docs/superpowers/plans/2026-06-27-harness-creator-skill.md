@@ -72,15 +72,15 @@ Codex skill metadata, offline `uv` validation
 - Create: `skills/harness-creator/scripts/apply.mjs`
 - Create: `tests/harness-creator/apply.test.mjs`
 
-- [ ] Write RED tests for stale IDs, blocked plans, changed preconditions,
+- [x] Write RED tests for stale IDs, blocked plans, changed preconditions,
   exclusive creates, semantic merge, partial-write prevention, and repeat
   stability.
-- [ ] Re-plan and require an exact current `planId`.
-- [ ] Preflight every action before writing.
-- [ ] Use exclusive file creation and validated feature-state replacement.
-- [ ] Return created/merged/skipped/blocked results plus `assessmentAfter`.
-- [ ] Prove no overwrite, delete, install, network, or target command execution.
-- [ ] Commit `feat: apply accepted harness plans`.
+- [x] Re-plan and require an exact current `planId`.
+- [x] Preflight every action before writing.
+- [x] Use exclusive file creation and validated feature-state replacement.
+- [x] Return created/merged/skipped/blocked results plus `assessmentAfter`.
+- [x] Prove no overwrite, delete, install, network, or target command execution.
+- [x] Commit `feat: apply accepted harness plans`.
 
 ## Task 5: Add The Creator Command
 

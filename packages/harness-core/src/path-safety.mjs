@@ -49,6 +49,48 @@ export function normalizeDeclaredPath(root, relativePath) {
   };
 }
 
+export async function resolveSafeWritePath(root, relativePath) {
+  const normalized = normalizeDeclaredPath(root, relativePath);
+  if (!normalized.ok) {
+    return normalized;
+  }
+
+  let realRoot;
+  try {
+    realRoot = await realpath(path.resolve(root));
+  } catch {
+    return failure(normalized.relativePath, 'unreadable-root');
+  }
+
+  let ancestor = path.dirname(normalized.absolutePath);
+  while (true) {
+    try {
+      await lstat(ancestor);
+      break;
+    } catch (error) {
+      if (error.code !== 'ENOENT') {
+        return failure(normalized.relativePath, 'unreadable-parent');
+      }
+      const parent = path.dirname(ancestor);
+      if (parent === ancestor) {
+        return failure(normalized.relativePath, 'unreadable-parent');
+      }
+      ancestor = parent;
+    }
+  }
+
+  try {
+    const realAncestor = await realpath(ancestor);
+    if (!isInsideRoot(realRoot, realAncestor)) {
+      return failure(normalized.relativePath, 'parent-escapes-root');
+    }
+  } catch {
+    return failure(normalized.relativePath, 'unreadable-parent');
+  }
+
+  return normalized;
+}
+
 export async function statSafePath(root, relativePath) {
   const normalized = normalizeDeclaredPath(root, relativePath);
   if (!normalized.ok) {
