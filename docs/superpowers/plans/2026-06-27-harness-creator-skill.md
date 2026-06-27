@@ -38,15 +38,15 @@ Codex skill metadata, offline `uv` validation
 - Create: `skills/harness-creator/scripts/templates.mjs`
 - Create: `tests/harness-creator/templates.test.mjs`
 
-- [ ] Write RED tests for AGENTS/CLAUDE guidance, canonical feature state,
+- [x] Write RED tests for AGENTS/CLAUDE guidance, canonical feature state,
   progress, optional handoff, check-first init, and manifest output.
-- [ ] Render deterministic ASCII content with final newlines.
-- [ ] Ensure `init.sh` contains no install, network, setup, service, or
+- [x] Render deterministic ASCII content with final newlines.
+- [x] Ensure `init.sh` contains no install, network, setup, service, or
   repository-write commands.
-- [ ] Make `Project Context Restoration` the sole next feature in a new
+- [x] Make `Project Context Restoration` the sole next feature in a new
   feature list.
-- [ ] Pass template tests and canonical feature validation.
-- [ ] Commit `feat: render minimal harness artifacts`.
+- [x] Pass template tests and canonical feature validation.
+- [x] Commit `feat: render minimal harness artifacts`.
 
 ## Task 3: Build Deterministic Plans And Context Merge
 
