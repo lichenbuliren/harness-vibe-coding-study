@@ -4,7 +4,7 @@
 
 **Last Updated:** 2026-06-27 CST
 **Active Feature:** feat-008 - Shared Harness Contract Core
-**Status:** feat-005 complete; feat-008 next
+**Status:** feat-008 design complete; implementation pending
 
 ## What's Done
 
@@ -35,6 +35,8 @@
 - [x] Published `docs/workflows/harness-product-boundaries.md`.
 - [x] Accepted ADR 0002 for a contract-first shared core.
 - [x] Added the complete product roadmap from shared core through field validation.
+- [x] Defined the dependency-free package, deterministic JSON, bounded
+  discovery, Readiness maturity, and fixture contracts for the shared core.
 
 ## What's In Progress
 
@@ -42,15 +44,18 @@
 
 ## What's Next
 
-1. Continue `feat-008 - Shared Harness Contract Core`.
-2. Create a dedicated spec for the shared-core package before implementation.
+1. Review the shared-core design specification.
+2. Write the implementation plan.
+3. Implement the package test-first.
 
 ## Blockers / Risks
 
 - `harness-creator` validation is structural. The 100/100 score means the harness is easy to inspect, not that the project methodology is fully proven.
 - `AGENTS.md` is now shorter and verified, but future generated overlays could reintroduce bulk if not kept behind the ADR boundary.
-- The creator/doctor architecture is an accepted direction, but its shared schema, scripts, and fixtures are not implemented.
-- The boundary is documented, but no shared-core runtime exists yet.
+- The creator/doctor architecture and shared-core design are accepted, but the
+  schemas, scripts, and fixtures are not implemented.
+- Readiness level 3 remains reserved until a later evidence provider can supply
+  representative task evidence.
 
 ## Evidence
 
@@ -70,6 +75,8 @@
 - ADR 0002 records the rejected template-first and doctor-first alternatives.
 - `feature_list.json` contains one active item, `feat-008`, with valid dependency references.
 - `./init.sh` passed after the boundary review.
+- `docs/superpowers/specs/2026-06-27-shared-harness-core-design.md` records the
+  accepted package, API, maturity, safety, and fixture contracts.
 
 ## Notes for Next Session
 

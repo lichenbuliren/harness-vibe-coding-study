@@ -76,8 +76,8 @@
       "dependencies": [
         "feat-005"
       ],
-      "status": "next",
-      "evidence": ""
+      "status": "in-progress",
+      "evidence": "2026-06-27: Shared-core design accepted and recorded in docs/superpowers/specs/2026-06-27-shared-harness-core-design.md; implementation remains pending."
     },
     {
       "id": "feat-009",

@@ -3,9 +3,11 @@
 ## Current Objective
 
 - Goal: Implement the shared contract core for the future creator and doctor.
-- Current status: `feat-005` is complete and verified; `feat-008` is next.
+- Current status: the accepted `feat-008` design is complete and ready for
+  implementation planning after review.
 - Active feature: `feat-008` in `feature_list.json`.
-- Branch / commit: Current branch is `codex/template-boundary-review`; design baseline is commit `1ea6f5a`.
+- Branch / commit: Current branch is `codex/shared-harness-core`; product-boundary
+  baseline is commit `7786490`.
 
 ## Completed This Session
 
@@ -34,6 +36,9 @@
 - [x] Published the durable harness product boundary reference.
 - [x] Accepted ADR 0002 for a contract-first shared core.
 - [x] Added features 008-012 as the path from shared core to field validation.
+- [x] Selected a dependency-free package architecture for the shared core.
+- [x] Defined deterministic JSON, explicit non-standard-path declarations,
+  Readiness-only maturity, bounded discovery, and fixture requirements.
 
 ## Verification Evidence
 
@@ -81,8 +86,9 @@
 
 ## Blockers / Risks
 
-- The shared creator/doctor schema, scripts, fixtures, and skill entrypoints are not implemented.
-- `feat-008` needs its own implementation spec before shared-core files are created.
+- The shared creator/doctor schema, scripts, fixtures, and skill entrypoints are
+  not implemented.
+- The `feat-008` design spec must pass review before implementation planning.
 - The template project's generated handoff said "Not a git repository"; do not copy generated facts without checking local reality.
 - Future generated overlays could reintroduce root `AGENTS.md` bulk; keep ADR 0001 as the boundary.
 
@@ -92,5 +98,5 @@
 2. Read `feature_list.json`.
 3. Read `progress.md`.
 4. Run `./init.sh`.
-5. Continue `feat-008 - Shared Harness Contract Core`.
-5. Continue with the first `next` or `in-progress` feature.
+5. Review `docs/superpowers/specs/2026-06-27-shared-harness-core-design.md`.
+6. Continue the single `in-progress` feature, `feat-008`.
