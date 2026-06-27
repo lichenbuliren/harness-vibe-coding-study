@@ -10,6 +10,7 @@ required_paths=(
   "feature_list.json"
   "progress.md"
   "session-handoff.md"
+  ".harness/manifest.json"
   "docs/index.md"
   "docs/adr/index.md"
   "docs/adr/0001-keep-agents-md-as-root-operating-contract.md"
@@ -18,6 +19,8 @@ required_paths=(
   "docs/workflows/index.md"
   "docs/workflows/omx-runtime.md"
   "templates/index.md"
+  "packages/harness-core/package.json"
+  "packages/harness-core/bin/inspect-harness.mjs"
 )
 
 echo "=== Required path check ==="
@@ -30,7 +33,11 @@ for path in "${required_paths[@]}"; do
 done
 
 echo "=== Feature tracker JSON check ==="
-node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('feature_list.json','utf8')); if (!Array.isArray(data.features) || data.features.length === 0) { throw new Error('feature_list.json must contain a non-empty features array'); } for (const feature of data.features) { for (const key of ['id','name','description','dependencies','status','evidence']) { if (!(key in feature)) throw new Error('feature missing key '+key+': '+JSON.stringify(feature)); } if (!Array.isArray(feature.dependencies)) throw new Error('feature dependencies must be an array: '+feature.id); }"
+node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('feature_list.json','utf8')); if (data.schemaVersion !== '1.0.0') throw new Error('feature_list.json must use schemaVersion 1.0.0'); if (!['serial','parallel'].includes(data.mode)) throw new Error('feature_list.json mode must be serial or parallel'); if (!Array.isArray(data.features) || data.features.length === 0) throw new Error('feature_list.json must contain a non-empty features array'); for (const feature of data.features) { for (const key of ['id','name','behavior','dependencies','status','verification','evidence']) { if (!(key in feature)) throw new Error('feature missing key '+key+': '+JSON.stringify(feature)); } if (!Array.isArray(feature.dependencies)) throw new Error('feature dependencies must be an array: '+feature.id); if (!Array.isArray(feature.evidence)) throw new Error('feature evidence must be an array: '+feature.id); }"
+
+echo "=== Shared harness core check ==="
+node --test packages/harness-core/test/*.test.mjs
+node packages/harness-core/bin/inspect-harness.mjs --target . >/dev/null
 
 echo "=== Documentation entrypoint check ==="
 grep -q "docs/evolution" README.md

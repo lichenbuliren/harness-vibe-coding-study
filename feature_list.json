@@ -1,125 +1,242 @@
 {
+  "schemaVersion": "1.0.0",
+  "mode": "serial",
   "features": [
     {
       "id": "feat-001",
       "name": "Project Review Entrypoint",
-      "description": "Establish README and docs navigation as a future-review map for the harness learning project.",
+      "behavior": "Establish README and docs navigation as a future-review map for the harness learning project.",
       "dependencies": [],
       "status": "done",
-      "evidence": "2026-06-13: Commit ba1544b added README.md, docs/index.md, and docs/evolution/index.md as the initial review entrypoint."
+      "verification": {
+        "kind": "manual",
+        "steps": [
+          "Review README.md and docs/index.md as the project navigation surface."
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Commit ba1544b added README.md, docs/index.md, and docs/evolution/index.md as the initial review entrypoint."
+        }
+      ]
     },
     {
       "id": "feat-002",
       "name": "Harness Lifecycle Scaffold",
-      "description": "Adapt the harness-creator lifecycle artifacts to this repo without overwriting the existing AGENTS.md contract.",
+      "behavior": "Adapt the harness-creator lifecycle artifacts to this repo without overwriting the existing AGENTS.md contract.",
       "dependencies": [
         "feat-001"
       ],
       "status": "done",
-      "evidence": "2026-06-13: Added project-specific feature_list.json, progress.md, session-handoff.md, init.sh, AGENTS.md lifecycle pointers, and docs/evolution/0001-harness-lifecycle-bootstrap.md. ./init.sh passed. harness-creator validate-harness returned 100/100."
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "./init.sh",
+          "node /Users/heaven/.agents/skills/harness-creator/scripts/validate-harness.mjs --target . --json"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Added project-specific lifecycle artifacts; ./init.sh passed and the legacy structural validator returned 100/100."
+        }
+      ]
     },
     {
       "id": "feat-003",
       "name": "Project Context Restoration",
-      "description": "Fill CONTEXT.md with the durable project purpose, boundaries, terminology, and restart assumptions for future sessions.",
+      "behavior": "Fill CONTEXT.md with the durable project purpose, boundaries, terminology, and restart assumptions for future sessions.",
       "dependencies": [
         "feat-002"
       ],
       "status": "done",
-      "evidence": "2026-06-27: Expanded CONTEXT.md with mission, scope, canonical five-subsystem model, product direction, evidence model, repository contract, and restart assumptions. Reconciled the harness-creator taxonomy in docs/learning-harness-summary.md and verified with ./init.sh."
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "./init.sh"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Expanded CONTEXT.md with the accepted five-subsystem model, product direction, evidence model, repository contract, and restart assumptions; ./init.sh passed."
+        }
+      ]
     },
     {
       "id": "feat-004",
       "name": "Evolution Record Backfill",
-      "description": "Backfill the first concrete docs/evolution stage record for the README and lifecycle bootstrap work.",
+      "behavior": "Backfill the first concrete docs/evolution stage record for the README and lifecycle bootstrap work.",
       "dependencies": [
         "feat-002"
       ],
       "status": "done",
-      "evidence": "2026-06-13: Added docs/evolution/0001-harness-lifecycle-bootstrap.md with goal, starting state, method, decisions, evidence, reusable conclusions, open questions, and next step."
+      "verification": {
+        "kind": "manual",
+        "steps": [
+          "Review docs/evolution/0001-harness-lifecycle-bootstrap.md for goal, evidence, conclusions, and next step."
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Added docs/evolution/0001-harness-lifecycle-bootstrap.md with the required durable stage sections."
+        }
+      ]
     },
     {
       "id": "feat-005",
       "name": "Template Boundary Review",
-      "description": "Decide which lifecycle artifacts belong in templates/ and which remain project-specific to this learning repo.",
+      "behavior": "Decide which lifecycle artifacts belong in reusable products and which remain project-specific to this learning repo.",
       "dependencies": [
         "feat-003",
         "feat-004"
       ],
       "status": "done",
-      "evidence": "2026-06-27: Published docs/workflows/harness-product-boundaries.md and ADR 0002 for the contract-first shared core, classified reusable versus project-owned assets, and verified the repository with ./init.sh."
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "./init.sh"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Published docs/workflows/harness-product-boundaries.md and ADR 0002; repository initialization passed."
+        }
+      ]
     },
     {
       "id": "feat-006",
       "name": "Agent Operating Contract Slimming",
-      "description": "Reduce AGENTS.md to a short root operating contract and move long OMX/generated reference material into docs.",
+      "behavior": "Reduce AGENTS.md to a short root operating contract and move long OMX/generated reference material into docs.",
       "dependencies": [
         "feat-002"
       ],
       "status": "done",
-      "evidence": "2026-06-13: Slimmed AGENTS.md from 249 lines to 111 lines, moved OMX reference material to docs/workflows/omx-runtime.md, added docs/adr/0001-keep-agents-md-as-root-operating-contract.md, updated CONTEXT.md terminology, and verified with ./init.sh plus harness-creator validate-harness 100/100."
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "./init.sh",
+          "node /Users/heaven/.agents/skills/harness-creator/scripts/validate-harness.mjs --target . --json"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Slimmed AGENTS.md to 111 lines, moved OMX reference material into docs/workflows/omx-runtime.md, and passed both initialization and the legacy structural validator."
+        }
+      ]
     },
     {
       "id": "feat-007",
       "name": "Learning Harness Summary Compression",
-      "description": "Compress the long learning-harness research note into a concise five-subsystem methodology and execution lifecycle.",
+      "behavior": "Compress the long learning-harness research note into a concise five-subsystem methodology and execution lifecycle.",
       "dependencies": [
         "feat-006"
       ],
       "status": "done",
-      "evidence": "2026-06-27: Rewrote docs/learning-harness-summary.md from 1063 to 318 lines with seven numbered sections, one five-subsystem model, one execution lifecycle, repository mapping, and successful structural validation plus ./init.sh."
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "wc -l docs/learning-harness-summary.md",
+          "git diff --check",
+          "./init.sh"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Rewrote docs/learning-harness-summary.md from 1063 to 318 lines with seven sections and passed structural checks plus initialization."
+        }
+      ]
     },
     {
       "id": "feat-008",
       "name": "Shared Harness Contract Core",
-      "description": "Implement canonical schemas, capability rules, deterministic readiness inspection, and fixture contract tests.",
+      "behavior": "Implement canonical schemas, capability rules, deterministic readiness inspection, and fixture contract tests.",
       "dependencies": [
         "feat-005"
       ],
-      "status": "in-progress",
-      "evidence": "2026-06-27: Shared-core design accepted and recorded in docs/superpowers/specs/2026-06-27-shared-harness-core-design.md; implementation remains pending."
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test packages/harness-core/test/*.test.mjs",
+          "node packages/harness-core/bin/inspect-harness.mjs --target . --pretty",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "All 39 shared-core tests passed.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "Self-inspection returned five Operational subsystems, no candidate bottleneck, and Effectiveness not-assessed.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh completed with shared-core tests and self-inspection enabled.",
+          "verificationStep": 2
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors.",
+          "verificationStep": 3
+        }
+      ]
     },
     {
       "id": "feat-009",
       "name": "Harness Doctor Skill",
-      "description": "Build the read-only doctor entrypoint over the shared core with canonical JSON and human-readable reports.",
+      "behavior": "Build the read-only doctor entrypoint over the shared core with canonical JSON and human-readable reports.",
       "dependencies": [
         "feat-008"
       ],
-      "status": "not-started",
-      "evidence": ""
+      "status": "next",
+      "verification": null,
+      "evidence": []
     },
     {
       "id": "feat-010",
       "name": "Harness Creator Skill",
-      "description": "Build the non-destructive creator entrypoint with conditional context restoration and check-first initialization.",
+      "behavior": "Build the non-destructive creator entrypoint with conditional context restoration and check-first initialization.",
       "dependencies": [
         "feat-008",
         "feat-009"
       ],
       "status": "not-started",
-      "evidence": ""
+      "verification": null,
+      "evidence": []
     },
     {
       "id": "feat-011",
       "name": "Harness Product Integration",
-      "description": "Validate creator-to-doctor workflows across supported fixtures and non-standard project shapes.",
+      "behavior": "Validate creator-to-doctor workflows across supported fixtures and non-standard project shapes.",
       "dependencies": [
         "feat-009",
         "feat-010"
       ],
       "status": "not-started",
-      "evidence": ""
+      "verification": null,
+      "evidence": []
     },
     {
       "id": "feat-012",
       "name": "Harness Field Validation",
-      "description": "Run representative before-and-after coding-agent tasks and evaluate effectiveness without conflating it with readiness.",
+      "behavior": "Run representative before-and-after coding-agent tasks and evaluate effectiveness without conflating it with readiness.",
       "dependencies": [
         "feat-011"
       ],
       "status": "not-started",
-      "evidence": ""
+      "verification": null,
+      "evidence": []
     }
   ]
 }

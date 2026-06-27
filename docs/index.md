@@ -11,6 +11,13 @@
 - [`tools/`](tools/)：支持本项目的工具、插件和 skill 说明。
 - [`workflows/`](workflows/)：按需阅读的工作流参考。
 
+## Harness 产品实现
+
+- [`../packages/harness-core/`](../packages/harness-core/)：creator 与 doctor
+  共享的 schema、能力规则、Readiness inspector 和 fixture tests。
+- [`workflows/harness-product-boundaries.md`](workflows/harness-product-boundaries.md)：
+  shared core、creator、doctor 与项目事实的边界。
+
 ## 根目录生命周期入口
 
 - [`../feature_list.json`](../feature_list.json)：当前 feature 范围、依赖、状态和证据。

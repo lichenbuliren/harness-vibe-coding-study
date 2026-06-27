@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifacts": {
+    "instructions": [
+      "AGENTS.md"
+    ],
+    "context": [
+      "CONTEXT.md"
+    ],
+    "featureState": [
+      "feature_list.json"
+    ],
+    "progress": [
+      "progress.md"
+    ],
+    "handoff": [
+      "session-handoff.md"
+    ],
+    "environment": [
+      "packages/harness-core/package.json"
+    ],
+    "tools": [
+      ".codex/config.toml"
+    ]
+  },
+  "commands": {
+    "initialize": [
+      "./init.sh"
+    ],
+    "verify": [
+      "node --test packages/harness-core/test/*.test.mjs",
+      "./init.sh"
+    ]
+  }
+}

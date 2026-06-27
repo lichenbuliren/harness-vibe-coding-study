@@ -2,10 +2,9 @@
 
 ## Current Objective
 
-- Goal: Implement the shared contract core for the future creator and doctor.
-- Current status: the accepted `feat-008` design is complete and ready for
-  implementation planning after review.
-- Active feature: `feat-008` in `feature_list.json`.
+- Goal: Build the doctor and creator products over the verified shared core.
+- Current status: `feat-008` is complete and verified; `feat-009` is next.
+- Active feature: `feat-009` in `feature_list.json`.
 - Branch / commit: Current branch is `codex/shared-harness-core`; product-boundary
   baseline is commit `7786490`.
 
@@ -39,6 +38,13 @@
 - [x] Selected a dependency-free package architecture for the shared core.
 - [x] Defined deterministic JSON, explicit non-standard-path declarations,
   Readiness-only maturity, bounded discovery, and fixture requirements.
+- [x] Implemented the dependency-free `packages/harness-core`.
+- [x] Added three schemas, declarative rules, bounded discovery, feature-state
+  semantics, assessment, and CLI.
+- [x] Added 39 passing tests across conventional, non-standard, malformed, and
+  unsafe target shapes.
+- [x] Migrated this repository to canonical feature state and five-dimensional
+  Operational Readiness.
 
 ## Verification Evidence
 
@@ -59,6 +65,9 @@
 | Boundary reference structure | heading and asset-matrix checks | Pass | Shared, creator, doctor, and project-owned boundaries are explicit. |
 | Product roadmap invariants | Node dependency/status check | Pass | Exactly one next feature, `feat-008`; all dependencies resolve. |
 | Boundary review startup check | `./init.sh` | Pass | Repository structure and feature tracker passed. |
+| Shared-core package suite | `node --test packages/harness-core/test/*.test.mjs` | Pass | 39 tests, 0 failures. |
+| Shared-core self-inspection | `node packages/harness-core/bin/inspect-harness.mjs --target . --pretty` | Pass | Five level-2 subsystems; no candidate bottleneck; Effectiveness not assessed. |
+| Shared-core integrated startup | `./init.sh` | Pass | Core tests and self-inspection are part of restart verification. |
 
 ## Files Changed
 
@@ -86,9 +95,9 @@
 
 ## Blockers / Risks
 
-- The shared creator/doctor schema, scripts, fixtures, and skill entrypoints are
-  not implemented.
-- The `feat-008` design spec must pass review before implementation planning.
+- Doctor and creator skill entrypoints are not implemented.
+- Level 3 and Effectiveness remain unproven until representative task evidence
+  is available.
 - The template project's generated handoff said "Not a git repository"; do not copy generated facts without checking local reality.
 - Future generated overlays could reintroduce root `AGENTS.md` bulk; keep ADR 0001 as the boundary.
 
@@ -98,5 +107,5 @@
 2. Read `feature_list.json`.
 3. Read `progress.md`.
 4. Run `./init.sh`.
-5. Review `docs/superpowers/specs/2026-06-27-shared-harness-core-design.md`.
-6. Continue the single `in-progress` feature, `feat-008`.
+5. Read `docs/evolution/0006-shared-harness-contract-core.md`.
+6. Continue the single `next` feature, `feat-009`.

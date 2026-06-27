@@ -508,7 +508,7 @@ git commit -m "feat: add harness readiness CLI"
 - Modify: `docs/evolution/index.md`
 - Modify: `docs/index.md`
 
-- [ ] **Step 1: Write the failing repository integration check**
+- [x] **Step 1: Write the failing repository integration check**
 
 Run:
 
@@ -519,7 +519,7 @@ node packages/harness-core/bin/inspect-harness.mjs --target . --pretty
 Expected before migration: State is `Present`, with findings for legacy
 `description`, missing `schemaVersion`, and unstructured verification/evidence.
 
-- [ ] **Step 2: Migrate repository state**
+- [x] **Step 2: Migrate repository state**
 
 Add top-level:
 
@@ -536,13 +536,13 @@ and `evidence: []` for unfinished items. For completed items, encode the
 existing command/manual check and at least one `{status: "passed", summary}`
 observation. Keep exactly `feat-008` as `in-progress`.
 
-- [ ] **Step 3: Declare this repository's harness equivalents**
+- [x] **Step 3: Declare this repository's harness equivalents**
 
 Create `.harness/manifest.json` that identifies `AGENTS.md`, `CONTEXT.md`,
 `feature_list.json`, `progress.md`, `session-handoff.md`, `.codex/config.toml`,
 `init.sh`, and the shared-core test command. Do not declare field evidence.
 
-- [ ] **Step 4: Extend startup verification**
+- [x] **Step 4: Extend startup verification**
 
 After existing structure checks, run:
 
@@ -554,7 +554,7 @@ node packages/harness-core/bin/inspect-harness.mjs --target . >/dev/null
 Update the feature tracker check to require the canonical top-level fields and
 feature fields rather than legacy `description`.
 
-- [ ] **Step 5: Record the durable outcome**
+- [x] **Step 5: Record the durable outcome**
 
 Document:
 
@@ -564,7 +564,7 @@ Document:
 - actual commands and results;
 - remaining doctor/creator/field-validation work.
 
-- [ ] **Step 6: Verify repository integration**
+- [x] **Step 6: Verify repository integration**
 
 Run:
 
@@ -578,7 +578,7 @@ git diff --check
 Expected: tests pass; this repository is Operational across all five
 subsystems; Effectiveness remains `not-assessed`; `./init.sh` passes.
 
-- [ ] **Step 7: Complete state and commit**
+- [x] **Step 7: Complete state and commit**
 
 Set `feat-008` to `done` with the verification commands and passing evidence.
 Set only `feat-009` to `next`. Update progress and handoff with exact evidence.

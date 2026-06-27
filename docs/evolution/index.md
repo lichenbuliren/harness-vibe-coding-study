@@ -37,3 +37,5 @@
   补齐长期项目上下文，并统一 creator/doctor 的理论与产品边界。
 - [`0005-template-boundary-review.md`](0005-template-boundary-review.md)：
   划分 shared core、creator、doctor 与项目事实的可复用边界。
+- [`0006-shared-harness-contract-core.md`](0006-shared-harness-contract-core.md)：
+  实现确定性 shared core，并将本仓库迁移为 canonical feature contract。

@@ -3,8 +3,8 @@
 ## Current State
 
 **Last Updated:** 2026-06-27 CST
-**Active Feature:** feat-008 - Shared Harness Contract Core
-**Status:** feat-008 design complete; implementation pending
+**Active Feature:** feat-009 - Harness Doctor Skill
+**Status:** feat-008 complete and verified; feat-009 next
 
 ## What's Done
 
@@ -37,25 +37,35 @@
 - [x] Added the complete product roadmap from shared core through field validation.
 - [x] Defined the dependency-free package, deterministic JSON, bounded
   discovery, Readiness maturity, and fixture contracts for the shared core.
+- [x] Implemented canonical feature, manifest, and assessment schemas.
+- [x] Implemented bounded discovery, semantic feature-state validation, and
+  deterministic five-subsystem Readiness assessment.
+- [x] Added the read-only JSON CLI and 39 contract/fixture tests.
+- [x] Migrated this repository to canonical feature state and added a project
+  harness manifest.
+- [x] Recorded the implementation in
+  `docs/evolution/0006-shared-harness-contract-core.md`.
 
 ## What's In Progress
 
-- [ ] Implement canonical schemas, capability rules, readiness inspection, and fixture contract tests.
+- [ ] Design and implement the read-only Harness Doctor skill over the shared
+  assessment contract.
 
 ## What's Next
 
-1. Review the shared-core design specification.
-2. Write the implementation plan.
-3. Implement the package test-first.
+1. Continue `feat-009 - Harness Doctor Skill`.
+2. Define terminal and Markdown views that render canonical JSON without
+   rescoring.
+3. Keep all doctor operations read-only.
 
 ## Blockers / Risks
 
 - `harness-creator` validation is structural. The 100/100 score means the harness is easy to inspect, not that the project methodology is fully proven.
 - `AGENTS.md` is now shorter and verified, but future generated overlays could reintroduce bulk if not kept behind the ADR boundary.
-- The creator/doctor architecture and shared-core design are accepted, but the
-  schemas, scripts, and fixtures are not implemented.
+- Shared core is implemented, but doctor and creator entrypoints are not.
 - Readiness level 3 remains reserved until a later evidence provider can supply
   representative task evidence.
+- Fixture evidence proves contract consistency, not real-task Effectiveness.
 
 ## Evidence
 
@@ -77,6 +87,12 @@
 - `./init.sh` passed after the boundary review.
 - `docs/superpowers/specs/2026-06-27-shared-harness-core-design.md` records the
   accepted package, API, maturity, safety, and fixture contracts.
+- `node --test packages/harness-core/test/*.test.mjs` passed 39/39 tests.
+- Shared-core self-inspection returned all five subsystems at level 2,
+  no candidate bottleneck, and Effectiveness `not-assessed`.
+- `./init.sh` passed with shared-core tests and self-inspection enabled.
+- `docs/evolution/0006-shared-harness-contract-core.md` records the before/after
+  maturity profile and remaining product work.
 
 ## Notes for Next Session
 
