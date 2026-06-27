@@ -2,9 +2,9 @@
 
 ## Current State
 
-**Last Updated:** 2026-06-27 CST
+**Last Updated:** 2026-06-28 CST
 **Active Feature:** none
-**Status:** product roadmap complete; further work requires a new validated scope
+**Status:** direct plugin installation complete; next validation requires a fresh user thread and representative project use
 
 ## What's Done
 
@@ -78,6 +78,16 @@
   boundaries.
 - [x] Recorded the outcome in
   `docs/evolution/0010-harness-field-validation.md`.
+- [x] Added a repository-local Codex marketplace and one-command plugin
+  installer with non-destructive generated-output replacement.
+- [x] Split partial Doctor recommendations so they name only the unmet
+  operational requirements.
+- [x] Verified installation, fresh-process skill discovery, Creator apply,
+  generated initialization, and Doctor assessment in an isolated Codex home.
+- [x] Installed the plugin into the live Codex home and confirmed both
+  namespaced skills are discoverable by a fresh Codex process.
+- [x] Recorded the outcome in
+  `docs/evolution/0011-harness-direct-installation.md`.
 
 ## What's In Progress
 
@@ -85,11 +95,13 @@
 
 ## What's Next
 
-1. Do not expand the default harness from this pilot.
-2. Start a new feature only when independent fresh-session agents and a
-   realistic multi-file, cross-session task are available.
-3. Pre-register repetitions, ordering, success, correction, and recovery-cost
-   thresholds before the next Effectiveness study.
+1. Start a new Codex thread so the app reloads the installed plugin catalog.
+2. Invoke `$harness-engineering:harness-creator` and then
+   `$harness-engineering:harness-doctor` on a representative repository.
+3. Record first-use friction as product feedback; do not expand the default
+   harness without evidence.
+4. Reserve the next Effectiveness study for independent fresh-session agents
+   and a realistic multi-file, cross-session task with pre-registered metrics.
 
 ## Blockers / Risks
 
@@ -97,6 +109,10 @@
 - `AGENTS.md` is now shorter and verified, but future generated overlays could reintroduce bulk if not kept behind the ADR boundary.
 - Doctor, Creator, plugin distribution, and the bounded field pilot are
   complete.
+- The live plugin requires a new Codex thread before this app session exposes
+  its newly installed skill catalog.
+- The legacy bare `$harness-creator` remains installed separately; the new
+  product uses only the `harness-engineering:*` namespace.
 - Readiness level 3 remains reserved; the same-agent synthetic pilot is
   `observed`, not `validated`.
 - The pilot does not demonstrate a general delivery-speed, success-rate, or
@@ -158,6 +174,18 @@
   harness runs used 12 reads, 4 verification commands, and 4 state updates.
 - Only harness runs left machine-readable done/evidence state; this is a
   continuity observation, not proof of lower recovery cost.
+- The full direct-install verification suite passed 119 tests with zero
+  failures.
+- The isolated verifier proved real Codex marketplace registration,
+  installation, fresh-process discovery, Creator apply, generated
+  initialization, and precise Doctor output.
+- Live installation registered
+  `harness-engineering@harness-engineering-local` version
+  `0.1.0+codex.local-20260627-165001` under
+  `/Users/heaven/.codex/plugins/cache/harness-engineering-local/`.
+- A fresh `codex debug prompt-input` process discovered
+  `$harness-engineering:harness-creator` and
+  `$harness-engineering:harness-doctor`.
 
 ## Notes for Next Session
 

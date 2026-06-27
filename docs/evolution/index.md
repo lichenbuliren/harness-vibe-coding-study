@@ -47,3 +47,5 @@
   将 Creator、Doctor 与唯一 shared core 打包为可独立验证的 Codex plugin。
 - [`0010-harness-field-validation.md`](0010-harness-field-validation.md)：
   运行四任务 bare/harness pilot，并把结论限制在 observed evidence。
+- [`0011-harness-direct-installation.md`](0011-harness-direct-installation.md)：
+  增加本地 marketplace 与一键安装，并用隔离和真实 Codex 环境验证首次发现。

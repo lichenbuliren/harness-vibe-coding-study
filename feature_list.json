@@ -386,7 +386,7 @@
         "feat-011",
         "feat-012"
       ],
-      "status": "in-progress",
+      "status": "done",
       "verification": {
         "kind": "command",
         "steps": [
@@ -396,7 +396,32 @@
           "git diff --check"
         ]
       },
-      "evidence": []
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Full core, Doctor, Creator, product, and field-validation suite passed 119 tests with zero failures.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "The isolated real-Codex verifier installed the plugin, discovered both namespaced skills in a fresh process, applied Creator output, ran the generated init command, and returned the precise Doctor recommendation Add environment metadata.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh passed all suites, official plugin validation, both official skill validations, field-result validation, and repository self-inspection.",
+          "verificationStep": 2
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors after implementation and state documentation updates.",
+          "verificationStep": 3
+        },
+        {
+          "status": "passed",
+          "summary": "Live installation registered harness-engineering@harness-engineering-local version 0.1.0+codex.local-20260627-165001, and a fresh Codex prompt-input process discovered harness-engineering:harness-creator and harness-engineering:harness-doctor."
+        }
+      ]
     }
   ]
 }

@@ -2,11 +2,12 @@
 
 ## Current Objective
 
-- Goal: Preserve the completed harness product and its honest evidence boundary.
-- Current status: `feat-009` through `feat-012` are complete.
+- Goal: Validate the installable harness product while preserving its honest
+  evidence boundary.
+- Current status: `feat-009` through `feat-013` are complete.
 - Active feature: none; `feature_list.json` has no `next` or `in-progress` item.
-- Delivery history: product integration starts at `be6d7aa`; inspect the latest
-  local `main` commit for the completed field-validation stage.
+- Delivery history: product integration starts at `be6d7aa`; direct
+  installation is recorded in evolution stage 0011.
 
 ## Completed This Session
 
@@ -77,6 +78,14 @@
 - [x] Added `docs/evolution/0010-harness-field-validation.md`.
 - [x] Updated `CONTEXT.md` and the compressed theory with the observed fixed
   coordination cost and durable-state boundary.
+- [x] Added a local Codex marketplace plus one-command plugin installer.
+- [x] Added isolated real-Codex installation and fresh-process discovery
+  verification.
+- [x] Corrected Doctor partial recommendations to report only unmet
+  requirements.
+- [x] Installed the plugin into the live Codex home and confirmed discovery of
+  both `harness-engineering:*` skills.
+- [x] Added `docs/evolution/0011-harness-direct-installation.md`.
 
 ## Verification Evidence
 
@@ -114,6 +123,9 @@
 | Packaged workflow | product integration suite | Pass | Conventional Context completion reached five level-2 subsystems; non-standard, conflict, resume, determinism, and concurrency passed. |
 | Field contract | `node --test tests/field-validation/*.test.mjs` | Pass | Four balanced fixtures, real failing starts, metric derivation, and evidence caps passed. |
 | Pilot result | `node experiments/field-validation/validate-results.mjs experiments/field-validation/runs/pilot-001.json` | Pass | Four runs accepted; evidence remains observed and Readiness level 2. |
+| Direct-install full suite | `node --test packages/harness-core/test/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-creator/*.test.mjs tests/harness-product/*.test.mjs tests/field-validation/*.test.mjs` | Pass | 119 tests, 0 failures. |
+| Isolated real-Codex install | `node scripts/verify-harness-plugin-install.mjs` | Pass | Marketplace install, fresh discovery, Creator apply, generated init, and precise Doctor recommendation passed. |
+| Live plugin discovery | installer, `codex plugin list`, and fresh `codex debug prompt-input` | Pass | Installed version `0.1.0+codex.local-20260627-165001`; both namespaced skills discovered. |
 
 ## Files Changed
 
@@ -138,6 +150,10 @@
 - `docs/superpowers/plans/2026-06-27-learning-harness-summary-compression.md`
 - `README.md`
 - `docs/index.md`
+- `docs/evolution/0011-harness-direct-installation.md`
+- `.agents/plugins/marketplace.json`
+- `scripts/install-harness-plugin.mjs`
+- `scripts/verify-harness-plugin-install.mjs`
 
 ## Blockers / Risks
 
@@ -146,6 +162,10 @@
 - Doctor implementation must not duplicate or rescore shared-core conclusions.
 - The template project's generated handoff said "Not a git repository"; do not copy generated facts without checking local reality.
 - Future generated overlays could reintroduce root `AGENTS.md` bulk; keep ADR 0001 as the boundary.
+- The Codex app loads the installed skill catalog per thread; use a new thread
+  for the first live invocation.
+- The legacy bare `$harness-creator` is a separate installation and must not be
+  confused with the canonical `harness-engineering:*` plugin skills.
 
 ## Next Session Startup
 
@@ -153,7 +173,9 @@
 2. Read `feature_list.json`.
 3. Read `progress.md`.
 4. Run `./init.sh`.
-5. Read `docs/evolution/0006-shared-harness-contract-core.md`.
-6. Read `docs/evolution/0008-harness-creator-skill.md`.
-7. Confirm there is no active feature; create one only for a newly accepted
-   scope.
+5. Read `docs/evolution/0011-harness-direct-installation.md`.
+6. Invoke `$harness-engineering:harness-creator` on a representative target.
+7. Invoke `$harness-engineering:harness-doctor` after initialization and record
+   any first-use friction.
+8. Confirm there is no active feature; create one only for validated feedback
+   or a newly accepted Effectiveness study.
