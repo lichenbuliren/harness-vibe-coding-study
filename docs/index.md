@@ -15,6 +15,8 @@
 
 - [`../packages/harness-core/`](../packages/harness-core/)：creator 与 doctor
   共享的 schema、能力规则、Readiness inspector 和 fixture tests。
+- [`../skills/harness-doctor/`](../skills/harness-doctor/)：只读诊断入口，
+  输出 canonical JSON、Text、Markdown 或安全的 standalone HTML。
 - [`workflows/harness-product-boundaries.md`](workflows/harness-product-boundaries.md)：
   shared core、creator、doctor 与项目事实的边界。
 

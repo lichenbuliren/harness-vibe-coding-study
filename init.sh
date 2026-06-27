@@ -21,6 +21,8 @@ required_paths=(
   "templates/index.md"
   "packages/harness-core/package.json"
   "packages/harness-core/bin/inspect-harness.mjs"
+  "skills/harness-doctor/SKILL.md"
+  "skills/harness-doctor/scripts/doctor.mjs"
 )
 
 echo "=== Required path check ==="
@@ -38,6 +40,14 @@ node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('feature_
 echo "=== Shared harness core check ==="
 node --test packages/harness-core/test/*.test.mjs
 node packages/harness-core/bin/inspect-harness.mjs --target . >/dev/null
+
+echo "=== Harness Doctor check ==="
+node --test tests/harness-doctor/*.test.mjs
+uv run --offline --with pyyaml python \
+  "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" \
+  skills/harness-doctor
+node skills/harness-doctor/scripts/doctor.mjs \
+  --target . --format json >/dev/null
 
 echo "=== Documentation entrypoint check ==="
 grep -q "docs/evolution" README.md

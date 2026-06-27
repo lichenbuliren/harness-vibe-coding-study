@@ -406,7 +406,7 @@ git commit -m "feat: add harness doctor command"
 - Modify: `docs/evolution/index.md`
 - Modify: `docs/index.md`
 
-- [ ] **Step 1: Declare the Doctor tool**
+- [x] **Step 1: Declare the Doctor tool**
 
 Add these tool artifacts to `.harness/manifest.json`:
 
@@ -420,7 +420,7 @@ Add these tool artifacts to `.harness/manifest.json`:
 
 Do not declare Doctor as target-project verification or Effectiveness evidence.
 
-- [ ] **Step 2: Extend startup verification**
+- [x] **Step 2: Extend startup verification**
 
 Add:
 
@@ -433,7 +433,7 @@ node skills/harness-doctor/scripts/doctor.mjs \
   --target . --format json >/dev/null
 ```
 
-- [ ] **Step 3: Record the durable outcome**
+- [x] **Step 3: Record the durable outcome**
 
 Document:
 
@@ -444,7 +444,7 @@ Document:
 - validation commands and results;
 - remaining creator, integration, and field-validation work.
 
-- [ ] **Step 4: Run complete verification**
+- [x] **Step 4: Run complete verification**
 
 Run:
 
@@ -468,12 +468,12 @@ Expected:
 - Effectiveness is `not-assessed`;
 - no total score or obsolete subsystem appears.
 
-- [ ] **Step 5: Complete canonical state**
+- [x] **Step 5: Complete canonical state**
 
 Set `feat-009` to `done` with structured passing evidence. Set only `feat-010`
 to `next`. Update progress and handoff with exact command results.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add .harness skills tests init.sh feature_list.json progress.md \

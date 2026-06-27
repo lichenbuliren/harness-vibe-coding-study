@@ -20,7 +20,9 @@
       "packages/harness-core/package.json"
     ],
     "tools": [
-      ".codex/config.toml"
+      ".codex/config.toml",
+      "skills/harness-doctor/SKILL.md",
+      "skills/harness-doctor/scripts/doctor.mjs"
     ]
   },
   "commands": {

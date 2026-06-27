@@ -3,8 +3,8 @@
 ## Current State
 
 **Last Updated:** 2026-06-27 CST
-**Active Feature:** feat-009 - Harness Doctor Skill
-**Status:** feat-009 design complete; implementation pending
+**Active Feature:** feat-010 - Harness Creator Skill
+**Status:** feat-009 complete; feat-010 ready for design and implementation
 
 ## What's Done
 
@@ -47,23 +47,32 @@
   `docs/evolution/0006-shared-harness-contract-core.md`.
 - [x] Captured the legacy audit baseline and finalized the thin, read-only
   Harness Doctor design.
+- [x] Implemented the `harness-doctor` skill with canonical JSON plus pure
+  Text, Markdown, and safe standalone HTML renderers.
+- [x] Verified a single shared-core inspection boundary, deterministic output,
+  no target writes, explicit Unknown handling, and stable exit codes.
+- [x] Integrated Doctor tests, official skill validation, and repository
+  self-inspection into `./init.sh`.
+- [x] Recorded the durable Doctor outcome in
+  `docs/evolution/0007-harness-doctor-skill.md`.
 
 ## What's In Progress
 
-- [ ] Implement the read-only skill, command, and renderers over the shared
-  assessment contract.
+- [ ] Design the non-destructive `harness-creator` skill over the shared core.
 
 ## What's Next
 
-1. Review the Harness Doctor design specification.
-2. Write the implementation plan.
-3. Implement the skill and renderers test-first.
+1. Compare the legacy creator behavior with the accepted shared-core contract.
+2. Design check-first initialization and conflict handling.
+3. Implement Creator test-first, including the default `CONTEXT.md` completion
+   task.
 
 ## Blockers / Risks
 
 - `harness-creator` validation is structural. The 100/100 score means the harness is easy to inspect, not that the project methodology is fully proven.
 - `AGENTS.md` is now shorter and verified, but future generated overlays could reintroduce bulk if not kept behind the ADR boundary.
-- Shared core is implemented, but doctor and creator entrypoints are not.
+- Doctor is implemented; Creator, product integration, and field validation
+  remain.
 - Readiness level 3 remains reserved until a later evidence provider can supply
   representative task evidence.
 - Fixture evidence proves contract consistency, not real-task Effectiveness.
@@ -98,6 +107,14 @@
   `instructions/state/verification/scope/lifecycle` taxonomy.
 - `docs/superpowers/specs/2026-06-27-harness-doctor-skill-design.md` records
   the accepted thin-skill, pure-renderer, and read-only command contracts.
+- `node --test packages/harness-core/test/*.test.mjs tests/harness-doctor/*.test.mjs`
+  passed 64 tests with zero failures.
+- Official `quick_validate.py` returned `Skill is valid!` for
+  `skills/harness-doctor`.
+- Doctor self-inspection returned five level-2 subsystems, no candidate
+  bottleneck, and Effectiveness `not-assessed`.
+- `./init.sh` passed with Doctor tests and official skill validation enabled.
+- `git diff --check` completed without errors.
 
 ## Notes for Next Session
 

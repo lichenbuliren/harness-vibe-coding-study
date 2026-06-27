@@ -39,3 +39,5 @@
   划分 shared core、creator、doctor 与项目事实的可复用边界。
 - [`0006-shared-harness-contract-core.md`](0006-shared-harness-contract-core.md)：
   实现确定性 shared core，并将本仓库迁移为 canonical feature contract。
+- [`0007-harness-doctor-skill.md`](0007-harness-doctor-skill.md)：
+  实现只读 Doctor skill，并验证 canonical JSON 与三种人类可读报告。

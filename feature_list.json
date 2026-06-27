@@ -199,7 +199,7 @@
       "dependencies": [
         "feat-008"
       ],
-      "status": "in-progress",
+      "status": "done",
       "verification": {
         "kind": "command",
         "steps": [
@@ -210,7 +210,33 @@
           "git diff --check"
         ]
       },
-      "evidence": []
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "All 25 Harness Doctor contract, renderer, and CLI tests passed.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "Official skill validation completed successfully in the offline uv environment.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "Repository Doctor JSON reported five Operational subsystems, no candidate bottlenecks, and Effectiveness not-assessed.",
+          "verificationStep": 2
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh completed with shared-core tests, Doctor tests, skill validation, and self-inspection.",
+          "verificationStep": 3
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors.",
+          "verificationStep": 4
+        }
+      ]
     },
     {
       "id": "feat-010",
@@ -220,7 +246,7 @@
         "feat-008",
         "feat-009"
       ],
-      "status": "not-started",
+      "status": "next",
       "verification": null,
       "evidence": []
     },
