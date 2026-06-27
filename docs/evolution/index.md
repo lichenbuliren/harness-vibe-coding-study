@@ -41,3 +41,5 @@
   实现确定性 shared core，并将本仓库迁移为 canonical feature contract。
 - [`0007-harness-doctor-skill.md`](0007-harness-doctor-skill.md)：
   实现只读 Doctor skill，并验证 canonical JSON 与三种人类可读报告。
+- [`0008-harness-creator-skill.md`](0008-harness-creator-skill.md)：
+  实现 plan-bound Creator，并把 Context 缺口转化为真实 bootstrap feature。

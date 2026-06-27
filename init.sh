@@ -21,6 +21,8 @@ required_paths=(
   "templates/index.md"
   "packages/harness-core/package.json"
   "packages/harness-core/bin/inspect-harness.mjs"
+  "skills/harness-creator/SKILL.md"
+  "skills/harness-creator/scripts/creator.mjs"
   "skills/harness-doctor/SKILL.md"
   "skills/harness-doctor/scripts/doctor.mjs"
 )
@@ -48,6 +50,14 @@ uv run --offline --with pyyaml python \
   skills/harness-doctor
 node skills/harness-doctor/scripts/doctor.mjs \
   --target . --format json >/dev/null
+
+echo "=== Harness Creator check ==="
+node --test tests/harness-creator/*.test.mjs
+uv run --offline --with pyyaml python \
+  "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" \
+  skills/harness-creator
+node skills/harness-creator/scripts/creator.mjs \
+  plan --target . --format json >/dev/null
 
 echo "=== Documentation entrypoint check ==="
 grep -q "docs/evolution" README.md

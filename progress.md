@@ -3,8 +3,8 @@
 ## Current State
 
 **Last Updated:** 2026-06-27 CST
-**Active Feature:** feat-010 - Harness Creator Skill
-**Status:** feat-010 in progress; safe plan/apply protocol selected
+**Active Feature:** feat-011 - Harness Product Integration
+**Status:** feat-010 complete; feat-011 ready for integration design
 
 ## What's Done
 
@@ -55,24 +55,33 @@
   self-inspection into `./init.sh`.
 - [x] Recorded the durable Doctor outcome in
   `docs/evolution/0007-harness-doctor-skill.md`.
+- [x] Implemented a plan-bound, non-destructive `harness-creator` skill.
+- [x] Added exact preconditions, deterministic `planId`, exclusive creation,
+  validated feature-state merge, stale rejection, and parent-symlink safety.
+- [x] Made `Project Context Restoration` the default real bootstrap task when
+  project Context is missing.
+- [x] Integrated Creator tests and official skill validation into `./init.sh`.
+- [x] Recorded the outcome in
+  `docs/evolution/0008-harness-creator-skill.md`.
 
 ## What's In Progress
 
-- [ ] Specify and implement the non-destructive `harness-creator` skill over
-  the shared core.
+- [ ] Design the supported Creator-to-Doctor integration and distribution
+  shape.
 
 ## What's Next
 
-1. Compare the legacy creator behavior with the accepted shared-core contract.
-2. Design check-first initialization and conflict handling.
-3. Implement Creator test-first, including the default `CONTEXT.md` completion
-   task.
+1. Define supported packaged skill layout without repository-relative runtime
+   dependencies.
+2. Add end-to-end fixtures from Creator plan/apply through Context completion
+   and Doctor verification.
+3. Validate conventional, non-standard, conflict, and resume workflows.
 
 ## Blockers / Risks
 
 - `harness-creator` validation is structural. The 100/100 score means the harness is easy to inspect, not that the project methodology is fully proven.
 - `AGENTS.md` is now shorter and verified, but future generated overlays could reintroduce bulk if not kept behind the ADR boundary.
-- Doctor is implemented; Creator, product integration, and field validation
+- Doctor and Creator are implemented; product integration and field validation
   remain.
 - Readiness level 3 remains reserved until a later evidence provider can supply
   representative task evidence.
@@ -116,6 +125,12 @@
   bottleneck, and Effectiveness `not-assessed`.
 - `./init.sh` passed with Doctor tests and official skill validation enabled.
 - `git diff --check` completed without errors.
+- Creator/core/Doctor full verification passed 95 tests.
+- Empty-directory CLI plan/apply/Doctor smoke created five files, preserved
+  Effectiveness `not-assessed`, and left Context restoration as the only next
+  feature.
+- Inline completion review found and fixed one important conflict bug:
+  non-operational existing destinations now block rather than skip.
 
 ## Notes for Next Session
 

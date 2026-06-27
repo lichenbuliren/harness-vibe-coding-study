@@ -110,15 +110,15 @@ Codex skill metadata, offline `uv` validation
 - Modify: `docs/evolution/index.md`
 - Create: `docs/evolution/0008-harness-creator-skill.md`
 
-- [ ] Declare Creator as a tool, not Effectiveness evidence.
-- [ ] Add Creator tests and official skill validation to `./init.sh`.
-- [ ] Run all core, Doctor, and Creator tests.
-- [ ] Run an empty-fixture plan/apply/Doctor smoke workflow.
-- [ ] Prove repeat planning stability, no forbidden operations, and clean diff.
-- [ ] Set `feat-010` done with structured evidence; set only `feat-011` next.
-- [ ] Record design decisions, before/after profile, evidence, and remaining
+- [x] Declare Creator as a tool, not Effectiveness evidence.
+- [x] Add Creator tests and official skill validation to `./init.sh`.
+- [x] Run all core, Doctor, and Creator tests.
+- [x] Run an empty-fixture plan/apply/Doctor smoke workflow.
+- [x] Prove repeat planning stability, no forbidden operations, and clean diff.
+- [x] Set `feat-010` done with structured evidence; set only `feat-011` next.
+- [x] Record design decisions, before/after profile, evidence, and remaining
   integration/field risks.
-- [ ] Commit `feat: complete harness creator skill`.
+- [x] Commit `feat: complete harness creator skill`.
 
 ## Final Verification
 

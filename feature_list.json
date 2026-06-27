@@ -246,9 +246,44 @@
         "feat-008",
         "feat-009"
       ],
-      "status": "in-progress",
-      "verification": null,
-      "evidence": []
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test packages/harness-core/test/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-creator/*.test.mjs",
+          "uv run --offline --with pyyaml python ${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py skills/harness-creator",
+          "node skills/harness-creator/scripts/creator.mjs plan --target . --format json",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "All 95 shared-core, Doctor, and Creator tests passed.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "Official skill validation completed successfully for skills/harness-creator.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "Repository planning returned a deterministic skip-only non-destructive plan with no blocked actions.",
+          "verificationStep": 2
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh completed with core, Doctor, and Creator suites plus both official skill validators.",
+          "verificationStep": 3
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors; empty-directory CLI plan/apply/Doctor smoke also passed.",
+          "verificationStep": 4
+        }
+      ]
     },
     {
       "id": "feat-011",
@@ -258,7 +293,7 @@
         "feat-009",
         "feat-010"
       ],
-      "status": "not-started",
+      "status": "next",
       "verification": null,
       "evidence": []
     },

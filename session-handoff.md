@@ -2,11 +2,11 @@
 
 ## Current Objective
 
-- Goal: Build the doctor and creator products over the verified shared core.
-- Current status: `feat-009` is complete; `feat-010` is in progress.
-- Active feature: `feat-010` in `feature_list.json`.
-- Branch / commit: Current branch is `codex/harness-doctor`; Doctor
-  implementation commits follow the shared-core baseline on local `main`.
+- Goal: Integrate and package the verified Creator and Doctor products.
+- Current status: `feat-009` and `feat-010` are complete; `feat-011` is next.
+- Active feature: `feat-011` in `feature_list.json`.
+- Branch / commit: Current branch is `codex/harness-creator`; Creator
+  implementation follows the Doctor baseline on local `main`.
 
 ## Completed This Session
 
@@ -54,6 +54,14 @@
   output, Unknown preservation, and target-tree immutability.
 - [x] Integrated Doctor verification into `./init.sh`.
 - [x] Added `docs/evolution/0007-harness-doctor-skill.md`.
+- [x] Implemented deterministic Creator plan/apply with exact `planId`
+  preconditions.
+- [x] Added non-destructive template rendering and canonical Context
+  restoration feature semantics.
+- [x] Added write-path parent-symlink safety to shared core.
+- [x] Verified empty, partial, operational, non-standard, malformed, conflict,
+  stale, and repeat workflows.
+- [x] Added `docs/evolution/0008-harness-creator-skill.md`.
 
 ## Verification Evidence
 
@@ -82,6 +90,10 @@
 | Doctor self-inspection | `node skills/harness-doctor/scripts/doctor.mjs --target . --format json --pretty` | Pass | Five Operational subsystems; no candidate bottleneck; Effectiveness not assessed. |
 | Doctor integrated startup | `./init.sh` | Pass | Core and Doctor suites, official skill validation, and self-inspection passed. |
 | Diff hygiene | `git diff --check` | Pass | No whitespace errors. |
+| Full product suite | `node --test packages/harness-core/test/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-creator/*.test.mjs` | Pass | 95 tests, 0 failures. |
+| Creator skill validation | `uv run --offline --with pyyaml python /Users/heaven/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/harness-creator` | Pass | Official validator returned `Skill is valid!`. |
+| Empty CLI product smoke | Creator plan/apply followed by Doctor JSON | Pass | Five non-destructive creates; Context task next; profile 1/2/1/2/2; Effectiveness not assessed. |
+| Creator integrated startup | `./init.sh` | Pass | Core 41, Doctor 25, Creator 29, both skill validators. |
 
 ## Files Changed
 
@@ -109,7 +121,7 @@
 
 ## Blockers / Risks
 
-- Creator, product integration, and field validation are not implemented.
+- Product distribution/integration and field validation are not implemented.
 - Level 3 and Effectiveness remain unproven until representative task evidence
   is available.
 - Doctor implementation must not duplicate or rescore shared-core conclusions.
@@ -123,5 +135,5 @@
 3. Read `progress.md`.
 4. Run `./init.sh`.
 5. Read `docs/evolution/0006-shared-harness-contract-core.md`.
-6. Read `docs/evolution/0007-harness-doctor-skill.md`.
-7. Continue the single `next` feature, `feat-010`.
+6. Read `docs/evolution/0008-harness-creator-skill.md`.
+7. Continue the single `next` feature, `feat-011`.

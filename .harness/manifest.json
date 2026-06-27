@@ -21,6 +21,8 @@
     ],
     "tools": [
       ".codex/config.toml",
+      "skills/harness-creator/SKILL.md",
+      "skills/harness-creator/scripts/creator.mjs",
       "skills/harness-doctor/SKILL.md",
       "skills/harness-doctor/scripts/doctor.mjs"
     ]
