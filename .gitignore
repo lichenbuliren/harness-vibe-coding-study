@@ -8,3 +8,4 @@
 .codex/skills/.system/**
 !.codex/prompts/
 !.codex/prompts/**
+/plugins/harness-engineering/
