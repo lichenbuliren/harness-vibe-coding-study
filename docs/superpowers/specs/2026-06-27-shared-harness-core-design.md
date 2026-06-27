@@ -144,6 +144,13 @@ features[]
   evidence
 ```
 
+`verification` is either `null` or an object containing a verification `kind`
+(`command` or `manual`) and one or more ordered `steps`.
+
+`evidence` is an array of observations. Every observation contains `status`
+(`passed`, `failed`, or `blocked`) and a non-empty `summary`. An optional
+`verificationStep` identifies the step that produced the observation.
+
 Canonical statuses are:
 
 ```text
@@ -207,6 +214,7 @@ candidateBottlenecks
 recommendations
 unknowns
 limitations
+effectiveness
 ```
 
 Each subsystem contains:
@@ -222,6 +230,17 @@ unknowns[]
 Evidence records include a stable rule ID, repository-relative source, result,
 and concise detail. Recommendations reference failed rule IDs so consumers do
 not need to reconstruct scoring logic.
+
+`effectiveness` is always:
+
+```json
+{
+  "status": "not-assessed",
+  "reason": "Representative task evidence was not provided."
+}
+```
+
+in this first implementation slice.
 
 For portability and deterministic fixtures, `target` is `"."`, meaning the
 inspected root. Output contains no timestamps, host paths, random IDs, elapsed
