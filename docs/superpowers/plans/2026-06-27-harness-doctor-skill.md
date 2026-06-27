@@ -303,7 +303,7 @@ git commit -m "feat: render harness doctor reports"
 - Create: `skills/harness-doctor/scripts/doctor.mjs`
 - Create: `tests/harness-doctor/doctor.test.mjs`
 
-- [ ] **Step 1: Write failing CLI tests**
+- [x] **Step 1: Write failing CLI tests**
 
 Spawn the command with real shared-core fixtures. Assert:
 
@@ -333,7 +333,7 @@ Also cover:
 - fixture digest unchanged;
 - no host paths in JSON.
 
-- [ ] **Step 2: Run CLI tests and verify RED**
+- [x] **Step 2: Run CLI tests and verify RED**
 
 Run:
 
@@ -343,7 +343,7 @@ node --test tests/harness-doctor/doctor.test.mjs
 
 Expected: FAIL because `doctor.mjs` does not exist.
 
-- [ ] **Step 3: Implement argument parsing**
+- [x] **Step 3: Implement argument parsing**
 
 Support only:
 
@@ -358,7 +358,7 @@ Support only:
 Require `--target` unless help is requested. Reject duplicate/unknown options.
 Reject `--pretty` unless format is JSON.
 
-- [ ] **Step 4: Inspect once and render**
+- [x] **Step 4: Inspect once and render**
 
 Call:
 
@@ -375,7 +375,7 @@ call one pure renderer. Append exactly one newline to stdout.
 Capability gaps exit `0`. Argument or inspection errors print concise stderr
 plus usage and exit `2`.
 
-- [ ] **Step 5: Run Doctor tests and complete suite**
+- [x] **Step 5: Run Doctor tests and complete suite**
 
 Run:
 
@@ -386,7 +386,7 @@ node --test packages/harness-core/test/*.test.mjs
 
 Expected: Doctor and shared-core suites PASS.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add skills/harness-doctor/scripts/doctor.mjs \
