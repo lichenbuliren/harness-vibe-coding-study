@@ -89,14 +89,14 @@ Codex skill metadata, offline `uv` validation
 - Create: `skills/harness-creator/scripts/renderers.mjs`
 - Create: `tests/harness-creator/creator.test.mjs`
 
-- [ ] Write RED CLI tests for help, plan/apply, Text/JSON, pretty validation,
+- [x] Write RED CLI tests for help, plan/apply, Text/JSON, pretty validation,
   error codes, deterministic output, and no host paths.
-- [ ] Parse only the documented command surface.
-- [ ] Keep plan read-only and require `--plan-id` for apply.
-- [ ] Render complete actions, context bootstrap, risks, results, and
+- [x] Parse only the documented command surface.
+- [x] Keep plan read-only and require `--plan-id` for apply.
+- [x] Render complete actions, context bootstrap, risks, results, and
   before/after readiness without rescoring.
-- [ ] Pass Creator, Doctor, and shared-core suites.
-- [ ] Commit `feat: add harness creator command`.
+- [x] Pass Creator, Doctor, and shared-core suites.
+- [x] Commit `feat: add harness creator command`.
 
 ## Task 6: Integrate And Complete The Feature
 
