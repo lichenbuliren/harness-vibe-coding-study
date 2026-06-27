@@ -281,6 +281,7 @@ async function planExistingOrCreate({
   root,
   path,
   existingPath,
+  preserveExisting = false,
   capability,
   content,
   createReason,
@@ -289,7 +290,13 @@ async function planExistingOrCreate({
   const candidate = existingPath ?? path;
   const state = await statSafePath(root, candidate);
   if (state.ok) {
-    return skipAction(candidate, capability, skipReason);
+    return existingPath !== undefined || preserveExisting
+      ? skipAction(candidate, capability, skipReason)
+      : blockAction(
+        candidate,
+        capability,
+        'An existing destination does not satisfy the capability and will not be overwritten.'
+      );
   }
   if (state.reason !== 'missing') {
     return blockAction(
@@ -380,6 +387,7 @@ export async function createPlan({
     actions.push(await planExistingOrCreate({
       root,
       path: 'session-handoff.md',
+      preserveExisting: true,
       capability: 'state',
       content: renderHandoff(),
       createReason: 'Create the requested multi-session handoff surface.',

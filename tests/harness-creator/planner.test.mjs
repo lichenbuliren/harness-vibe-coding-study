@@ -152,6 +152,20 @@ test('malformed feature state blocks rather than rewrites', async () => {
   );
 });
 
+test('existing but non-operational destinations are conflicts, not skips', async () => {
+  const root = await temporaryTarget();
+  await writeFile(path.join(root, 'AGENTS.md'), '');
+  await writeFile(path.join(root, 'progress.md'), '');
+  await writeFile(path.join(root, 'init.sh'), '#!/bin/bash\n');
+
+  const plan = await createPlan({root});
+
+  assert.equal(action(plan, 'AGENTS.md').operation, 'block');
+  assert.equal(action(plan, 'progress.md').operation, 'block');
+  assert.equal(action(plan, 'init.sh').operation, 'block');
+  assert.match(action(plan, 'AGENTS.md').reason, /will not be overwritten/);
+});
+
 test('operational and non-standard targets preserve discovered equivalents', async () => {
   for (const fixtureName of ['operational', 'nonstandard']) {
     const root = path.join(coreFixtures, fixtureName);
