@@ -266,7 +266,7 @@ git commit -m "feat: add bounded harness discovery"
 - Create: `packages/harness-core/test/fixtures/malformed-state/feature_list.json`
 - Create: `packages/harness-core/test/fixtures/operational/feature_list.json`
 
-- [ ] **Step 1: Write failing semantic validation tests**
+- [x] **Step 1: Write failing semantic validation tests**
 
 ```js
 test('accepts one active serial feature with valid dependencies', () => {
@@ -289,7 +289,7 @@ Cover duplicate IDs, missing/self dependencies, blocked without blocked
 evidence, an entirely completed serial plan with zero active items, and a
 legacy `description` document.
 
-- [ ] **Step 2: Run tests and verify RED**
+- [x] **Step 2: Run tests and verify RED**
 
 Run:
 
@@ -299,7 +299,7 @@ node --test packages/harness-core/test/feature-state.test.mjs
 
 Expected: FAIL because `validateFeatureState` does not exist.
 
-- [ ] **Step 3: Implement structural and semantic validation**
+- [x] **Step 3: Implement structural and semantic validation**
 
 Export:
 
@@ -316,7 +316,7 @@ feature ID then code. Serial mode requires one active item only when unfinished
 non-blocked work remains. A legacy/partial document returns `valid: false` and
 repair findings without throwing.
 
-- [ ] **Step 4: Run tests and verify GREEN**
+- [x] **Step 4: Run tests and verify GREEN**
 
 Run:
 
@@ -326,7 +326,7 @@ node --test packages/harness-core/test/feature-state.test.mjs
 
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add packages/harness-core/src/feature-state.mjs packages/harness-core/test

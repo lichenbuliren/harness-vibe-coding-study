@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "mode": "serial",
+  "features": [
+    {
+      "id": "fixture-001",
+      "name": "Maintain the operational fixture",
+      "behavior": "The fixture exposes one resumable active feature.",
+      "dependencies": [],
+      "status": "in-progress",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "./init.sh"
+        ]
+      },
+      "evidence": []
+    }
+  ]
+}

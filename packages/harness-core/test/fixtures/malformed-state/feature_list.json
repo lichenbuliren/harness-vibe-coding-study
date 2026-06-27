@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0.0",
+  "mode": "serial",
+  "features": [
+    {
+      "id": "fixture-001",
+      "name": "Broken dependency",
+      "behavior": "Expose an invalid dependency.",
+      "dependencies": [
+        "fixture-missing"
+      ],
+      "status": "next",
+      "verification": null,
+      "evidence": []
+    },
+    {
+      "id": "fixture-002",
+      "name": "Unverified completion",
+      "behavior": "Expose a completed item without passing evidence.",
+      "dependencies": [],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test"
+        ]
+      },
+      "evidence": []
+    },
+    {
+      "id": "fixture-003",
+      "name": "Second active item",
+      "behavior": "Expose a second active item.",
+      "dependencies": [],
+      "status": "in-progress",
+      "verification": null,
+      "evidence": []
+    }
+  ]
+}
