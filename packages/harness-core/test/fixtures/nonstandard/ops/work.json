@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0",
+  "mode": "serial",
+  "features": [
+    {
+      "id": "fixture-001",
+      "name": "Inspect the fixture",
+      "behavior": "The fixture can be inspected deterministically.",
+      "dependencies": [],
+      "status": "next",
+      "verification": null,
+      "evidence": []
+    }
+  ]
+}

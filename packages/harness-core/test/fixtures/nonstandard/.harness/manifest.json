@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifacts": {
+    "instructions": [
+      "PROJECT_GUIDE.md"
+    ],
+    "context": [
+      "docs/project-context.md"
+    ],
+    "featureState": [
+      "ops/work.json"
+    ],
+    "progress": [
+      "ops/status.md"
+    ],
+    "environment": [
+      "runtime/project.json"
+    ],
+    "tools": [
+      "runtime/tools.toml"
+    ]
+  },
+  "commands": {
+    "initialize": [
+      "./scripts/check-project.sh"
+    ],
+    "verify": [
+      "./scripts/check-project.sh"
+    ]
+  }
+}

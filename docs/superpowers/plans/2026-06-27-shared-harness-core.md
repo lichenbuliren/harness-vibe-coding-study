@@ -182,7 +182,7 @@ git commit -m "feat: define harness core contracts"
 - Create: `packages/harness-core/test/fixtures/nonstandard/PROJECT_GUIDE.md`
 - Create: `packages/harness-core/test/fixtures/nonstandard/ops/work.json`
 
-- [ ] **Step 1: Write failing path and manifest tests**
+- [x] **Step 1: Write failing path and manifest tests**
 
 ```js
 test('loads declared repository-relative paths', async () => {
@@ -201,7 +201,7 @@ test('rejects absolute and escaping paths as unknown', async () => {
 Also test an in-root symlink whose real target escapes the fixture root and a
 file over the configured byte limit.
 
-- [ ] **Step 2: Run tests and verify RED**
+- [x] **Step 2: Run tests and verify RED**
 
 Run:
 
@@ -211,7 +211,7 @@ node --test packages/harness-core/test/path-safety.test.mjs
 
 Expected: FAIL because the modules do not exist.
 
-- [ ] **Step 3: Implement bounded path access**
+- [x] **Step 3: Implement bounded path access**
 
 Export:
 
@@ -225,7 +225,7 @@ Reject absolute paths, `..` traversal, NUL bytes, escaping realpaths, non-files,
 and oversized content. Return structured `{ok, ...}` results; do not throw for
 project-owned path defects.
 
-- [ ] **Step 4: Implement manifest loading**
+- [x] **Step 4: Implement manifest loading**
 
 Export:
 
@@ -241,7 +241,7 @@ A missing default manifest returns an empty normalized declaration. Invalid
 JSON, invalid field types, excessive paths, and unsafe paths become stable
 unknown records sorted by source and code.
 
-- [ ] **Step 5: Run tests and verify GREEN**
+- [x] **Step 5: Run tests and verify GREEN**
 
 Run:
 
@@ -251,7 +251,7 @@ node --test packages/harness-core/test/path-safety.test.mjs
 
 Expected: PASS.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add packages/harness-core/src packages/harness-core/test
