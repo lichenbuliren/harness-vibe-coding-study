@@ -594,7 +594,7 @@ git commit -m "feat: complete shared harness core"
 **Files:**
 - Verify only
 
-- [ ] **Step 1: Check scope exclusions**
+- [x] **Step 1: Check scope exclusions**
 
 Run:
 
@@ -606,12 +606,12 @@ rg -n "writeFile|copyFile|mkdir|rm\\(|fetch\\(|https?://|<html|overall" \
 Expected: no target-writing, network, HTML, or total-score implementation.
 Schema URLs are outside the searched paths.
 
-- [ ] **Step 2: Check deterministic and no-write behavior**
+- [x] **Step 2: Check deterministic and no-write behavior**
 
 Run the CLI twice against the operational fixture, compare outputs with
 `cmp`, and compare target-tree digests before and after.
 
-- [ ] **Step 3: Re-run all required verification**
+- [x] **Step 3: Re-run all required verification**
 
 Run:
 
