@@ -377,6 +377,26 @@
           "verificationStep": 3
         }
       ]
+    },
+    {
+      "id": "feat-013",
+      "name": "Direct Plugin Installation And First-Run Validation",
+      "behavior": "Provide a repository-local Codex marketplace and one-command installer, prove fresh-process discovery and packaged Creator-to-Doctor execution, and make partial Readiness recommendations describe only missing requirements.",
+      "dependencies": [
+        "feat-011",
+        "feat-012"
+      ],
+      "status": "in-progress",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test packages/harness-core/test/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-creator/*.test.mjs tests/harness-product/*.test.mjs tests/field-validation/*.test.mjs",
+          "node scripts/verify-harness-plugin-install.mjs",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": []
     }
   ]
 }
