@@ -26,6 +26,11 @@ const installer = path.join(
   'scripts',
   'install-harness-plugin.mjs'
 );
+const verifier = path.join(
+  repositoryRoot,
+  'scripts',
+  'verify-harness-plugin-install.mjs'
+);
 
 async function temporaryMarketplace() {
   const root = await mkdtemp(path.join(
@@ -220,5 +225,26 @@ test('CLI rejects invalid arguments without creating plugin output', async () =>
       )
     ),
     {code: 'ENOENT'}
+  );
+});
+
+test('real Codex discovers and runs the installed plugin in isolation', {
+  timeout: 30_000
+}, async () => {
+  const result = await runNode(verifier, [], {cwd: repositoryRoot});
+
+  assert.equal(result.code, 0, result.stderr);
+  const verification = JSON.parse(result.stdout);
+  assert.deepEqual(verification.skills, [
+    'harness-engineering:harness-creator',
+    'harness-engineering:harness-doctor'
+  ]);
+  assert.equal(
+    verification.contextFeature,
+    'harness-context-restoration'
+  );
+  assert.equal(
+    verification.doctor.environmentRecommendation,
+    'Add environment metadata.'
   );
 });

@@ -11,6 +11,7 @@ required_paths=(
   "progress.md"
   "session-handoff.md"
   ".harness/manifest.json"
+  ".agents/plugins/marketplace.json"
   "docs/index.md"
   "docs/adr/index.md"
   "docs/adr/0001-keep-agents-md-as-root-operating-contract.md"
@@ -24,7 +25,9 @@ required_paths=(
   "experiments/field-validation/validate-results.mjs"
   "packages/harness-core/package.json"
   "packages/harness-core/bin/inspect-harness.mjs"
+  "scripts/install-harness-plugin.mjs"
   "scripts/package-harness-plugin.mjs"
+  "scripts/verify-harness-plugin-install.mjs"
   "skills/harness-creator/SKILL.md"
   "skills/harness-creator/scripts/creator.mjs"
   "skills/harness-doctor/SKILL.md"
@@ -65,6 +68,7 @@ node skills/harness-creator/scripts/creator.mjs \
 
 echo "=== Harness Product check ==="
 node --test tests/harness-product/*.test.mjs
+node scripts/verify-harness-plugin-install.mjs
 plugin_tmp="$(mktemp -d)"
 trap 'rm -rf "$plugin_tmp"' EXIT
 node scripts/package-harness-plugin.mjs \
