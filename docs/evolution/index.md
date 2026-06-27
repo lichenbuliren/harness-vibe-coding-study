@@ -43,3 +43,5 @@
   实现只读 Doctor skill，并验证 canonical JSON 与三种人类可读报告。
 - [`0008-harness-creator-skill.md`](0008-harness-creator-skill.md)：
   实现 plan-bound Creator，并把 Context 缺口转化为真实 bootstrap feature。
+- [`0009-harness-product-integration.md`](0009-harness-product-integration.md)：
+  将 Creator、Doctor 与唯一 shared core 打包为可独立验证的 Codex plugin。

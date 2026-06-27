@@ -21,6 +21,7 @@ required_paths=(
   "templates/index.md"
   "packages/harness-core/package.json"
   "packages/harness-core/bin/inspect-harness.mjs"
+  "scripts/package-harness-plugin.mjs"
   "skills/harness-creator/SKILL.md"
   "skills/harness-creator/scripts/creator.mjs"
   "skills/harness-doctor/SKILL.md"
@@ -58,6 +59,22 @@ uv run --offline --with pyyaml python \
   skills/harness-creator
 node skills/harness-creator/scripts/creator.mjs \
   plan --target . --format json >/dev/null
+
+echo "=== Harness Product check ==="
+node --test tests/harness-product/*.test.mjs
+plugin_tmp="$(mktemp -d)"
+trap 'rm -rf "$plugin_tmp"' EXIT
+node scripts/package-harness-plugin.mjs \
+  --output "$plugin_tmp/harness-engineering" >/dev/null
+uv run --offline --with pyyaml python \
+  "${CODEX_HOME:-$HOME/.codex}/skills/.system/plugin-creator/scripts/validate_plugin.py" \
+  "$plugin_tmp/harness-engineering"
+uv run --offline --with pyyaml python \
+  "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" \
+  "$plugin_tmp/harness-engineering/skills/harness-creator"
+uv run --offline --with pyyaml python \
+  "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" \
+  "$plugin_tmp/harness-engineering/skills/harness-doctor"
 
 echo "=== Documentation entrypoint check ==="
 grep -q "docs/evolution" README.md

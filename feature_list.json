@@ -293,9 +293,50 @@
         "feat-009",
         "feat-010"
       ],
-      "status": "next",
-      "verification": null,
-      "evidence": []
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test packages/harness-core/test/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-creator/*.test.mjs tests/harness-product/*.test.mjs",
+          "uv run --offline --with pyyaml python ${CODEX_HOME:-$HOME/.codex}/skills/.system/plugin-creator/scripts/validate_plugin.py <generated-plugin>",
+          "uv run --offline --with pyyaml python ${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py <generated-plugin>/skills/harness-creator",
+          "uv run --offline --with pyyaml python ${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py <generated-plugin>/skills/harness-doctor",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "All 107 shared-core, Doctor, Creator, packaging, and integration tests passed.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "Official plugin validation passed for the generated harness-engineering bundle.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "Official skill validation passed for the packaged Harness Creator.",
+          "verificationStep": 2
+        },
+        {
+          "status": "passed",
+          "summary": "Official skill validation passed for the packaged Harness Doctor.",
+          "verificationStep": 3
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh rebuilt the plugin and passed all repository and packaged-product checks.",
+          "verificationStep": 4
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors; packaged conventional, non-standard, conflict, resume, deterministic, and concurrent workflows passed.",
+          "verificationStep": 5
+        }
+      ]
     },
     {
       "id": "feat-012",
@@ -304,7 +345,7 @@
       "dependencies": [
         "feat-011"
       ],
-      "status": "not-started",
+      "status": "next",
       "verification": null,
       "evidence": []
     }

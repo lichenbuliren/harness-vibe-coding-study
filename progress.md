@@ -3,8 +3,8 @@
 ## Current State
 
 **Last Updated:** 2026-06-27 CST
-**Active Feature:** feat-011 - Harness Product Integration
-**Status:** feat-010 complete; feat-011 ready for integration design
+**Active Feature:** feat-012 - Harness Field Validation
+**Status:** feat-011 complete; feat-012 ready for experiment design
 
 ## What's Done
 
@@ -63,26 +63,32 @@
 - [x] Integrated Creator tests and official skill validation into `./init.sh`.
 - [x] Recorded the outcome in
   `docs/evolution/0008-harness-creator-skill.md`.
+- [x] Packaged Creator, Doctor, and one shared core as the deterministic
+  `harness-engineering` Codex plugin.
+- [x] Verified conventional Context completion, non-standard, conflict,
+  resume, deterministic, atomic-failure, and concurrent package workflows.
+- [x] Passed official plugin validation and both packaged skill validations.
+- [x] Recorded the outcome in
+  `docs/evolution/0009-harness-product-integration.md`.
 
 ## What's In Progress
 
-- [ ] Design the supported Creator-to-Doctor integration and distribution
-  shape.
+- [ ] Design representative before/after coding-agent field experiments
+  without conflating Readiness and Effectiveness.
 
 ## What's Next
 
-1. Define supported packaged skill layout without repository-relative runtime
-   dependencies.
-2. Add end-to-end fixtures from Creator plan/apply through Context completion
-   and Doctor verification.
-3. Validate conventional, non-standard, conflict, and resume workflows.
+1. Define controlled task pairs and Effectiveness measures.
+2. Run the same representative tasks without and with the packaged harness.
+3. Record limitations, observed effects, and whether any level-3 evidence is
+   justified.
 
 ## Blockers / Risks
 
 - `harness-creator` validation is structural. The 100/100 score means the harness is easy to inspect, not that the project methodology is fully proven.
 - `AGENTS.md` is now shorter and verified, but future generated overlays could reintroduce bulk if not kept behind the ADR boundary.
-- Doctor and Creator are implemented; product integration and field validation
-  remain.
+- Doctor, Creator, and plugin distribution are implemented; field validation
+  remains.
 - Readiness level 3 remains reserved until a later evidence provider can supply
   representative task evidence.
 - Fixture evidence proves contract consistency, not real-task Effectiveness.
@@ -131,6 +137,12 @@
   feature.
 - Inline completion review found and fixed one important conflict bug:
   non-operational existing destinations now block rather than skip.
+- Full product verification passed 107 tests.
+- The generated `harness-engineering` plugin passed official plugin validation;
+  both packaged skills passed official skill validation.
+- Packaged workflows moved a conventional fixture from `1/2/2/2/2` to
+  `2/2/2/2/2` only after project-owned Context completion; non-standard and
+  conflict paths behaved as specified.
 
 ## Notes for Next Session
 

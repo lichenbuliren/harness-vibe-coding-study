@@ -21,6 +21,7 @@
     ],
     "tools": [
       ".codex/config.toml",
+      "scripts/package-harness-plugin.mjs",
       "skills/harness-creator/SKILL.md",
       "skills/harness-creator/scripts/creator.mjs",
       "skills/harness-doctor/SKILL.md",
@@ -33,6 +34,7 @@
     ],
     "verify": [
       "node --test packages/harness-core/test/*.test.mjs",
+      "node --test tests/harness-product/*.test.mjs",
       "./init.sh"
     ]
   }

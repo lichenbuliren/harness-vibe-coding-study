@@ -2,11 +2,13 @@
 
 ## Current Objective
 
-- Goal: Integrate and package the verified Creator and Doctor products.
-- Current status: `feat-009` and `feat-010` are complete; `feat-011` is next.
-- Active feature: `feat-011` in `feature_list.json`.
-- Branch / commit: Current branch is `codex/harness-creator`; Creator
-  implementation follows the Doctor baseline on local `main`.
+- Goal: Validate whether the packaged harness improves representative
+  coding-agent task Effectiveness.
+- Current status: `feat-009`, `feat-010`, and `feat-011` are complete;
+  `feat-012` is next.
+- Active feature: `feat-012` in `feature_list.json`.
+- Branch / commit: Current branch is `codex/harness-product-integration`;
+  Creator and Doctor are merged into local `main`.
 
 ## Completed This Session
 
@@ -62,6 +64,13 @@
 - [x] Verified empty, partial, operational, non-standard, malformed, conflict,
   stale, and repeat workflows.
 - [x] Added `docs/evolution/0008-harness-creator-skill.md`.
+- [x] Added a deterministic non-overwriting `harness-engineering` plugin
+  packager.
+- [x] Packaged two skills with one shared core and no repository path leakage.
+- [x] Verified packaged conventional, Context completion, resume,
+  non-standard, conflict, atomic-failure, and concurrent workflows.
+- [x] Passed 107 tests plus official plugin and packaged-skill validation.
+- [x] Added `docs/evolution/0009-harness-product-integration.md`.
 
 ## Verification Evidence
 
@@ -94,6 +103,9 @@
 | Creator skill validation | `uv run --offline --with pyyaml python /Users/heaven/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/harness-creator` | Pass | Official validator returned `Skill is valid!`. |
 | Empty CLI product smoke | Creator plan/apply followed by Doctor JSON | Pass | Five non-destructive creates; Context task next; profile 1/2/1/2/2; Effectiveness not assessed. |
 | Creator integrated startup | `./init.sh` | Pass | Core 41, Doctor 25, Creator 29, both skill validators. |
+| Full product suite | `node --test packages/harness-core/test/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-creator/*.test.mjs tests/harness-product/*.test.mjs` | Pass | 107 tests, 0 failures. |
+| Packaged product validation | `./init.sh` | Pass | Generated plugin plus both packaged skills passed official validators. |
+| Packaged workflow | product integration suite | Pass | Conventional Context completion reached five level-2 subsystems; non-standard, conflict, resume, determinism, and concurrency passed. |
 
 ## Files Changed
 
@@ -121,7 +133,8 @@
 
 ## Blockers / Risks
 
-- Product distribution/integration and field validation are not implemented.
+- Product distribution/integration is complete; field validation is not
+  implemented.
 - Level 3 and Effectiveness remain unproven until representative task evidence
   is available.
 - Doctor implementation must not duplicate or rescore shared-core conclusions.
@@ -136,4 +149,4 @@
 4. Run `./init.sh`.
 5. Read `docs/evolution/0006-shared-harness-contract-core.md`.
 6. Read `docs/evolution/0008-harness-creator-skill.md`.
-7. Continue the single `next` feature, `feat-011`.
+7. Continue the single `next` feature, `feat-012`.

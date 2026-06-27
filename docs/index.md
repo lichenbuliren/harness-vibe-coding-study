@@ -19,6 +19,9 @@
   输出 canonical JSON、Text、Markdown 或安全的 standalone HTML。
 - [`../skills/harness-creator/`](../skills/harness-creator/)：plan-bound
   非破坏创建入口，默认用真实 feature 引导补齐项目 Context。
+- [`../scripts/package-harness-plugin.mjs`](../scripts/package-harness-plugin.mjs)：
+  将两个 skill 与唯一 shared core 确定性打包为 `harness-engineering`
+  Codex plugin。
 - [`workflows/harness-product-boundaries.md`](workflows/harness-product-boundaries.md)：
   shared core、creator、doctor 与项目事实的边界。
 
