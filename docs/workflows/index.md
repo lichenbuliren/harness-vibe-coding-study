@@ -3,3 +3,5 @@
 本目录存放按需阅读的工作流细节。根 `AGENTS.md` 只保留启动必须读的操作合同。
 
 - [`omx-runtime.md`](omx-runtime.md)：OMX runtime、routing、team mode 和生成模型表的参考材料。
+- [`harness-product-boundaries.md`](harness-product-boundaries.md)：未来
+  creator/doctor 的 shared core、产品专属能力和项目事实边界。

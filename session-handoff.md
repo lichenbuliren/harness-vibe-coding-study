@@ -2,10 +2,10 @@
 
 ## Current Objective
 
-- Goal: Review the boundary between reusable harness product artifacts and project-specific learning evidence.
-- Current status: `feat-003` is complete and verified; `feat-005` is next.
-- Active feature: `feat-005` in `feature_list.json`.
-- Branch / commit: Current branch is `main`; pre-context baseline is commit `fb3a358`.
+- Goal: Implement the shared contract core for the future creator and doctor.
+- Current status: `feat-005` is complete and verified; `feat-008` is next.
+- Active feature: `feat-008` in `feature_list.json`.
+- Branch / commit: Current branch is `codex/template-boundary-review`; design baseline is commit `1ea6f5a`.
 
 ## Completed This Session
 
@@ -30,6 +30,10 @@
 - [x] Unified the original creator taxonomy under the five-subsystem model.
 - [x] Defined creator and doctor as two entrypoints over one shared core.
 - [x] Added evolution record 0004 for the context restoration outcome.
+- [x] Classified every existing creator template and script by product boundary.
+- [x] Published the durable harness product boundary reference.
+- [x] Accepted ADR 0002 for a contract-first shared core.
+- [x] Added features 008-012 as the path from shared core to field validation.
 
 ## Verification Evidence
 
@@ -47,6 +51,9 @@
 | Summary rewrite startup check | `./init.sh` | Pass | Repository structure and feature tracker passed. |
 | Context structure | `rg '^## ' CONTEXT.md` | Pass | Six durable context sections in dependency order. |
 | Context restoration startup check | `./init.sh` | Pass | Repository structure and feature tracker passed. |
+| Boundary reference structure | heading and asset-matrix checks | Pass | Shared, creator, doctor, and project-owned boundaries are explicit. |
+| Product roadmap invariants | Node dependency/status check | Pass | Exactly one next feature, `feat-008`; all dependencies resolve. |
+| Boundary review startup check | `./init.sh` | Pass | Repository structure and feature tracker passed. |
 
 ## Files Changed
 
@@ -64,6 +71,9 @@
 - `docs/learning-harness-summary.md`
 - `docs/evolution/0003-learning-harness-summary-compression.md`
 - `docs/evolution/0004-project-context-restoration.md`
+- `docs/evolution/0005-template-boundary-review.md`
+- `docs/workflows/harness-product-boundaries.md`
+- `docs/adr/0002-adopt-contract-first-harness-core.md`
 - `docs/superpowers/specs/2026-06-27-learning-harness-summary-compression-design.md`
 - `docs/superpowers/plans/2026-06-27-learning-harness-summary-compression.md`
 - `README.md`
@@ -72,6 +82,7 @@
 ## Blockers / Risks
 
 - The shared creator/doctor schema, scripts, fixtures, and skill entrypoints are not implemented.
+- `feat-008` needs its own implementation spec before shared-core files are created.
 - The template project's generated handoff said "Not a git repository"; do not copy generated facts without checking local reality.
 - Future generated overlays could reintroduce root `AGENTS.md` bulk; keep ADR 0001 as the boundary.
 
@@ -81,5 +92,5 @@
 2. Read `feature_list.json`.
 3. Read `progress.md`.
 4. Run `./init.sh`.
-5. Continue `feat-005 - Template Boundary Review`.
+5. Continue `feat-008 - Shared Harness Contract Core`.
 5. Continue with the first `next` or `in-progress` feature.

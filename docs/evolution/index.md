@@ -35,3 +35,5 @@
   将长研究笔记压缩为五子系统模型和一条执行生命周期。
 - [`0004-project-context-restoration.md`](0004-project-context-restoration.md)：
   补齐长期项目上下文，并统一 creator/doctor 的理论与产品边界。
+- [`0005-template-boundary-review.md`](0005-template-boundary-review.md)：
+  划分 shared core、creator、doctor 与项目事实的可复用边界。

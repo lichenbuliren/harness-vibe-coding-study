@@ -46,8 +46,8 @@
         "feat-003",
         "feat-004"
       ],
-      "status": "next",
-      "evidence": ""
+      "status": "done",
+      "evidence": "2026-06-27: Published docs/workflows/harness-product-boundaries.md and ADR 0002 for the contract-first shared core, classified reusable versus project-owned assets, and verified the repository with ./init.sh."
     },
     {
       "id": "feat-006",
@@ -68,6 +68,58 @@
       ],
       "status": "done",
       "evidence": "2026-06-27: Rewrote docs/learning-harness-summary.md from 1063 to 318 lines with seven numbered sections, one five-subsystem model, one execution lifecycle, repository mapping, and successful structural validation plus ./init.sh."
+    },
+    {
+      "id": "feat-008",
+      "name": "Shared Harness Contract Core",
+      "description": "Implement canonical schemas, capability rules, deterministic readiness inspection, and fixture contract tests.",
+      "dependencies": [
+        "feat-005"
+      ],
+      "status": "next",
+      "evidence": ""
+    },
+    {
+      "id": "feat-009",
+      "name": "Harness Doctor Skill",
+      "description": "Build the read-only doctor entrypoint over the shared core with canonical JSON and human-readable reports.",
+      "dependencies": [
+        "feat-008"
+      ],
+      "status": "not-started",
+      "evidence": ""
+    },
+    {
+      "id": "feat-010",
+      "name": "Harness Creator Skill",
+      "description": "Build the non-destructive creator entrypoint with conditional context restoration and check-first initialization.",
+      "dependencies": [
+        "feat-008",
+        "feat-009"
+      ],
+      "status": "not-started",
+      "evidence": ""
+    },
+    {
+      "id": "feat-011",
+      "name": "Harness Product Integration",
+      "description": "Validate creator-to-doctor workflows across supported fixtures and non-standard project shapes.",
+      "dependencies": [
+        "feat-009",
+        "feat-010"
+      ],
+      "status": "not-started",
+      "evidence": ""
+    },
+    {
+      "id": "feat-012",
+      "name": "Harness Field Validation",
+      "description": "Run representative before-and-after coding-agent tasks and evaluate effectiveness without conflating it with readiness.",
+      "dependencies": [
+        "feat-011"
+      ],
+      "status": "not-started",
+      "evidence": ""
     }
   ]
 }
