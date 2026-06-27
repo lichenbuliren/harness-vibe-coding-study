@@ -50,7 +50,7 @@
 - Create: `packages/harness-core/rules/capabilities.json`
 - Create: `packages/harness-core/test/contracts.test.mjs`
 
-- [ ] **Step 1: Write the failing contract test**
+- [x] **Step 1: Write the failing contract test**
 
 The test loads every JSON asset, asserts Schema 2020-12, locks the canonical
 subsystem order, rejects the obsolete subsystem names, and checks that the
@@ -71,7 +71,7 @@ test('contracts use the canonical model', async () => {
 });
 ```
 
-- [ ] **Step 2: Run the test and verify RED**
+- [x] **Step 2: Run the test and verify RED**
 
 Run:
 
@@ -81,7 +81,7 @@ node --test packages/harness-core/test/contracts.test.mjs
 
 Expected: FAIL because the package contracts do not exist.
 
-- [ ] **Step 3: Add the package and schemas**
+- [x] **Step 3: Add the package and schemas**
 
 Use a private ESM package with no dependencies:
 
@@ -146,7 +146,7 @@ Define assessment subsystem entries as
 `{level, label, evidence, gaps, unknowns}` where level is `0..3` or `null`.
 Require `effectiveness.status = "not-assessed"` in Readiness mode.
 
-- [ ] **Step 4: Add declarative rules**
+- [x] **Step 4: Add declarative rules**
 
 Use stable rule IDs and conventional paths. Each subsystem declares its
 `presentAny`, `operationalAll`, and recommendation. Include `AGENTS.md`,
@@ -154,7 +154,7 @@ Use stable rule IDs and conventional paths. Each subsystem declares its
 `init.sh`, feature/progress artifacts, CI paths, and package test scripts.
 Do not include prose keyword rules or a numeric weight.
 
-- [ ] **Step 5: Run the contract test and verify GREEN**
+- [x] **Step 5: Run the contract test and verify GREEN**
 
 Run:
 
@@ -164,7 +164,7 @@ node --test packages/harness-core/test/contracts.test.mjs
 
 Expected: PASS.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add packages/harness-core
