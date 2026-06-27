@@ -2,9 +2,9 @@
 
 ## Current State
 
-**Last Updated:** 2026-06-13 18:03 CST  
+**Last Updated:** 2026-06-27 CST
 **Active Feature:** feat-003 - Project Context Restoration  
-**Status:** feat-006 complete; feat-003 next
+**Status:** feat-007 complete; feat-003 next
 
 ## What's Done
 
@@ -23,6 +23,10 @@
 - [x] Added `docs/workflows/omx-runtime.md`.
 - [x] Ran `./init.sh` successfully after slimming.
 - [x] Ran `harness-creator` validation successfully after slimming with overall score 100/100.
+- [x] Compressed `docs/learning-harness-summary.md` from 1063 lines to 318 lines.
+- [x] Reorganized the summary around five harness subsystems and one execution lifecycle.
+- [x] Removed repeated examples, unsupported precision, and accidental example headings.
+- [x] Added `docs/evolution/0003-learning-harness-summary-compression.md`.
 
 ## What's In Progress
 
@@ -47,6 +51,9 @@
 - `node /Users/heaven/.agents/skills/harness-creator/scripts/validate-harness.mjs --target /Users/heaven/Projects/harness-vibe-coding-study --json` returned overall score 100 after lifecycle migration.
 - `./init.sh` passed after `AGENTS.md` slimming.
 - `node /Users/heaven/.agents/skills/harness-creator/scripts/validate-harness.mjs --target /Users/heaven/Projects/harness-vibe-coding-study --json` returned overall score 100 after `AGENTS.md` slimming.
+- `docs/learning-harness-summary.md` contains 318 lines and exactly seven numbered top-level sections.
+- Markdown fence validation returned an even count of 22.
+- `git diff --check` and `./init.sh` passed after the summary rewrite.
 
 ## Notes for Next Session
 

@@ -58,6 +58,16 @@
       ],
       "status": "done",
       "evidence": "2026-06-13: Slimmed AGENTS.md from 249 lines to 111 lines, moved OMX reference material to docs/workflows/omx-runtime.md, added docs/adr/0001-keep-agents-md-as-root-operating-contract.md, updated CONTEXT.md terminology, and verified with ./init.sh plus harness-creator validate-harness 100/100."
+    },
+    {
+      "id": "feat-007",
+      "name": "Learning Harness Summary Compression",
+      "description": "Compress the long learning-harness research note into a concise five-subsystem methodology and execution lifecycle.",
+      "dependencies": [
+        "feat-006"
+      ],
+      "status": "done",
+      "evidence": "2026-06-27: Rewrote docs/learning-harness-summary.md from 1063 to 318 lines with seven numbered sections, one five-subsystem model, one execution lifecycle, repository mapping, and successful structural validation plus ./init.sh."
     }
   ]
 }

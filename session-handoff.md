@@ -3,9 +3,9 @@
 ## Current Objective
 
 - Goal: Restore durable project context after completing the root contract slimming.
-- Current status: `feat-006` is complete and verified; `feat-003` is next.
+- Current status: `feat-007` is complete and verified; `feat-003` is next.
 - Active feature: `feat-003` in `feature_list.json`.
-- Branch / commit: Current branch contains `ba1544b Document project review entrypoint` as the latest committed baseline before lifecycle migration.
+- Branch / commit: Current branch is `feat-mini-harness`; design baseline is commit `b3654cd`.
 
 ## Completed This Session
 
@@ -22,6 +22,10 @@
 - [x] Added `docs/workflows/omx-runtime.md`.
 - [x] Verified slimmed contract with `./init.sh`.
 - [x] Verified slimmed contract with `harness-creator` overall score 100/100.
+- [x] Rewrote `docs/learning-harness-summary.md` from 1063 lines to 318 lines.
+- [x] Consolidated twelve repetitive chapters into seven sections.
+- [x] Preserved the five-subsystem model, execution lifecycle, reusable examples, and repository mapping.
+- [x] Added evolution record 0003 for the compression outcome.
 
 ## Verification Evidence
 
@@ -33,6 +37,10 @@
 | Post-migration harness audit | `node /Users/heaven/.agents/skills/harness-creator/scripts/validate-harness.mjs --target /Users/heaven/Projects/harness-vibe-coding-study --json` | Pass | Overall 100/100. |
 | Contract slimming startup check | `./init.sh` | Pass | Required paths, feature tracker JSON, and documentation entrypoints passed. |
 | Contract slimming harness audit | `node /Users/heaven/.agents/skills/harness-creator/scripts/validate-harness.mjs --target /Users/heaven/Projects/harness-vibe-coding-study --json` | Pass | Overall 100/100. |
+| Summary line count | `wc -l docs/learning-harness-summary.md` | Pass | 318 lines; target was 250-350. |
+| Summary outline | `rg '^## [1-7]\.' docs/learning-harness-summary.md` | Pass | Exactly seven numbered sections in order. |
+| Markdown fences | `awk '/^```/{count++} END{print count}' docs/learning-harness-summary.md` | Pass | Even count of 22. |
+| Summary rewrite startup check | `./init.sh` | Pass | Repository structure and feature tracker passed. |
 
 ## Files Changed
 
@@ -47,6 +55,10 @@
 - `docs/adr/index.md`
 - `docs/workflows/index.md`
 - `docs/workflows/omx-runtime.md`
+- `docs/learning-harness-summary.md`
+- `docs/evolution/0003-learning-harness-summary-compression.md`
+- `docs/superpowers/specs/2026-06-27-learning-harness-summary-compression-design.md`
+- `docs/superpowers/plans/2026-06-27-learning-harness-summary-compression.md`
 - `README.md`
 - `docs/index.md`
 
