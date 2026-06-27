@@ -4,6 +4,8 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
+import * as harnessCore from '../src/index.mjs';
+
 const packageRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   '..'
@@ -99,4 +101,10 @@ test('manifest contract exposes capability declarations without claims', async (
     'verify'
   ]);
   assert.equal(Object.hasOwn(schema.properties, 'score'), false);
+});
+
+test('public API exposes bounded path safety for creator writes', () => {
+  assert.equal(typeof harnessCore.normalizeDeclaredPath, 'function');
+  assert.equal(typeof harnessCore.statSafePath, 'function');
+  assert.equal(typeof harnessCore.readBoundedFile, 'function');
 });

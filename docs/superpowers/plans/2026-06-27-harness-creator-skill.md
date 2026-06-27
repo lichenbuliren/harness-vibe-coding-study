@@ -24,13 +24,13 @@ Codex skill metadata, offline `uv` validation
 - Create: `skills/harness-creator/SKILL.md`
 - Create: `skills/harness-creator/agents/openai.yaml`
 
-- [ ] Write RED tests for public path-safety exports and the minimal skill.
-- [ ] Scaffold with official `init_skill.py`.
-- [ ] Export existing path-safety functions without changing their behavior.
-- [ ] Write a concise workflow: plan, present, apply by plan ID, run Doctor,
+- [x] Write RED tests for public path-safety exports and the minimal skill.
+- [x] Scaffold with official `init_skill.py`.
+- [x] Export existing path-safety functions without changing their behavior.
+- [x] Write a concise workflow: plan, present, apply by plan ID, run Doctor,
   never invent context facts.
-- [ ] Pass core contracts, skill contracts, and official quick validation.
-- [ ] Commit `feat: define harness creator contracts`.
+- [x] Pass core contracts, skill contracts, and official quick validation.
+- [x] Commit `feat: define harness creator contracts`.
 
 ## Task 2: Render Minimal Project-Agnostic Artifacts
 
