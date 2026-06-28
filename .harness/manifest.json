@@ -26,7 +26,10 @@
       "skills/harness-creator/SKILL.md",
       "skills/harness-creator/scripts/creator.mjs",
       "skills/harness-doctor/SKILL.md",
-      "skills/harness-doctor/scripts/doctor.mjs"
+      "skills/harness-doctor/scripts/doctor.mjs",
+      "skills/harness-archiver/SKILL.md",
+      "skills/harness-archiver/scripts/archiver.mjs",
+      "packages/harness-core/bin/branch-lease.mjs"
     ]
   },
   "commands": {

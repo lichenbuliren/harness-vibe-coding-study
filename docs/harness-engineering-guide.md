@@ -3,10 +3,11 @@
 `harness-engineering` 是一个 Codex plugin，用于为 coding-agent 项目创建或改进
 最小、可恢复的 harness，并诊断项目是否具备可发现、可执行的结构。
 
-它包含两个入口：
+它包含三个入口：
 
 - Creator：先生成非破坏性计划，再按确认过的计划创建或合并 harness 工件。
 - Doctor：只读检查 Instructions、Tools、Environment、State 和 Feedback。
+- Archiver：仅在用户主动、显式请求后关闭已完成阶段并压缩当前状态。
 
 ## 当前分发边界
 
@@ -104,6 +105,49 @@ $harness-engineering:harness-doctor
 
 Doctor 保持只读。需要修复时，将诊断结果交回 Creator，不要让 Doctor 静默修改
 项目。
+
+### 6. 用户主动归档已完成阶段
+
+确认全部 feature 已为 `done` 且具有 passing evidence，并准备对应的
+`docs/evolution/*.md` 后，显式调用：
+
+```text
+$harness-engineering:harness-archiver
+```
+
+Archiver 先展示只读 plan；用户接受后才 apply。它不会自动归档，也不会替项目提交
+Git。归档快照位于 `docs/evolution/snapshots/<stageId>/`，
+`.harness/baseline` 指向最新 Stage Baseline。
+
+## Stage Baseline 与状态保留
+
+`feature_list.json` 和 `progress.md` 只保存当前工作集。完成阶段的原始状态、进度和
+`stage.json` 进入不可变快照。`stageId` 是阶段闭包 SHA-256 摘要的稳定前缀；
+闭包包含 canonical feature JSON、原始 progress 字节、前一 baseline 和 evolution
+路径，不使用用户名、机器路径或随机序号。
+
+每个 feature 的 `branch` 记录工作分支。历史迁移的已完成 feature 可以使用
+`null`，未完成 feature 必须使用有效 Git branch。
+
+## One branch, one writer thread
+
+同一个 Git branch 同时只允许一个 writer thread。lease 存在 Git common dir，
+不会提交到仓库，也不会自动过期。操作语义依次是 `branch-lease claim`、
+`branch-lease check` 和 `branch-lease release`：
+
+```bash
+CODEX_THREAD_ID="$CODEX_THREAD_ID" \
+  node packages/harness-core/bin/branch-lease.mjs claim \
+  --target . --feature-id <feature-id>
+CODEX_THREAD_ID="$CODEX_THREAD_ID" \
+  node packages/harness-core/bin/branch-lease.mjs check --target .
+CODEX_THREAD_ID="$CODEX_THREAD_ID" \
+  node packages/harness-core/bin/branch-lease.mjs release \
+  --target . --lease-id <lease-id>
+```
+
+foreign owner 默认 block 且不改文件。优先 handoff 或换 worktree/branch；必须
+takeover 时，先生成并核对绑定当前 lease digest 的 takeover plan。
 
 ## Creator 工作方式
 
@@ -234,7 +278,8 @@ node scripts/install-harness-plugin.mjs
 源码与产物边界：
 
 - `packages/harness-core/`：共享判断逻辑的可编辑源码；
-- `skills/harness-creator/`、`skills/harness-doctor/`：skill 可编辑源码；
+- `skills/harness-creator/`、`skills/harness-doctor/`、
+  `skills/harness-archiver/`：skill 可编辑源码；
 - `plugins/harness-engineering/`：可删除、可重新生成的 plugin 产物；
 - `~/.codex/plugins/cache/`：Codex 管理的安装 cache。
 
@@ -266,6 +311,7 @@ codex plugin marketplace remove harness-engineering-local
 ```text
 $harness-engineering:harness-creator
 $harness-engineering:harness-doctor
+$harness-engineering:harness-archiver
 ```
 
 然后检查：

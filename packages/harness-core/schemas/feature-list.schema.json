@@ -11,7 +11,7 @@
   ],
   "properties": {
     "schemaVersion": {
-      "const": "1.0.0"
+      "const": "1.1.0"
     },
     "mode": {
       "type": "string",
@@ -88,6 +88,7 @@
         "id",
         "name",
         "behavior",
+        "branch",
         "dependencies",
         "status",
         "verification",
@@ -103,6 +104,17 @@
         },
         "behavior": {
           "$ref": "#/$defs/nonEmptyString"
+        },
+        "branch": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "minLength": 1
+            }
+          ]
         },
         "dependencies": {
           "type": "array",
@@ -137,7 +149,28 @@
             "$ref": "#/$defs/evidence"
           }
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "not": {
+                  "const": "done"
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "branch": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
     }
   }
 }

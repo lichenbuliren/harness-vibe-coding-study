@@ -1,7 +1,9 @@
 import { createHash } from 'node:crypto';
 
 import {
+  discoverGitWorkspace,
   inspectHarness,
+  readBranchLease,
   readBoundedFile,
   statSafePath,
   validateFeatureState
@@ -311,7 +313,8 @@ async function planExistingOrCreate({
 export async function createPlan({
   root,
   agentFile = 'AGENTS.md',
-  withHandoff = false
+  withHandoff = false,
+  threadId = process.env.CODEX_THREAD_ID
 }) {
   if (!['AGENTS.md', 'CLAUDE.md'].includes(agentFile)) {
     throw new Error('agentFile must be AGENTS.md or CLAUDE.md.');
@@ -427,6 +430,42 @@ export async function createPlan({
   }
 
   actions.sort((left, right) => compareText(left.path, right.path));
+  let git = null;
+  let lease = {status: 'not-managed'};
+  const gitMarker = await statSafePath(root, '.git');
+  if (gitMarker.ok || gitMarker.reason === 'not-file') {
+    try {
+      const workspace = await discoverGitWorkspace(root);
+      git = {
+        branch: workspace.branch.replace(/^refs\/heads\//u, ''),
+        head: workspace.head
+      };
+      const observed = await readBranchLease({
+        root,
+        threadId: threadId ?? '__unidentified-thread__'
+      });
+      lease = observed.status === 'foreign'
+        ? {
+          status: 'foreign',
+          ownerThread: observed.lease.threadId,
+          featureId: observed.lease.featureId
+        }
+        : {status: observed.status};
+    } catch (error) {
+      lease = {status: 'unavailable', reason: error.code ?? error.message};
+    }
+  }
+  if (lease.status === 'foreign') {
+    for (let index = 0; index < actions.length; index += 1) {
+      if (actions[index].operation !== 'skip') {
+        actions[index] = {
+          ...actions[index],
+          operation: 'block',
+          reason: `Another thread (${lease.ownerThread}) owns this branch; no files may change.`
+        };
+      }
+    }
+  }
   const payload = {
     schemaVersion: '1.0.0',
     target: '.',
@@ -435,6 +474,8 @@ export async function createPlan({
       agentFile,
       withHandoff
     },
+    git,
+    lease,
     actions
   };
 

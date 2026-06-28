@@ -15,8 +15,10 @@ import {
   createPlan
 } from '../../skills/harness-creator/scripts/planner.mjs';
 import {
+  claimBranchLease,
   validateFeatureState
 } from '../../packages/harness-core/src/index.mjs';
+import { fixture as archiveFixture } from '../harness-archiver/helpers.mjs';
 
 const repositoryRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -203,4 +205,26 @@ test('planner uses one shared-core inspection and no write API', async () => {
 
   assert.equal((source.match(/await inspectHarness\(/g) ?? []).length, 1);
   assert.doesNotMatch(source, /writeFile|appendFile|copyFile|rename|mkdir/);
+});
+
+test('foreign branch ownership blocks every Creator write', async () => {
+  const root = await archiveFixture();
+  await claimBranchLease({
+    root,
+    featureId: 'feat-foreign',
+    threadId: 'thread-a'
+  });
+
+  const plan = await createPlan({root, threadId: 'thread-b'});
+
+  assert.equal(plan.lease.status, 'foreign');
+  assert.equal(
+    plan.actions.filter((item) => item.operation !== 'skip')
+      .every((item) => item.operation === 'block'),
+    true
+  );
+  assert.match(
+    plan.actions.find((item) => item.operation === 'block').reason,
+    /another thread/i
+  );
 });

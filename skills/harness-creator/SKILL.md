@@ -37,6 +37,10 @@ node scripts/creator.mjs apply \
 Repeat every option used during planning. Never invent a `planId`, add
 overwrite behavior, or bypass a blocked plan.
 
+Respect one branch/one writer thread. A foreign branch lease blocks every
+Creator mutation. Apply may claim a missing lease temporarily and must release
+only that temporary lease; preserve a lease already owned by this thread.
+
 Report each `created`, `merged`, `skipped`, or `blocked` result. Then run
 `harness-doctor` against the target and explain the before/after Readiness
 profile without claiming Effectiveness.

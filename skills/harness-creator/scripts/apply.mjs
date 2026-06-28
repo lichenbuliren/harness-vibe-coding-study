@@ -9,8 +9,10 @@ import {
 import path from 'node:path';
 
 import {
+  claimBranchLease,
   inspectHarness,
   readBoundedFile,
+  releaseBranchLease,
   resolveSafeWritePath,
   statSafePath,
   validateFeatureState
@@ -111,9 +113,10 @@ export async function applyPlan({
   root,
   planId,
   agentFile = 'AGENTS.md',
-  withHandoff = false
+  withHandoff = false,
+  threadId = process.env.CODEX_THREAD_ID
 }) {
-  const plan = await createPlan({root, agentFile, withHandoff});
+  const plan = await createPlan({root, agentFile, withHandoff, threadId});
   if (plan.planId !== planId) {
     throw creatorError(
       'STALE_PLAN',
@@ -132,6 +135,21 @@ export async function applyPlan({
     await preflightAction(root, action);
   }
 
+  let temporaryLease = null;
+  if (plan.git !== null && plan.lease.status === 'missing') {
+    const claimed = await claimBranchLease({
+      root,
+      featureId: 'harness-creator',
+      threadId
+    });
+    if (claimed.status === 'blocked') {
+      throw creatorError(
+        'BLOCKED_PLAN',
+        'Another thread claimed the branch before apply; no files changed.'
+      );
+    }
+    if (claimed.status === 'claimed') temporaryLease = claimed.lease;
+  }
   const createdPaths = [];
   const mergedFiles = [];
   try {
@@ -208,5 +226,13 @@ export async function applyPlan({
   } catch (error) {
     await rollback(root, createdPaths, mergedFiles);
     throw error;
+  } finally {
+    if (temporaryLease !== null) {
+      await releaseBranchLease({
+        root,
+        threadId,
+        leaseId: temporaryLease.leaseId
+      });
+    }
   }
 }

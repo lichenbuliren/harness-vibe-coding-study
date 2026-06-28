@@ -31,17 +31,20 @@ test('agent instructions route startup, state, verification, and context', () =>
   assert.equal(output.endsWith('\n'), true);
 });
 
-test('new feature state contains only the real context restoration task', () => {
-  const document = JSON.parse(renderFeatureState());
+test('new feature state contains one branch-owned context restoration task', () => {
+  const document = JSON.parse(renderFeatureState({
+    branch: 'codex/restore-context'
+  }));
 
   assert.equal(validateFeatureState(document).valid, true);
-  assert.equal(document.schemaVersion, '1.0.0');
+  assert.equal(document.schemaVersion, '1.1.0');
   assert.equal(document.mode, 'serial');
   assert.equal(document.features.length, 1);
   assert.deepEqual(document.features[0], {
     id: 'harness-context-restoration',
     name: 'Project Context Restoration',
     behavior: 'Complete project-owned mission, scope, canonical language, product or architecture boundaries, evidence status, and restart assumptions in CONTEXT.md or a declared equivalent.',
+    branch: 'codex/restore-context',
     dependencies: [],
     status: 'next',
     verification: {

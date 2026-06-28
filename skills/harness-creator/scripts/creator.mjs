@@ -152,7 +152,8 @@ async function main() {
     const sharedOptions = {
       root: options.target,
       agentFile: options.agentFile,
-      withHandoff: options.withHandoff
+      withHandoff: options.withHandoff,
+      threadId: process.env.CODEX_THREAD_ID
     };
     const value = options.command === 'plan'
       ? await createPlan(sharedOptions)

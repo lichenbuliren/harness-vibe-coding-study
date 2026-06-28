@@ -16,19 +16,29 @@ import {
 
 const expectedFiles = [
   '.codex-plugin/plugin.json',
+  'runtime/harness-core/bin/branch-lease.mjs',
   'runtime/harness-core/bin/inspect-harness.mjs',
   'runtime/harness-core/package.json',
   'runtime/harness-core/rules/capabilities.json',
   'runtime/harness-core/schemas/assessment.schema.json',
   'runtime/harness-core/schemas/feature-list.schema.json',
   'runtime/harness-core/schemas/harness-manifest.schema.json',
+  'runtime/harness-core/schemas/stage.schema.json',
   'runtime/harness-core/src/assess.mjs',
+  'runtime/harness-core/src/branch-lease.mjs',
   'runtime/harness-core/src/constants.mjs',
   'runtime/harness-core/src/discovery.mjs',
   'runtime/harness-core/src/feature-state.mjs',
   'runtime/harness-core/src/index.mjs',
   'runtime/harness-core/src/manifest.mjs',
   'runtime/harness-core/src/path-safety.mjs',
+  'runtime/harness-core/src/stage-archive.mjs',
+  'skills/harness-archiver/agents/openai.yaml',
+  'skills/harness-archiver/scripts/apply.mjs',
+  'skills/harness-archiver/scripts/archiver.mjs',
+  'skills/harness-archiver/scripts/planner.mjs',
+  'skills/harness-archiver/scripts/renderers.mjs',
+  'skills/harness-archiver/SKILL.md',
   'skills/harness-creator/agents/openai.yaml',
   'skills/harness-creator/scripts/apply.mjs',
   'skills/harness-creator/scripts/creator.mjs',
@@ -58,7 +68,7 @@ test('packages one exact source-closed product graph', async () => {
   assert.equal(
     result.files.filter((file) =>
       file.path.startsWith('runtime/harness-core/')).length,
-    13
+    17
   );
   assert.equal(
     result.files.some((file) =>
@@ -105,7 +115,9 @@ test('only packaged command entrypoints are executable', async () => {
     }
   }
   assert.deepEqual(executable, [
+    'runtime/harness-core/bin/branch-lease.mjs',
     'runtime/harness-core/bin/inspect-harness.mjs',
+    'skills/harness-archiver/scripts/archiver.mjs',
     'skills/harness-creator/scripts/creator.mjs',
     'skills/harness-doctor/scripts/doctor.mjs'
   ]);

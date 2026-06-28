@@ -32,6 +32,8 @@ required_paths=(
   "skills/harness-creator/scripts/creator.mjs"
   "skills/harness-doctor/SKILL.md"
   "skills/harness-doctor/scripts/doctor.mjs"
+  "skills/harness-archiver/SKILL.md"
+  "skills/harness-archiver/scripts/archiver.mjs"
 )
 
 echo "=== Required path check ==="
@@ -44,7 +46,7 @@ for path in "${required_paths[@]}"; do
 done
 
 echo "=== Feature tracker JSON check ==="
-node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync('feature_list.json','utf8')); if (data.schemaVersion !== '1.0.0') throw new Error('feature_list.json must use schemaVersion 1.0.0'); if (!['serial','parallel'].includes(data.mode)) throw new Error('feature_list.json mode must be serial or parallel'); if (!Array.isArray(data.features) || data.features.length === 0) throw new Error('feature_list.json must contain a non-empty features array'); for (const feature of data.features) { for (const key of ['id','name','behavior','dependencies','status','verification','evidence']) { if (!(key in feature)) throw new Error('feature missing key '+key+': '+JSON.stringify(feature)); } if (!Array.isArray(feature.dependencies)) throw new Error('feature dependencies must be an array: '+feature.id); if (!Array.isArray(feature.evidence)) throw new Error('feature evidence must be an array: '+feature.id); }"
+node --input-type=module -e "import fs from 'node:fs'; import {validateFeatureState} from './packages/harness-core/src/index.mjs'; const data=JSON.parse(fs.readFileSync('feature_list.json','utf8')); const result=validateFeatureState(data); if (!result.valid) throw new Error('feature_list.json is invalid: '+JSON.stringify(result.findings));"
 
 echo "=== Shared harness core check ==="
 node --test packages/harness-core/test/*.test.mjs
@@ -67,6 +69,7 @@ node skills/harness-creator/scripts/creator.mjs \
   plan --target . --format json >/dev/null
 
 echo "=== Harness Product check ==="
+node --test tests/harness-archiver/*.test.mjs
 node --test tests/harness-product/*.test.mjs
 node scripts/verify-harness-plugin-install.mjs
 plugin_tmp="$(mktemp -d)"
@@ -82,6 +85,9 @@ uv run --offline --with pyyaml python \
 uv run --offline --with pyyaml python \
   "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" \
   "$plugin_tmp/harness-engineering/skills/harness-doctor"
+uv run --offline --with pyyaml python \
+  "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" \
+  "$plugin_tmp/harness-engineering/skills/harness-archiver"
 
 echo "=== Harness Field Validation check ==="
 node --test tests/field-validation/*.test.mjs

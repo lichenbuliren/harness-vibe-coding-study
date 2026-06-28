@@ -28,21 +28,21 @@ const repositoryRoot = path.resolve(
 const pluginManifest = {
   name: PLUGIN_NAME,
   version: '0.1.0',
-  description: 'Create and diagnose restartable coding-agent harnesses.',
+  description: 'Create, diagnose, and archive restartable coding-agent harnesses.',
   author: {
     name: 'Harness Vibe Coding Study'
   },
   skills: './skills/',
   interface: {
     displayName: 'Harness Engineering',
-    shortDescription: 'Create and diagnose coding-agent harnesses.',
+    shortDescription: 'Create, diagnose, and archive agent harnesses.',
     longDescription:
-      'Plan safe harness changes and diagnose readiness with one shared contract core.',
+      'Plan safe harness changes, diagnose readiness, and archive completed stages with one shared contract core.',
     developerName: 'Harness Vibe Coding Study',
     category: 'Developer Tools',
     capabilities: ['Read', 'Write'],
     defaultPrompt:
-      'Inspect this project, propose safe harness changes, then diagnose readiness.'
+      'Inspect this project, propose safe harness changes, diagnose readiness, and archive completed stages on request.'
   }
 };
 
@@ -121,7 +121,11 @@ async function listFiles(root, relative = '') {
 }
 
 async function rewriteSkillImports(pluginRoot) {
-  for (const skill of ['harness-creator', 'harness-doctor']) {
+  for (const skill of [
+    'harness-creator',
+    'harness-doctor',
+    'harness-archiver'
+  ]) {
     const scriptsRoot = path.join(pluginRoot, 'skills', skill, 'scripts');
     for (const relative of await listFiles(scriptsRoot)) {
       const filePath = path.join(scriptsRoot, relative);
@@ -231,6 +235,8 @@ async function validateBundle(pluginRoot, sourceRoot) {
     'skills/harness-creator/scripts/creator.mjs',
     'skills/harness-doctor/SKILL.md',
     'skills/harness-doctor/scripts/doctor.mjs',
+    'skills/harness-archiver/SKILL.md',
+    'skills/harness-archiver/scripts/archiver.mjs',
     'runtime/harness-core/package.json',
     'runtime/harness-core/src/index.mjs',
     'runtime/harness-core/rules/capabilities.json',
@@ -279,7 +285,11 @@ async function buildBundle(stageRoot, sourceRoot) {
     `${JSON.stringify(pluginManifest, null, 2)}\n`
   );
   await mkdir(path.join(stageRoot, 'skills'), {recursive: true});
-  for (const skill of ['harness-creator', 'harness-doctor']) {
+  for (const skill of [
+    'harness-creator',
+    'harness-doctor',
+    'harness-archiver'
+  ]) {
     await cp(
       path.join(sourceRoot, 'skills', skill),
       path.join(stageRoot, 'skills', skill),
@@ -306,6 +316,10 @@ async function buildBundle(stageRoot, sourceRoot) {
   );
   await chmod(
     path.join(stageRoot, 'skills', 'harness-doctor', 'scripts', 'doctor.mjs'),
+    0o755
+  );
+  await chmod(
+    path.join(stageRoot, 'skills', 'harness-archiver', 'scripts', 'archiver.mjs'),
     0o755
   );
 }

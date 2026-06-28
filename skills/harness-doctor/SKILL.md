@@ -32,6 +32,10 @@ readiness, not whether agents produce good outcomes.
 
 ## Keep The Boundary
 
+Report lifecycle observations separately from Readiness: archive eligibility,
+baseline integrity, feature branch alignment, and cooperative branch ownership.
+Recommend `harness-archiver` only after an explicit user archive request.
+
 Remain read-only. Do not create, rewrite, or delete target files. If the user
 asks to repair findings, hand the assessment to `harness-creator`; do not
-silently turn diagnosis into mutation.
+silently turn diagnosis into mutation. Never acquire a lease or archive work.

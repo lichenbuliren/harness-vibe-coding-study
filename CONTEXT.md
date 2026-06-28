@@ -8,14 +8,16 @@
 长期目标不是积累更多零散规则，而是形成一套服务于我们自身工作方式的 harness
 工程化理论，并将经过验证的结论沉淀为可复用的 skill、诊断工具、模板和规则。
 
-预期产品采用“双入口、单核心”：
+预期产品采用“三入口、单核心”：
 
 - `harness-creator` 负责创建、补齐和改进项目 harness。
 - `harness-doctor` 负责只读诊断缺口、解释风险和给出修复顺序。
-- 两个入口共享同一套理论模型、schema、validator 和证据规则。
+- `harness-archiver` 负责在用户显式请求后关闭已完成阶段并压缩当前状态。
+- 三个入口共享同一套理论模型、schema、validator 和证据规则。
 
-当前仓库已经实现 shared core、`harness-creator`、`harness-doctor`，并可通过
-`scripts/package-harness-plugin.mjs` 生成包含两个 skill 与唯一 shared core 的
+当前仓库已经实现 shared core、`harness-creator`、`harness-doctor` 和
+`harness-archiver`，并可通过
+`scripts/package-harness-plugin.mjs` 生成包含三个 skill 与唯一 shared core 的
 `harness-engineering` Codex plugin。它们已通过合同、集成和官方 manifest/skill
 验证，但真实任务 Effectiveness 仍只有初步观察证据。
 

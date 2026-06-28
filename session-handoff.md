@@ -2,15 +2,23 @@
 
 ## Current Objective
 
-- Goal: Make the installable harness product independently understandable
-  while preserving its honest evidence and distribution boundaries.
-- Current status: `feat-009` through `feat-014` are complete.
-- Active feature: none; `feature_list.json` has no `next` or `in-progress` item.
+- Goal: Keep current harness state compact, archive completed stages through
+  the plugin, and coordinate branch ownership across Codex threads.
+- Current status: `feat-015` implementation and verification are complete;
+  the next action is the first real Archiver plan/apply.
+- Active feature: none. The completed stage remains on
+  `codex/feat-015-harness-state-retention` until archived.
 - Delivery history: product integration starts at `be6d7aa`; direct
   installation is recorded in stage 0011 and onboarding in stage 0012.
 
 ## Completed This Session
 
+- [x] Implemented Stage Baseline, content-addressed snapshots, branch-owned
+  feature state, and one-branch/one-writer cooperative leases.
+- [x] Added and validated the explicit user-triggered `harness-archiver`.
+- [x] Packaged three namespaced skills over one shared core.
+- [x] Passed 154 tests plus isolated real-Codex install and Archiver smoke.
+- [x] Recorded `docs/evolution/0013-harness-state-retention.md`.
 - [x] Inspected `/Users/heaven/Projects/harness-template`.
 - [x] Confirmed the template generated `AGENTS.md`, `feature_list.json`, `progress.md`, `session-handoff.md`, and `init.sh`.
 - [x] Validated the current repo before migration and found structural score 32/100 with `state` as the bottleneck.

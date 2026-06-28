@@ -59,6 +59,13 @@ export async function packagedProduct() {
       'harness-doctor',
       'scripts',
       'doctor.mjs'
+    ),
+    archiver: path.join(
+      pluginRoot,
+      'skills',
+      'harness-archiver',
+      'scripts',
+      'archiver.mjs'
     )
   };
 }

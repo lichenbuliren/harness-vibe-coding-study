@@ -83,21 +83,21 @@ test('packages the official minimal plugin manifest', async () => {
   assert.deepEqual(manifest, {
     name: 'harness-engineering',
     version: '0.1.0',
-    description: 'Create and diagnose restartable coding-agent harnesses.',
+    description: 'Create, diagnose, and archive restartable coding-agent harnesses.',
     author: {
       name: 'Harness Vibe Coding Study'
     },
     skills: './skills/',
     interface: {
       displayName: 'Harness Engineering',
-      shortDescription: 'Create and diagnose coding-agent harnesses.',
+      shortDescription: 'Create, diagnose, and archive agent harnesses.',
       longDescription:
-        'Plan safe harness changes and diagnose readiness with one shared contract core.',
+        'Plan safe harness changes, diagnose readiness, and archive completed stages with one shared contract core.',
       developerName: 'Harness Vibe Coding Study',
       category: 'Developer Tools',
       capabilities: ['Read', 'Write'],
       defaultPrompt:
-        'Inspect this project, propose safe harness changes, then diagnose readiness.'
+        'Inspect this project, propose safe harness changes, diagnose readiness, and archive completed stages on request.'
     }
   });
   assert.equal(JSON.parse(result.stdout).plugin.name, 'harness-engineering');

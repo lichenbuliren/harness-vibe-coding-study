@@ -93,6 +93,14 @@ export function renderText(assessment) {
       ? allUnknowns(assessment).map((item) => `- ${detailText(item)}`)
       : ['- None']),
     '',
+    ...(assessment.lifecycle ? [
+      'Lifecycle',
+      `Archive eligible: ${assessment.lifecycle.archiveEligible ? 'yes' : 'no'}`,
+      `Baseline: ${assessment.lifecycle.baseline.status}${assessment.lifecycle.baseline.stageId ? ` (${assessment.lifecycle.baseline.stageId})` : ''}`,
+      `Branch ownership: ${assessment.lifecycle.branchOwnership.status}`,
+      ...assessment.lifecycle.recommendations.map((item) => `- ${item}`),
+      ''
+    ] : []),
     'Effectiveness',
     `Status: ${assessment.effectiveness.status}`,
     `Reason: ${assessment.effectiveness.reason}`,
@@ -150,6 +158,15 @@ export function renderMarkdown(assessment) {
       ? unknowns.map((item) => `- ${markdownText(detailText(item))}`)
       : ['- None']),
     '',
+    ...(assessment.lifecycle ? [
+      '## Lifecycle',
+      '',
+      `- Archive eligible: \`${assessment.lifecycle.archiveEligible ? 'yes' : 'no'}\``,
+      `- Baseline: \`${markdownText(assessment.lifecycle.baseline.status)}\``,
+      `- Branch ownership: \`${markdownText(assessment.lifecycle.branchOwnership.status)}\``,
+      ...assessment.lifecycle.recommendations.map((item) => `- ${markdownText(item)}`),
+      ''
+    ] : []),
     '## Effectiveness',
     '',
     `- Status: \`${markdownText(assessment.effectiveness.status)}\``,
@@ -193,6 +210,7 @@ export function renderHtml(assessment) {
 <section><h2>Recommendations</h2>${htmlList(assessment.recommendations, (item) => `<strong>${escapeHtml(item.priority)}. ${escapeHtml(item.ruleId)}</strong>: ${escapeHtml(item.message)}`)}</section>
 <section><h2>Findings</h2>${htmlList(findings, (item) => `<strong>${escapeHtml(item.subsystem)} ${escapeHtml(item.kind)}</strong>: ${escapeHtml(detailText(item))}`)}</section>
 <section><h2>Unknowns</h2>${htmlList(unknowns, (item) => escapeHtml(detailText(item)))}</section>
+${assessment.lifecycle ? `<section><h2>Lifecycle</h2><p><strong>Archive eligible:</strong> ${assessment.lifecycle.archiveEligible ? 'yes' : 'no'}</p><p><strong>Baseline:</strong> ${escapeHtml(assessment.lifecycle.baseline.status)}</p><p><strong>Branch ownership:</strong> ${escapeHtml(assessment.lifecycle.branchOwnership.status)}</p>${htmlList(assessment.lifecycle.recommendations, escapeHtml)}</section>` : ''}
 <section><h2>Effectiveness</h2><p><strong>Status:</strong> ${escapeHtml(assessment.effectiveness.status)}</p><p><strong>Reason:</strong> ${escapeHtml(assessment.effectiveness.reason)}</p></section>
 <section><h2>Limitations</h2>${htmlList(assessment.limitations, escapeHtml)}</section>
 </main>

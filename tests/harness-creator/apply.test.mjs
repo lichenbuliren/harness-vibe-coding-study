@@ -17,8 +17,14 @@ import {
   createPlan
 } from '../../skills/harness-creator/scripts/planner.mjs';
 import {
+  claimBranchLease,
+  readBranchLease,
   validateFeatureState
 } from '../../packages/harness-core/src/index.mjs';
+import {
+  fixture as archiveFixture,
+  git
+} from '../harness-archiver/helpers.mjs';
 
 async function temporaryTarget() {
   return mkdtemp(path.join(os.tmpdir(), 'harness-creator-apply-'));
@@ -150,4 +156,41 @@ test('applier does not execute target commands or access the network', async () 
 
   assert.doesNotMatch(source, /child_process|execFile|spawn|fetch\(|https?:/);
   assert.match(source, /flag: 'wx'/);
+});
+
+test('apply blocks foreign owners and releases only its temporary lease', async () => {
+  const foreignRoot = await archiveFixture();
+  await claimBranchLease({
+    root: foreignRoot,
+    featureId: 'feat-a',
+    threadId: 'thread-a'
+  });
+  const foreignPlan = await createPlan({
+    root: foreignRoot,
+    threadId: 'thread-b'
+  });
+  await assert.rejects(
+    applyPlan({
+      root: foreignRoot,
+      planId: foreignPlan.planId,
+      threadId: 'thread-b'
+    }),
+    {code: 'BLOCKED_PLAN'}
+  );
+
+  const root = await temporaryTarget();
+  await git(root, 'init', '-b', 'codex/creator-lease');
+  await git(root, 'config', 'user.name', 'Harness Test');
+  await git(root, 'config', 'user.email', 'harness@example.test');
+  await git(root, 'commit', '--allow-empty', '-m', 'initial');
+  const plan = await createPlan({root, threadId: 'thread-owner'});
+  await applyPlan({
+    root,
+    planId: plan.planId,
+    threadId: 'thread-owner'
+  });
+  assert.equal((await readBranchLease({
+    root,
+    threadId: 'thread-owner'
+  })).status, 'missing');
 });
