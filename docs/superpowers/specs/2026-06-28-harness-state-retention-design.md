@@ -184,8 +184,9 @@ docs/evolution/
 }
 ```
 
-`closedAt` 和 `sourceHead` 是归档证据，但不参与 stage ID。Archive manifest 的
-format version 不随阶段递增。
+`closedAt` 使用 `sourceHead` 的 Git committer timestamp，而不是 plan/apply 的
+本机时钟；这样同一 HEAD 的完整计划保持确定性。`closedAt` 和 `sourceHead` 是
+归档证据，但不参与 stage ID。Archive manifest 的 format version 不随阶段递增。
 
 ## Root State After Archive
 
