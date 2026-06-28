@@ -6,6 +6,14 @@ export {
   validateFeatureState
 } from './feature-state.mjs';
 export {
+  applyBranchLeaseTakeover,
+  claimBranchLease,
+  discoverGitWorkspace,
+  planBranchLeaseTakeover,
+  readBranchLease,
+  releaseBranchLease
+} from './branch-lease.mjs';
+export {
   normalizeDeclaredPath,
   readBoundedFile,
   resolveSafeWritePath,
