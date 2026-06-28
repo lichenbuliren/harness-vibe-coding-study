@@ -55,3 +55,21 @@ test('repository navigation links to the user guide', async () => {
     );
   }
 });
+
+test('active product documentation has one progress continuity surface', async () => {
+  for (const relative of [
+    'AGENTS.md',
+    'CONTEXT.md',
+    'README.md',
+    'docs/index.md',
+    'docs/harness-engineering-guide.md',
+    'docs/learning-harness-summary.md',
+    'docs/workflows/harness-product-boundaries.md'
+  ]) {
+    assert.doesNotMatch(
+      await read(relative),
+      /session-handoff|with-handoff/i,
+      `${relative} must use progress.md as the only continuity surface`
+    );
+  }
+});

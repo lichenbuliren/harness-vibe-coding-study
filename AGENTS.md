@@ -17,7 +17,7 @@ in workflow references under `docs/`.
 2. Read `README.md`, `CONTEXT.md`, and this file.
 3. Read `feature_list.json` for the current scoped work, dependencies, status,
    and evidence.
-4. Read `progress.md` and `session-handoff.md` when resuming prior work.
+4. Read `progress.md` when resuming prior work.
 5. Run `./init.sh` before claiming the project is restartable.
 6. Review recent commits with `git log --oneline -5` when history matters.
 
@@ -54,8 +54,6 @@ in workflow references under `docs/`.
 - `feature_list.json` is the scoped feature tracker and source of truth for
   current status.
 - `progress.md` records session continuity, evidence, blockers, and next steps.
-- `session-handoff.md` records the restart path for larger or interrupted
-  sessions.
 - `docs/evolution/` records durable stage outcomes, not ordinary changelog
   entries.
 
@@ -105,7 +103,6 @@ Before ending a substantive session:
 
 1. Update `progress.md` with current state, evidence, and unresolved risks.
 2. Update `feature_list.json` when feature status or evidence changes.
-3. Update `session-handoff.md` for any work another session must resume.
-4. Add or update `docs/evolution/` when a stage outcome lands.
-5. Leave verification evidence or an explicit validation gap in the final
+3. Add or update `docs/evolution/` when a stage outcome lands.
+4. Leave verification evidence or an explicit validation gap in the final
    response.

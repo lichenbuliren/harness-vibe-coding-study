@@ -146,8 +146,9 @@ CODEX_THREAD_ID="$CODEX_THREAD_ID" \
   --target . --lease-id <lease-id>
 ```
 
-foreign owner 默认 block 且不改文件。优先 handoff 或换 worktree/branch；必须
-takeover 时，先生成并核对绑定当前 lease digest 的 takeover plan。
+foreign owner 默认 block 且不改文件。优先释放 lease 或换
+worktree/branch；必须 takeover 时，先生成并核对绑定当前 lease digest 的
+takeover plan。
 
 ## Creator 工作方式
 
@@ -174,11 +175,11 @@ Creator 会报告以下结果：
 
 Creator 不提供 overwrite 开关，也不会删除项目文件。
 
-### 可选行为
+### 项目行为
 
 - 默认生成或识别 `AGENTS.md`。
 - Claude-oriented 项目可选择 `CLAUDE.md`。
-- 只有需要跨 session 或多 agent 交接时才增加 handoff。
+- `progress.md` 是唯一的跨 session 连续性入口。
 - Context、领域语言、当前任务和验证证据始终由项目拥有。
 
 Creator 在创建阶段不会：
@@ -249,8 +250,8 @@ symlink 会被拒绝。
 Creator：
 
 ```text
-creator plan --target <directory> [--agent-file AGENTS.md|CLAUDE.md] [--with-handoff] [--format text|json] [--pretty]
-creator apply --target <directory> --plan-id <sha256> [--agent-file AGENTS.md|CLAUDE.md] [--with-handoff] [--format text|json] [--pretty]
+creator plan --target <directory> [--agent-file AGENTS.md|CLAUDE.md] [--format text|json] [--pretty]
+creator apply --target <directory> --plan-id <sha256> [--agent-file AGENTS.md|CLAUDE.md] [--format text|json] [--pretty]
 ```
 
 `--pretty` 只能与 JSON 格式组合；apply 必须重复 plan 阶段使用的选项。

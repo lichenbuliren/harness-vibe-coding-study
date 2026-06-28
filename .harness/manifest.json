@@ -13,9 +13,6 @@
     "progress": [
       "progress.md"
     ],
-    "handoff": [
-      "session-handoff.md"
-    ],
     "environment": [
       "packages/harness-core/package.json"
     ],

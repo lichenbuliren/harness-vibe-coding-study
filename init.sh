@@ -9,7 +9,6 @@ required_paths=(
   "AGENTS.md"
   "feature_list.json"
   "progress.md"
-  "session-handoff.md"
   ".harness/manifest.json"
   ".agents/plugins/marketplace.json"
   "docs/index.md"
