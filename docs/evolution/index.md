@@ -51,3 +51,5 @@
   增加本地 marketplace 与一键安装，并用隔离和真实 Codex 环境验证首次发现。
 - [`0012-harness-engineering-user-guide.md`](0012-harness-engineering-user-guide.md)：
   将分散的产品信息收敛为一份经过契约测试的渐进式接入指南。
+- [`0013-harness-state-retention.md`](0013-harness-state-retention.md)：
+  引入 Stage Baseline、用户主动 Archiver、feature branch 与单 writer lease。

@@ -6,7 +6,8 @@ import {
   mkdir,
   mkdtemp,
   readFile,
-  rm
+  rm,
+  writeFile
 } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -155,6 +156,13 @@ async function verifyInstall() {
       'scripts',
       'doctor.mjs'
     );
+    const archiver = path.join(
+      install.installedPath,
+      'skills',
+      'harness-archiver',
+      'scripts',
+      'archiver.mjs'
+    );
     const plan = await executeJson(
       process.execPath,
       [
@@ -216,6 +224,84 @@ async function verifyInstall() {
       );
     }
 
+    featureState.features = featureState.features.map((feature) => ({
+      ...feature,
+      status: 'done',
+      evidence: [{
+        status: 'passed',
+        summary: 'Isolated packaged-product smoke completed.'
+      }]
+    }));
+    await writeFile(
+      path.join(target, 'feature_list.json'),
+      `${JSON.stringify(featureState, null, 2)}\n`
+    );
+    await mkdir(path.join(target, 'docs', 'evolution'), {recursive: true});
+    await writeFile(
+      path.join(target, 'docs', 'evolution', 'verification.md'),
+      '# Packaged Archiver verification\n'
+    );
+    await executeChecked('git', ['init', '-b', 'codex/verify'], {
+      cwd: target,
+      env: environment
+    });
+    await executeChecked('git', ['config', 'user.name', 'Harness Verify'], {
+      cwd: target,
+      env: environment
+    });
+    await executeChecked('git', ['config', 'user.email', 'verify@example.test'], {
+      cwd: target,
+      env: environment
+    });
+    await executeChecked('git', ['add', '.'], {cwd: target, env: environment});
+    await executeChecked('git', ['commit', '-m', 'verification fixture'], {
+      cwd: target,
+      env: environment
+    });
+    const archivePlan = await executeJson(
+      process.execPath,
+      [
+        archiver,
+        'plan',
+        '--target',
+        target,
+        '--evolution',
+        'docs/evolution/verification.md',
+        '--format',
+        'json'
+      ],
+      {cwd: target, env: environment}
+    );
+    await executeJson(
+      process.execPath,
+      [
+        archiver,
+        'apply',
+        '--target',
+        target,
+        '--evolution',
+        'docs/evolution/verification.md',
+        '--plan-id',
+        archivePlan.planId,
+        '--format',
+        'json'
+      ],
+      {
+        cwd: target,
+        env: {
+          ...environment,
+          CODEX_THREAD_ID: 'harness-plugin-verification'
+        }
+      }
+    );
+    const archiveBaseline = (await readFile(
+      path.join(target, '.harness', 'baseline'),
+      'utf8'
+    )).trim();
+    if (archiveBaseline !== archivePlan.stage.stageId) {
+      throw new VerificationError('Archiver did not publish its planned baseline.');
+    }
+
     return {
       schemaVersion: '1.0.0',
       pluginId: install.pluginId,
@@ -224,6 +310,7 @@ async function verifyInstall() {
       freshProcessDiscovery: 'passed',
       contextFeature,
       initialization: 'passed',
+      archiveStage: archiveBaseline,
       doctor: {
         environmentLevel: assessment.subsystems.environment.level,
         environmentRecommendation,

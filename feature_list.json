@@ -478,7 +478,7 @@
       "dependencies": [
         "feat-014"
       ],
-      "status": "in-progress",
+      "status": "done",
       "verification": {
         "kind": "command",
         "steps": [
@@ -488,7 +488,28 @@
           "git diff --check"
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "The complete core, Creator, Doctor, Archiver, product, and field-validation suite passed 154 tests with zero failures.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "The isolated real-Codex verifier discovered all three namespaced skills and completed Creator, initialization, Doctor, and packaged Archiver smoke flows.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh passed the integrated core, three-skill, packaged plugin, isolated install, official validator, and field-result checks.",
+          "verificationStep": 2
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors before the first real archive.",
+          "verificationStep": 3
+        }
+      ],
       "branch": "codex/feat-015-harness-state-retention"
     }
   ]

@@ -69,6 +69,7 @@ node skills/harness-creator/scripts/creator.mjs \
   plan --target . --format json >/dev/null
 
 echo "=== Harness Product check ==="
+node --test tests/harness-archiver/*.test.mjs
 node --test tests/harness-product/*.test.mjs
 node scripts/verify-harness-plugin-install.mjs
 plugin_tmp="$(mktemp -d)"

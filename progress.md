@@ -3,12 +3,19 @@
 ## Current State
 
 **Last Updated:** 2026-06-28 CST
-**Active Feature:** feat-015 — Harness State Retention And Work Ownership
+**Active Feature:** none — feat-015 is complete and ready for the first archive
 **Branch:** `codex/feat-015-harness-state-retention`
-**Status:** implementation started from the accepted state-retention and work-ownership design
+**Status:** implementation verified; next action is the user-requested first Stage Baseline archive
 
 ## What's Done
 
+- [x] Added deterministic Stage Baseline and immutable snapshot contracts.
+- [x] Added `feature.branch` plus Git-common-dir one-branch/one-writer leases.
+- [x] Added the user-triggered `harness-archiver` plan/apply skill.
+- [x] Integrated lifecycle observations into Creator and Doctor.
+- [x] Packaged and discovered Creator, Doctor, and Archiver over one shared core.
+- [x] Passed 154/154 tests, isolated real-Codex verification, `./init.sh`, and
+  `git diff --check`.
 - [x] Created the review-oriented README entrypoint.
 - [x] Created `docs/evolution/index.md` as the durable stage-record surface.
 - [x] Confirmed `/Users/heaven/Projects/harness-template` contains the five generated harness-creator artifacts.
