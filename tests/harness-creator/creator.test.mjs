@@ -120,29 +120,22 @@ test('apply requires the presented plan ID and reports before and after', async 
   );
 });
 
-test('Claude and handoff options are stable across plan and apply', async () => {
+test('removed handoff option fails without changing the target', async () => {
   const root = await temporaryTarget();
-  const options = [
+  const result = await runCreator([
+    'plan',
     '--target',
     root,
-    '--agent-file',
-    'CLAUDE.md',
-    '--with-handoff',
-    '--format',
-    'json'
-  ];
-  const planned = JSON.parse((await runCreator(['plan', ...options])).stdout);
-  const applied = await runCreator([
-    'apply',
-    ...options,
-    '--plan-id',
-    planned.planId
+    '--with-handoff'
   ]);
 
-  assert.equal(applied.code, 0);
-  assert.equal(JSON.parse(applied.stdout).plan.options.agentFile, 'CLAUDE.md');
-  await access(path.join(root, 'CLAUDE.md'));
-  await access(path.join(root, 'session-handoff.md'));
+  assert.equal(result.code, 2);
+  assert.equal(result.stdout, '');
+  assert.match(result.stderr, /Unknown argument: --with-handoff/);
+  await assert.rejects(
+    access(path.join(root, 'session-handoff.md')),
+    {code: 'ENOENT'}
+  );
 });
 
 test('pretty is JSON-only and invalid arguments exit two with usage', async () => {

@@ -113,10 +113,9 @@ export async function applyPlan({
   root,
   planId,
   agentFile = 'AGENTS.md',
-  withHandoff = false,
   threadId = process.env.CODEX_THREAD_ID
 }) {
-  const plan = await createPlan({root, agentFile, withHandoff, threadId});
+  const plan = await createPlan({root, agentFile, threadId});
   if (plan.planId !== planId) {
     throw creatorError(
       'STALE_PLAN',

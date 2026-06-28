@@ -16,9 +16,8 @@ node scripts/creator.mjs plan --target <repository>
 ```
 
 Use `--format json --pretty` when a machine-readable plan is helpful. Add
-`--agent-file CLAUDE.md` only for a Claude-oriented repository. Add
-`--with-handoff` only when the project needs multi-session or multi-agent
-handoff.
+`--agent-file CLAUDE.md` only for a Claude-oriented repository. Use
+`progress.md` as the single cross-session continuity surface.
 
 Present the complete action list, intended content, blocked actions, and
 `planId`. Explain that existing files are skipped and that the plan becomes

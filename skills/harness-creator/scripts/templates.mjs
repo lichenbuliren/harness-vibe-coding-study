@@ -143,28 +143,6 @@ export function renderProgress({needsContext = true} = {}) {
 `);
 }
 
-export function renderHandoff() {
-  return finalNewline(`# Session Handoff
-
-## Current Objective
-
-Complete the Project Context Restoration feature using project-owned facts.
-
-## Current State
-
-- Harness bootstrap: created
-- Active feature: \`harness-context-restoration\`
-- Verification evidence: not yet recorded
-
-## Next Session
-
-1. Read the agent instruction file.
-2. Read \`feature_list.json\` and \`progress.md\`.
-3. Run \`./init.sh\`.
-4. Complete and verify Project Context Restoration.
-`);
-}
-
 export function renderInit({
   requiredPaths,
   verificationCommands
@@ -222,10 +200,8 @@ export function renderManifest({
   contextPath = 'CONTEXT.md',
   featureStatePath = 'feature_list.json',
   progressPath = 'progress.md',
-  handoffPath = 'session-handoff.md',
   initPath = 'init.sh',
   environmentPaths,
-  includeHandoff,
   verificationCommands
 }) {
   const artifacts = {
@@ -236,9 +212,6 @@ export function renderManifest({
     environment: environmentPaths,
     tools: [initPath]
   };
-  if (includeHandoff) {
-    artifacts.handoff = [handoffPath];
-  }
 
   return finalNewline(JSON.stringify({
     schemaVersion: '1.0.0',
