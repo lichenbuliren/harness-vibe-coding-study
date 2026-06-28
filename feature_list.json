@@ -456,6 +456,25 @@
           "verificationStep": 2
         }
       ]
+    },
+    {
+      "id": "feat-015",
+      "name": "Harness State Retention And Work Ownership",
+      "behavior": "Keep current feature and progress state compact, archive completed stages through the plugin, and block concurrent thread writes to one branch.",
+      "dependencies": [
+        "feat-014"
+      ],
+      "status": "in-progress",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test packages/harness-core/test/*.test.mjs tests/harness-creator/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-archiver/*.test.mjs tests/harness-product/*.test.mjs tests/field-validation/*.test.mjs",
+          "node scripts/verify-harness-plugin-install.mjs",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": []
     }
   ]
 }

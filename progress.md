@@ -3,8 +3,9 @@
 ## Current State
 
 **Last Updated:** 2026-06-28 CST
-**Active Feature:** none
-**Status:** installable plugin and complete onboarding guide are verified; next validation requires an unfamiliar user and representative project
+**Active Feature:** feat-015 — Harness State Retention And Work Ownership
+**Branch:** `codex/feat-015-harness-state-retention`
+**Status:** implementation started from the accepted state-retention and work-ownership design
 
 ## What's Done
 
@@ -98,7 +99,12 @@
 
 ## What's In Progress
 
-- No active feature.
+- [ ] Add branch-aware feature state 1.1.0 with 1.0.0 read compatibility.
+- [ ] Add one-branch/one-thread cooperative leases.
+- [ ] Add content-addressed Stage Baseline contracts.
+- [ ] Add the user-triggered `harness-archiver` plugin skill.
+- [ ] Integrate lifecycle findings into Creator, Doctor, packaging, and docs.
+- [ ] Archive the completed current stage through the real product.
 
 ## What's Next
 

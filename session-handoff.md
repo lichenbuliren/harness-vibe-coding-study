@@ -2,10 +2,12 @@
 
 ## Current Objective
 
-- Goal: Make the installable harness product independently understandable
-  while preserving its honest evidence and distribution boundaries.
-- Current status: `feat-009` through `feat-014` are complete.
-- Active feature: none; `feature_list.json` has no `next` or `in-progress` item.
+- Goal: Keep current harness state compact, archive completed stages through
+  the plugin, and coordinate branch ownership across Codex threads.
+- Current status: the design and implementation plan are committed; execution
+  has started in an isolated worktree.
+- Active feature: `feat-015` on
+  `codex/feat-015-harness-state-retention`.
 - Delivery history: product integration starts at `be6d7aa`; direct
   installation is recorded in stage 0011 and onboarding in stage 0012.
 
