@@ -1,0 +1,23 @@
+{
+  "format": "harness-stage/v1",
+  "stageId": "stage-7188bb87c5cb76ca",
+  "digest": "7188bb87c5cb76ca4f7b8b275a82bbb3f3bc90a7ec71a08b637165dc4c578402",
+  "previousBaseline": null,
+  "sourceHead": "fcbec946246bf6440767650c08b9232ac6813c09",
+  "closedAt": "2026-06-28T13:05:23+08:00",
+  "evolution": "docs/evolution/0013-harness-state-retention.md",
+  "artifacts": {
+    "featureState": {
+      "path": "feature_list.json",
+      "digest": "ff52ae267efdbd822d228556daa3e12723f15055d79d79bc17a6aa664e94694d"
+    },
+    "progress": {
+      "path": "progress.md",
+      "digest": "de5f2ae3fd8ff6dbbd113c2004666cadf00d9bf2bed6b9eff26dbdd2f98674c7"
+    }
+  },
+  "summary": {
+    "featureCount": 15,
+    "passedEvidenceCount": 43
+  }
+}

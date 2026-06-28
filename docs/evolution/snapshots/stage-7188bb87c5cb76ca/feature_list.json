@@ -1,0 +1,516 @@
+{
+  "schemaVersion": "1.1.0",
+  "mode": "serial",
+  "features": [
+    {
+      "id": "feat-001",
+      "name": "Project Review Entrypoint",
+      "behavior": "Establish README and docs navigation as a future-review map for the harness learning project.",
+      "dependencies": [],
+      "status": "done",
+      "verification": {
+        "kind": "manual",
+        "steps": [
+          "Review README.md and docs/index.md as the project navigation surface."
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Commit ba1544b added README.md, docs/index.md, and docs/evolution/index.md as the initial review entrypoint."
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "feat-002",
+      "name": "Harness Lifecycle Scaffold",
+      "behavior": "Adapt the harness-creator lifecycle artifacts to this repo without overwriting the existing AGENTS.md contract.",
+      "dependencies": [
+        "feat-001"
+      ],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "./init.sh",
+          "node /Users/heaven/.agents/skills/harness-creator/scripts/validate-harness.mjs --target . --json"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Added project-specific lifecycle artifacts; ./init.sh passed and the legacy structural validator returned 100/100."
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "feat-003",
+      "name": "Project Context Restoration",
+      "behavior": "Fill CONTEXT.md with the durable project purpose, boundaries, terminology, and restart assumptions for future sessions.",
+      "dependencies": [
+        "feat-002"
+      ],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "./init.sh"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Expanded CONTEXT.md with the accepted five-subsystem model, product direction, evidence model, repository contract, and restart assumptions; ./init.sh passed."
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "feat-004",
+      "name": "Evolution Record Backfill",
+      "behavior": "Backfill the first concrete docs/evolution stage record for the README and lifecycle bootstrap work.",
+      "dependencies": [
+        "feat-002"
+      ],
+      "status": "done",
+      "verification": {
+        "kind": "manual",
+        "steps": [
+          "Review docs/evolution/0001-harness-lifecycle-bootstrap.md for goal, evidence, conclusions, and next step."
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Added docs/evolution/0001-harness-lifecycle-bootstrap.md with the required durable stage sections."
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "feat-005",
+      "name": "Template Boundary Review",
+      "behavior": "Decide which lifecycle artifacts belong in reusable products and which remain project-specific to this learning repo.",
+      "dependencies": [
+        "feat-003",
+        "feat-004"
+      ],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "./init.sh"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Published docs/workflows/harness-product-boundaries.md and ADR 0002; repository initialization passed."
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "feat-006",
+      "name": "Agent Operating Contract Slimming",
+      "behavior": "Reduce AGENTS.md to a short root operating contract and move long OMX/generated reference material into docs.",
+      "dependencies": [
+        "feat-002"
+      ],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "./init.sh",
+          "node /Users/heaven/.agents/skills/harness-creator/scripts/validate-harness.mjs --target . --json"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Slimmed AGENTS.md to 111 lines, moved OMX reference material into docs/workflows/omx-runtime.md, and passed both initialization and the legacy structural validator."
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "feat-007",
+      "name": "Learning Harness Summary Compression",
+      "behavior": "Compress the long learning-harness research note into a concise five-subsystem methodology and execution lifecycle.",
+      "dependencies": [
+        "feat-006"
+      ],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "wc -l docs/learning-harness-summary.md",
+          "git diff --check",
+          "./init.sh"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Rewrote docs/learning-harness-summary.md from 1063 to 318 lines with seven sections and passed structural checks plus initialization."
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "feat-008",
+      "name": "Shared Harness Contract Core",
+      "behavior": "Implement canonical schemas, capability rules, deterministic readiness inspection, and fixture contract tests.",
+      "dependencies": [
+        "feat-005"
+      ],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test packages/harness-core/test/*.test.mjs",
+          "node packages/harness-core/bin/inspect-harness.mjs --target . --pretty",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "All 39 shared-core tests passed.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "Self-inspection returned five Operational subsystems, no candidate bottleneck, and Effectiveness not-assessed.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh completed with shared-core tests and self-inspection enabled.",
+          "verificationStep": 2
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors.",
+          "verificationStep": 3
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "feat-009",
+      "name": "Harness Doctor Skill",
+      "behavior": "Build the read-only doctor entrypoint over the shared core with canonical JSON and human-readable reports.",
+      "dependencies": [
+        "feat-008"
+      ],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test tests/harness-doctor/*.test.mjs",
+          "uv run --offline --with pyyaml python ${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py skills/harness-doctor",
+          "node skills/harness-doctor/scripts/doctor.mjs --target . --format json",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "All 25 Harness Doctor contract, renderer, and CLI tests passed.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "Official skill validation completed successfully in the offline uv environment.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "Repository Doctor JSON reported five Operational subsystems, no candidate bottlenecks, and Effectiveness not-assessed.",
+          "verificationStep": 2
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh completed with shared-core tests, Doctor tests, skill validation, and self-inspection.",
+          "verificationStep": 3
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors.",
+          "verificationStep": 4
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "feat-010",
+      "name": "Harness Creator Skill",
+      "behavior": "Build the non-destructive creator entrypoint with conditional context restoration and check-first initialization.",
+      "dependencies": [
+        "feat-008",
+        "feat-009"
+      ],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test packages/harness-core/test/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-creator/*.test.mjs",
+          "uv run --offline --with pyyaml python ${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py skills/harness-creator",
+          "node skills/harness-creator/scripts/creator.mjs plan --target . --format json",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "All 95 shared-core, Doctor, and Creator tests passed.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "Official skill validation completed successfully for skills/harness-creator.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "Repository planning returned a deterministic skip-only non-destructive plan with no blocked actions.",
+          "verificationStep": 2
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh completed with core, Doctor, and Creator suites plus both official skill validators.",
+          "verificationStep": 3
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors; empty-directory CLI plan/apply/Doctor smoke also passed.",
+          "verificationStep": 4
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "feat-011",
+      "name": "Harness Product Integration",
+      "behavior": "Validate creator-to-doctor workflows across supported fixtures and non-standard project shapes.",
+      "dependencies": [
+        "feat-009",
+        "feat-010"
+      ],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test packages/harness-core/test/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-creator/*.test.mjs tests/harness-product/*.test.mjs",
+          "uv run --offline --with pyyaml python ${CODEX_HOME:-$HOME/.codex}/skills/.system/plugin-creator/scripts/validate_plugin.py <generated-plugin>",
+          "uv run --offline --with pyyaml python ${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py <generated-plugin>/skills/harness-creator",
+          "uv run --offline --with pyyaml python ${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py <generated-plugin>/skills/harness-doctor",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "All 107 shared-core, Doctor, Creator, packaging, and integration tests passed.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "Official plugin validation passed for the generated harness-engineering bundle.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "Official skill validation passed for the packaged Harness Creator.",
+          "verificationStep": 2
+        },
+        {
+          "status": "passed",
+          "summary": "Official skill validation passed for the packaged Harness Doctor.",
+          "verificationStep": 3
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh rebuilt the plugin and passed all repository and packaged-product checks.",
+          "verificationStep": 4
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors; packaged conventional, non-standard, conflict, resume, deterministic, and concurrent workflows passed.",
+          "verificationStep": 5
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "feat-012",
+      "name": "Harness Field Validation",
+      "behavior": "Run representative before-and-after coding-agent tasks and evaluate effectiveness without conflating it with readiness.",
+      "dependencies": [
+        "feat-011"
+      ],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test packages/harness-core/test/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-creator/*.test.mjs tests/harness-product/*.test.mjs tests/field-validation/*.test.mjs",
+          "node experiments/field-validation/validate-results.mjs experiments/field-validation/runs/pilot-001.json",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "All four predeclared bare/harness coding tasks passed 3/3 tests after the first implementation edit with zero correction loops and zero scope violations.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "The field result validator accepted pilot-001 as four complete runs with observed-only conclusions and Readiness capped at level 2.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh passed all product, plugin, skill, experiment contract, and field-result checks.",
+          "verificationStep": 2
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors; the pilot supports durable-state and coordination-cost observations but no general Effectiveness claim.",
+          "verificationStep": 3
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "feat-013",
+      "name": "Direct Plugin Installation And First-Run Validation",
+      "behavior": "Provide a repository-local Codex marketplace and one-command installer, prove fresh-process discovery and packaged Creator-to-Doctor execution, and make partial Readiness recommendations describe only missing requirements.",
+      "dependencies": [
+        "feat-011",
+        "feat-012"
+      ],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test packages/harness-core/test/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-creator/*.test.mjs tests/harness-product/*.test.mjs tests/field-validation/*.test.mjs",
+          "node scripts/verify-harness-plugin-install.mjs",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Full core, Doctor, Creator, product, and field-validation suite passed 119 tests with zero failures.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "The isolated real-Codex verifier installed the plugin, discovered both namespaced skills in a fresh process, applied Creator output, ran the generated init command, and returned the precise Doctor recommendation Add environment metadata.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh passed all suites, official plugin validation, both official skill validations, field-result validation, and repository self-inspection.",
+          "verificationStep": 2
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors after implementation and state documentation updates.",
+          "verificationStep": 3
+        },
+        {
+          "status": "passed",
+          "summary": "Live installation registered harness-engineering@harness-engineering-local version 0.1.0+codex.local-20260627-165001, and a fresh Codex prompt-input process discovered harness-engineering:harness-creator and harness-engineering:harness-doctor."
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "feat-014",
+      "name": "Harness Engineering User Guide",
+      "behavior": "Provide one progressive guide for local installation, first use, interpretation, maintenance, troubleshooting, and the current external distribution boundary.",
+      "dependencies": [
+        "feat-013"
+      ],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test tests/harness-product/documentation.test.mjs",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "The focused documentation contract passed 3 tests covering canonical workflow order, namespace and evidence boundaries, and repository navigation.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh passed 122 tests plus official plugin validation, both official skill validations, isolated real-Codex installation, field-result validation, and documentation entrypoint checks.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors after the guide, navigation, and lifecycle updates.",
+          "verificationStep": 2
+        }
+      ],
+      "branch": null
+    },
+    {
+      "id": "feat-015",
+      "name": "Harness State Retention And Work Ownership",
+      "behavior": "Keep current feature and progress state compact, archive completed stages through the plugin, and block concurrent thread writes to one branch.",
+      "dependencies": [
+        "feat-014"
+      ],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test packages/harness-core/test/*.test.mjs tests/harness-creator/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-archiver/*.test.mjs tests/harness-product/*.test.mjs tests/field-validation/*.test.mjs",
+          "node scripts/verify-harness-plugin-install.mjs",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "The complete core, Creator, Doctor, Archiver, product, and field-validation suite passed 154 tests with zero failures.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "The isolated real-Codex verifier discovered all three namespaced skills and completed Creator, initialization, Doctor, and packaged Archiver smoke flows.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh passed the integrated core, three-skill, packaged plugin, isolated install, official validator, and field-result checks.",
+          "verificationStep": 2
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors before the first real archive.",
+          "verificationStep": 3
+        }
+      ],
+      "branch": "codex/feat-015-harness-state-retention"
+    }
+  ]
+}
