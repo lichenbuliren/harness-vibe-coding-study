@@ -27,9 +27,6 @@
         "progress": {
           "$ref": "#/$defs/paths"
         },
-        "handoff": {
-          "$ref": "#/$defs/paths"
-        },
         "environment": {
           "$ref": "#/$defs/paths"
         },

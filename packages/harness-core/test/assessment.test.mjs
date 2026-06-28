@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {
+  mkdir,
   mkdtemp,
   writeFile
 } from 'node:fs/promises';
@@ -102,6 +103,32 @@ test('uses Unknown for an unsafe declared capability and excludes it from bottle
     result.subsystems.instructions.unknowns[0].code,
     'path-escapes-root'
   );
+});
+
+test('rejects the removed handoff manifest capability', async () => {
+  const root = await mkdtemp(path.join(
+    os.tmpdir(),
+    'harness-removed-handoff-'
+  ));
+  await mkdir(path.join(root, '.harness'));
+  await writeFile(
+    path.join(root, '.harness', 'manifest.json'),
+    `${JSON.stringify({
+      schemaVersion: '1.0.0',
+      artifacts: {
+        handoff: ['session-handoff.md']
+      }
+    })}\n`
+  );
+
+  const result = await inspectHarness({root});
+
+  assert.deepEqual(result.unknowns, [{
+    ruleId: 'manifest.load',
+    source: '.harness/manifest.json',
+    code: 'unknown-key',
+    detail: 'Manifest artifacts key "handoff" is not supported.'
+  }]);
 });
 
 test('normalizes findings and repeated assessments deterministically', async () => {

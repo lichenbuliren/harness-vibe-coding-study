@@ -405,7 +405,6 @@ function subsystemForManifestUnknown(item) {
     context: 'instructions',
     featureState: 'state',
     progress: 'state',
-    handoff: 'state',
     environment: 'environment',
     tools: 'tools',
     readinessEvidence: 'feedback'
