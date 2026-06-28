@@ -14,6 +14,15 @@ export {
   releaseBranchLease
 } from './branch-lease.mjs';
 export {
+  STAGE_FORMAT,
+  assessArchiveEligibility,
+  createStageIdentity,
+  createStageManifest,
+  renderCompactedFeatureState,
+  renderCompactedProgress,
+  validateBaselineChain
+} from './stage-archive.mjs';
+export {
   normalizeDeclaredPath,
   readBoundedFile,
   resolveSafeWritePath,
