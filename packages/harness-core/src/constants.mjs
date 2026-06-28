@@ -27,7 +27,6 @@ export const ARTIFACT_KEYS = Object.freeze([
   'context',
   'featureState',
   'progress',
-  'handoff',
   'environment',
   'tools',
   'readinessEvidence'

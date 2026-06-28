@@ -111,7 +111,6 @@ test('manifest contract exposes capability declarations without claims', async (
     'context',
     'featureState',
     'progress',
-    'handoff',
     'environment',
     'tools',
     'readinessEvidence'

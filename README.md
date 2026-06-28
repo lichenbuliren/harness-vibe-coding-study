@@ -26,7 +26,6 @@ living lab。
 - [`AGENTS.md`](AGENTS.md)：agent 在本仓库工作的操作契约。
 - [`feature_list.json`](feature_list.json)：当前 feature 范围、状态和证据。
 - [`progress.md`](progress.md)：跨 session 的连续性日志。
-- [`session-handoff.md`](session-handoff.md)：较大或中断任务的交接入口。
 - [`init.sh`](init.sh)：标准启动和结构验证脚本。
 - [`docs/harness-engineering-guide.md`](docs/harness-engineering-guide.md)：
   `harness-engineering` plugin 的安装、首次使用、writer lease、阶段归档和
@@ -56,7 +55,7 @@ living lab。
 短期目标是把仓库从空骨架整理成一个可复盘、可继续、可验证的项目入口：
 
 - 评审哪些已验证工件应进入未来的 creator/doctor skill bundle
-- 维护 `feature_list.json`、`progress.md` 和 `session-handoff.md` 的 session 生命周期
+- 维护 `feature_list.json` 和 `progress.md` 的 session 生命周期
 - 建立 `docs/evolution/` 的阶段记录习惯
 - 保持 `AGENTS.md` 作为短的根操作合同，把长参考下沉到 `docs/`
 - 保持 `templates/` 精简，只抽取经过验证的结构

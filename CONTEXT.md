@@ -147,7 +147,7 @@ validator。未经验证的判断只能作为提示或实验建议。
 
 详细理论和实践解释放在 `docs/learning-harness-summary.md`。阶段证据放在
 `docs/evolution/`。当前范围和完成证据放在 `feature_list.json` 与
-`progress.md`。跨会话恢复信息放在 `session-handoff.md`。
+`progress.md`；后者也是唯一的跨会话恢复入口。
 
 本仓库优先保留最小但完备的操作面。新规则必须说明它解决的真实失败、适用条件和
 删除条件。能由自动化检查表达的规则，不长期依赖文字提醒。

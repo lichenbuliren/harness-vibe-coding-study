@@ -56,5 +56,4 @@ $harness-engineering:harness-archiver
 
 - [`../feature_list.json`](../feature_list.json)：当前 feature 范围、依赖、状态和证据。
 - [`../progress.md`](../progress.md)：跨 session 的连续性日志。
-- [`../session-handoff.md`](../session-handoff.md)：较大或中断任务的交接记录。
 - [`../init.sh`](../init.sh)：标准启动和结构验证脚本。

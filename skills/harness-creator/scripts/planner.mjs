@@ -12,7 +12,6 @@ import {
   contextRestorationFeature,
   renderAgentInstructions,
   renderFeatureState,
-  renderHandoff,
   renderInit,
   renderManifest,
   renderProgress
@@ -313,7 +312,6 @@ async function planExistingOrCreate({
 export async function createPlan({
   root,
   agentFile = 'AGENTS.md',
-  withHandoff = false,
   threadId = process.env.CODEX_THREAD_ID
 }) {
   if (!['AGENTS.md', 'CLAUDE.md'].includes(agentFile)) {
@@ -386,18 +384,6 @@ export async function createPlan({
     skipReason: 'An operational initialization entrypoint already exists.'
   }));
 
-  if (withHandoff) {
-    actions.push(await planExistingOrCreate({
-      root,
-      path: 'session-handoff.md',
-      preserveExisting: true,
-      capability: 'state',
-      content: renderHandoff(),
-      createReason: 'Create the requested multi-session handoff surface.',
-      skipReason: 'The requested handoff artifact already exists.'
-    }));
-  }
-
   const manifestState = await statSafePath(root, '.harness/manifest.json');
   if (manifestState.ok) {
     actions.push(skipAction(
@@ -416,7 +402,6 @@ export async function createPlan({
         progressPath: finalProgressPath,
         initPath: finalInitializePath,
         environmentPaths: project.environmentPaths,
-        includeHandoff: withHandoff,
         verificationCommands: project.verificationCommands
       }),
       'Create the canonical capability manifest.'
@@ -471,8 +456,7 @@ export async function createPlan({
     target: '.',
     assessmentBefore: assessment,
     options: {
-      agentFile,
-      withHandoff
+      agentFile
     },
     git,
     lease,

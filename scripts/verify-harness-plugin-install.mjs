@@ -2,6 +2,7 @@
 
 import {spawn} from 'node:child_process';
 import {
+  access,
   copyFile,
   mkdir,
   mkdtemp,
@@ -170,7 +171,6 @@ async function verifyInstall() {
         'plan',
         '--target',
         target,
-        '--with-handoff',
         '--format',
         'json'
       ],
@@ -185,12 +185,21 @@ async function verifyInstall() {
         target,
         '--plan-id',
         plan.planId,
-        '--with-handoff',
         '--format',
         'json'
       ],
       {cwd: target, env: environment}
     );
+    try {
+      await access(path.join(target, 'session-handoff.md'));
+      throw new VerificationError(
+        'Creator generated the removed session-handoff.md artifact.'
+      );
+    } catch (error) {
+      if (error.code !== 'ENOENT') {
+        throw error;
+      }
+    }
     await executeChecked(
       path.join(target, 'init.sh'),
       [],

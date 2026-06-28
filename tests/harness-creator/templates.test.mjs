@@ -4,7 +4,6 @@ import test from 'node:test';
 import {
   renderAgentInstructions,
   renderFeatureState,
-  renderHandoff,
   renderInit,
   renderManifest,
   renderProgress
@@ -57,15 +56,13 @@ test('new feature state contains one branch-owned context restoration task', () 
   });
 });
 
-test('progress and handoff describe actual bootstrap state without fake facts', () => {
+test('progress describes actual bootstrap continuity without fake facts', () => {
   const progress = renderProgress();
-  const handoff = renderHandoff();
 
   assert.match(progress, /harness-context-restoration/);
   assert.match(progress, /Project Context Restoration/);
   assert.match(progress, /project owner/i);
-  assert.match(handoff, /Project Context Restoration/);
-  assert.doesNotMatch(`${progress}\n${handoff}`, /\[TODO\]|YYYY|feat-XXX/);
+  assert.doesNotMatch(progress, /\[TODO\]|YYYY|feat-XXX/);
 });
 
 test('init is check-first and does not execute setup or project commands', () => {
@@ -99,14 +96,13 @@ test('manifest declares capabilities and commands without effectiveness claims',
   const manifest = JSON.parse(renderManifest({
     agentFile: 'AGENTS.md',
     environmentPaths: ['package.json'],
-    includeHandoff: true,
     verificationCommands: ['npm test']
   }));
 
   assert.deepEqual(manifest.artifacts.instructions, ['AGENTS.md']);
   assert.deepEqual(manifest.artifacts.context, ['CONTEXT.md']);
   assert.deepEqual(manifest.artifacts.featureState, ['feature_list.json']);
-  assert.deepEqual(manifest.artifacts.handoff, ['session-handoff.md']);
+  assert.equal(Object.hasOwn(manifest.artifacts, 'handoff'), false);
   assert.deepEqual(manifest.artifacts.environment, ['package.json']);
   assert.deepEqual(manifest.commands.initialize, ['./init.sh']);
   assert.deepEqual(manifest.commands.verify, ['./init.sh', 'npm test']);

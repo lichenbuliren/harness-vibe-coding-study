@@ -9,8 +9,8 @@ import {
 
 const FORMATS = new Set(['text', 'json']);
 const USAGE = `Usage:
-  creator plan --target <directory> [--agent-file AGENTS.md|CLAUDE.md] [--with-handoff] [--format text|json] [--pretty]
-  creator apply --target <directory> --plan-id <sha256> [--agent-file AGENTS.md|CLAUDE.md] [--with-handoff] [--format text|json] [--pretty]
+  creator plan --target <directory> [--agent-file AGENTS.md|CLAUDE.md] [--format text|json] [--pretty]
+  creator apply --target <directory> --plan-id <sha256> [--agent-file AGENTS.md|CLAUDE.md] [--format text|json] [--pretty]
   creator --help
 `;
 
@@ -45,7 +45,6 @@ function parseArguments(arguments_) {
     target: null,
     agentFile: 'AGENTS.md',
     agentFileProvided: false,
-    withHandoff: false,
     planId: null,
     format: 'text',
     formatProvided: false,
@@ -54,13 +53,6 @@ function parseArguments(arguments_) {
 
   for (let index = 1; index < arguments_.length; index += 1) {
     const argument = arguments_[index];
-    if (argument === '--with-handoff') {
-      if (options.withHandoff) {
-        throw argumentError('Duplicate argument: --with-handoff.');
-      }
-      options.withHandoff = true;
-      continue;
-    }
     if (argument === '--pretty') {
       if (options.pretty) {
         throw argumentError('Duplicate argument: --pretty.');
@@ -152,7 +144,6 @@ async function main() {
     const sharedOptions = {
       root: options.target,
       agentFile: options.agentFile,
-      withHandoff: options.withHandoff,
       threadId: process.env.CODEX_THREAD_ID
     };
     const value = options.command === 'plan'

@@ -53,3 +53,5 @@
   将分散的产品信息收敛为一份经过契约测试的渐进式接入指南。
 - [`0013-harness-state-retention.md`](0013-harness-state-retention.md)：
   引入 Stage Baseline、用户主动 Archiver、feature branch 与单 writer lease。
+- [`0014-remove-session-handoff.md`](0014-remove-session-handoff.md)：
+  删除重复的 session handoff 状态面，将跨会话恢复统一到 `progress.md`。
