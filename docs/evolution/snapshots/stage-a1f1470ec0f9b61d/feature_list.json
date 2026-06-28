@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.1.0",
+  "mode": "serial",
+  "features": [
+    {
+      "id": "feat-016-remove-session-handoff",
+      "name": "Remove Session Handoff",
+      "behavior": "Use feature_list.json and progress.md as the only current State surfaces, with no session-handoff file, Creator option, manifest field, or compatibility path.",
+      "branch": "codex/feat-016-remove-session-handoff",
+      "dependencies": [],
+      "status": "done",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test packages/harness-core/test/*.test.mjs tests/harness-creator/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-archiver/*.test.mjs tests/harness-product/*.test.mjs tests/field-validation/*.test.mjs",
+          "node scripts/verify-harness-plugin-install.mjs",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "Full Node suite passed: 156 tests, 0 failures."
+        },
+        {
+          "status": "passed",
+          "summary": "Isolated plugin installation discovered Creator, Doctor, and Archiver; Creator generated no session-handoff artifact."
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh passed with progress.md as the only cross-session continuity surface."
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check reported no whitespace errors."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "format": "harness-stage/v1",
+  "stageId": "stage-a1f1470ec0f9b61d",
+  "digest": "a1f1470ec0f9b61dfd2ed044b3e43628af27cd141b5af7288faaf3dce2cc3abb",
+  "previousBaseline": "stage-7188bb87c5cb76ca",
+  "sourceHead": "5211792ec003bdca846ccefd19175509df7e7cd4",
+  "closedAt": "2026-06-28T16:27:35+08:00",
+  "evolution": "docs/evolution/0014-remove-session-handoff.md",
+  "artifacts": {
+    "featureState": {
+      "path": "feature_list.json",
+      "digest": "0775a09091ee6201666157996d7710949553e06669b06d243da9f7156cc08687"
+    },
+    "progress": {
+      "path": "progress.md",
+      "digest": "3bc2647f765b30a6edfdb3690c4ffc9534ebbc0eb3813e127dfd96561922f30f"
+    }
+  },
+  "summary": {
+    "featureCount": 1,
+    "passedEvidenceCount": 4
+  }
+}
