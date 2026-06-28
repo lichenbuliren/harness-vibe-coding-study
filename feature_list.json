@@ -430,7 +430,7 @@
       "dependencies": [
         "feat-013"
       ],
-      "status": "in-progress",
+      "status": "done",
       "verification": {
         "kind": "command",
         "steps": [
@@ -439,7 +439,23 @@
           "git diff --check"
         ]
       },
-      "evidence": []
+      "evidence": [
+        {
+          "status": "passed",
+          "summary": "The focused documentation contract passed 3 tests covering canonical workflow order, namespace and evidence boundaries, and repository navigation.",
+          "verificationStep": 0
+        },
+        {
+          "status": "passed",
+          "summary": "./init.sh passed 122 tests plus official plugin validation, both official skill validations, isolated real-Codex installation, field-result validation, and documentation entrypoint checks.",
+          "verificationStep": 1
+        },
+        {
+          "status": "passed",
+          "summary": "git diff --check completed without errors after the guide, navigation, and lifecycle updates.",
+          "verificationStep": 2
+        }
+      ]
     }
   ]
 }

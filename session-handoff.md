@@ -2,12 +2,12 @@
 
 ## Current Objective
 
-- Goal: Validate the installable harness product while preserving its honest
-  evidence boundary.
-- Current status: `feat-009` through `feat-013` are complete.
+- Goal: Make the installable harness product independently understandable
+  while preserving its honest evidence and distribution boundaries.
+- Current status: `feat-009` through `feat-014` are complete.
 - Active feature: none; `feature_list.json` has no `next` or `in-progress` item.
 - Delivery history: product integration starts at `be6d7aa`; direct
-  installation is recorded in evolution stage 0011.
+  installation is recorded in stage 0011 and onboarding in stage 0012.
 
 ## Completed This Session
 
@@ -86,6 +86,12 @@
 - [x] Installed the plugin into the live Codex home and confirmed discovery of
   both `harness-engineering:*` skills.
 - [x] Added `docs/evolution/0011-harness-direct-installation.md`.
+- [x] Added `docs/harness-engineering-guide.md` as the single progressive
+  onboarding source.
+- [x] Linked the guide from README and `docs/index.md`.
+- [x] Added contract tests for canonical workflow order, namespace,
+  distribution, evidence boundaries, and navigation.
+- [x] Added `docs/evolution/0012-harness-engineering-user-guide.md`.
 
 ## Verification Evidence
 
@@ -126,6 +132,9 @@
 | Direct-install full suite | `node --test packages/harness-core/test/*.test.mjs tests/harness-doctor/*.test.mjs tests/harness-creator/*.test.mjs tests/harness-product/*.test.mjs tests/field-validation/*.test.mjs` | Pass | 119 tests, 0 failures. |
 | Isolated real-Codex install | `node scripts/verify-harness-plugin-install.mjs` | Pass | Marketplace install, fresh discovery, Creator apply, generated init, and precise Doctor recommendation passed. |
 | Live plugin discovery | installer, `codex plugin list`, and fresh `codex debug prompt-input` | Pass | Installed version `0.1.0+codex.local-20260627-165001`; both namespaced skills discovered. |
+| Onboarding documentation contract | `node --test tests/harness-product/documentation.test.mjs` | Pass | 3 tests cover workflow order, namespace/evidence boundaries, and navigation. |
+| Guide-integrated product suite | `node --test tests/harness-product/*.test.mjs` | Pass | 21 tests, 0 failures; previous baseline was 18. |
+| Guide-integrated restart check | `./init.sh` | Pass | 122 tests plus official validators, isolated install, and field-result validation passed. |
 
 ## Files Changed
 
@@ -154,6 +163,9 @@
 - `.agents/plugins/marketplace.json`
 - `scripts/install-harness-plugin.mjs`
 - `scripts/verify-harness-plugin-install.mjs`
+- `docs/harness-engineering-guide.md`
+- `tests/harness-product/documentation.test.mjs`
+- `docs/evolution/0012-harness-engineering-user-guide.md`
 
 ## Blockers / Risks
 
@@ -166,6 +178,10 @@
   for the first live invocation.
 - The legacy bare `$harness-creator` is a separate installation and must not be
   confused with the canonical `harness-engineering:*` plugin skills.
+- The guide is contract-tested but still needs an unfamiliar user to validate
+  whether its explanations are sufficient without additional assistance.
+- External public distribution remains unavailable; only the repository-local
+  marketplace path is documented as executable.
 
 ## Next Session Startup
 
@@ -173,9 +189,10 @@
 2. Read `feature_list.json`.
 3. Read `progress.md`.
 4. Run `./init.sh`.
-5. Read `docs/evolution/0011-harness-direct-installation.md`.
-6. Invoke `$harness-engineering:harness-creator` on a representative target.
-7. Invoke `$harness-engineering:harness-doctor` after initialization and record
-   any first-use friction.
+5. Give `docs/harness-engineering-guide.md` to an unfamiliar user.
+6. Ask that user to install the plugin and invoke Creator on a representative
+   target without additional instructions.
+7. Invoke Doctor after initialization and record reproducible first-use
+   friction.
 8. Confirm there is no active feature; create one only for validated feedback
    or a newly accepted Effectiveness study.

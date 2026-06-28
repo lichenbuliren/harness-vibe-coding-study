@@ -4,7 +4,7 @@
 
 **Last Updated:** 2026-06-28 CST
 **Active Feature:** none
-**Status:** direct plugin installation complete; next validation requires a fresh user thread and representative project use
+**Status:** installable plugin and complete onboarding guide are verified; next validation requires an unfamiliar user and representative project
 
 ## What's Done
 
@@ -88,6 +88,13 @@
   namespaced skills are discoverable by a fresh Codex process.
 - [x] Recorded the outcome in
   `docs/evolution/0011-harness-direct-installation.md`.
+- [x] Added one progressive `harness-engineering` user guide covering local
+  installation, first use, interpretation, maintenance, and troubleshooting.
+- [x] Linked the guide from README and the documentation index.
+- [x] Added a documentation contract for canonical workflow order, namespace,
+  distribution, and evidence boundaries.
+- [x] Recorded the outcome in
+  `docs/evolution/0012-harness-engineering-user-guide.md`.
 
 ## What's In Progress
 
@@ -95,11 +102,12 @@
 
 ## What's Next
 
-1. Start a new Codex thread so the app reloads the installed plugin catalog.
-2. Invoke `$harness-engineering:harness-creator` and then
-   `$harness-engineering:harness-doctor` on a representative repository.
-3. Record first-use friction as product feedback; do not expand the default
-   harness without evidence.
+1. Give `docs/harness-engineering-guide.md` to an unfamiliar user without
+   additional oral instructions.
+2. Have that user install the plugin and run Creator then Doctor on a
+   representative repository.
+3. Record reproducible onboarding friction before changing the guide or
+   default harness.
 4. Reserve the next Effectiveness study for independent fresh-session agents
    and a realistic multi-file, cross-session task with pre-registered metrics.
 
@@ -113,6 +121,10 @@
   its newly installed skill catalog.
 - The legacy bare `$harness-creator` remains installed separately; the new
   product uses only the `harness-engineering:*` namespace.
+- Public marketplace distribution is not available; the guide intentionally
+  documents the repository-local installation boundary.
+- The guide is contract-tested but has not yet been validated by an unfamiliar
+  user following it without assistance.
 - Readiness level 3 remains reserved; the same-agent synthetic pilot is
   `observed`, not `validated`.
 - The pilot does not demonstrate a general delivery-speed, success-rate, or
@@ -186,6 +198,9 @@
 - A fresh `codex debug prompt-input` process discovered
   `$harness-engineering:harness-creator` and
   `$harness-engineering:harness-doctor`.
+- The onboarding documentation contract passed 3/3 tests.
+- The integrated restart check passed 122 tests after adding the guide
+  contract to the existing product wildcard.
 
 ## Notes for Next Session
 

@@ -49,3 +49,5 @@
   运行四任务 bare/harness pilot，并把结论限制在 observed evidence。
 - [`0011-harness-direct-installation.md`](0011-harness-direct-installation.md)：
   增加本地 marketplace 与一键安装，并用隔离和真实 Codex 环境验证首次发现。
+- [`0012-harness-engineering-user-guide.md`](0012-harness-engineering-user-guide.md)：
+  将分散的产品信息收敛为一份经过契约测试的渐进式接入指南。
