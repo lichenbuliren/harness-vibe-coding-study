@@ -20,7 +20,8 @@ const MARKETPLACE_NAME = 'harness-engineering-local';
 const PLUGIN_ID = `${PLUGIN_NAME}@${MARKETPLACE_NAME}`;
 const SKILLS = Object.freeze([
   'harness-engineering:harness-creator',
-  'harness-engineering:harness-doctor'
+  'harness-engineering:harness-doctor',
+  'harness-engineering:harness-archiver'
 ]);
 const repositoryRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),

@@ -32,6 +32,8 @@ required_paths=(
   "skills/harness-creator/scripts/creator.mjs"
   "skills/harness-doctor/SKILL.md"
   "skills/harness-doctor/scripts/doctor.mjs"
+  "skills/harness-archiver/SKILL.md"
+  "skills/harness-archiver/scripts/archiver.mjs"
 )
 
 echo "=== Required path check ==="
@@ -82,6 +84,9 @@ uv run --offline --with pyyaml python \
 uv run --offline --with pyyaml python \
   "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" \
   "$plugin_tmp/harness-engineering/skills/harness-doctor"
+uv run --offline --with pyyaml python \
+  "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-creator/scripts/quick_validate.py" \
+  "$plugin_tmp/harness-engineering/skills/harness-archiver"
 
 echo "=== Harness Field Validation check ==="
 node --test tests/field-validation/*.test.mjs

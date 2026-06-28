@@ -172,7 +172,8 @@ test('installs through the marketplace and verifies the enabled version', async 
   assert.equal(result.installedPath, installedPath);
   assert.deepEqual(result.skills, [
     'harness-engineering:harness-creator',
-    'harness-engineering:harness-doctor'
+    'harness-engineering:harness-doctor',
+    'harness-engineering:harness-archiver'
   ]);
   assert.equal(result.newThreadRequired, true);
 });
@@ -237,7 +238,8 @@ test('real Codex discovers and runs the installed plugin in isolation', {
   const verification = JSON.parse(result.stdout);
   assert.deepEqual(verification.skills, [
     'harness-engineering:harness-creator',
-    'harness-engineering:harness-doctor'
+    'harness-engineering:harness-doctor',
+    'harness-engineering:harness-archiver'
   ]);
   assert.equal(
     verification.contextFeature,

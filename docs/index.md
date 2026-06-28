@@ -21,8 +21,10 @@
   输出 canonical JSON、Text、Markdown 或安全的 standalone HTML。
 - [`../skills/harness-creator/`](../skills/harness-creator/)：plan-bound
   非破坏创建入口，默认用真实 feature 引导补齐项目 Context。
+- [`../skills/harness-archiver/`](../skills/harness-archiver/)：用户显式触发的
+  已完成阶段归档入口。
 - [`../scripts/package-harness-plugin.mjs`](../scripts/package-harness-plugin.mjs)：
-  将两个 skill 与唯一 shared core 确定性打包为 `harness-engineering`
+  将三个 skill 与唯一 shared core 确定性打包为 `harness-engineering`
   Codex plugin。
 - [`../scripts/install-harness-plugin.mjs`](../scripts/install-harness-plugin.mjs)：
   生成 cache-busted 本地插件、注册仓库 marketplace 并安装到 Codex。
@@ -44,6 +46,7 @@ node scripts/install-harness-plugin.mjs
 ```text
 $harness-engineering:harness-creator
 $harness-engineering:harness-doctor
+$harness-engineering:harness-archiver
 ```
 
 机器上已有的裸名 `$harness-creator` 是独立的 legacy skill，不属于本插件。

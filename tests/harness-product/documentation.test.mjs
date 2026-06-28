@@ -21,7 +21,8 @@ test('guide preserves the canonical first-run workflow', async () => {
     '$harness-engineering:harness-creator',
     'Project Context Restoration',
     './init.sh',
-    '$harness-engineering:harness-doctor'
+    '$harness-engineering:harness-doctor',
+    '$harness-engineering:harness-archiver'
   ];
   let cursor = -1;
   for (const marker of markers) {
@@ -37,6 +38,10 @@ test('guide states namespace and evidence boundaries', async () => {
   assert.match(guide, /bare.*\$harness-creator|裸名.*\$harness-creator/s);
   assert.match(guide, /Readiness/);
   assert.match(guide, /Effectiveness/);
+  assert.match(guide, /one branch.*one writer|一个分支.*一个 writer/is);
+  assert.match(guide, /Stage Baseline/);
+  assert.match(guide, /branch-lease claim/);
+  assert.match(guide, /explicit|主动|显式/i);
   assert.match(guide, /尚未.*公开|没有.*公开/s);
   assert.doesNotMatch(guide, /npm install.*harness-engineering/);
 });
