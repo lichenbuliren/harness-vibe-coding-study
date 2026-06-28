@@ -28,6 +28,8 @@ living lab。
 - [`progress.md`](progress.md)：跨 session 的连续性日志。
 - [`session-handoff.md`](session-handoff.md)：较大或中断任务的交接入口。
 - [`init.sh`](init.sh)：标准启动和结构验证脚本。
+- [`docs/harness-engineering-guide.md`](docs/harness-engineering-guide.md)：
+  `harness-engineering` plugin 的安装、首次使用和故障排查指南。
 - [`docs/`](docs/)：方法论、工具说明和演进记录。
 - [`docs/evolution/`](docs/evolution/)：阶段性复盘入口。
 - [`docs/adr/`](docs/adr/)：重要项目决策记录。

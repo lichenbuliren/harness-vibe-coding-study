@@ -13,6 +13,8 @@
 
 ## Harness 产品实现
 
+- [`harness-engineering-guide.md`](harness-engineering-guide.md)：面向接入用户的
+  完整安装、首次运行、结果解释、维护和故障排查指南。
 - [`../packages/harness-core/`](../packages/harness-core/)：creator 与 doctor
   共享的 schema、能力规则、Readiness inspector 和 fixture tests。
 - [`../skills/harness-doctor/`](../skills/harness-doctor/)：只读诊断入口，
