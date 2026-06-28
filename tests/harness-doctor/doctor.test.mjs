@@ -12,8 +12,10 @@ import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
 import {
+  claimBranchLease,
   inspectHarness
 } from '../../packages/harness-core/src/index.mjs';
+import { fixture as archiveFixture } from '../harness-archiver/helpers.mjs';
 
 const repositoryRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -233,6 +235,26 @@ test('help succeeds without a target', async () => {
   assert.equal(result.code, 0);
   assert.equal(result.stderr, '');
   assert.match(result.stdout, /--format text\|json\|markdown\|html/);
+});
+
+test('reports archive eligibility and foreign branch ownership read-only', async () => {
+  const target = await archiveFixture();
+  await claimBranchLease({
+    root: target,
+    featureId: 'feat-001',
+    threadId: 'thread-a'
+  });
+  const result = await runDoctor(['--target', target, '--format', 'json']);
+  const assessment = JSON.parse(result.stdout);
+
+  assert.equal(result.code, 0);
+  assert.equal(assessment.lifecycle.archiveEligible, true);
+  assert.equal(assessment.lifecycle.branchOwnership.status, 'foreign');
+  assert.equal(assessment.lifecycle.branchOwnership.ownerThread, 'thread-a');
+  assert.match(
+    assessment.lifecycle.recommendations.join('\n'),
+    /harness-archiver/
+  );
 });
 
 test('inspection is read-only and JSON contains no host paths', async () => {

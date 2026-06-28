@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 
 import {
-  inspectHarness
+  assessArchiveEligibility,
+  discoverGitWorkspace,
+  inspectHarness,
+  readBranchLease,
+  readBoundedFile,
+  statSafePath,
+  validateBaselineChain
 } from '../../../packages/harness-core/src/index.mjs';
 import {
   renderHtml,
@@ -108,6 +114,84 @@ function render(assessment, options) {
   return renderText(assessment);
 }
 
+async function inspectLifecycle(root) {
+  const gitMarker = await statSafePath(root, '.git');
+  if (!gitMarker.ok && gitMarker.reason !== 'not-file') return null;
+
+  const recommendations = [];
+  const featureFile = await readBoundedFile(root, 'feature_list.json', {
+    maxBytes: 262_144
+  });
+  let archiveEligible = false;
+  let featureState = null;
+  if (featureFile.ok) {
+    try {
+      featureState = JSON.parse(featureFile.content);
+      archiveEligible = assessArchiveEligibility(featureState).eligible;
+    } catch {
+      archiveEligible = false;
+    }
+  }
+  if (archiveEligible) {
+    recommendations.push(
+      'Run $harness-engineering:harness-archiver after the user explicitly requests stage closure.'
+    );
+  }
+
+  const chain = await validateBaselineChain({root});
+  const baseline = chain.valid
+    ? {status: 'valid', stageId: chain.head}
+    : chain.findings.some((item) => item.code === 'missing-baseline')
+      ? {status: 'missing', stageId: null}
+      : {status: 'invalid', stageId: chain.head};
+
+  let branchOwnership = {status: 'unavailable'};
+  try {
+    const lease = await readBranchLease({
+      root,
+      threadId: process.env.CODEX_THREAD_ID ?? '__doctor-observer__'
+    });
+    branchOwnership = lease.status === 'foreign'
+      ? {
+        status: 'foreign',
+        ownerThread: lease.lease.threadId,
+        featureId: lease.lease.featureId
+      }
+      : {status: lease.status};
+    if (lease.status === 'foreign') {
+      recommendations.push(
+        `Coordinate with branch owner thread ${lease.lease.threadId} before writing.`
+      );
+    }
+  } catch {
+    branchOwnership = {status: 'unavailable'};
+  }
+
+  let branchAlignment;
+  try {
+    const workspace = await discoverGitWorkspace(root);
+    const branch = workspace.branch.replace(/^refs\/heads\//u, '');
+    const mismatched = (featureState?.features ?? []).filter(
+      (feature) => feature.status !== 'done' && feature.branch !== branch
+    ).map((feature) => feature.id);
+    branchAlignment = {
+      status: mismatched.length === 0 ? 'aligned' : 'mismatched',
+      branch,
+      features: mismatched
+    };
+  } catch {
+    branchAlignment = {status: 'unavailable'};
+  }
+
+  return {
+    archiveEligible,
+    baseline,
+    branchOwnership,
+    branchAlignment,
+    recommendations
+  };
+}
+
 async function main() {
   let options;
   try {
@@ -128,7 +212,11 @@ async function main() {
       root: options.target,
       manifestPath: options.manifestPath
     });
-    process.stdout.write(`${render(assessment, options)}\n`);
+    const lifecycle = await inspectLifecycle(options.target);
+    const report = lifecycle === null
+      ? assessment
+      : {...assessment, lifecycle};
+    process.stdout.write(`${render(report, options)}\n`);
   } catch (error) {
     process.stderr.write(
       `Unable to inspect target: ${error.message}\n\n${USAGE}`

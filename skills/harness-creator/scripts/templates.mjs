@@ -61,6 +61,9 @@ This repository uses a small, restartable coding-agent harness.
 
 - Preserve project-owned facts and existing files.
 - Keep one active feature unless the tracker explicitly uses parallel mode.
+- Record the active feature's Git branch before changing its status to \`in-progress\`.
+- Keep one writer thread per branch. Claim the local cooperative lease before
+  mutation with \`branch-lease claim --target . --feature-id <id>\`.
 - Stay inside the active feature's behavior and dependencies.
 - Run documented verification before claiming completion.
 - Record concrete evidence before setting a feature to \`done\`.
