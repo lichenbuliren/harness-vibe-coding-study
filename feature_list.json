@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "mode": "serial",
   "features": [
     {
@@ -19,7 +19,8 @@
           "status": "passed",
           "summary": "Commit ba1544b added README.md, docs/index.md, and docs/evolution/index.md as the initial review entrypoint."
         }
-      ]
+      ],
+      "branch": null
     },
     {
       "id": "feat-002",
@@ -41,7 +42,8 @@
           "status": "passed",
           "summary": "Added project-specific lifecycle artifacts; ./init.sh passed and the legacy structural validator returned 100/100."
         }
-      ]
+      ],
+      "branch": null
     },
     {
       "id": "feat-003",
@@ -62,7 +64,8 @@
           "status": "passed",
           "summary": "Expanded CONTEXT.md with the accepted five-subsystem model, product direction, evidence model, repository contract, and restart assumptions; ./init.sh passed."
         }
-      ]
+      ],
+      "branch": null
     },
     {
       "id": "feat-004",
@@ -83,7 +86,8 @@
           "status": "passed",
           "summary": "Added docs/evolution/0001-harness-lifecycle-bootstrap.md with the required durable stage sections."
         }
-      ]
+      ],
+      "branch": null
     },
     {
       "id": "feat-005",
@@ -105,7 +109,8 @@
           "status": "passed",
           "summary": "Published docs/workflows/harness-product-boundaries.md and ADR 0002; repository initialization passed."
         }
-      ]
+      ],
+      "branch": null
     },
     {
       "id": "feat-006",
@@ -127,7 +132,8 @@
           "status": "passed",
           "summary": "Slimmed AGENTS.md to 111 lines, moved OMX reference material into docs/workflows/omx-runtime.md, and passed both initialization and the legacy structural validator."
         }
-      ]
+      ],
+      "branch": null
     },
     {
       "id": "feat-007",
@@ -150,7 +156,8 @@
           "status": "passed",
           "summary": "Rewrote docs/learning-harness-summary.md from 1063 to 318 lines with seven sections and passed structural checks plus initialization."
         }
-      ]
+      ],
+      "branch": null
     },
     {
       "id": "feat-008",
@@ -190,7 +197,8 @@
           "summary": "git diff --check completed without errors.",
           "verificationStep": 3
         }
-      ]
+      ],
+      "branch": null
     },
     {
       "id": "feat-009",
@@ -236,7 +244,8 @@
           "summary": "git diff --check completed without errors.",
           "verificationStep": 4
         }
-      ]
+      ],
+      "branch": null
     },
     {
       "id": "feat-010",
@@ -283,7 +292,8 @@
           "summary": "git diff --check completed without errors; empty-directory CLI plan/apply/Doctor smoke also passed.",
           "verificationStep": 4
         }
-      ]
+      ],
+      "branch": null
     },
     {
       "id": "feat-011",
@@ -336,7 +346,8 @@
           "summary": "git diff --check completed without errors; packaged conventional, non-standard, conflict, resume, deterministic, and concurrent workflows passed.",
           "verificationStep": 5
         }
-      ]
+      ],
+      "branch": null
     },
     {
       "id": "feat-012",
@@ -376,7 +387,8 @@
           "summary": "git diff --check completed without errors; the pilot supports durable-state and coordination-cost observations but no general Effectiveness claim.",
           "verificationStep": 3
         }
-      ]
+      ],
+      "branch": null
     },
     {
       "id": "feat-013",
@@ -421,7 +433,8 @@
           "status": "passed",
           "summary": "Live installation registered harness-engineering@harness-engineering-local version 0.1.0+codex.local-20260627-165001, and a fresh Codex prompt-input process discovered harness-engineering:harness-creator and harness-engineering:harness-doctor."
         }
-      ]
+      ],
+      "branch": null
     },
     {
       "id": "feat-014",
@@ -455,7 +468,8 @@
           "summary": "git diff --check completed without errors after the guide, navigation, and lifecycle updates.",
           "verificationStep": 2
         }
-      ]
+      ],
+      "branch": null
     },
     {
       "id": "feat-015",
@@ -474,7 +488,8 @@
           "git diff --check"
         ]
       },
-      "evidence": []
+      "evidence": [],
+      "branch": "codex/feat-015-harness-state-retention"
     }
   ]
 }

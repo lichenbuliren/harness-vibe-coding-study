@@ -4,7 +4,9 @@ import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
-import { validateFeatureState } from '../src/feature-state.mjs';
+import * as featureState from '../src/feature-state.mjs';
+
+const { validateFeatureState } = featureState;
 
 const fixturesRoot = path.join(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -16,6 +18,7 @@ function feature(overrides = {}) {
     id: 'feat-001',
     name: 'Example feature',
     behavior: 'Produce an observable outcome.',
+    branch: 'codex/feat-001',
     dependencies: [],
     status: 'next',
     verification: null,
@@ -26,7 +29,7 @@ function feature(overrides = {}) {
 
 function document(features, overrides = {}) {
   return {
-    schemaVersion: '1.0.0',
+    schemaVersion: '1.1.0',
     mode: 'serial',
     features,
     ...overrides
@@ -83,6 +86,133 @@ test('accepts a completed serial plan with no active feature', () => {
   ]);
 
   assert.equal(validateFeatureState(input).valid, true);
+});
+
+test('accepts legacy 1.0.0 as valid but non-canonical', () => {
+  const input = document([
+    feature({
+      branch: undefined,
+      status: 'done',
+      verification: {
+        kind: 'manual',
+        steps: ['Review the generated report.']
+      },
+      evidence: [{
+        status: 'passed',
+        summary: 'Report review completed.'
+      }]
+    })
+  ], {
+    schemaVersion: '1.0.0'
+  });
+
+  assert.deepEqual(validateFeatureState(input), {
+    valid: true,
+    canonical: false,
+    findings: []
+  });
+});
+
+test('requires branch on unfinished 1.1.0 features', () => {
+  const input = document([
+    feature({
+      branch: null,
+      status: 'in-progress'
+    })
+  ]);
+
+  assert.deepEqual(
+    validateFeatureState(input).findings.map((item) => item.code),
+    ['missing-active-branch']
+  );
+});
+
+test('allows null branch only for migrated done features', () => {
+  const input = document([
+    feature({
+      branch: null,
+      status: 'done',
+      verification: {
+        kind: 'command',
+        steps: ['node --test']
+      },
+      evidence: [{
+        status: 'passed',
+        summary: 'Tests passed.'
+      }]
+    })
+  ]);
+
+  assert.equal(validateFeatureState(input).valid, true);
+});
+
+test('rejects branch names Git would not accept', () => {
+  const input = document([
+    feature({
+      branch: 'codex/bad..branch'
+    })
+  ]);
+
+  assert.deepEqual(
+    validateFeatureState(input).findings.map((item) => item.code),
+    ['invalid-branch']
+  );
+});
+
+test('migrates 1.0.0 deterministically without mutating input', () => {
+  const input = document([
+    feature({
+      id: 'feat-done',
+      branch: undefined,
+      status: 'done',
+      verification: {
+        kind: 'manual',
+        steps: ['Review output.']
+      },
+      evidence: [{
+        status: 'passed',
+        summary: 'Review passed.'
+      }]
+    }),
+    feature({
+      id: 'feat-next',
+      branch: undefined,
+      status: 'next'
+    })
+  ], {
+    schemaVersion: '1.0.0'
+  });
+  const before = structuredClone(input);
+
+  const first = featureState.migrateFeatureState(input, {
+    branch: 'codex/migrate-state'
+  });
+  const second = featureState.migrateFeatureState(input, {
+    branch: 'codex/migrate-state'
+  });
+
+  assert.deepEqual(first, second);
+  assert.deepEqual(input, before);
+  assert.equal(first.schemaVersion, '1.1.0');
+  assert.equal(first.features[0].branch, null);
+  assert.equal(first.features[1].branch, 'codex/migrate-state');
+  assert.equal(validateFeatureState(first).canonical, true);
+});
+
+test('migration requires a branch when legacy unfinished work exists', () => {
+  const input = document([
+    feature({
+      branch: undefined,
+      status: 'next'
+    })
+  ], {
+    schemaVersion: '1.0.0'
+  });
+
+  assert.throws(
+    () => featureState.migrateFeatureState(input),
+    {code: 'MISSING_MIGRATION_BRANCH'}
+  );
 });
 
 test('reports cycles, multiple active items, and done without passing evidence', () => {

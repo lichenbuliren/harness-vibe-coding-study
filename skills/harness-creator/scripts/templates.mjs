@@ -18,11 +18,15 @@ function commandExecutable(command) {
   return token.startsWith('./') ? null : token;
 }
 
-export function contextRestorationFeature(status = 'next') {
+export function contextRestorationFeature(
+  status = 'next',
+  branch = 'harness/context-restoration'
+) {
   return {
     id: 'harness-context-restoration',
     name: 'Project Context Restoration',
     behavior: CONTEXT_BEHAVIOR,
+    branch,
     dependencies: [],
     status,
     verification: {
@@ -74,11 +78,14 @@ from this workflow.
 `);
 }
 
-export function renderFeatureState({needsContext = true} = {}) {
+export function renderFeatureState({
+  needsContext = true,
+  branch = 'harness/context-restoration'
+} = {}) {
   return finalNewline(JSON.stringify({
-    schemaVersion: '1.0.0',
+    schemaVersion: '1.1.0',
     mode: 'serial',
-    features: needsContext ? [contextRestorationFeature()] : []
+    features: needsContext ? [contextRestorationFeature('next', branch)] : []
   }, null, 2));
 }
 

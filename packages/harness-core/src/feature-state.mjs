@@ -8,6 +8,12 @@ const FEATURE_STATUSES = new Set([
 
 const ACTIVE_STATUSES = new Set(['next', 'in-progress']);
 const UNFINISHED_STATUSES = new Set(['not-started', 'next', 'in-progress']);
+export const FEATURE_STATE_SCHEMA_VERSION = '1.1.0';
+export const LEGACY_FEATURE_STATE_SCHEMA_VERSION = '1.0.0';
+const SUPPORTED_SCHEMA_VERSIONS = new Set([
+  LEGACY_FEATURE_STATE_SCHEMA_VERSION,
+  FEATURE_STATE_SCHEMA_VERSION
+]);
 
 function finding(code, detail, featureId) {
   return {
@@ -19,6 +25,26 @@ function finding(code, detail, featureId) {
 
 function isNonEmptyString(value) {
   return typeof value === 'string' && value.length > 0;
+}
+
+function isValidBranch(value) {
+  if (!isNonEmptyString(value)
+    || value === '@'
+    || value.startsWith('-')
+    || value.startsWith('/')
+    || value.endsWith('/')
+    || value.endsWith('.')
+    || value.includes('..')
+    || value.includes('//')
+    || value.includes('@{')
+    || /[\u0000-\u0020\u007f~^:?*[\]\\]/u.test(value)) {
+    return false;
+  }
+  return value.split('/').every((part) => (
+    part.length > 0
+    && !part.startsWith('.')
+    && !part.endsWith('.lock')
+  ));
 }
 
 function validVerification(value) {
@@ -121,7 +147,7 @@ function findDependencyCycles(features, byId) {
   return findings;
 }
 
-function validateFeatureShape(feature, index, findings) {
+function validateFeatureShape(feature, index, findings, schemaVersion) {
   if (feature === null || typeof feature !== 'object' || Array.isArray(feature)) {
     findings.push(finding(
       'invalid-feature',
@@ -176,6 +202,27 @@ function validateFeatureShape(feature, index, findings) {
     ));
     structurallyValid = false;
   }
+  if (schemaVersion === FEATURE_STATE_SCHEMA_VERSION) {
+    if (feature.branch === null) {
+      if (feature.status !== 'done') {
+        findings.push(finding(
+          'missing-active-branch',
+          'An unfinished feature requires a Git branch.',
+          featureId
+        ));
+        structurallyValid = false;
+      }
+    } else if (!isValidBranch(feature.branch)) {
+      findings.push(finding(
+        Object.hasOwn(feature, 'branch')
+          ? 'invalid-branch'
+          : 'missing-active-branch',
+        'Feature branch must be null for migrated done work or a valid Git branch.',
+        featureId
+      ));
+      structurallyValid = false;
+    }
+  }
   if (!Object.hasOwn(feature, 'verification')) {
     findings.push(finding(
       'missing-verification',
@@ -217,12 +264,12 @@ export function validateFeatureState(document) {
     };
   }
 
-  if (document.schemaVersion !== '1.0.0') {
+  if (!SUPPORTED_SCHEMA_VERSIONS.has(document.schemaVersion)) {
     findings.push(finding(
       document.schemaVersion === undefined
         ? 'missing-schema-version'
         : 'unsupported-schema-version',
-      'Feature state schemaVersion must be "1.0.0".'
+      `Feature state schemaVersion must be "${FEATURE_STATE_SCHEMA_VERSION}" or "${LEGACY_FEATURE_STATE_SCHEMA_VERSION}".`
     ));
   }
   if (!['serial', 'parallel'].includes(document.mode)) {
@@ -244,7 +291,7 @@ export function validateFeatureState(document) {
   }
 
   const shapeValidity = document.features.map((feature, index) => (
-    validateFeatureShape(feature, index, findings)
+    validateFeatureShape(feature, index, findings, document.schemaVersion)
   ));
   const usableFeatures = document.features.filter((feature, index) => (
     shapeValidity[index]
@@ -346,7 +393,46 @@ export function validateFeatureState(document) {
   const sorted = sortFindings(findings);
   return {
     valid: sorted.length === 0,
-    canonical: sorted.length === 0,
+    canonical: sorted.length === 0
+      && document.schemaVersion === FEATURE_STATE_SCHEMA_VERSION,
     findings: sorted
+  };
+}
+
+function migrationError(code, message) {
+  const error = new Error(message);
+  error.code = code;
+  return error;
+}
+
+export function migrateFeatureState(document, {branch} = {}) {
+  const validation = validateFeatureState(document);
+  if (!validation.valid) {
+    throw migrationError(
+      'INVALID_FEATURE_STATE',
+      'Feature state must be valid before migration.'
+    );
+  }
+  if (document.schemaVersion === FEATURE_STATE_SCHEMA_VERSION) {
+    return structuredClone(document);
+  }
+  const hasUnfinished = document.features.some(
+    (feature) => feature.status !== 'done'
+  );
+  if (hasUnfinished && !isValidBranch(branch)) {
+    throw migrationError(
+      branch === undefined
+        ? 'MISSING_MIGRATION_BRANCH'
+        : 'INVALID_MIGRATION_BRANCH',
+      'A valid Git branch is required to migrate unfinished feature state.'
+    );
+  }
+  return {
+    ...structuredClone(document),
+    schemaVersion: FEATURE_STATE_SCHEMA_VERSION,
+    features: document.features.map((feature) => ({
+      ...structuredClone(feature),
+      branch: feature.status === 'done' ? null : branch
+    }))
   };
 }

@@ -90,12 +90,15 @@ test('feature contract requires structured verification and evidence', async () 
     'id',
     'name',
     'behavior',
+    'branch',
     'dependencies',
     'status',
     'verification',
     'evidence'
   ]);
   assert.deepEqual(feature.properties.verification.anyOf[0].type, 'null');
+  assert.equal(schema.properties.schemaVersion.const, '1.1.0');
+  assert.deepEqual(feature.properties.branch.anyOf[0].type, 'null');
   assert.equal(feature.properties.evidence.type, 'array');
   assert.deepEqual(schema.properties.mode.enum, ['serial', 'parallel']);
 });
