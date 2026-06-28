@@ -422,6 +422,24 @@
           "summary": "Live installation registered harness-engineering@harness-engineering-local version 0.1.0+codex.local-20260627-165001, and a fresh Codex prompt-input process discovered harness-engineering:harness-creator and harness-engineering:harness-doctor."
         }
       ]
+    },
+    {
+      "id": "feat-014",
+      "name": "Harness Engineering User Guide",
+      "behavior": "Provide one progressive guide for local installation, first use, interpretation, maintenance, troubleshooting, and the current external distribution boundary.",
+      "dependencies": [
+        "feat-013"
+      ],
+      "status": "in-progress",
+      "verification": {
+        "kind": "command",
+        "steps": [
+          "node --test tests/harness-product/documentation.test.mjs",
+          "./init.sh",
+          "git diff --check"
+        ]
+      },
+      "evidence": []
     }
   ]
 }
